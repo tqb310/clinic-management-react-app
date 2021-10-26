@@ -1,62 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
-import Demo1 from './features/Test1';
-import Demo from './features/Test 2 parent';
-import './App.css';
+import React, {Suspense} from 'react';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import PrivateRoute from '_components/PrivateRoute/index';
+import DoctorModule from 'DoctorPages/index';
+import ReceptionistModule from 'ReceptionPages/index';
+import ManagerModule from 'ManagerPages/index';
+import NotFound from '_components/NotFound';
+import Login from 'PublicPages/login';
+import './App.scss';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        {/* <Counter /> */}
-        <Demo1/>
-        <Demo/>
-        <p className="text">An Effect Element - app</p>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
-        </span>
-      </header>
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/login" exact={true} component={Login}/>
+        <PrivateRoute path="/tiep-tan" roles="receptionist" component={ReceptionistModule}/>
+        <PrivateRoute path="/bac-si" roles="doctor" component={DoctorModule}/>
+        <PrivateRoute path="/quan-ly" roles="manager" component={ManagerModule}/>
+        <Route component={NotFound}/>
+      </Switch>
+    </Router>
   );
 }
 

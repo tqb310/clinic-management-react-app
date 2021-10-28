@@ -1,0 +1,25 @@
+.flex {
+    display: flex;    
+}
+
+.in-flex {
+    display: inline-flex;
+}
+
+.direct-col {
+    flex-direction: column;
+}
+
+.flex-column {
+    @extend .flex;
+    @extend .direct-col;
+}
+
+.in-flex {
+    @extend .in-flex;
+    @extend .direct-col;
+}
+
+.justify-content-between {
+    justify-content: space-between;
+}

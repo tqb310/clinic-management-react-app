@@ -1,0 +1,17 @@
+.search {
+    display: flex;
+    padding: 5px;
+    margin: 15px;
+    opacity: 0.5;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px #CCC;
+    &__icon, &__input {
+        align-self: center;
+    }
+    &__icon {
+        padding: 0 10px;
+    }
+    &__input {
+        flex: 1
+    }
+}

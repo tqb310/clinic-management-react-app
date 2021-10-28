@@ -1,21 +1,23 @@
-import React from 'react';
-import DateTime from './_components/DateTime';
+import React from "react";
+import DateTime from "./_components/DateTime";
+import SearchHeader from "./_components/Search";
+import Notification from "./_components/Notification";
+import { Box } from "@mui/material";
 //import PropTypes from 'prop-types'
-import './index.scss';
-
-
+import "./index.scss";
 
 function Header(props) {
-    return (
-        <div>            
-            <DateTime/>
-        </div>
-    )
+  return (
+    <Box>
+      <DateTime />
+      <Box>
+        <SearchHeader />
+        <Notification />
+      </Box>
+    </Box>
+  );
 }
 
-Header.propTypes = {
+Header.propTypes = {};
 
-}
-
-export default Header
-
+export default Header;

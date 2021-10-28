@@ -1,16 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-function Dashboard(props) {
+function Setting(props) {
     return (
         <div>
-            This is accouting page
+            This is settings page
         </div>
     )
 }
 
-Dashboard.propTypes = {
+Setting.propTypes = {
 
 }
 
-export default Dashboard
+export default Setting

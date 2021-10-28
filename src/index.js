@@ -2,15 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { store } from './_app/store';
-import { Provider } from 'react-redux';
+// import { store } from './_app/store';
+// import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
+import {library} from '@fortawesome/fontawesome-svg-core';
+import {fas} from '@fortawesome/free-solid-svg-icons';
+import {far} from '@fortawesome/free-regular-svg-icons';
+import {fab} from '@fortawesome/free-brands-svg-icons';
+
+library.add(fas, far, fab);
 
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
+    {/* <Provider store={store}> */}
       <App />
-    </Provider>
+    {/* </Provider> */}
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -6,7 +6,7 @@ import './index.scss';
 
 function SearchHeader() {
     return (
-        <Paper className="search">
+        <Paper className="search" sx={{boxShadow: '0 4px 10px #CCC', borderRadius: 2}}>
             <Search className="search__icon"/>
             <InputBase className="search__input"/>
         </Paper>

@@ -1,10 +1,10 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+// import PropTypes from 'prop-types';
 
 function Query(props) {
     return (
         <div>
-            This is query page
+            Hàng đợi
         </div>
     )
 }

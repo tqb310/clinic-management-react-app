@@ -7,10 +7,10 @@ import './index.scss';
 
 const iconStyles = {
     color: '#A0A4A8',
-    fontSize: 40,
-    transition: 'all .8s',
+    fontSize: 30,
+    transition: 'all .3s',
     '&:hover': {
-        transform: 'scale(1.2,1.2) rotateZ(360deg)',
+        transform: 'scale(1.2,1.2)',
     }
 }
 
@@ -18,7 +18,7 @@ const activeIconStyles = {
     ...iconStyles,
     color: 'white',
     backgroundColor: '#2E3192',
-    fontSize: 45,
+    transform: 'scale(1.2,1.2)',
     boxShadow: '0px 4px 20px #2E3192',
     '&:hover': {}
 }

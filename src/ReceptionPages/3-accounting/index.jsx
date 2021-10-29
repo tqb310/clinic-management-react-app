@@ -1,10 +1,10 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+// import PropTypes from 'prop-types';
 
 function Accounting(props) {
     return (
         <div>
-            This is accouting page
+            Thu phí
         </div>
     )
 }

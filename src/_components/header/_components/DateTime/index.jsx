@@ -29,7 +29,7 @@ const getDateTime = (setTime, setDate) => {
     setInterval(() => {
         let date = new Date();
         setTime(date.toLocaleTimeString());
-        setDate(`${date.getDate()} - ${date.getMonth() + 1} - ${date.getFullYear()}`);
+        setDate(`${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`);
       }, 1000);
 }
 

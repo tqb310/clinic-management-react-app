@@ -1,10 +1,10 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';
+// import PropTypes from 'prop-types';
 
 function Patient(props) {
     return (
         <div>
-            This is patient page
+            Bệnh nhân
         </div>
     )
 }

@@ -2,14 +2,14 @@
 
 .notification {
     display: inline-block;   
-    margin: 15px;
+    // margin: 15px 0;
     
     &__icon {
         color: $primary-color;
-        padding: 5px;
+        padding: 7px;
     }
     &:hover {
-        background: #EEE;
+        background: $custom-paper-hover;
     }
     &:active &__icon{
         transform: scale(0.9,0.9);

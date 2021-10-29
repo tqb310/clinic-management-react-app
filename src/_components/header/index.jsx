@@ -2,22 +2,30 @@ import React from "react";
 import DateTime from "./_components/DateTime";
 import SearchHeader from "./_components/Search";
 import Notification from "./_components/Notification";
+import Profile from "./_components/Profile";
 import { Box } from "@mui/material";
-//import PropTypes from 'prop-types'
+// import PropTypes from "prop-types";
 import "./index.scss";
 
-function Header(props) {
+function Header({ isShow }) {
   return (
-    <Box>
-      <DateTime />
-      <Box>
+    <Box className="header">
+      <Box className="header__datetime">
+        <DateTime />
+      </Box>
+      <Box className="header__actions">
         <SearchHeader />
-        <Notification />
+        <Box>
+          <Profile />
+          <Notification />
+        </Box>
       </Box>
     </Box>
   );
 }
 
-Header.propTypes = {};
+Header.propTypes = {
+  
+};
 
 export default Header;

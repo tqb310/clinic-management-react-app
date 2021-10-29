@@ -1,10 +1,10 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React from 'react';;
+// import PropTypes from 'prop-types';
 
 function Appointment(props) {
     return (
         <div>
-            This is appointment page
+            Lịch hẹn
         </div>
     )
 }

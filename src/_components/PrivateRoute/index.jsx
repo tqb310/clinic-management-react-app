@@ -1,5 +1,6 @@
 import React from 'react';
 import {Route, Redirect} from 'react-router-dom';
+import authentication from '_services/authentication.service';
 import PropTypes from 'prop-types';
 
 //Fake user data storage
@@ -10,11 +11,11 @@ function PrivateRoute({component: Component, roles, ...rest}) {
     return (
        <Route {...rest} render={
            (props) => {
-               if(!currentUser){
+               if(!authentication.getCurrentUser()){
                    return <Redirect to={{pathname: '/dang-nhap', state: {from: props.location}}}/>
                }
 
-               if(roles && roles.localeCompare(currentUser.role)){
+               if(roles && roles.localeCompare(authentication.getCurrentUser().role)){
                    return <Unauthorized {...props}/>
                }
 

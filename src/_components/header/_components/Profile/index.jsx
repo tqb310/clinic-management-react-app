@@ -17,7 +17,7 @@ function Profile(props) {
         }}
         overlap="circular"
       >
-        <Box className="profile__avatar">Đ</Box>
+        <Box className="profile__avatar">N</Box>
       </Badge>
       <Box className="profile__name">Nguyễn Văn A</Box>
       <Box>

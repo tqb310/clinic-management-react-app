@@ -18,8 +18,8 @@ function App() {
             <Route path="/" exact render={() => (<Redirect to="/dang-nhap"/>)}/>
             <Route path="/dang-nhap" exact component={Login}/>
             <PrivateRoute path="/tiep-tan" roles="1" component={ReceptionistModule}/>
-            <PrivateRoute path="/bac-si" roles="doctor" component={DoctorModule}/>
-            <PrivateRoute path="/quan-ly" roles="manager" component={ManagerModule}/>
+            <PrivateRoute path="/quan-ly" roles="2" component={ManagerModule}/>
+            <PrivateRoute path="/bac-si" roles="3" component={DoctorModule}/>
             <Route component={NotFound}/>
           </Switch>
         </Router>

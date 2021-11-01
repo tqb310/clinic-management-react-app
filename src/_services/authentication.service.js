@@ -1,16 +1,22 @@
 import axiosClient from "./axiosClient";
 import { auth } from "_constants/apiUrl";
 
+
 const authentication = {
   async login(email, password) {
     const url = auth.login;
     try {
-      const data = await axiosClient.post(url, { email, password });
+      const data = await axiosClient.post(url, { username: email, password: password });
       console.log(data);
       localStorage.setItem("accessToken", JSON.stringify(data));
-      return true;
-    } catch {
-      return false;
+      return data;
+    } catch(err) {
+      switch(err.response.status){
+        case 404:return 1;
+        case 401:return 2;
+        default:return 3;
+      }
+
     }
   },
 

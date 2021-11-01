@@ -4,7 +4,7 @@ import authentication from '_services/authentication.service';
 import PropTypes from 'prop-types';
 
 //Fake user data storage
-const currentUser = {name: 'Bao', role: 'receptionist', jwt: '1234'};
+const currentUser = {name: 'Bao', role: '1', jwt: '1234'};
 const Unauthorized = () => (<div>Tài khoản của bạn không có quyền truy cập trang này</div>)
 
 function PrivateRoute({component: Component, roles, ...rest}) {
@@ -15,7 +15,7 @@ function PrivateRoute({component: Component, roles, ...rest}) {
                    return <Redirect to={{pathname: '/dang-nhap', state: {from: props.location}}}/>
                }
 
-               if(roles && roles.localeCompare(authentication.getCurrentUser().role)){
+               if(roles && roles.localeCompare(authentication.getCurrentUser().payload.role)){
                    return <Unauthorized {...props}/>
                }
 

@@ -1,11 +1,12 @@
 import axiosClient from "./axiosClient";
 import { auth } from "_constants/apiUrl";
 
+
 const authentication = {
   async login(email, password) {
     const url = auth.login;
     try {
-      const data = await axiosClient.post(url, { email, password });
+      const data = await axiosClient.post(url, { username: email, password: password });
       console.log(data);
       localStorage.setItem("accessToken", JSON.stringify(data));
       return true;

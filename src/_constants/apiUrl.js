@@ -1,5 +1,5 @@
 export const auth = {
-    login: '/auth/login'
+    login: '/login'
 }
 
 //Them tat ca url cua api vao day

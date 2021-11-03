@@ -1,0 +1,38 @@
+table{
+    width: 100%;
+    border:0;
+    border-collapse: collapse;
+    
+    tr{ 
+        border: solid 1px #fff; 
+        background: rgba($color: #fff, $alpha: 0.1);
+        td{
+            width: 25%;
+            font-size: 16px;
+            &:first-child{
+                padding-left: 7px;
+            }
+            .name-and-phone{
+                text-align: left;
+                margin-left: .5rem;
+                margin-right: .5rem;
+                p{
+                    margin: 0.5rem;
+                    pointer-events: none;
+                    &:first-child{
+                        font-size: 18px;
+                    }
+                    
+                }
+            }
+            .eye-button{
+                color: #fff;
+            }
+        }
+    }
+} 
+.appointment-demand-header{
+    h2{
+        color:#FCDF98;
+    }
+}

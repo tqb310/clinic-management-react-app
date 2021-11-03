@@ -1,0 +1,61 @@
+
+
+@import "_assets/style/_colors.scss";
+
+.container{
+    display:grid;
+    grid-template-columns: 33% 64%;
+    grid-gap: 2rem;
+    height: 17rem;
+    
+}
+
+.card{
+    display:grid;
+    grid-template-columns: 30% 67%;
+    grid-gap: 0.8rem;
+    background: #fff;
+    border-radius: 30px;
+    margin-bottom: 1.5rem;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+    overflow: hidden;
+    padding: 10px;
+    img{
+        display:inline-block;
+        width: 100%;
+        height:90px;
+        margin-left: 5px
+    };
+    .text-wrapper{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        margin-top:15px;
+        margin-bottom:15px;
+    }
+    h5,h4{
+        margin: 0;
+    }
+    .greenlight{
+        color:$greenlight;
+    }
+    .greendark{
+        color:$greendark;
+    }
+    .redlight{
+        color:$redlight;
+    }
+    .reddark{
+        color:$reddark;
+    }
+    
+}
+
+.chart{
+    .chart-header{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}

@@ -1,10 +1,15 @@
-import React from 'react';;
+import React from 'react';
+import Infomation from './infomation';
+import Content from './content';
+import AppoimentDemand from './rightbar'
 // import PropTypes from 'prop-types';
 
 function Appointment(props) {
     return (
-        <div>
-            Lịch hẹn
+        <div className='appointment-container'>
+            <Infomation></Infomation>
+            <Content></Content>
+            <AppoimentDemand></AppoimentDemand>
         </div>
     )
 }

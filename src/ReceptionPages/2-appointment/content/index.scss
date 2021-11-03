@@ -1,0 +1,116 @@
+.content-container{
+    margin-right:1rem;
+    margin-top: 2rem;
+    margin-left: 2px;
+    padding: 1.5rem;
+    background: #fff;
+    border-radius:30px 30px 0 0;
+    box-shadow: -2px -2px 5px rgba(0,0,0,0.2);
+    .content-header{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        
+        h3:first-child{
+            color:#2E3192;
+            margin-top: 0;
+        }
+        .month{
+            h3{
+                display: inline-block;
+                margin-right: 1rem;
+                color:#000;
+            }
+            .chevron-circle-left-icon{
+                color:#2E3192;
+                    margin-right: .8rem;
+            }
+            .chevron-circle-right-icon{
+                color:#2E3192;
+            }
+        }
+        .search-bar{
+            .appointment-search-icon{
+                color:#A0A4AB;
+                font-size: 20px;
+            }
+            input{
+                border:none;
+                margin-left: 0.4rem;
+                font-size: 20px;
+                &:focus{
+                    outline: none;
+                }
+            }
+
+
+        }
+    }
+    .dates{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-left: 2rem;
+        .date{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 1rem;
+            border-radius:30px;
+            p:first-child{
+                color:#FCDF98;
+            }
+            p:last-child{
+                color:#000;
+                font-weight: 600;
+            }
+        }
+        .date--active{
+            @extend .date;
+            background: #FAC032;
+            p{
+                color:#fff !important;
+            }
+        }
+    }
+    .appointment-container{
+        display: flex;
+        flex-direction: column;
+        margin-left: 2rem;
+        .appointment{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-top: 1rem;
+            .appointment-header, .appointment-body{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .appointment-header{
+                margin-left: 2rem;
+                h2{
+                    margin-bottom: 0;
+                }
+            }
+            .appointment-body{
+                width: 70%;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                padding-right: 2rem;
+                padding-left:2.5rem;
+                padding-top: 0;
+                padding-bottom: 0;
+                background: #FFEAD3;
+                border-radius:30px ;
+                p{
+                    font-size: 20;
+                }
+            }
+
+        }
+    }
+}

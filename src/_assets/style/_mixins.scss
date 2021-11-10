@@ -1,0 +1,9 @@
+@mixin badge($background-color) {
+    display: inline-block;
+    margin-left: 7px ;
+    text-align: center;
+    background-color: $background-color;
+    width: 30px;
+    border-radius: 25%;
+    font-weight: 400;
+}

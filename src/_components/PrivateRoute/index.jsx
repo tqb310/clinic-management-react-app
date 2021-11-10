@@ -11,13 +11,13 @@ function PrivateRoute({component: Component, roles, ...rest}) {
     return (
        <Route {...rest} render={
            (props) => {
-            //    if(!authentication.getCurrentUser()){
-            //        return <Redirect to={{pathname: '/dang-nhap', state: {from: props.location}}}/>
-            //    }
+               if(!authentication.getCurrentUser()){
+                   return <Redirect to={{pathname: '/dang-nhap', state: {from: props.location}}}/>
+               }
 
-            //    if(roles && roles.localeCompare(authentication.getCurrentUser().payload.role)){
-            //        return <Unauthorized {...props}/>
-            //    }
+               if(roles && roles.localeCompare(authentication.getCurrentUser().payload.role)){
+                   return <Unauthorized {...props}/>
+               }
 
                return <Component {...props}/>
            }

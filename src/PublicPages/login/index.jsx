@@ -26,20 +26,26 @@ function Login(props) {
     const [password, setPassword] = useState('')
     const [showPass, setShowPass] = useState(false)
     useEffect(() => {
-        if (authentication.getCurrentUser()?.token) {
-            // console.log(authentication.getCurrentUser())
-            // history.replace('/tiep-tan');
-        }
+        const user = authentication.getCurrentUser()?.payload
+        if(user){
+            history.replace(role.get(user.role).url);
+        }        
     }, [])
-    const login = async () => {
-        const data = await authentication.login(username, password)
-        console.log(authentication.getCurrentUser())
-        switch (data) {
-            case null: console.log("null"); break;
-            case 1: alert('Tên đăng nhập không đúng không đúng!'); break;
-            case 2: alert('Mật khẩu không đúng!'); break;
-            case 3: alert('Lỗi server, vui lòng thử lại!'); break;
-            default: history.replace(role.get(data.role).url);
+    const login = async()=>{
+        const status = await authentication.login(username, password)
+        const user = authentication.getCurrentUser()?.payload
+        switch(status){
+            case null:console.log("null");break;
+            case 1:alert('Username không đúng!');break;
+            case 2:alert('Password không đúng!');break;
+            case 3:alert('Lỗi server, vui lòng thử lại!');break;
+            default:
+                if(user != undefined)
+                    history.replace(role.get(user.role).url);
+                else
+                alert('Lỗi server, vui lòng thử lại!')
+
+        
         }
     }
 

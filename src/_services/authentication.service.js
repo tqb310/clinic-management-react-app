@@ -9,7 +9,7 @@ const authentication = {
       const data = await axiosClient.post(url, { username: email, password: password });
       console.log(data);
       localStorage.setItem("accessToken", JSON.stringify(data));
-      return data;
+      return 0;
     } catch(err) {
       switch(err.response.status){
         case 404:return 1;

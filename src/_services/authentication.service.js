@@ -7,7 +7,6 @@ const authentication = {
     const url = auth.login;
     try {
       const data = await axiosClient.post(url, { username: email, password: password });
-      console.log(data);
       localStorage.setItem("accessToken", JSON.stringify(data));
       return data;
     } catch(err) {

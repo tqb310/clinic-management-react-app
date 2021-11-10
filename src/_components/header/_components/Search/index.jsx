@@ -1,7 +1,7 @@
 import React from 'react';
 import {InputBase} from '@mui/material';
 import {Search} from '@mui/icons-material';
-import {CustomPaper} from '_components/StyledComponent/Paper.js';
+import {CustomPaper} from '_components/StyledComponent';
 import './index.scss';
 // import PropTypes from 'prop-types'
 

@@ -1,6 +1,6 @@
 import axiosClient from "./axiosClient";
 import { auth } from "_constants/apiUrl";
-
+import decodeBase64String from "_helpers/decodeBase64String";
 
 const authentication = {
   async login(email, password) {
@@ -29,7 +29,7 @@ const authentication = {
     const tokenString = localStorage.getItem("accessToken");
     if (tokenString) {
       try{
-        const user = JSON.parse(atob(tokenString.split(".")[1]));
+        const user = JSON.parse(decodeBase64String(tokenString.split(".")[1].replace(/-/g, '+')));
         return {
           ...user,
           token: JSON.parse(tokenString)["access_token"],

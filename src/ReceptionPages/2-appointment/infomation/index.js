@@ -7,21 +7,21 @@ function infomation() {
     return (
         <div className='container'>
             <div className='card-wrapper'>
-                <div className='card'>
+                <div className='card' style={{marginBottom: '2rem'}}>
                     <div>
-                        <img src={lich}/>
+                        <img src={lich} alt="lich-logo" width={64} height={64}/>
                     </div>
                     <div className='text-wrapper'>
-                        <h5 className='greenlight'>Tổng số cuộc hẹn</h5>
+                        <h5 >Tổng số cuộc hẹn</h5>
                         <h4 className='greendark'>7</h4>
                     </div>
                 </div>
                 <div className='card'>
                     <div>
-                        <img src={huylich} />
+                        <img src={huylich} alt="lich-huy-logo" width={64} height={64}/>
                     </div>
                     <div className='text-wrapper'>
-                        <h5 className='redlight'>Tổng số cuộc hẹn bị hủy</h5>
+                        <h5 >Tổng số cuộc hẹn bị hủy</h5>
                         <h4 className='reddark'>7</h4>
                     </div>
                 </div>

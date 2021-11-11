@@ -34,7 +34,7 @@ function AppointmentDemand() {
             <div className="appointment-demand-header">
                 <h2>Yêu cầu lịch hẹn</h2>
             </div>
-            <table>
+            <table className="appoinment-rightbar-content">
                 {datas.map(data =>
                     <tr>
                         <td>{data.createAt}</td>

@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Badge, IconButton } from "@mui/material";
-import { ArrowDropDown } from "@mui/icons-material";
+import { KeyboardArrowDown } from "@mui/icons-material";
 import {CustomPaper} from '_components/StyledComponent/Paper.js';
 import "./index.scss";
 // import PropTypes from 'prop-types'
@@ -22,7 +22,7 @@ function Profile(props) {
       <Box className="profile__name">Nguyễn Văn A</Box>
       <Box>
         <IconButton sx={{width: 20, height: 20}}>
-          <ArrowDropDown />
+          <KeyboardArrowDown style={{color: '#2E3192'}}/>
         </IconButton>
       </Box>
     </CustomPaper>

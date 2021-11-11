@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Scrollbars } from 'react-custom-scrollbars-2'
+import React, { useState } from 'react'
+// import { Scrollbars } from 'react-custom-scrollbars-2';
 import {dateMap, dayLength} from '_constants/date'
 import './index.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -57,17 +57,19 @@ function Content() {
                     <FontAwesomeIcon icon='chevron-circle-right' className='chevron-circle-right-icon' />
                 </div>
             </div>
-            <div className='dates'>
-                 {dates.map((date,index) =>
-                    <div className={(dayActive == index)? 'date--active' : 'date'}>
-                        <p>{dateMap.get(date.getDay())}</p>
-                        <p>{date.getDate()}</p>
-                    </div>
-                )} 
+            <div className="dates-container">
+                <div className='dates'>
+                     {dates.map((date,index) =>
+                        <div className={(dayActive === index ? 'date--active' : 'date') + (Math.random() > 0.5 ? " dot-notify" : "")}>
+                            <p>{dateMap.get(date.getDay())}</p>
+                            <p>{date.getDate()}</p>
+                        </div>
+                    )}
+                </div>
             </div>
 
             <div className='appointment-container'>
-                <Scrollbars style={{ width: '100%', height: 350 }}>
+                {/* <Scrollbars style={{ width: '100%', height: 350 }}> */}
                     {data.map(appointment =>
                         <div className='appointment'>
                             <div className='appointment-header'>
@@ -83,7 +85,7 @@ function Content() {
                             </div>
                         </div>
                     )}
-                </Scrollbars>
+                {/* </Scrollbars> */}
             </div>
         </div>
     )

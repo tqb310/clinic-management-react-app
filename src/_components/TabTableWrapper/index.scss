@@ -20,6 +20,7 @@
             cursor: pointer;
             transition: all .3s;
             font-weight: 500;
+            color: #555;
             .TabTableWrapper__tabItemBadge {
                 @include badge(#EEE);
             }
@@ -49,5 +50,8 @@
         margin: 20px 30px;
         display: flex;
         justify-content: space-between;
+    }
+    &__table {
+        min-height: 100%;
     }
 }

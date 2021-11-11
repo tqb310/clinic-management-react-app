@@ -1,233 +1,92 @@
 import React from "react";
+import { Box, Checkbox, IconButton } from "@mui/material";
 import {
-  Box,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TablePagination,
-  TableRow,
-  TableSortLabel,
-  Paper,
-  Checkbox,
-} from "@mui/material";
-import { alpha } from "@mui/material/styles";
-import { Delete, FilterList } from "@mui/icons-material";
-import { visuallyHidden } from "@mui/utils";
-import PropTypes from "prop-types";
-
-function createData(orderNum, patientName, phoneNumber, checkIn, room, state) {
-  return {
-    orderNum,
-    patientName,
-    phoneNumber,
-    checkIn,
-    room,
-    state,
-  };
-}
-
-const rows = [
-  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 0),
-  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 0),
-  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 2),
-  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 2),
-  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
-  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
-  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
-  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
-  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
-  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
-  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
-  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
-  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
-  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
-  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
-  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
-  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
-  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
-];
-
-function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
-  }
-  return 0;
-}
-
-function getComparator(order, orderBy) {
-  return order === "desc"
-    ? (a, b) => descendingComparator(a, b, orderBy)
-    : (a, b) => -descendingComparator(a, b, orderBy);
-}
-
-// This method is created for cross-browser compatibility, if you don't
-// need to support IE11, you can use Array.prototype.sort() directly
-function stableSort(array, comparator) {
-  const stabilizedThis = array.map((el, index) => [el, index]);
-  stabilizedThis.sort((a, b) => {
-    const order = comparator(a[0], b[0]);
-    if (order !== 0) {
-      return order;
-    }
-    return a[1] - b[1];
-  });
-  return stabilizedThis.map((el) => el[0]);
-}
-
-const headCells = [
-  {
-    id: "orderNum",
-    numeric: true,
-    disablePadding: true,
-    label: "Số thứ tự",
-  },
-  {
-    id: "patientName",
-    numeric: false,
-    disablePadding: false,
-    label: "Tên bệnh nhân",
-  },
-  {
-    id: "phone",
-    numeric: false,
-    disablePadding: false,
-    label: "Số điện thoại",
-  },
-  {
-    id: "checkIn",
-    numeric: false,
-    disablePadding: false,
-    label: "Giờ vào",
-  },
-  {
-    id: "room",
-    numeric: true,
-    disablePadding: false,
-    label: "Phòng",
-  },
-  {
-    id: "state",
-    numeric: true,
-    disablePadding: false,
-    label: "Trạng thái",
-  },
-];
+  KeyboardArrowLeft,
+  KeyboardArrowRight,
+  Sync,
+} from "@mui/icons-material";
+import headCells from "_constants/queryHeadCell";
+import { rows, stateData } from "_constants/FakeData/QueryTable";
+import "./index.scss";
+// import PropTypes from "prop-types";
+const lightest_blue = "#EBF0FF",
+  indigo = "#2E3192";
 
 function EnhancedTableHead(props) {
-  const {
-    onSelectAllClick,
-    order,
-    orderBy,
-    numSelected,
-    rowCount,
-    onRequestSort,
-  } = props;
-  const createSortHandler = (property) => (event) => {
-    onRequestSort(event, property);
-  };
+  const { onSelectAllClick, numSelected, rowCount } = props;
 
   return (
-    <TableHead>
-      <TableRow sx={{backgroundColor: "#EBF0FF", color: "#2E3192"}}>
-        <TableCell padding="checkbox">
-          <Checkbox
-            color="primary"
-            indeterminate={numSelected > 0 && numSelected < rowCount}
-            checked={rowCount > 0 && numSelected === rowCount}
-            onChange={onSelectAllClick}
-            inputProps={{
-              "aria-label": "select all desserts",
-            }}
-          />
-        </TableCell>
-        {headCells.map((headCell) => (
-          <TableCell
-            key={headCell.id}
-            align="left"
-            padding={headCell.disablePadding ? "none" : "normal"}
-            sortDirection={orderBy === headCell.id ? order : false}
-          >
-            <TableSortLabel
-              active={orderBy === headCell.id}
-              direction={orderBy === headCell.id ? order : "asc"}
-              onClick={createSortHandler(headCell.id)}
-            >
-              {headCell.label}
-              {orderBy === headCell.id ? (
-                <Box component="span" sx={visuallyHidden}>
-                  {order === "desc" ? "sorted descending" : "sorted ascending"}
-                </Box>
-              ) : null}
-            </TableSortLabel>
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
+    <tr style={{ backgroundColor: lightest_blue }}>
+      <td style={{ width: "5%" }}>
+        <Checkbox
+          color="primary"
+          indeterminate={numSelected > 0 && numSelected < rowCount}
+          checked={rowCount > 0 && numSelected === rowCount}
+          onChange={onSelectAllClick}
+          inputProps={{
+            "aria-label": "select all desserts",
+          }}
+        />
+      </td>
+      {headCells.map((headCell) => (
+        <th
+          key={headCell.id}
+          style={{
+            color: indigo,
+            fontWeight: 700,
+            width: headCell.width,
+            padding: "1rem 0",
+            textAlign: "center",
+          }}
+        >
+          {headCell.label}
+        </th>
+      ))}
+    </tr>
   );
 }
 
-EnhancedTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.oneOf(["asc", "desc"]).isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
-};
-
-const stateData = {
-  0: {
-    label: "Đang khám",
-    colors: ["#ECFBF6", "#03B575"],
-  },
-  1: {
-    label: "Đang chờ",
-    colors: ["#EBF0FF", "#1F58E7"],
-  },
-  2: {
-    label: "Qua lượt",
-    colors: ["#FFF3F2", "#E74F48"],
-  },
-};
 const StateComp = ({ state }) => {
   return (
-    <div style={{ backgroundColor: stateData[state]["colors"][0], 
-                  width: 100, 
-                  textAlign: "center",
-                  color: stateData[state]["colors"][1]}}>
+    <div
+      style={{
+        backgroundColor: stateData[state]["colors"][0],
+        width: 100,
+        margin: "auto",
+        textAlign: "center",
+        color: stateData[state]["colors"][1],
+        borderRadius: 5,
+        padding: 2.5,
+      }}
+    >
       {stateData[state]["label"]}
     </div>
   );
 };
 
+const rowsPerPage = 9;
+
 export default function EnhancedTable() {
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [dense, setDense] = React.useState(false);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
-
-  const handleRequestSort = (event, property) => {
-    const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
-    setOrderBy(property);
-  };
+  const [selectId, setSelectId] = React.useState(rows[0].id);
 
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
-      const newSelecteds = rows.map((n) => n.name);
+      const newSelecteds = rows.map((n) => n.id);
       setSelected(newSelecteds);
       return;
     }
     setSelected([]);
   };
 
+  const handlePageChange = (action) => {
+    if (action === 1) {
+      setPage(page - 1);
+    } else {
+      setPage(page + 1);
+    }
+  };
   const handleClick = (event, name) => {
     const selectedIndex = selected.indexOf(name);
     let newSelected = [];
@@ -248,111 +107,91 @@ export default function EnhancedTable() {
     setSelected(newSelected);
   };
 
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
-  };
-
-  const handleChangeDense = (event) => {
-    setDense(event.target.checked);
-  };
-
-  const isSelected = (name) => selected.indexOf(name) !== -1;
+  const isSelected = (id) => selected.indexOf(id) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  const emptyRows = Math.max(0, (1 + page) * rowsPerPage - rows.length);
 
   return (
-    <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size="medium"
-          >
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-            />
-            <TableBody>
-              {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-                   rows.slice().sort(getComparator(order, orderBy)) */}
-              {stableSort(rows, getComparator(order, orderBy))
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row, index) => {
-                  const isItemSelected = isSelected(row.orderNum);
-                  const labelId = `enhanced-table-checkbox-${index}`;
+    <Box>
+      <table className="querytable" aria-labelledby="tableTitle" size="medium">
+        <thead>
+          <EnhancedTableHead
+            numSelected={selected.length}
+            onSelectAllClick={handleSelectAllClick}
+            rowCount={rows.length}
+          />
+        </thead>
+        <tbody>
+          {rows
+            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+            .map((row, index) => {
+              const isItemSelected = isSelected(row.id);
 
-                  return (
-                    <TableRow
-                      hover
-                      onClick={(event) => handleClick(event, row.orderNum)}
-                      role="checkbox"
-                      aria-checked={isItemSelected}
-                      tabIndex={-1}
-                      key={row.orderNum}
-                      selected={isItemSelected}
-                    >
-                      <TableCell padding="checkbox">
-                        <Checkbox
-                          color="primary"
-                          checked={isItemSelected}
-                          inputProps={{
-                            "aria-labelledby": labelId,
-                          }}
-                        />
-                      </TableCell>
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="none"
-                        align="left"
-                      >
-                        {row.orderNum}
-                      </TableCell>
-                      <TableCell align="left">{row.patientName}</TableCell>
-                      <TableCell align="left">{row.phoneNumber}</TableCell>
-                      <TableCell align="left">{row.checkIn}</TableCell>
-                      <TableCell align="left">{row.room}</TableCell>
-                      <TableCell align="left">
-                        <StateComp state={row.state}></StateComp>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
+              return (
+                <tr
+                  onClick={() => setSelectId(row.id)}
+                  className={!selectId.localeCompare(row.id) ? "active" : ""}
+                  role="checkbox"
+                  aria-checked={isItemSelected}
+                  tabIndex={-1}
+                  key={row.id}
+                  selected={isItemSelected}
                 >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
+                  <td padding="checkbox">
+                    <Checkbox
+                      color="primary"
+                      checked={isItemSelected && row.state !== 0}
+                      disabled={row.state === 0}
+                      onChange={(event) => handleClick(event, row.id)}
+                      onClick={(e) => e.stopPropagation()}
+                    />
+                  </td>
+                  <td align="center">{row.orderNum}</td>
+                  <td align="center">{row.patientName}</td>
+                  <td align="center">{row.phoneNumber}</td>
+                  <td align="center">{row.checkIn}</td>
+                  <td align="center">{row.room}</td>
+                  <td align="center">
+                    <StateComp state={row.state}></StateComp>
+                  </td>
+                  <td align="center">
+                    {row.state !== 0 
+                     && selected.length === 1
+                     && selected.indexOf(row.id) === -1 
+                     && (
+                      <Sync className="swapicon" onClick={(e) => e.stopPropagation()}/>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
+          {emptyRows > 0 && (
+            <tr style={{ height: 53 * emptyRows }}>
+              <td sx={{ borderBottom: "none" }} colSpan={7} />
+            </tr>
+          )}
+        </tbody>
+      </table>
+      <Box className="querytable__pagination">
+        <span>{`${page * rowsPerPage + 1} - ${(page + 1) * rowsPerPage} of ${
+          rows.length
+        }`}</span>
+        <IconButton
+          className="querytable__prepage"
+          disabled={page === 0}
+          onClick={() => handlePageChange(1)}
+        >
+          <KeyboardArrowLeft />
+        </IconButton>
+        <IconButton
+          className="querytable__nextpage"
+          disabled={page === Math.ceil(rows.length / rowsPerPage) - 1}
+          onClick={() => handlePageChange(2)}
+        >
+          <KeyboardArrowRight />
+        </IconButton>
+      </Box>
     </Box>
   );
 }

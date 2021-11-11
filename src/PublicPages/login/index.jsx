@@ -8,10 +8,7 @@ import {
     CardMedia,
     Typography,
     Button,
-    IconButton,
-    FormControl,
-    OutlinedInput,
-    InputLabel,
+    IconButton,   
     InputAdornment
 } from '@mui/material'
 import { Visibility, VisibilityOff } from '@mui/icons-material';
@@ -40,7 +37,7 @@ function Login(props) {
             case 2:alert('Password không đúng!');break;
             case 3:alert('Lỗi server, vui lòng thử lại!');break;
             default:
-                if(user != undefined)
+                if(user !== undefined)
                     history.replace(role.get(user.role).url);
                 else
                 alert('Lỗi server, vui lòng thử lại!')

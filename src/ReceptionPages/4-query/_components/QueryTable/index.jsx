@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect, useRef} from "react";
 import { Box, Checkbox, IconButton } from "@mui/material";
 import {
   KeyboardArrowLeft,
@@ -64,13 +64,19 @@ const StateComp = ({ state }) => {
   );
 };
 
-const rowsPerPage = 9;
+const rowsPerPage = 10;
 
 export default function EnhancedTable() {
-  const [selected, setSelected] = React.useState([]);
-  const [page, setPage] = React.useState(0);
-  const [selectId, setSelectId] = React.useState(rows[0].id);
+  const [selected, setSelected] = useState([]);
+  const [page, setPage] = useState(0);
+  const [selectId, setSelectId] = useState(rows[0].id);
+  const [height, setHeight] = useState(0);
+  const ref = useRef(null);
 
+  useEffect(() => {
+    const h = ref.current.clientHeight;
+    setHeight(h);    
+  }, []);
   const handleSelectAllClick = (event) => {
     if (event.target.checked) {
       const newSelecteds = rows.map((n) => n.id);
@@ -138,7 +144,7 @@ export default function EnhancedTable() {
                   key={row.id}
                   selected={isItemSelected}
                 >
-                  <td padding="checkbox">
+                  <td padding="checkbox" ref={ref}>
                     <Checkbox
                       color="primary"
                       checked={isItemSelected && row.state !== 0}
@@ -167,14 +173,14 @@ export default function EnhancedTable() {
               );
             })}
           {emptyRows > 0 && (
-            <tr style={{ height: 53 * emptyRows }}>
-              <td sx={{ borderBottom: "none" }} colSpan={7} />
+            <tr style={{ height: (height + 1) * emptyRows }}>
+              <td sx={{ borderBottom: "none" }} colSpan={headCells.length + 1} />
             </tr>
           )}
         </tbody>
       </table>
       <Box className="querytable__pagination">
-        <span>{`${page * rowsPerPage + 1} - ${(page + 1) * rowsPerPage} of ${
+        <span>{`${page * rowsPerPage + 1} - ${Math.min((page + 1) * rowsPerPage, rows.length)} of ${
           rows.length
         }`}</span>
         <IconButton

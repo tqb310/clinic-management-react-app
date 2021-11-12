@@ -9,7 +9,7 @@ function SearchHeader() {
     return (
         <CustomPaper className="search">
             <Search className="search__icon"/>
-            <InputBase className="search__input" style={{padding: '1px 0 0', fontSize: 14}} placeholder="Tìm kiếm..."/>
+            <InputBase className="search__input" placeholder="Tìm kiếm..."/>
         </CustomPaper>
     )
 }

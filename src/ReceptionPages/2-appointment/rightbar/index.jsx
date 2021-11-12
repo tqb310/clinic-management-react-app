@@ -1,5 +1,5 @@
 import React from 'react'
-import { RightBar } from '_components/StyledComponent/RightBar';
+import { RightBar } from '_components/StyledComponent';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { IconButton } from '@mui/material'
 import './index.scss'

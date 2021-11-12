@@ -29,6 +29,15 @@ export const rows = [
   createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
   createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
   createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
+  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
+  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
+  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
+  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
+  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
+  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
+  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
+  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
+  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
 ];
 
 export const stateData = {

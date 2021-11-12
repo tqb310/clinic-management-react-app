@@ -6,13 +6,13 @@ import "./index.scss";
 
 const iconStyles = {
   color: "#A0A4A8",
-  fontSize: 30,
+  fontSize: 27,
   transition: "all .3s",
   display: "block",
   margin: "auto",
   padding: 0.5,
   "&:hover": {
-    transform: "scale(1.5,1.5)",
+    transform: "scale(1.2,1.2)",
   },
 };
 

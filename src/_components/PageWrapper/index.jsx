@@ -14,7 +14,7 @@ function PageWrapper({ routes, currentPath }) {
   return (
     <Box className="pagewrapper">
       <Box className="pagewrapper__left">
-        <img className="pagewrapper__logo" src={ClinicLogo} alt="Clinic logo" />
+        <img className="pagewrapper__logo" src={ClinicLogo} alt="Clinic logo" width="56" height="56"/>
         <SideBar routes={routes} />
       </Box>
       <Box className="pagewrapper__center">

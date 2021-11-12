@@ -27,7 +27,7 @@ function Login(props) {
         if(user){
             history.replace(role.get(user.role).url);
         }        
-    }, [])
+    })
     const login = async()=>{
         const status = await authentication.login(username, password)
         const user = authentication.getCurrentUser()?.payload

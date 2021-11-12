@@ -5,10 +5,10 @@
   min-height: 100vh;
   &__left {   
     padding: 10px 0;
-    flex: 0.7;
+    flex: 0.6;
   }
   &__center {    
-    flex: 8.3;
+    flex: 8.4;
     border-radius: 20px 0 0 20px;
     background: $background-main;       
   }
@@ -21,7 +21,7 @@
   &__logo {
     display: block;
     margin: auto;
-    margin-bottom: 40px;
+    margin-bottom: 2rem;
   }
   &__header {
     height: 114px;

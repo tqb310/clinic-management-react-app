@@ -1,10 +1,11 @@
 @import "_assets/style/_colors.scss";
 
 .content-container {  
-  margin-top: 2rem;
+  max-width: 100%;
+  margin-top: 0.5rem;
   padding: 0.7rem 1.5rem;
   background: #fff;
-  border-radius: 20px 20px 0 0;
+  border-radius: 10px 10px 0 0;
   box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.2);
   .content-header {
     display: flex;
@@ -48,7 +49,7 @@
   .dates-container {
     width: 97%;
     overflow: hidden;
-    margin: auto;
+    margin: 0.5rem auto;
     .dates {
       display: flex;
       flex-direction: row;
@@ -74,6 +75,7 @@
         cursor: pointer;    
         p:first-child {
           color: #fcdf98;
+          font-weight: 500;
         }
         p:last-child {
           color: #000;
@@ -105,24 +107,21 @@
         align-items: center;
       }
       .appointment-header {
-        margin-left: 2rem;
-        h2 {
+        margin-left: 1rem;
+        h3 {
           margin-bottom: 0;
         }
       }
       .appointment-body {
-        width: 70%;
+        width: 60%;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        padding-right: 2rem;
-        padding-left: 2.5rem;
-        padding-top: 0;
-        padding-bottom: 0;
+        padding: 0 2rem;
         background: #ffead3;
         border-radius: 30px;
         p {
-          font-size: 20;
+          font-size: 0.85rem;
         }
       }
     }

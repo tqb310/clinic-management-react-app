@@ -1,38 +1,70 @@
+@import "_assets/style/_colors.scss";
+
 .appoinment-rightbar-content {
-    width: 100%;
+    width: 95%;
     border:0;
     border-collapse: collapse;
-    
+    margin: 0 auto;
+    margin-bottom: 1rem;
     tr{ 
-        border: solid 1px #fff; 
-        background: rgba($color: #fff, $alpha: 0.1);
-        td{
-            width: 25%;
-            font-size: 16px;
+        position: relative;        
+        // background: rgba($color: #fff, $alpha: 0.1);              
+        cursor: pointer; 
+        td{         
+            text-align: center;
+            padding: .5rem 0;            
             &:first-child{
-                padding-left: 7px;
+                border-radius: 7px 0 0 7px;
+                color: $light-yellow;
+                font-size: 0.7rem;
+                width: 25%;
             }
-            .name-and-phone{
+            &:last-child {                
+                border-radius: 0 7px 7px 0;
+                padding-left: 2rem;
                 text-align: left;
-                margin-left: .5rem;
-                margin-right: .5rem;
-                p{
-                    margin: 0.5rem;
-                    pointer-events: none;
-                    &:first-child{
-                        font-size: 18px;
-                    }
-                    
-                }
             }
+            p {
+                margin: 0;
+                &:last-child {
+                    margin-top: .5rem;
+                    font-size: .85rem;
+                }
+            }            
             .eye-button{
                 color: #fff;
+                font-size: small;
             }
-        }
+        }   
+       &:hover {
+        background: rgba($color: #fff, $alpha: 0.3);  
+       }
+       &.unread::after {
+        content: "";
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background-color: #b3eafc;
+        right: 10px;
+        top: 42.5%
     }
+    }  
 } 
 .appointment-demand-header{
-    h2{
+    p{
         color:#FCDF98;
+        font-size: 15px;
+        font-weight: 500;
+    }
+}
+
+.appointment__timenote {
+    text-align: left;
+    width: 90%;
+    margin: .5rem auto;
+    font: {
+        size: 15px;
+        weight: 500
     }
 }

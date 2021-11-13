@@ -1,10 +1,8 @@
 @import "_assets/style/_colors.scss";
 @import "_assets/style/_mixins.scss";
 
-.TabTableWrapper {
-    // width: 100%;
-    background-color: white;
-    min-height: 85vh;
+.TabTableWrapper {    
+    background-color: white;    
     margin-right: 15px;
     border-radius: 8px 8px 0 0;
     box-shadow: 0px 4px 15px rgba(0,0,0,0.15);
@@ -65,8 +63,5 @@
                 padding: 0 8px
             }
         }
-    }
-    &__table {
-        min-height: 100%;
     }
 }

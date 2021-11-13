@@ -1,62 +1,36 @@
-import React from 'react'
-import { RightBar } from '_components/StyledComponent';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { IconButton } from '@mui/material'
-import './index.scss'
+import React from "react";
+import { RightBar } from "_components/StyledComponent";
+import {data} from "_constants/FakeData/AppointmentRequest";
+import "./index.scss";
 
-const datas = [
-    {
-        createAt: '27p trước',
-        name: 'Bành Thị Y',
-        phone: '0123456789',
-        time: 'Ngày mai'
-    },
-    {
-        createAt: '27p trước',
-        name: 'Bành Thị Y',
-        phone: '0123456789',
-        time: 'Ngày mai'
-    }, {
-        createAt: '27p trước',
-        name: 'Bành Thị Y',
-        phone: '0123456789',
-        time: 'Ngày mai'
-    }, {
-        createAt: '27p trước',
-        name: 'Bành Thị Y',
-        phone: '0123456789',
-        time: 'Ngày mai'
-    }
-]
-function AppointmentDemand() {
-    return (
-        <RightBar>
-            <div className="appointment-demand-header">
-                <h2>Yêu cầu lịch hẹn</h2>
-            </div>
-            <table className="appoinment-rightbar-content">
-                {datas.map(data =>
-                    <tr>
-                        <td>{data.createAt}</td>
-                        <td>
-                            <div className='name-and-phone'>
-                                <p>{data.name}</p>
-                                <p>{data.phone}</p>
-                            </div>
-                        </td>
-                        <td>{data.time}</td>
-                        <td>
-                            <IconButton className='eye-button'>
-                                <FontAwesomeIcon icon='eye' />
-                            </IconButton>
-                        </td>
-                    </tr>
-                )}
-
-            </table>
-
-        </RightBar>
-    )
+function RequestContent({data}) {
+  return (
+    <table className="appoinment-rightbar-content">
+      {data.map((data) => (
+        <tr className={Math.random() > 0.5 ? "unread" : ""}>
+          <td>{data.createAt}</td>
+          <td>
+            <p>{data.name}</p>
+            <p>{data.phone}</p>
+          </td>
+        </tr>
+      ))}
+    </table>
+  );
 }
 
-export default AppointmentDemand
+function AppointmentDemand() {
+  return (
+    <RightBar>
+      <div className="appointment-demand-header">
+        <p>Yêu cầu đặt lịch hẹn</p>
+      </div>
+      <p className="appointment__timenote">Mới nhất</p>    
+      <RequestContent data={data.slice(0, 4)}/>
+      <p className="appointment__timenote">Trước đó</p>
+      <RequestContent data={data.slice(4)}/>
+    </RightBar>
+  );
+}
+
+export default AppointmentDemand;

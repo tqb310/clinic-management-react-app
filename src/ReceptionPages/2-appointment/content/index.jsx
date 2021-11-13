@@ -73,7 +73,7 @@ function Content() {
                     {data.map(appointment =>
                         <div className='appointment'>
                             <div className='appointment-header'>
-                                <h2>{appointment.time}</h2>
+                                <h3>{appointment.time}</h3>
                                 <p>{appointment.type}</p>
                             </div>
                             <div className='appointment-body'>

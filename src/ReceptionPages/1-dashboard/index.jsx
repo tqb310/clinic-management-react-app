@@ -1,17 +1,13 @@
 import React from "react";
+import './index.scss';
 // import { Scrollbars } from "react-custom-scrollbars-2";
-import {RightBar} from '_components/StyledComponent/RightBar';
+// import {RightBar} from '_components/StyledComponent/RightBar';
 // import PropTypes from 'prop-types'
 
 function Dashboard(props) {  
   return (
-    <div>
-      Trang chủ
-      <li>abc</li>
-      <li>abc</li>     
-      <RightBar>      
-        ffnkvsndvkdkvnn      
-      </RightBar>
+    <div className="dashboard">
+      <p className="dashboard__title">Xin chào, <span>Nguyễn Văn A</span></p>
     </div>
   );
 }

@@ -1,0 +1,9 @@
+@import "_assets/style/_colors.scss";
+
+.dashboard {
+    margin-right: 1rem;
+    margin-top: 6.5px;
+    &__title {
+        margin: 0;
+    }
+}

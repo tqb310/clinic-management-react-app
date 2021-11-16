@@ -25,9 +25,9 @@ function AppointmentDemand() {
       <div className="appointment-demand-header">
         <p>Yêu cầu đặt lịch hẹn</p>
       </div>
-      <p className="appointment__timenote">Mới nhất</p>    
+      <p className="appointment__timenote">Mới nhất (4)</p>    
       <RequestContent data={data.slice(0, 4)}/>
-      <p className="appointment__timenote">Trước đó</p>
+      <p className="appointment__timenote">Trước đó (4)</p>
       <RequestContent data={data.slice(4)}/>
     </RightBar>
   );

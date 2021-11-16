@@ -16,7 +16,6 @@
     flex: 3;
     background-color: $primary-color;
     border-radius: 10px 0 0 10px;
-    color: white;
   }
   &__logo {
     display: block;
@@ -24,7 +23,7 @@
     margin-bottom: 2rem;
   }
   &__header {
-    height: 114px;
+    height: 100px;
     padding: 0 20px;
     position: sticky;
     top: 0;
@@ -33,6 +32,6 @@
   &__main {
     box-sizing: border-box;    
     padding: 0px 5px 0px 20px;    
-    height: 85%;
+    height: 86.5%;
   }
 }

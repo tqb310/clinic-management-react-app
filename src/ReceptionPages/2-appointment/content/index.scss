@@ -116,8 +116,11 @@
         }
       }
       .today{
-        @extend .date--active;
-        background:#c3c3c3;
+        @extend .date;
+        background:#c3c3c3 !important;
+        p {
+          color: #fff !important;
+        }
       }
     }
   }

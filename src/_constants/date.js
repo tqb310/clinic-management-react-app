@@ -14,3 +14,8 @@ export const dayLength = 86400000;
 export const dateParse = (date) => {
     return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
 }
+export let today
+setTimeout(() => {
+    today = Date.now()
+}, 10000);
+

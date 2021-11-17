@@ -4,7 +4,7 @@ import React from 'react';
 function Accounting(props) {
     return (
         <div>
-            Thu phí
+            Danh sách phiếu khám
         </div>
     )
 }

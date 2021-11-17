@@ -1,5 +1,6 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 // import { Scrollbars } from 'react-custom-scrollbars-2';
+
 import { dateMap, dayLength } from '_constants/date'
 import './index.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -63,4 +64,4 @@ function Content(props) {
     )
 }
 
-export default Content
+export default Content;

@@ -37,7 +37,7 @@ function Appointment(props) {
 
     return (
         <div className='appointment-container'>
-            <div style={{ width: '38%' }}>
+            <div style={{width: '38%'}}>
                 <Infomation />
                 <BarChart />
                 <PieChart />

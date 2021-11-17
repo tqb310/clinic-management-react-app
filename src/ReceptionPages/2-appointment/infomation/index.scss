@@ -1,7 +1,7 @@
 @import "_assets/style/_colors.scss";
 
 .container {
-  margin-top: 0.5rem;
+  margin-top: 6.5px;
   .card-wrapper {
     display: flex;
     justify-content: space-between;
@@ -10,9 +10,7 @@
       display: grid;
       grid-template-columns: 30% 67%;
       // grid-gap: 0.8rem;
-      background: #fff;
-      border-radius: 10px;
-      box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+      background: #fff;     
       overflow: hidden;
       padding: 10px 0;
       img {

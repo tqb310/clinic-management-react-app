@@ -2,6 +2,7 @@ import React, { useState } from "react";
 // import PropTypes from 'prop-types'
 import { Box, Button, InputBase } from "@mui/material";
 import { Search, FilterAlt, } from "@mui/icons-material";
+import {CustomPaper} from "_components/StyledComponent";
 import "./index.scss";
 
 function TabTableWrapper({ tabNameArr, children, ...rest }) {
@@ -10,7 +11,7 @@ function TabTableWrapper({ tabNameArr, children, ...rest }) {
     return () => setSelectedItem(index);
   };
   return (
-    <Box className="TabTableWrapper">
+    <CustomPaper className="TabTableWrapper">
       <Box className="TabTableWrapper__tablabel">
         {tabNameArr.map((item, index) => (
           <Box
@@ -38,7 +39,7 @@ function TabTableWrapper({ tabNameArr, children, ...rest }) {
         </Button>
       </Box>
       <Box className="TabTableWrapper__table">{children(selectedItem)}</Box>
-    </Box>
+    </CustomPaper>
   );
 }
 

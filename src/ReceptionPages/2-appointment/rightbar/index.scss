@@ -60,9 +60,12 @@
 }
 
 .appointment__timenote {
+    box-sizing: border-box;
     text-align: left;
-    width: 90%;
+    width: 94%;
     margin: .5rem auto;
+    padding: .5rem .7rem;
+    background-color: rgba($color: #fff, $alpha: 0.3);
     font: {
         size: 15px;
         weight: 500

@@ -6,6 +6,7 @@ import BarChart from '_components/BarChart';
 import appointment from '_services/appointment.service';
 import { dateParse } from '_constants/date'; 
 import socket from '_services/socket.io'
+import PieChart from '_components/PieChart';
 import './index.scss';
 // import PropTypes from 'prop-types';
 
@@ -33,9 +34,10 @@ function Appointment(props) {
 
     return (
         <div className='appointment-container'>
-            <div style={{ width: '38%' }}>
+            <div style={{width: '38%'}}>
                 <Infomation />
-                <BarChart />
+                <BarChart/>
+                <PieChart/>
             </div>
             <div style={{ width: '60%' }}>
                 <Content data={data}/>

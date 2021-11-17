@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@mui/material";
 import { KeyboardArrowDown } from "@mui/icons-material";
+import {CustomPaper} from "_components/StyledComponent";
 import "./index.scss";
 // import PropTypes from 'prop-types'
 
@@ -17,9 +18,9 @@ const max = data.reduce((a, b) => (a > b.number ? a : b.number), 0);
 
 function BarChart(props) {
   return (
-    <div className="BarChart">
+    <CustomPaper className="BarChart">
       <div className="BarChart__header">
-        <h4>Số cuộc hẹn trong tuần</h4>
+        <p>Số cuộc hẹn trong tuần</p>
         <span>
           <Button
             sx={{ color: "#25282B", textTransform: "capitalize", padding: 0, fontSize: 13, textAlign: 'center' }}
@@ -74,7 +75,7 @@ function BarChart(props) {
               className={`BarChart__baritem + ${
                 item.number === max ? " max" : ""
               }`}
-              style={{ height: Math.min(150, item.number * 7.5) }}
+              style={{ height: Math.min(141, item.number * 7.05) }}
             >
               {item.number}
             </div>
@@ -82,7 +83,7 @@ function BarChart(props) {
           </div>
         ))}
       </div>
-    </div>
+    </CustomPaper>
   );
 }
 

@@ -1,9 +1,45 @@
 @mixin badge($background-color) {
+  display: inline-block;
+  margin-left: 7px;
+  text-align: center;
+  background-color: $background-color;
+  width: 30px;
+  border-radius: 25%;
+  font-weight: 400;
+}
+
+@mixin outlineTitle($title) {
+  position: relative;
+  margin-top: 1.7rem;
+  border: 0.7px solid $background-main;
+  border-radius: 20px;
+  padding: 1.3rem 1.6rem;
+  text-align: left;
+  &::before {
+    content: $title;
     display: inline-block;
-    margin-left: 7px ;
-    text-align: center;
-    background-color: $background-color;
-    width: 30px;
-    border-radius: 25%;
-    font-weight: 400;
+    // text-transform: uppercase;
+    color: $lightest-yellow;
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 0.1rem 1rem;
+    background-color: $primary-color;
+    position: absolute;
+    top: -13px;
+    left: 10px;
+  }
+}
+
+@mixin titleInRightBar() {
+  color: rgba(255, 255, 255, 0.7);
+  font: {
+    size: 0.9rem;
+    weight: 500;
+  }
+}
+
+@mixin iconInRightBar($offset) {
+  font-size: 0.9rem;
+  margin-right: 0.2rem;
+  transform: translateY($offset);
 }

@@ -3,6 +3,7 @@ import React from "react";
 import TabTableWrapper from "_components/TabTableWrapper";
 import EnhancedTable from "./_components/QueryTable";
 import {RightBar} from "_components/StyledComponent";
+import RightBarContent from "./_components/RightBar";
 
 const data = [
   { title: "Tất cả", number: 50 },
@@ -22,7 +23,7 @@ function Query(props) {
         )}
       </TabTableWrapper>
       <RightBar>
-        vkjfvbf
+        <RightBarContent/>
       </RightBar>
     </div>
   );

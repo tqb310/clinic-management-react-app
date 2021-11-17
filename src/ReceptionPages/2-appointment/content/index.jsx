@@ -1,47 +1,17 @@
 import React, { useState } from 'react'
 // import { Scrollbars } from 'react-custom-scrollbars-2';
-import {dateMap, dayLength} from '_constants/date'
+import { dateMap, dayLength } from '_constants/date'
 import './index.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-const data = [{
-    time: '8:30',
-    type: 'Tái khám',
-    name: 'Nguyễn Văn A',
-    doctor: 'BS. Phúc'
-},
-{
-    time: '8:30',
-    type: 'Tái khám',
-    name: 'Nguyễn Văn A',
-    doctor: 'BS. Phúc'
-},
-{
-    time: '8:30',
-    type: 'Tái khám',
-    name: 'Nguyễn Văn A',
-    doctor: 'BS. Phúc'
-}, {
-    time: '8:30',
-    type: 'Tái khám',
-    name: 'Nguyễn Văn A',
-    doctor: 'BS. Phúc'
-}, {
-    time: '8:30',
-    type: 'Tái khám',
-    name: 'Nguyễn Văn A',
-    doctor: 'BS. Phúc'
-}, {
-    time: '8:30',
-    type: 'Tái khám',
-    name: 'Nguyễn Văn A',
-    doctor: 'BS. Phúc'
-}]
-function Content() {
+function Content(props) {
     const [today, setToday] = useState(new Date(Date.now()))
-    const [dayActive, setDayActive] = useState(6)
+    const [dayActive, setDayActive] = useState(today.getDay())
     const dates = []
-    for(let i = -6;i<=6;i++){
-        dates.push(new Date(today.getTime() + i*dayLength))
+    for (let i = 0; i <= 6; i++) {
+        dates.push(new Date(today.getTime() + (i - today.getDay()) * dayLength))
+    }
+    const dayActiveChange = (index) => {
+        setDayActive(index)
     }
     return (
         <div className='content-container'>
@@ -59,8 +29,8 @@ function Content() {
             </div>
             <div className="dates-container">
                 <div className='dates'>
-                     {dates.map((date,index) =>
-                        <div className={(dayActive === index ? 'date--active' : 'date') + (Math.random() > 0.5 ? " dot-notify" : "")}>
+                    {dates.map((date, index) =>
+                        <div className={(dayActive === index ? 'date--active' : (index == today.getDay())? 'today':'date') + ((props.data.filter(d=>(new Date(d.TIMES)).getDay() == index).length > 0) ? " dot-notify" : "")} onClick={()=>dayActiveChange(index)}>
                             <p>{dateMap.get(date.getDay())}</p>
                             <p>{date.getDate()}</p>
                         </div>
@@ -70,24 +40,26 @@ function Content() {
 
             <div className='appointment-container'>
                 {/* <Scrollbars style={{ width: '100%', height: 350 }}> */}
-                    {data.map(appointment =>
-                        <div className='appointment'>
-                            <div className='appointment-header'>
-                                <h2>{appointment.time}</h2>
-                                <p>{appointment.type}</p>
-                            </div>
-                            <div className='appointment-body'>
-                                <div>
-                                    <h4>{appointment.name}</h4>
-                                    <p>{appointment.doctor}</p>
-                                </div>
-                                <FontAwesomeIcon icon='ellipsis-v'></FontAwesomeIcon>
-                            </div>
+                {props.data.filter(appointment=>(new Date(appointment.TIMES)).getDay() == dayActive).map(appointment =>
+                    <div className='appointment'>
+                        <div className='appointment-header'>
+                            <h3>
+                                {`${('0' + (new Date(appointment.TIMES.slice(0, 21))).getHours()).slice(-2)}:${('0' + (new Date(appointment.TIMES.slice(0, 21))).getMinutes()).slice(-2)}`}
+                            </h3>
+                            <p>{(appointment.TYPE) ? 'Tái Khám' : 'Khám mới'}</p>
                         </div>
-                    )}
+                        <div className='appointment-body'>
+                            <div>
+                                <h4>{appointment.PATIENT_NAME}</h4>
+                                <p>{`BS. ${appointment.EMPLOYEE_NAME}`}</p>
+                            </div>
+                            <FontAwesomeIcon icon='ellipsis-v'></FontAwesomeIcon>
+                        </div>
+                    </div>
+                )}
                 {/* </Scrollbars> */}
             </div>
-        </div>
+        </div >
     )
 }
 

@@ -57,6 +57,7 @@ const StateComp = ({ state }) => {
         color: stateData[state]["colors"][1],
         borderRadius: 5,
         padding: 2.5,
+        fontWeight: 500
       }}
     >
       {stateData[state]["label"]}

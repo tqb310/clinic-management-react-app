@@ -11,3 +11,6 @@ export const dateMap = new Map([
 
 export const dayLength = 86400000;
 
+export const dateParse = (date) => {
+    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
+}

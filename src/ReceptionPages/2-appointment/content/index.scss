@@ -1,24 +1,24 @@
+
 @import "_assets/style/_colors.scss";
 
-.content-container {  
+.content-container {
   max-width: 100%;
-  margin-top: 0.5rem;
+  margin-top: 6.5px;
   padding: 0.7rem 1.5rem;
   background: #fff;
-  border-radius: 10px 10px 0 0;
-  box-shadow: -2px -2px 5px rgba(0, 0, 0, 0.2);
+  position: relative;
   .content-header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 
-    h3:first-child {
+    h4:first-child {
       color: $word-color;
       margin: 0;
     }
     .month {
-      h3 {
+      h4 {
         display: inline-block;
         margin-right: 1rem;
         color: $word-color;
@@ -47,51 +47,81 @@
     }
   }
   .dates-container {
-    width: 97%;
+    width: 98%;
     overflow: hidden;
     margin: 0.5rem auto;
+    &:hover {
+      .dates-container__icon {
+        display: block;
+        opacity: 1;
+      }
+    }
+    &__icon {
+      z-index: 1000;
+      position: absolute;
+      top: 10%;
+      display: none;
+      opacity: 0;
+      transition: all 0.4s;
+    }
+    &__icon:first-child {
+      left: 0.8rem;
+    }
+    &__icon:nth-child(2) {
+      right: 0.5rem;
+    }
     .dates {
+      box-sizing: border-box;
       display: flex;
       flex-direction: row;
       position: relative;
-      align-items: center; 
+      align-items: center;
+      justify-content: center;
+
       .dot-notify::after {
         content: "";
         position: absolute;
         bottom: 0.6rem;
         width: 0.4rem;
         height: 0.4rem;
-        border-radius: 50%;        
+        border-radius: 50%;
         background-color: $reddark;
-      }     
-      .date {        
+      }
+      .date {
+        width: calc(100% / 8);
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding: 0.5rem 1.5rem;
+        padding: 0.5rem 0rem;
         margin: 0 0.25rem;
-        border-radius: 30px;    
+        border-radius: 30px;
         user-select: none;
-        cursor: pointer;    
+        cursor: pointer;
         p:first-child {
-          color: #fcdf98;
+          color: #deb887;
           font-weight: 500;
         }
         p:last-child {
-          color: #000;
+          color: #555;
           font-weight: 600;
+        }
+        &:hover {
+          background-color: #f6f6f6;
         }
       }
       .date--active {
         @extend .date;
-        background: #fac032;
+        background-color: #fac032 !important;
         p {
           color: #fff !important;
         }
       }
       .today{
-        @extend .date--active;
-        background:#c3c3c3
+        @extend .date;
+        background:#c3c3c3 !important;
+        p {
+          color: #fff !important;
+        }
       }
     }
   }
@@ -112,8 +142,11 @@
       }
       .appointment-header {
         margin-left: 1rem;
-        h3 {
+        h4 {
           margin-bottom: 0;
+        }
+        p {
+          font-size: 0.85rem;
         }
       }
       .appointment-body {
@@ -131,3 +164,4 @@
     }
   }
 }
+

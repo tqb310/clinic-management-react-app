@@ -109,6 +109,7 @@
         }
       }
       .date--active {
+        @extend .date;
         background-color: #fac032 !important;
         p {
           color: #fff !important;
@@ -116,7 +117,7 @@
       }
       .today{
         @extend .date--active;
-        background:#c3c3c3
+        background:#c3c3c3;
       }
     }
   }

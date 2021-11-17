@@ -8,7 +8,6 @@ import "./index.scss";
 // const {CustomPaper} = cs;
 
 function Profile(props) {
-  console.log(authentication.getCurrentUser());
   return (
     <CustomPaper className="profile">
       <Badge

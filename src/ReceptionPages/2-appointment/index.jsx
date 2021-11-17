@@ -5,10 +5,14 @@ import AppoimentDemand from './rightbar';
 import BarChart from '_components/BarChart';
 import appointment from '_services/appointment.service';
 import { dateParse } from '_constants/date'; 
+import socket from '_services/socket.io'
 import './index.scss';
 // import PropTypes from 'prop-types';
 
 function Appointment(props) {
+  socket.on('AppointmentListChange',(appointment)=>{
+        console.log(appointment)
+    })
     const [data, setData] = useState([])
     useEffect(() => {
         const fetchData = async ()=>{
@@ -26,7 +30,6 @@ function Appointment(props) {
         }
         fetchData()
     }, [])
-
 
     return (
         <div className='appointment-container'>

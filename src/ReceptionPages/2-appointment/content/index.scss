@@ -89,6 +89,10 @@
           color: #fff !important;
         }
       }
+      .today{
+        @extend .date--active;
+        background:#c3c3c3
+      }
     }
   }
   .appointment-container {

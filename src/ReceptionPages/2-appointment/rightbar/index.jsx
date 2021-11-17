@@ -1,6 +1,7 @@
-import React from "react";
+import React, {useState, useEffect } from "react";
 import { RightBar } from "_components/StyledComponent";
 import {data} from "_constants/FakeData/AppointmentRequest";
+import appointment from "_services/appointment.service";
 import "./index.scss";
 
 function RequestContent({data}) {
@@ -20,6 +21,19 @@ function RequestContent({data}) {
 }
 
 function AppointmentDemand() {
+  const [data1, setData] = useState([])
+  useEffect(() => {
+    async function fetchData(){
+      const dataApi = await appointment.getAllAppointmentRequest()
+      switch(dataApi){
+        case undefined:alert('Lỗi server, vui lòng thử lại');break;
+        case null:alert('Chưa đăng nhập, vui lòng đăng nhập');break;
+        default:setData(dataApi)
+      }
+    }
+    fetchData()
+    console.log(data1)
+  }, [])
   return (
     <RightBar>
       <div className="appointment-demand-header">

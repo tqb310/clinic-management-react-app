@@ -1,7 +1,7 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types'
 
-function Accounting(props) {
+function Main(props) {
     return (
         <div>
             Danh sách phiếu khám
@@ -9,9 +9,9 @@ function Accounting(props) {
     )
 }
 
-Accounting.propTypes = {
+Main.propTypes = {
 
 }
 
-export default Accounting
+export default Main
 

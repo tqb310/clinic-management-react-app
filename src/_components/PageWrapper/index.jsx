@@ -2,12 +2,12 @@ import React, { Suspense } from "react";
 import PropTypes from "prop-types";
 import { Box, IconButton } from "@mui/material";
 import { Add, Logout } from "@mui/icons-material";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Switch, Redirect, Link } from "react-router-dom";
 import SideBar from "_components/sidebar";
 import Header from "_components/header";
 import { Scrollbars } from "react-custom-scrollbars-2";
 import ClinicLogo from "_assets/images/clinic.png";
-import authentication from '_services/authentication.service';
+import authentication from "_services/authentication.service";
 import "./index.scss";
 
 function PageWrapper({ routes, currentPath }) {
@@ -22,8 +22,11 @@ function PageWrapper({ routes, currentPath }) {
           height="56"
         />
         <SideBar routes={routes} />
-        <IconButton sx={{display: 'block', margin: '10rem auto'}} onClick={() => authentication.logout()}>
-          <Logout sx={{transform: 'rotate(180deg)'}}/>
+        <IconButton
+          sx={{ display: "block", margin: "10rem auto" }}
+          onClick={() => authentication.logout()}
+        >
+          <Logout sx={{ transform: "rotate(180deg)" }} />
         </IconButton>
       </Box>
       <Box className="pagewrapper__center">
@@ -58,17 +61,19 @@ function PageWrapper({ routes, currentPath }) {
         </Box>
       </Box>
       <Box className="pagewrapper__right"></Box>
-      <div className="pagewrapper__createCard">
-        <Add
-          sx={{
-            fontSize: 32,
-            color: "white",
-            transition: "all .3s",
-            "&:hover": { transform: "scale(1.2,1.2)" },
-            "&:active": { transform: "scale(0.9, 0.9)" },
-          }}
-        />
-      </div>
+      <Link to="/tiep-tan/phieu-kham/them-phieu-kham">
+        <div className="pagewrapper__createCard">
+          <Add
+            sx={{
+              fontSize: 32,
+              color: "white",
+              transition: "all .3s",
+              "&:hover": { transform: "scale(1.2,1.2)" },
+              "&:active": { transform: "scale(0.9, 0.9)" },
+            }}
+          />
+        </div>
+      </Link>
     </Box>
   );
 }

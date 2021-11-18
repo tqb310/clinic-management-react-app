@@ -28,6 +28,7 @@ const appointment = {
             switch(error.response.status){
                 case 401:return undefined
                 case 500:return null
+                default: return null                    
             }
         }
     },
@@ -40,8 +41,8 @@ const appointment = {
             return request
         } catch (error) {
             switch(error.response.status){
-                case 500:return undefined;break
-                case 401:return null;break
+                case 500:return undefined;
+                case 401:return null;
                 default:console.log('Lỗi Không xác định');return undefined
             }
         }

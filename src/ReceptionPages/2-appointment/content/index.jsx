@@ -31,7 +31,7 @@ function Content(props) {
             <div className="dates-container">
                 <div className='dates'>
                     {dates.map((date, index) =>
-                        <div className={(dayActive === index ? 'date--active' : (index == today.getDay())? 'today':'date') + ((props.data.filter(d=>(new Date(d.TIMES)).getDay() == index).length > 0) ? " dot-notify" : "")} onClick={()=>dayActiveChange(index)}>
+                        <div className={(dayActive === index ? 'date--active' : (index === today.getDay())? 'today':'date') + ((props.data.filter(d=>(new Date(d.TIMES)).getDay() === index).length > 0) ? " dot-notify" : "")} onClick={()=>dayActiveChange(index)}>
                             <p>{dateMap.get(date.getDay())}</p>
                             <p>{date.getDate()}</p>
                         </div>
@@ -41,7 +41,7 @@ function Content(props) {
 
             <div className='appointment-container'>
                 {/* <Scrollbars style={{ width: '100%', height: 350 }}> */}
-                {props.data.filter(appointment=>(new Date(appointment.TIMES)).getDay() == dayActive).map(appointment =>
+                {props.data.filter(appointment=>(new Date(appointment.TIMES)).getDay() === dayActive).map(appointment =>
                     <div className='appointment'>
                         <div className='appointment-header'>
                             <h3>

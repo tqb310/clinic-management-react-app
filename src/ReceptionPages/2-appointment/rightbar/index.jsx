@@ -16,7 +16,7 @@ function RequestContent({ data }) {
   return (
     <table className="appoinment-rightbar-content">
       {data.map((d) => (
-        <tr className={d.STATUS == 1 ? "unread" : ""}>
+        <tr className={d.STATUS === 1 ? "unread" : ""}>
           <td>{timeParse(d.CREATE_AT)}</td>
           <td>
             <p>{d.PATIENT_NAME}</p>
@@ -39,11 +39,10 @@ function AppointmentDemand() {
         default: setData(dataApi)
       }
     }
-    fetchData()
-
-  })
-  const dataToday = data.filter(d => (new Date(d.CREATE_AT.slice(0, 22))).getDate() == (new Date(Date.now()).getDate()))
-  const oldData = data.filter(d => (new Date(d.CREATE_AT.slice(0, 22))).getDate() != (new Date(Date.now()).getDate()))
+    fetchData();
+  }, []);
+  const dataToday = data.filter(d => (new Date(d.CREATE_AT.slice(0, 22))).getDate() === (new Date(Date.now()).getDate()))
+  const oldData = data.filter(d => (new Date(d.CREATE_AT.slice(0, 22))).getDate() !== (new Date(Date.now()).getDate()))
   return (
     <RightBar>
       <div className="appointment-demand-header">

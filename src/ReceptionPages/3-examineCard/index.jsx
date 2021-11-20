@@ -1,5 +1,6 @@
 import React, {lazy, Suspense} from 'react';
 import {Route, Switch, Redirect, useRouteMatch} from 'react-router-dom';
+import {RightBar} from '_components/StyledComponent';
 // import PropTypes from 'prop-types';
 
 const MainLazy = lazy(() => import('./Main'));
@@ -13,6 +14,9 @@ function Accounting(props) {
                 <Route path={path + '/them-phieu-kham'} component={CreateFormLazy}/>
                 <Route render={() => (<Redirect to={path}/>)}/>
             </Switch>
+            <RightBar>
+                Yêu cầu thu phí
+            </RightBar>
         </Suspense>
     )
 }

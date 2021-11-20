@@ -22,7 +22,8 @@ function Appointment(props) {
         const fetchData = async () => {
             const today = new Date(Date.now())
             try {
-                const dataApi = await appointment.getAppointmentByWeek(dateParse(today))
+                const dataApi = await appointment.getAppointmentByWeek(dateParse(today));
+                console.log(dataApi);
                 switch (dataApi) {
                     case null: alert("Lỗi server, vui lòng thử lại"); break
                     case undefined: alert("Bạn không có quyền truy cập vào tính năng này!"); break
@@ -32,7 +33,7 @@ function Appointment(props) {
                 console.log(error)
             }
         }
-        fetchData()
+        fetchData();
     }, [])
 
     return (

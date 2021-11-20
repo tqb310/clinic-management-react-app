@@ -43,3 +43,49 @@
   margin-right: 0.2rem;
   transform: translateY($offset);
 }
+
+@mixin currency(){
+  font-size: 15px;
+  vertical-align: super;
+  text-decoration: underline;
+  margin: 0 0.5rem;
+  font-weight: 400 !important;
+}
+@mixin gridDivide() {
+  .col-1-5 {
+    grid-column: 1/5;
+  }
+  .col-1-6 {
+    grid-column: 1/6;
+  }
+  .col-1-7 {
+    grid-column: 1/7;
+  }
+  .col-6-8 {
+    grid-column: 6/8;
+  }
+  .col-6-13 {
+    grid-column: 6/13;
+  }
+  .col-7-13 {
+    grid-column: 7/13;
+  }
+  .col-7-9 {
+    grid-column: 7/9;
+  }
+  .col-8-13 {
+    grid-column: 8/13;
+  }
+  .col-10-13 {
+    grid-column: 10/13;
+  }
+  .col-1-13 {
+    grid-column: 1/13;
+  }
+  .row-1-3 {
+    grid-row: 1/3;
+  }
+  .row-2-4 {
+    grid-row: 2/4;
+  }
+}

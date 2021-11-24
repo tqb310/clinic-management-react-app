@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { TextField, InputAdornment, Button } from "@mui/material";
 import { FastField } from "formik";
 import { Add, Close } from "@mui/icons-material";
+import handlePriceFormat from "_helpers/handlePriceFormat";
 import "./index.scss";
 // import PropTypes from 'prop-types'
 
@@ -29,7 +30,7 @@ function Guest({total}) {
       <div className="PaymentForm__exchange">
         <span>Tiền thừa</span>
         <span>
-          {exchange}<span>đ</span>
+          {handlePriceFormat(exchange)}<span>đ</span>
         </span>
       </div>
     </td>
@@ -47,7 +48,7 @@ function Payment(props) {
                 <td>
                   <div className="PaymentForm__total">Tổng phí</div>
                   <div className="PaymentForm__totalNum">
-                    {field.value}
+                    {handlePriceFormat(field.value)}
                     <span>đ</span>
                   </div>
                 </td>

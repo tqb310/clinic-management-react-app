@@ -3,7 +3,7 @@
 .content-container {
   max-width: 100%;
   margin-top: 6.5px;
-  padding: 0.7rem 1.5rem;
+  padding: 0.7rem 0;
   background: #fff;
   position: relative;
   .content-header {
@@ -11,7 +11,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-
+    padding: 0 1.5rem;
     h4:first-child {
       color: $word-color;
       margin: 0;
@@ -21,6 +21,7 @@
         display: inline-block;
         margin-right: 1rem;
         color: $word-color;
+        user-select: none;
       }
       .chevron-circle-left-icon {
         color: #2e3192;
@@ -46,22 +47,28 @@
     }
   }
   .dates-container {
-    width: 98%;
+    box-sizing: border-box;
+    padding: 0 1.8rem;
+    width: 100%;
     overflow: hidden;
-    margin: 0.5rem auto;
+    margin: 0.5rem 0;
     &:hover {
-      .dates-container__icon {
-        display: block;
-        opacity: 1;
+      .dates-container__icon {        
+        opacity: 1;       
       }
     }
     &__icon {
       z-index: 1000;
       position: absolute;
-      top: 10%;
-      display: none;
+      top: 5.5rem;      
       opacity: 0;
-      transition: all 0.4s;
+      transition: all 0.2s;
+      &:hover {
+        transform: scale(1.1,1.1);
+      }
+      &:active {
+        transform: scale(0.8,0.8);
+      }
     }
     &__icon:first-child {
       left: 0.8rem;

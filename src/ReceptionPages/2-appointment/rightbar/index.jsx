@@ -30,17 +30,17 @@ function RequestContent({ data }) {
 
 function AppointmentDemand() {
   const [data, setData] = useState([])
-  useEffect(() => {
-    async function fetchData() {
-      const dataApi = await appointment.getAllAppointmentRequest()
-      switch (dataApi) {
-        case undefined: alert('Lỗi server, vui lòng thử lại'); break;
-        case null: alert('Chưa đăng nhập, vui lòng đăng nhập'); break;
-        default: setData(dataApi)
-      }
-    }
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const dataApi = await appointment.getAllAppointmentRequest()
+  //     switch (dataApi) {
+  //       case undefined: alert('Lỗi server, vui lòng thử lại'); break;
+  //       case null: alert('Chưa đăng nhập, vui lòng đăng nhập'); break;
+  //       default: setData(dataApi)
+  //     }
+  //   }
+  //   fetchData();
+  // }, []);
   const dataToday = data.filter(d => (new Date(d.CREATE_AT.slice(0, 22))).getDate() === (new Date(Date.now()).getDate()))
   const oldData = data.filter(d => (new Date(d.CREATE_AT.slice(0, 22))).getDate() !== (new Date(Date.now()).getDate()))
   return (
@@ -49,9 +49,9 @@ function AppointmentDemand() {
         <p>Yêu cầu đặt lịch hẹn</p>
       </div>
       <p className="appointment__timenote">Mới nhất ({dataToday.length})</p>
-      <RequestContent data={dataToday} />
+      {/* <RequestContent data={dataToday} /> */}
       <p className="appointment__timenote">Trước đó ({oldData.length})</p>
-      <RequestContent data={oldData} />
+      {/* <RequestContent data={oldData} /> */}
     </RightBar>
   );
 }

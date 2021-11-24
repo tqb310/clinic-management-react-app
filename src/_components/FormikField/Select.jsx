@@ -40,7 +40,7 @@ export default function SelectField({
     <FormControl
       sx={{
         "& .MuiInputBase-root": { marginTop: "8px !important" },
-        "& label": { top: "-10%", left: "-6.5%", fontSize: 14 },
+        "& label": { top: "-3%", left: "-6.5%", fontSize: 14 },
       }}
       fullWidth
       required={required}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { FastField, Field } from "formik";
 import User from "_assets/images/default-avatar.png";
 import {
@@ -108,8 +108,8 @@ function LeftContent({province, district, ward, gender}) {
       </div>
       <div className="col-7-13">
         <FastField
-          name="occupation"
-          id="occupation"
+          name="OCCUPATION"
+          id="OCCUPATION"
           component={Input}
           label="Nghề nghiệp"
           icon={Work}

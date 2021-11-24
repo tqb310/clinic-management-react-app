@@ -60,8 +60,8 @@ function FormikStepper({ children, onSubmit, ...rest }) {
                   ></span>
                   <StepLabel
                     sx={{
-                      "& .Mui-active": { color: "#2E3192" },
-                      "& .Mui-completed": { color: "#2E3192" },
+                      "& .Mui-active": { color: "#2E3192 !important" },
+                      "& .Mui-completed": { color: "#2E3192 !important" },
                     }}
                   >
                     {child.props.label}

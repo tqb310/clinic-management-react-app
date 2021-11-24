@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { dateMap, dayLength } from "_constants/date";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ArrowBackIosNew, ArrowForwardIos } from "@mui/icons-material";
-import {Button, } from "@mui/material";
+import { ArrowBackIosNew, ArrowForwardIos, Add } from "@mui/icons-material";
+import { Button } from "@mui/material";
 import { CustomPaper } from "_components/StyledComponent";
 import { compare2Days, toNewDate } from "_helpers/handleDate";
-import Form from '../form';
+import Form from "../form";
+import NoResultDate from "./assets/no-date-result.png";
 import "./index.scss";
 // import { Scrollbars } from 'react-custom-scrollbars-2';
 
@@ -14,10 +15,14 @@ function Content(props) {
   const [dayActive, setDayActive] = useState(new Date(Date.now()));
   const [rendereDate, setRenderedDate] = useState(new Date(Date.now()));
   const [openForm, setOpenForm] = useState(false);
+  const filteredData = props.data.filter(
+    (appointment) =>
+      compare2Days(new Date(appointment.TIMES), dayActive) === true
+  );
   const handleClose = (e) => {
     // console.log(e);
     setOpenForm(false);
-  }
+  };
   const dates = [];
   for (let i = 0; i <= 6; i++) {
     dates.push(
@@ -80,8 +85,9 @@ function Content(props) {
                   : compare2Days(date, new Date(Date.now()))
                   ? "today"
                   : "date") +
-                (props.data.filter((d) => new Date(d.TIMES).getDay() === index)
-                  .length > 0
+                (props.data.filter(
+                  (d) => compare2Days(new Date(d.TIMES), date) === true
+                ).length > 0
                   ? " dot-notify"
                   : "")
               }
@@ -97,36 +103,40 @@ function Content(props) {
           ))}
         </div>
       </div>
-      <div>
-        <Button
-          variant="contained"
-          color="primary"
+      <div className="appointment__addbtn">
+        <Button                    
           style={{
             marginTop: "0rem",
             marginLeft: "40%",
+            fontSize: 13,
+            color: '#2E3192'
           }}
+          startIcon={<Add/>}
           onClick={() => {
             setOpenForm(true);
           }}
         >
-          Tạo lịch hẹn
+          Thêm
         </Button>
-        <Form open = {openForm} handleClose={handleClose}/>
+        <Form open={openForm} handleClose={handleClose} />
       </div>
       <div className="appointment-container">
         {/* <Scrollbars style={{ width: '100%', height: 350 }}> */}
-        {props.data
-          .filter(
-            (appointment) => new Date(appointment.TIMES).getDay() === dayActive
-          )
-          .map((appointment) => (
+        {filteredData.length ? (
+          filteredData.map((appointment) => (
             <div className="appointment">
               <div className="appointment-header">
                 <h3>
                   {`${(
-                    "0" + new Date(appointment.TIMES.slice(0, 21)).getHours()
+                    "0" +
+                    new Date(
+                      appointment.TIMES.toString().slice(0, 21)
+                    ).getHours()
                   ).slice(-2)}:${(
-                    "0" + new Date(appointment.TIMES.slice(0, 21)).getMinutes()
+                    "0" +
+                    new Date(
+                      appointment.TIMES.toString().slice(0, 21)
+                    ).getMinutes()
                   ).slice(-2)}`}
                 </h3>
                 <p>{appointment.TYPE ? "Tái Khám" : "Khám mới"}</p>
@@ -139,7 +149,10 @@ function Content(props) {
                 <FontAwesomeIcon icon="ellipsis-v"></FontAwesomeIcon>
               </div>
             </div>
-          ))}
+          ))
+        ) : (
+          <div><img src={NoResultDate} className="appointment__noresult" alt="No results" width="512"/></div>
+        )}
         {/* </Scrollbars> */}
       </div>
     </CustomPaper>

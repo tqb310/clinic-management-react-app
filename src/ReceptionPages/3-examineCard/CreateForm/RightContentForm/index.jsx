@@ -6,6 +6,7 @@ import Select from "_components/FormikField/Select";
 import { Date } from "_components/FormikField/DateTime";
 import { receptionist } from "_constants/FakeData/Select";
 import { services } from "_constants/FakeData/Checkbox";
+import handlePriceFormat from "_helpers/handlePriceFormat";
 import "./index.scss";
 // import PropTypes from 'prop-types'
 
@@ -108,8 +109,8 @@ function RightContent(props) {
                     </tr>
                   </thead>
                   <tbody>
-                    {services.map((service) => (
-                      <tr>
+                    {services.map((service, index) => (
+                      <tr key={index}>
                         <td>
                           <FormControlLabel
                             {...field}
@@ -121,7 +122,7 @@ function RightContent(props) {
                             label={service.key}
                           />
                         </td>
-                        <td>{service.fee}</td>
+                        <td>{handlePriceFormat(service.fee)}</td>
                       </tr>
                     ))}
                   </tbody>

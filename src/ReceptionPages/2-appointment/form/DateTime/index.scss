@@ -1,0 +1,10 @@
+@import "_assets/style/_mixins.scss";
+
+.AppointmentForm__datetime {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);  
+  margin-top: .8rem;
+  margin-bottom: 20px;  
+  @include gridDivide();
+}
+

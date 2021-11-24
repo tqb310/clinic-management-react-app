@@ -20,7 +20,7 @@ function ContentForm({onSubmit}) {
           DATE_OF_BIRTH: null,          
           CREATE_AT: new Date(),
           GENDER: "",          
-          occupation: "",
+          OCCUPATION: "",
           IDENTITY_NUMBER: "",
           ADDRESS: {
             details: '',

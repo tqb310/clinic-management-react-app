@@ -9,7 +9,7 @@ import {
 // import { ErrorMessage } from "formik";
 // import PropTypes from 'prop-types'
 
-function InputField({ form, field, label, required, icon: Icon, ...rest }) {
+function InputField({ form, field, label, required, left ,icon: Icon, ...rest }) {
   // console.log(field);
   const isError = form.errors[field.name];
   return (
@@ -27,7 +27,7 @@ function InputField({ form, field, label, required, icon: Icon, ...rest }) {
         sx={{
           fontSize: 14,
           top: "4%",
-          left: "-6.5%",
+          left: left || '-6.5%',
           "& .MuiFormLabel-asterisk": { color: "red" },
         }}
       >

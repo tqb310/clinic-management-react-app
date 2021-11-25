@@ -1,7 +1,7 @@
 import React from "react";
 // import PropTypes from 'prop-types';
 import TabTableWrapper from "_components/TabTableWrapper";
-import EnhancedTable from "./_components/QueryTable";
+import EnhancedTable from "./_components/QueueTable";
 import {RightBar} from "_components/StyledComponent";
 import RightBarContent from "./_components/RightBar";
 import socketIO from '_services/socket.io'

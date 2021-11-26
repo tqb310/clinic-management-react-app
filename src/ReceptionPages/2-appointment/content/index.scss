@@ -3,10 +3,10 @@
 .content-container {
   max-width: 100%;
   margin-top: 6.5px;
-  padding: 0.7rem 0;
+  padding-top: 0.7rem;
   background: #fff;
   position: relative;
-  height: 100%;
+  // height: 100%;
   .content-header {
     display: flex;
     flex-direction: row;
@@ -62,7 +62,7 @@
       z-index: 1000;
       position: absolute;
       top: 5.5rem;      
-      opacity: 0;
+      opacity: 0.2;
       transition: all 0.2s;
       &:hover {
         transform: scale(1.1,1.1);
@@ -132,10 +132,10 @@
       }
     }
   }
-  .appointment-container {
+  .appointment-wrapper {
     display: flex;
     flex-direction: column;
-    margin-left: 2rem;
+    // margin-left: 2rem;
     .appointment {
       display: flex;
       flex-direction: row;
@@ -178,5 +178,6 @@
     display: flex;
     justify-content: flex-end;
     padding: 0 1.8rem;
+    margin: .5rem 0
   }
 }

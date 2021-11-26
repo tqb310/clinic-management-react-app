@@ -11,11 +11,11 @@ function createData(orderNum, patientName, phoneNumber, checkIn, room, state) {
 }
 
 export const rows = [
-  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 0),
-  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 0),
-  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 2),
-  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 2),
-  createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
+  createData(24, "Trương Quốc Bảo", "0123456789", "8:30", 1, 0),
+  createData(24, "Đặng Nguyễn Hoài Đen", "0123456789", "8:30", 1, 0),
+  createData(24, "Đặng Ngọc Liêm", "0123456789", "8:30", 1, 2),
+  createData(24, "Lý Sô Ly", "0123456789", "8:30", 1, 2),
+  createData(24, "Phùng Nguyễn Liêu Băng", "0123456789", "8:30", 1, 1),
   createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
   createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),
   createData(24, "Nguyễn Văn A", "0123456789", "8:30", 1, 1),

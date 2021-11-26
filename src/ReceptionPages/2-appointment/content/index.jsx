@@ -7,6 +7,13 @@ import { CustomPaper } from "_components/StyledComponent";
 import { compare2Days, toNewDate } from "_helpers/handleDate";
 import Form from "../form";
 import NoResultDate from "./assets/no-date-result.png";
+import Table from "_components/Table";
+import { AppointmentHeadCells } from "_constants/headCell";
+import {
+  stateData,
+  rows,
+  examineType,
+} from "_constants/FakeData/AppointmentRequest";
 import "./index.scss";
 // import { Scrollbars } from 'react-custom-scrollbars-2';
 
@@ -104,14 +111,14 @@ function Content(props) {
         </div>
       </div>
       <div className="appointment__addbtn">
-        <Button                    
+        <Button
           style={{
             marginTop: "0rem",
             marginLeft: "40%",
             fontSize: 13,
-            color: '#2E3192'
+            color: "#2E3192",
           }}
-          startIcon={<Add/>}
+          startIcon={<Add />}
           onClick={() => {
             setOpenForm(true);
           }}
@@ -120,43 +127,56 @@ function Content(props) {
         </Button>
         <Form open={openForm} handleClose={handleClose} />
       </div>
-      <div className="appointment-container">
-        {/* <Scrollbars style={{ width: '100%', height: 350 }}> */}
+      <div className="appointment-wrapper">
         {filteredData.length ? (
-          filteredData.map((appointment) => (
-            <div className="appointment">
-              <div className="appointment-header">
-                <h3>
-                  {`${(
-                    "0" +
-                    new Date(
-                      appointment.TIMES.toString().slice(0, 21)
-                    ).getHours()
-                  ).slice(-2)}:${(
-                    "0" +
-                    new Date(
-                      appointment.TIMES.toString().slice(0, 21)
-                    ).getMinutes()
-                  ).slice(-2)}`}
-                </h3>
-                <p>{appointment.TYPE ? "Tái Khám" : "Khám mới"}</p>
-              </div>
-              <div className="appointment-body">
-                <div>
-                  <h4>{appointment.PATIENT_NAME}</h4>
-                  <p>{`BS. ${appointment.EMPLOYEE_NAME}`}</p>
-                </div>
-                <FontAwesomeIcon icon="ellipsis-v"></FontAwesomeIcon>
-              </div>
-            </div>
-          ))
+          <Table
+            headCells={AppointmentHeadCells}
+            rows={rows}
+            stateArray={stateData}
+            rowsPerPage={10}
+            examineType={examineType}
+          />
         ) : (
-          <div><img src={NoResultDate} className="appointment__noresult" alt="No results" width="512"/></div>
+          <div>
+            <img
+              src={NoResultDate}
+              className="appointment__noresult"
+              alt="No results"
+              width="512"
+            />
+          </div>
         )}
-        {/* </Scrollbars> */}
       </div>
     </CustomPaper>
   );
 }
 
 export default Content;
+
+// filteredData.map((appointment) => (
+//   <div className="appointment">
+//     <div className="appointment-header">
+//       <h3>
+//         {`${(
+//           "0" +
+//           new Date(
+//             appointment.TIMES.toString().slice(0, 21)
+//           ).getHours()
+//         ).slice(-2)}:${(
+//           "0" +
+//           new Date(
+//             appointment.TIMES.toString().slice(0, 21)
+//           ).getMinutes()
+//         ).slice(-2)}`}
+//       </h3>
+//       <p>{appointment.TYPE ? "Tái Khám" : "Khám mới"}</p>
+//     </div>
+//     <div className="appointment-body">
+//       <div>
+//         <h4>{appointment.PATIENT_NAME}</h4>
+//         <p>{`BS. ${appointment.EMPLOYEE_NAME}`}</p>
+//       </div>
+//       <FontAwesomeIcon icon="ellipsis-v"></FontAwesomeIcon>
+//     </div>
+//   </div>
+// ))

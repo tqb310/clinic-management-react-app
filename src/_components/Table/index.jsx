@@ -5,7 +5,7 @@ import {
   KeyboardArrowRight,
   Sync,
 } from "@mui/icons-material";
-import {EnhancedTableHead, StateComp} from "./EnhancedTableHead";
+import { EnhancedTableHead, StateComp } from "./EnhancedTableHead";
 import "./index.scss";
 // import PropTypes from "prop-types";
 
@@ -96,7 +96,6 @@ export default function EnhancedTable({
                   tabIndex={-1}
                   key={row.id}
                   selected={isItemSelected}
-                  ref={ref}
                 >
                   {isCheckbox && (
                     <td padding="checkbox">
@@ -116,26 +115,34 @@ export default function EnhancedTable({
                       style={{
                         padding: isCheckbox ? "0" : ".6rem 0",
                         color:
-                          state === 2 ? stateArray[2]["colors"][1] : "",    
+                          state === 2 ? stateArray[2]["colors"][1] : "#444",
                         fontWeight: 500,
-                        fontSize: 14.5
+                        fontSize: 14.5,
                       }}
+                      ref={ref}
                     >
                       {field === "patientName" && examineType && (
                         <span
-                          style={type === 0 ? {
-                            backgroundColor:
-                              state !== 2 ?                            
-                              examineType[type]["colors"]["background"] : "#f9f9f9",
-                            color:
-                              state !== 2 &&                            
-                              examineType[type]["colors"]["color"],
-                            fontSize: 13,
-                            display: 'inline-block',
-                            padding: '.2rem .5rem',
-                            marginRight: '.2rem',
-                            borderRadius: '1rem'
-                          } : {}}
+                          style={
+                            type === 0
+                              ? {
+                                  backgroundColor:
+                                    state !== 2
+                                      ? examineType[type]["colors"][
+                                          "background"
+                                        ]
+                                      : "#f9f9f9",
+                                  color:
+                                    state !== 2 &&
+                                    examineType[type]["colors"]["color"],
+                                  fontSize: 13,
+                                  display: "inline-block",
+                                  padding: ".2rem .5rem",
+                                  marginRight: ".2rem",
+                                  borderRadius: "1rem",
+                                }
+                              : {}
+                          }
                         >
                           {type === 0 && examineType[0]["label"]}
                         </span>
@@ -163,7 +170,7 @@ export default function EnhancedTable({
               );
             })}
           {emptyRows > 0 && (
-            <tr style={{ height: (height + 1) * emptyRows }}>
+            <tr id="emptyRow" style={{ height: (height + 1) * emptyRows }}>
               <td
                 sx={{ borderBottom: "none" }}
                 colSpan={headCells.length + 1}

@@ -3,7 +3,7 @@
 .querytable {
   width: 100%;
   border-collapse: collapse;
-  tr {
+  tr:not(#emptyRow) {
     cursor: pointer;
     transition: all .3s;
     &:hover {

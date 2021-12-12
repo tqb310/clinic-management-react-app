@@ -35,7 +35,7 @@ function PageWrapper({ routes, currentPath }) {
         </Box>
         <Box className="pagewrapper__main">
           <Scrollbars
-            style={{ width: "100%", height: "85%" }}
+            style={{ width: "100%", height: "100%" }}
             // autoHide
             // autoHideTimeout={1000}
             // autoHideDuration={500}

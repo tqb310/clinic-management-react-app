@@ -1,8 +1,8 @@
 import React from 'react';
-//import PropTypes from 'prop-types'
 import {useRouteMatch} from 'react-router-dom';
 import Routes from './_routes';
 import PageWrapper from '_components/PageWrapper';
+//import PropTypes from 'prop-types'
 
 
 function ReceptionistModule(props) {

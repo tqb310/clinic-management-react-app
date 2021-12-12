@@ -4,8 +4,14 @@
   display: flex;
   min-height: 100vh;
   &__left {   
+    position: relative;
     padding: 10px 0;
-    flex: 0.6;
+    flex: 0.6;   
+    .pagewrapper__logout {            
+      position: absolute;
+      bottom: 20px;
+      left: 23%
+    }
   }
   &__center {    
     flex: 8.4;

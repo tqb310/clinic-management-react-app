@@ -23,7 +23,7 @@ function PageWrapper({ routes, currentPath }) {
         />
         <SideBar routes={routes} />
         <IconButton
-          sx={{ display: "block", margin: "10rem auto" }}
+          className="pagewrapper__logout"          
           onClick={() => authentication.logout()}
         >
           <Logout sx={{ transform: "rotate(180deg)" }} />

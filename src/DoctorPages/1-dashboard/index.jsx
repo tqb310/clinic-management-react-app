@@ -20,14 +20,16 @@ function Dashboard(props) {
             Phòng khám 1
         </CustomPaper>
       </div>
-      <div className="DoctorDashboard__appointment">
-        <Appointment/>
-      </div>
-      <div className="DoctorDashBoard__recentPatient">
-        <RecentPatient/>
-      </div>
-      <div className="DoctorDashBoard__ExamineCard">
-        <ExamineCard/>
+      <div className="DoctorDashboard__content">
+        <div className="DoctorDashboard__appointment">
+          <Appointment/>
+        </div>
+        <div className="DoctorDashBoard__examineCard">
+          <ExamineCard/>
+        </div>
+        <div className="DoctorDashBoard__recentPatient">
+          <RecentPatient/>
+        </div>
       </div>
       <RightBarContent/>
     </div>

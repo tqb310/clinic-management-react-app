@@ -1,0 +1,43 @@
+@import "_assets/style/_colors.scss";
+@import "_assets/style/_mixins.scss";
+
+.DTExamineCard {
+  padding: 0.7rem 1.5rem;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    // padding: 0 1.5rem;
+    p {
+      margin: 0;
+      span {
+        font-weight: 700;
+      }
+    }
+    p:first-child {
+      font-weight: 700;
+    }
+  }
+  &__cardInfo {
+    display: flex;
+    justify-content: space-between;
+    p {
+      margin-bottom: 0;
+      margin-top: 0.7rem;
+      span {
+        font-weight: 500;
+        margin-right: 10px
+      }
+    }
+  }
+  &__content {
+    .DTExamineCard__patientInfo {
+      @include outlineTitle("Thông tin bệnh nhân", #AAA, #fff, #000);
+    }
+    .DTExamineCard__service {
+      @include outlineTitle("Dịch vụ", #AAA, #fff, #000);
+    }
+    .DTExamineCard__examineInfo {
+      @include outlineTitle("Khám lâm sàng", #AAA, #fff, #000);
+    }
+  }
+}

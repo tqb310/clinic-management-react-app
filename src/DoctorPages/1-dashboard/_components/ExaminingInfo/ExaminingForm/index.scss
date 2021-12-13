@@ -1,0 +1,10 @@
+@import "_assets/style/_colors.scss";
+@import "_assets/style/_mixins.scss";
+
+.ExaminingForm {    
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-column-gap: 2rem;
+    @include gridDivide();
+
+}

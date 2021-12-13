@@ -22,6 +22,7 @@ function Content(props) {
   const [dayActive, setDayActive] = useState(new Date(Date.now()));
   const [rendereDate, setRenderedDate] = useState(new Date(Date.now()));
   const [openForm, setOpenForm] = useState(false);
+  const [selectId, setSelectId] = useState(rows[0].id);
   const filteredData = props.data.filter(
     (appointment) =>
       compare2Days(new Date(appointment.TIMES), dayActive) === true
@@ -135,6 +136,8 @@ function Content(props) {
             stateArray={stateData}
             rowsPerPage={10}
             examineType={examineType}
+            selectId={selectId}
+            setSelectId={setSelectId}
           />
         ) : (
           <div>

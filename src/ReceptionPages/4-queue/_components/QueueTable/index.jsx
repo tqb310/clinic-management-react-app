@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 // import { Box, Checkbox, IconButton } from "@mui/material";
 // import {
 //   KeyboardArrowLeft,
@@ -12,7 +12,7 @@ import "./index.scss";
 // import PropTypes from "prop-types";
 
 export default function EnhancedTable({data}) {
-  // const [selected, setSelected] = useState([]);
+  const [selectId, setSelectId] = useState(data[0].id);
   // const [page, setPage] = useState(0);
   // const [selectId, setSelectId] = useState(rows[0].id);
   // const [height, setHeight] = useState(0);
@@ -24,6 +24,8 @@ export default function EnhancedTable({data}) {
       stateArray={stateData}
       rowsPerPage={10}
       isCheckbox={true}
+      selectId={selectId}
+      setSelectId={setSelectId}
     />
   );
 }

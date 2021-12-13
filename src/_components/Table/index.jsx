@@ -16,10 +16,12 @@ export default function EnhancedTable({
   rowsPerPage,
   isCheckbox,
   examineType,
+  selectId,
+  setSelectId
 }) {
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
-  const [selectId, setSelectId] = useState(rows[0].id);
+  // const [selectId, setSelectId] = useState(rows[0].id);
   const [height, setHeight] = useState(0);
   const ref = useRef(null);
   useEffect(() => {

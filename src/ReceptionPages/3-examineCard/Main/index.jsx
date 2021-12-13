@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import TabTableWrapper from "_components/TabTableWrapper";
 import Table from "_components/Table";
 import { headCells } from "_constants/headCell";
@@ -14,6 +14,7 @@ const data = [
 ];
 
 function Main(props) {
+  const [selectId, setSelectId] = useState(rows[0].id);
   return (
     <TabTableWrapper tabNameArr={data}>
       {(index) => {
@@ -25,6 +26,8 @@ function Main(props) {
               stateArray={stateData}
               rowsPerPage={10}
               isCheckbox={true}
+              selectId={selectId}
+              setSelectId={setSelectId}
             />
           </div>
         );

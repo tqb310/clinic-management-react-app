@@ -1,19 +1,17 @@
 import React from "react";
 import { EventAvailable } from "@mui/icons-material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {dateParse} from '_constants/date'
 import "./index.scss";
 // import PropTypes from 'prop-types'
 
-function CardInfor({createAt, type, doctor, status}) {
-  // 
+function CardInfor(props) {
   return (
     <div className="CardInfor">
       <p className="title">
         <EventAvailable className="CardInfor__icon" />
         Ngày tạo
       </p>
-      <p>{dateParse(new Date(createAt.slice(0,22)))}</p>
+      <p>01/01/2021</p>
       <p className="title">
         <FontAwesomeIcon
           icon="stethoscope"
@@ -25,7 +23,7 @@ function CardInfor({createAt, type, doctor, status}) {
         />
         Loại
       </p>
-      <p className="link">{type}</p>
+      <p className="link">Tái khám - 123456788</p>
       <p className="title">
         <FontAwesomeIcon
           icon="user-md"
@@ -37,7 +35,7 @@ function CardInfor({createAt, type, doctor, status}) {
         />
         Bác sĩ
       </p>
-      <p>{doctor}</p>
+      <p>Nguyễn Văn B</p>
       <p className="CardInfor__last title">
         <FontAwesomeIcon
           icon="spinner"
@@ -49,7 +47,7 @@ function CardInfor({createAt, type, doctor, status}) {
         />
         Trạng thái
       </p>
-      <p className="CardInfor__last in-process">Chưa hoàn tất-thémtatus</p>
+      <p className="CardInfor__last in-process">Chưa hoàn tất</p>
     </div>
   );
 }

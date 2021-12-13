@@ -1,0 +1,95 @@
+@import '_assets/style/_colors.scss';
+
+.RBDoctorHome__queueItem {
+    color: black;
+    background-color: #ECFBF6;
+    border-radius: 8px;
+    margin-top: 7px;
+    display: flex;
+    align-items: center;
+    padding: 0.6rem 0.2rem;
+    .RBDoctorHome__patient {
+        flex: 4;
+        text-align: left;
+        margin-left: .5rem;
+        font-weight: 500;
+        color: #333;
+        p:first-child {
+            margin-top: 0;
+            margin-bottom: 4px;
+        }
+        p:last-child {
+            margin: 0;
+        }
+    }
+    .RBDoctorHome__avatar, .RBDoctorHome__orderNum {
+        flex: 1
+    }
+    .RBDoctorHome__avatarInner {
+        width: 45px;
+        height: 50px;
+        border-radius: 10px;
+        color: white;
+        background-color: #ad8200;
+        text-align: center;
+        line-height: 2.9rem;
+        font: {
+            size: 1.3rem;
+            weight: 500
+        };
+        margin: auto
+    }
+    .RBDoctorHome__orderNumInner {
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        background-color: #c1ffe2;
+        line-height: 2.4rem;
+        font-weight: 500;
+        color: #03B575;
+    }
+}
+
+.RBDoctorHome {
+    box-sizing: border-box;
+    padding: 1rem;
+    h4 {
+        margin-top: 0;
+        color: #FCDF98;
+        text-align: center;
+    }
+    &__examining {
+        // background-color: rgba($color: #fff, $alpha: 0.9);
+        background-color: $background-main;
+        border-radius: 8px;
+        color: black;
+    }
+    &__queueTab {
+        color: black;
+        background-color: $background-main;
+        display: flex;
+        border-radius: 8px;
+        margin-top: 2rem;
+        margin-bottom: .8rem;
+        div {
+            flex: 1;
+            padding: 7px 0;
+            user-select: none;
+            cursor: pointer;
+            font-weight: 500;
+            &:hover {
+                background-color: #e0e3ff;
+            }
+        }
+        div:first-child {
+            border-radius: 8px 0 0 8px;
+        }
+        div:last-child {
+            border-radius: 0 8px 8px 0;
+        }
+    }
+    // &__queueList {
+       
+    // }
+}
+

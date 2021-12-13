@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "@mui/material";
 import {KeyboardArrowDown} from "@mui/icons-material";
 import { CustomPaper } from "_components/StyledComponent";
-import Card from "./Card";
+import Card from "_components/Card";
 import "./index.scss";
 // import PropTypes from 'prop-types'
 

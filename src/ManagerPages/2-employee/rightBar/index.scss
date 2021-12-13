@@ -1,0 +1,24 @@
+.manage-employee-infomation{
+    padding-left:1.5rem ;
+    &-title{
+        font-weight: 700;
+        font-size: 23px;
+    }
+    div{
+        text-align: left;
+        span{
+            font-weight: 700;
+        }
+        .manage-employee-infomation-change{
+            padding:0.5rem 1rem;
+            background-color: #09aeae;
+            color:#fff;
+            font-weight: 700;
+            font-size: 20px;
+            border-radius: 20px;
+            &:hover{
+                opacity: 0.8;
+            }
+        }
+    }
+}

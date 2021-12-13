@@ -1,0 +1,61 @@
+.manage-fee{
+    height: 80vh;
+    display: grid;
+    margin-right: 5px;
+    grid-template-columns: 45% 50%;
+    grid-gap: 5%;
+    &-card-chart{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        // align-items: center;
+    }
+    &-right{
+        margin-top: 0.8rem;
+        &-table{
+            border-radius: 7px;
+            background-color: #fff;
+            box-shadow: 5px 5px 8px #c3c3c3;
+            padding: 0.5rem;
+            &-title{
+            font-size: 23px;
+            font-weight: 700;
+            text-align: center;
+            }
+            table{
+                width: 100%;
+                border-collapse: collapse;
+                text-align: center;
+                tr{
+                    &.manage-fee-right-table-row-active{
+                        border-top: 1px solid #c3c3c3;
+                        border-bottom: 1px solid #c3c3c3;
+                    }
+                    font-size: 16px;
+                    &:hover{
+                        background-color: #f1f1f1;
+                    }
+                    td{
+                        padding: 0.5rem;
+                    }
+                    &:last-child{
+                        &:hover{
+                            background-color: #fff !important;
+                        }
+                        td{
+                            &:hover{
+                                color:#0000FF;
+                            }
+                        }
+                    }
+                    &:first-child{
+                        &:hover{
+                            background-color: #fff !important;
+                        }
+                    }
+                }
+            }
+        }
+        
+    }
+}

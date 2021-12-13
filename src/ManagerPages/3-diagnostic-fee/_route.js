@@ -3,8 +3,8 @@ import {Feed} from '@mui/icons-material';
 
 const route = {
     id: Math.random().toString(32).substr(2,10),
-    path: '/phieu-kham',
-    name: 'Phiếu khám',
+    path: '/phi-kham',
+    name: 'Phí khám',
     public: false,
     exact: true,
     component: lazy(() => import('./index')),

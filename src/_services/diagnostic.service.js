@@ -16,13 +16,32 @@ const diagnostic = {
             return null
         }
     },
-    async getDiagnosticStack(){
+    async getDiagnosticStack() {
+        const mergeStack = (stack) => {
+            const room1 = stack.room1;
+            const room2 = stack.room2;
+            return [...room1.map(data =>{
+                const kq = {
+                    room : 1,
+                        data
+                }
+                return kq;
+            } 
+                
+            ), ...room2.map(data =>{
+                const kq = {
+                    room : 2,
+                        data
+                }
+                return kq;
+            })]
+        }
         try {
             let stacks = await axiosClient.get(
                 diagnosticUrl.getDiagnostic,
                 { headers: { access_token: authentication.getCurrentUser().token } }
             )
-            console.log(stacks)
+            return mergeStack(stacks)
         } catch (error) {
             console.log(error)
         }

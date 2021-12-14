@@ -1,8 +1,9 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import TabTableWrapper from "_components/TabTableWrapper";
 import Table from "_components/Table";
 import { headCells } from "_constants/headCell";
-import { rows, stateData } from "_constants/FakeData/QueryTable";
+import { rows, stateData, createData } from "_constants/FakeData/QueryTable";
+import diagnosticService from '_services/diagnostic.service'
 import "./index.scss";
 // import PropTypes from 'prop-types'
 
@@ -13,8 +14,31 @@ const data = [
   { title: "Hoàn tất", number: 4 },
 ];
 
+const newRows = (queue) => {
+  const kq = queue.map((data, index) => {
+    return createData(
+      index + 1,
+      data.PATIENT.PATIENT_NAME,
+      data.PATIENT.PHONE,
+      "8:30",
+      1,
+      data.STATUS
+    )
+  })
+  return kq
+}
+
 function Main(props) {
   const [selectId, setSelectId] = useState(rows[0].id);
+  const [diagnostics, setDiagnostics] = useState([])
+  useEffect(() => {
+    async function fetchData() {
+      let data = await diagnosticService.getAllDiagnostic()
+      setDiagnostics(data)
+    }
+    fetchData()
+  }, [])
+  console.log((diagnostics))
   return (
     <TabTableWrapper tabNameArr={data}>
       {(index) => {
@@ -22,7 +46,7 @@ function Main(props) {
           <div>
             <Table
               headCells={headCells}
-              rows={rows}
+              rows={newRows(diagnostics)}
               stateArray={stateData}
               rowsPerPage={10}
               isCheckbox={true}

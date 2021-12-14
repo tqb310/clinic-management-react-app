@@ -11,6 +11,7 @@ export const appointment = {
 
 export const diagnostic = {
     createDiagostic: '/reception/diagnostic',
-    getDiagnostic: './reception/diagnostic-stack'
+    getDiagnostic: '/reception/diagnostic-stack',
+    getAllDiagnostic: '/reception/diagnostic'
 }
 //Them tat ca url cua api vao day

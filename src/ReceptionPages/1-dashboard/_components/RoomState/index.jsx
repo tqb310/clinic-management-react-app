@@ -21,11 +21,41 @@ function RoomState(props) {
           </tr>
           <tr>
             <td>
+              <div className="statusDot available"></div>
+            </td>
+            <td>
+              <p className="room">Siêu âm</p>
+              {/* <p className="doctor">BS.Ly</p> */}
+            </td>
+            <td>#23 Nguyễn Thị B</td>
+          </tr>
+          <tr>
+            <td>
+              <div className="statusDot available"></div>
+            </td>
+            <td>
+              <p className="room">Xét nghiệm máu</p>
+              {/* <p className="doctor">BS.Ly</p> */}
+            </td>
+            <td>#23 Nguyễn Thị B</td>
+          </tr>
+          <tr>
+            <td>
               <div className="statusDot non-available"></div>
             </td>
             <td>
               <p className="room">Phòng 2</p>
               <p className="doctor">BS.Ly</p>
+            </td>
+            <td></td>
+          </tr>
+          <tr>
+            <td>
+              <div className="statusDot non-available"></div>
+            </td>
+            <td>
+              <p className="room">Chụp X quang</p>
+              {/* <p className="doctor">BS.Ly</p> */}
             </td>
             <td></td>
           </tr>

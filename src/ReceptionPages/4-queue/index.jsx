@@ -1,12 +1,12 @@
-import React, {useEffect} from "react";
+import React, { useEffect, useState } from "react";
 // import PropTypes from 'prop-types';
 import TabTableWrapper from "_components/TabTableWrapper";
 import EnhancedTable from "./_components/QueueTable";
-import {RightBar} from "_components/StyledComponent";
+import { RightBar } from "_components/StyledComponent";
 import RightBarContent from "./_components/RightBar";
 import socketIO from '_services/socket.io';
-// import diagnosticService from '_services/diagnostic.service';
-import { rows } from "_constants/FakeData/QueryTable";
+import diagnosticService from '_services/diagnostic.service';
+import { rows, createData } from "_constants/FakeData/QueryTable";
 
 const data = [
   { title: "Tất cả", number: 50 },
@@ -15,34 +15,63 @@ const data = [
   { title: "Qua lượt", number: 4 },
 ];
 
-function Query(props) {
-  socketIO.on('diagnostic-stack-change', (stack) => {
-    console.log(stack);
+const status = new Map([
+  ['pending', 0],
+  ['diagnosing', 1],
+  ['turn out', 2]
+])
+
+const newRows = (queue) => {
+  const kq = queue.map(data => {
+    return createData(
+      data.data.order,
+      data.data.diagnostic.PATIENT.PATIENT_NAME,
+      data.data.diagnostic.PATIENT.PHONE,
+      "8:30",
+      data.room,
+      status.get(data.data.status)
+    )
   })
+  return kq
+}
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       let stack = await diagnosticService.getDiagnosticStack();
-  //       console.log(stack)
-  //     } catch (error) {
-  //       console.log(error)
-  //     }
-  //   }
-  //   fetchData()
-  // }, [])
+function Query(props) {
+  const [queue, setQueue] = useState([])
+  const [selectIndex, setSelectIndex] = useState(0)
+  const handleSelectIndex = (index) => {
+    console.log(index)
+    setSelectIndex(index)
+  }
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        let stack = await diagnosticService.getDiagnosticStack();
+        setQueue(stack)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchData()
+  }, [])
+  
+
+  socketIO.on('diagnostic-stack-change', (stack) => {
+    setQueue(stack)
+  })
+  console.log(queue)
+  console.log(newRows(queue))
   return (
     <div>
       <TabTableWrapper tabNameArr={data}>
         {() => (
           <div>
-            <EnhancedTable data={rows}/>
+            <EnhancedTable data={newRows(queue)} selectIndex={selectIndex} handleSelectIndex={handleSelectIndex} />
           </div>
         )}
       </TabTableWrapper>
       <RightBar>
-        <RightBarContent/>
+        <RightBarContent data={queue[selectIndex]} />
       </RightBar>
     </div>
   );

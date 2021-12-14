@@ -12,26 +12,24 @@ import "./index.scss";
 // import PropTypes from "prop-types";
 
 export default function EnhancedTable({ data, selectIndex, handleSelectIndex }) {
-  console.log(data)
   const [selectId, setSelectId] = useState('');
   useEffect(() => {
     if (data.length > 0)
       setSelectId(data[selectIndex].id)
     else
       setSelectId('')
-  }, [])
-  // const handleSelectId = (id) => {
-  //   let index = 0
-  //   for (let i = 0; i < data.length; i++) {
-  //     if (data[i].id.localeCompare(id)) {
-  //       index = i;
-  //       console.log(data[i].id, id, i)
-  //       break
-  //     }
-  //   }
-  //   handleSelectIndex(index)
-  //   setSelectId(data[index].id)
-  // }
+  }, [selectIndex])
+  const handleSelectId = (id) => {
+    let index = 0
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].id.localeCompare(id) == 0) {
+        index = i;
+        break
+      }
+    }
+    handleSelectIndex(index)
+    setSelectId(data[index].id)
+  }
   // const [page, setPage] = useState(0);
   // const [selectId, setSelectId] = useState(rows[0].id);
   // const [height, setHeight] = useState(0);
@@ -44,7 +42,7 @@ export default function EnhancedTable({ data, selectIndex, handleSelectIndex }) 
       rowsPerPage={10}
       isCheckbox={true}
       selectId={selectId}
-      setSelectId={setSelectId}
+      setSelectId={handleSelectId}
     />
   );
 }

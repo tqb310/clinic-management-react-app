@@ -45,3 +45,19 @@ const diagnostic = {
 }
 
 export default diagnostic;
+
+export const mergeStack = (stack) => {
+    return [...stack.room1.map(data=>{
+        const kq = {
+            room:1,
+            data
+        }
+        return kq
+    }), ...stack.room2.map(data=>{
+        const kq = {
+            room:2,
+            data
+        }
+        return kq
+    })]
+}

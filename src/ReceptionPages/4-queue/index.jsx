@@ -5,8 +5,12 @@ import EnhancedTable from "./_components/QueueTable";
 import { RightBar } from "_components/StyledComponent";
 import RightBarContent from "./_components/RightBar";
 import socketIO from '_services/socket.io';
-import diagnosticService from '_services/diagnostic.service';
-import { rows, createData } from "_constants/FakeData/QueryTable";
+import diagnosticService, {mergeStack} from '_services/diagnostic.service';
+import {
+  rows,
+  createData,
+  replaceDateWhenQueueEmpty
+} from "_constants/FakeData/QueryTable";
 
 const data = [
   { title: "Tất cả", number: 50 },
@@ -16,8 +20,8 @@ const data = [
 ];
 
 const status = new Map([
-  ['pending', 0],
-  ['diagnosing', 1],
+  ['pending', 1],
+  ['diagnosing', 0],
   ['turn out', 2]
 ])
 
@@ -39,7 +43,6 @@ function Query(props) {
   const [queue, setQueue] = useState([])
   const [selectIndex, setSelectIndex] = useState(0)
   const handleSelectIndex = (index) => {
-    console.log(index)
     setSelectIndex(index)
   }
 
@@ -54,13 +57,11 @@ function Query(props) {
     }
     fetchData()
   }, [])
-  
 
   socketIO.on('diagnostic-stack-change', (stack) => {
-    setQueue(stack)
+    console.log(newRows(mergeStack(stack)))
+    //setQueue(mergeStack(stack))
   })
-  console.log(queue)
-  console.log(newRows(queue))
   return (
     <div>
       <TabTableWrapper tabNameArr={data}>
@@ -71,7 +72,7 @@ function Query(props) {
         )}
       </TabTableWrapper>
       <RightBar>
-        <RightBarContent data={queue[selectIndex]} />
+        <RightBarContent data={(selectIndex < queue.length)? queue[selectIndex] : replaceDateWhenQueueEmpty} />
       </RightBar>
     </div>
   );

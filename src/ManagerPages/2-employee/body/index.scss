@@ -1,0 +1,38 @@
+.manage-employee-body{
+    margin-top: 4rem;
+    &-title{
+        text-align: center;
+        font-size: 26px;
+        font-weight: 700;
+    }
+    table{
+        width: 100%;
+        border-collapse: collapse;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        tr{
+            &:hover{
+                background-color: #f1f1f1;
+            }
+            height: 50px;
+            td{
+                text-align: center;
+            }
+            td.manage-employee-id{
+                width: 10%;
+            }
+            td.manage-employee-name{
+                width: 30%;
+            }
+            td.manage-employee-phone{
+                width: 25%;
+            }
+            td.manage-employee-position{
+                width: 20%;
+            }
+            td.manage-employee-salary{
+                width: 20%;
+            }
+        }
+    }
+}

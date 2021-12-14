@@ -17,7 +17,9 @@ export default function EnhancedTable({
   isCheckbox,
   examineType,
   selectId,
-  setSelectId
+  setSelectId,
+  isSwap,
+  onClickItem,
 }) {
   const [selected, setSelected] = useState([]);
   const [page, setPage] = useState(0);
@@ -91,7 +93,13 @@ export default function EnhancedTable({
               //   console.log(examineType[type]["colors"]);
               return (
                 <tr
-                  onClick={() => setSelectId(row.id)}
+                  onClick={() => {
+                    if (onClickItem) {
+                      onClickItem(row.id);
+                      return;
+                    }
+                    setSelectId(row.id)
+                  }}
                   className={!selectId.localeCompare(row.id) ? "active" : ""}
                   role="checkbox"
                   aria-checked={isItemSelected}
@@ -158,16 +166,18 @@ export default function EnhancedTable({
                       state={row.state}
                     ></StateComp>
                   </td>
-                  <td align="center">
-                    {row.state !== 0 &&
-                      selected.length === 1 &&
-                      selected.indexOf(row.id) === -1 && (
-                        <Sync
-                          className="swapicon"
-                          onClick={(e) => e.stopPropagation()}
-                        />
-                      )}
-                  </td>
+                  {isSwap && (
+                    <td align="center">
+                      {row.state !== 0 &&
+                        selected.length === 1 &&
+                        selected.indexOf(row.id) === -1 && (
+                          <Sync
+                            className="swapicon"
+                            onClick={(e) => e.stopPropagation()}
+                          />
+                        )}
+                    </td>
+                  )}
                 </tr>
               );
             })}

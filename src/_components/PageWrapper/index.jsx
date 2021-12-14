@@ -11,6 +11,7 @@ import authentication from "_services/authentication.service";
 import "./index.scss";
 
 function PageWrapper({ routes, currentPath }) {
+  const role = authentication.getCurrentUser()?.payload.role;  
   return (
     <Box className="pagewrapper">
       <Box className="pagewrapper__left">
@@ -23,7 +24,7 @@ function PageWrapper({ routes, currentPath }) {
         />
         <SideBar routes={routes} />
         <IconButton
-          className="pagewrapper__logout"          
+          className="pagewrapper__logout"
           onClick={() => authentication.logout()}
         >
           <Logout sx={{ transform: "rotate(180deg)" }} />
@@ -61,19 +62,21 @@ function PageWrapper({ routes, currentPath }) {
         </Box>
       </Box>
       <Box className="pagewrapper__right"></Box>
-      <Link to="/tiep-tan/phieu-kham/them-phieu-kham">
-        <div className="pagewrapper__createCard">
-          <Add
-            sx={{
-              fontSize: 32,
-              color: "white",
-              transition: "all .3s",
-              "&:hover": { transform: "scale(1.2,1.2)" },
-              "&:active": { transform: "scale(0.9, 0.9)" },
-            }}
-          />
-        </div>
-      </Link>
+      {role === 1 && (
+        <Link to="/tiep-tan/phieu-kham/them-phieu-kham">
+          <div className="pagewrapper__createCard">
+            <Add
+              sx={{
+                fontSize: 32,
+                color: "white",
+                transition: "all .3s",
+                "&:hover": { transform: "scale(1.2,1.2)" },
+                "&:active": { transform: "scale(0.9, 0.9)" },
+              }}
+            />
+          </div>
+        </Link>
+      )}
     </Box>
   );
 }

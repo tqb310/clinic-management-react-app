@@ -25,19 +25,30 @@
       margin-top: 0.7rem;
       span {
         font-weight: 500;
-        margin-right: 10px
+        margin-right: 10px;
       }
     }
   }
   &__content {
     .DTExamineCard__patientInfo {
-      @include outlineTitle("Thông tin bệnh nhân", #AAA, #fff, #000);
+      @include outlineTitle("Thông tin bệnh nhân", #aaa, #fff, #000);
     }
     .DTExamineCard__service {
-      @include outlineTitle("Dịch vụ", #AAA, #fff, #000);
+      @include outlineTitle("Dịch vụ", #aaa, #fff, #000);
     }
     .DTExamineCard__examineInfo {
-      @include outlineTitle("Khám lâm sàng", #AAA, #fff, #000);
+      @include outlineTitle("Khám lâm sàng", #aaa, #fff, #000);
     }
+  }
+  &__footer {
+    z-index: 1000;
+    position: sticky;
+    bottom: 0px;
+    background-color: #fafafa;
+    margin-top: 1rem;
+    padding: 1rem 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    border: 1px solid rgba($color: #000000, $alpha: 0.1);
   }
 }

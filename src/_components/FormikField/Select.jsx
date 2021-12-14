@@ -17,7 +17,9 @@ export default function SelectField({
   field,
   label,
   required,
-  items,  
+  items,
+  variant="standard",
+  left="-6.5%",  
   ...rest
 }) {
   const isError = form.errors[field.name];
@@ -40,7 +42,7 @@ export default function SelectField({
     <FormControl
       sx={{
         "& .MuiInputBase-root": { marginTop: "8px !important" },
-        "& label": { top: "-3%", left: "-6.5%", fontSize: 14 },
+        "& label": { top: "-3%", left: left, fontSize: 14 },
       }}
       fullWidth
       required={required}
@@ -59,7 +61,7 @@ export default function SelectField({
         label={label}
         size="small"
         onChange={handleChange}
-        variant="standard"
+        variant={variant}
       >
         {items &&
           items.map(({ value, key, id }) => {

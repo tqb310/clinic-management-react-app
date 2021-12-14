@@ -1,24 +1,47 @@
 import React, { useState } from "react";
 import { RightBar } from "_components/StyledComponent";
-import TabTableWrapper from "_components/TabTableWrapper";
 import { Button } from "@mui/material";
-import { SwapVert } from "@mui/icons-material";
+import { SwapVert, ArrowBackIosNew, Alarm } from "@mui/icons-material";
 import "./index.scss";
 // import PropTypes from 'prop-types'
 
-const QueueItem = ({ avatar, pname, pnum, pid, state }) => {
+const QueueItem = ({ avatar, pname, pnum, cid, state, current }) => {
   return (
     <div className="RBDoctorHome__queueItem">
-      <div className="RBDoctorHome__avatar">
-        <div className="RBDoctorHome__avatarInner">{avatar}</div>
+      <div style={{ display: "flex", alignItems: "center" }}>
+        {current && <ArrowBackIosNew></ArrowBackIosNew>}
+        <div className="RBDoctorHome__avatar">
+          <div className="RBDoctorHome__avatarInner">{avatar}</div>
+        </div>
+        <div className="RBDoctorHome__patient">
+          <p>#{cid}</p>
+          <p>{pname}</p>
+        </div>
+        <div className="RBDoctorHome__orderNum">
+          <div className="RBDoctorHome__orderNumInner">{pnum}</div>
+        </div>
       </div>
-      <div className="RBDoctorHome__patient">
-        <p>#{pid}</p>
-        <p>{pname}</p>
-      </div>
-      <div className="RBDoctorHome__orderNum">
-        <div className="RBDoctorHome__orderNumInner">{pnum}</div>
-      </div>
+      {current && (
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            padding: '0 1rem'
+          }}
+        >
+          <div style={{fontSize: '16px'}}>
+            <Alarm sx={{fontSize: '16px', transform: 'translateY(1.8px)'}}/> 07:15
+          </div>
+          <Button
+            variant="outlined"
+            color="success"
+            sx={{ fontSize: 12, marginTop: "5px" }}
+          >
+            Bắt đầu
+          </Button>
+        </div>
+      )}
     </div>
   );
 };
@@ -28,21 +51,27 @@ function RightBarContent(props) {
   return (
     <RightBar className="RBDoctorHome">
       <h4>Hàng đợi</h4>
-      <QueueItem avatar="TB" pname="Trương Quốc Bảo" pid="18520501" pnum="01" />
+      <QueueItem
+        avatar="TB"
+        pname="Trương Quốc Bảo"
+        cid="123456"
+        pnum="01"
+        current={true}
+      />
       <Button
-        variant="outlined"        
+        variant="outlined"
         startIcon={<SwapVert sx={{ color: "white" }} />}
-        sx={{          
+        sx={{
           borderWidth: "2px",
-          marginTop: '.8rem',
-          borderColor: '#F5F8FE',
-          color: '#F5F8FE',
-          fontSize: '12px',
+          marginTop: ".8rem",
+          borderColor: "#F5F8FE",
+          color: "#F5F8FE",
+          fontSize: "12px",
           // backgroundColor: "#EFAD0A",
           "&:hover": {
-            borderWidth: '2px',
-            borderColor: '#F5F8FE',
-            opacity: 0.8
+            borderWidth: "2px",
+            borderColor: "#F5F8FE",
+            opacity: 0.8,
           },
         }}
       >
@@ -64,7 +93,7 @@ function RightBarContent(props) {
           <QueueItem
             avatar="TB"
             pname="Trương Quốc Bảo"
-            pid="18520501"
+            cid="18520501"
             pnum="01"
           />
         ))}

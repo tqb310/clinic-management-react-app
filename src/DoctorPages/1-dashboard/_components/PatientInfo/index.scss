@@ -1,10 +1,26 @@
 @import "_assets/style/_colors.scss";
 @import "_assets/style/_mixins.scss";
 
-
 .ECPatientInfo {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    @include gridDivide();
-    
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-column-gap: .3rem;
+  grid-row-gap: 1rem;
+  @include gridDivide();
+  &__avatar {
+    &Inner {
+      width: 80px;
+      height: 110px;
+      border-radius: 10px;
+      color: white;
+      background-color: #ad8200;
+      text-align: center;
+      line-height: 7rem;
+      font: {
+        size: 2rem;
+        weight: 500;
+      }
+      // margin: auto;
+    }
+  }
 }

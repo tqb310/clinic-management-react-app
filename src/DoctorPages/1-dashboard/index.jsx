@@ -9,6 +9,12 @@ import "./index.scss";
 // import PropTypes from 'prop-types'
 
 function Dashboard(props) {
+
+  //Cập nhật phiếu khám bên module bác sĩ
+
+  const handleSubmitFinal = (data) => {
+    console.log(data);
+  }
   return (
     <div className="DoctorDashboard">
       <div className="DoctorDashboard__header">
@@ -25,7 +31,7 @@ function Dashboard(props) {
           <Appointment/>
         </div>
         <div className="DoctorDashBoard__examineCard">
-          <ExamineCard/>
+          <ExamineCard handleSubmitFinal={handleSubmitFinal}/>
         </div>
         <div className="DoctorDashBoard__recentPatient">
           <RecentPatient/>

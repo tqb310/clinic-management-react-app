@@ -70,6 +70,9 @@
   .col-1-8 {
     grid-column: 1/8;
   }
+  .col-1-9 {
+    grid-column: 1/9;
+  }
   .col-3-7 {
     grid-column: 3/7;
   }
@@ -97,11 +100,23 @@
   .col-7-11 {
     grid-column: 7/11;
   }
+  .col-8-10 {
+    grid-column: 8/10;
+  }
   .col-8-13 {
     grid-column: 8/13;
   }
+  .col-8-11 {
+    grid-column: 8/11;
+  }
   .col-9-13 {
     grid-column: 9/13;
+  }
+  .col-9-11 {
+    grid-column: 9/11;
+  }
+  .col-9-12 {
+    grid-column: 9/12;
   }
   .col-10-13 {
     grid-column: 10/13;
@@ -111,6 +126,9 @@
   }
   .col-11-13 {
     grid-column: 11/13;
+  }
+  .col-12-13 {
+    grid-column: 12/13;
   }
   .col-1-13 {
     grid-column: 1/13;

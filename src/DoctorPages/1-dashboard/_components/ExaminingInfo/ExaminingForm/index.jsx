@@ -1,32 +1,32 @@
 import React, { useState } from "react";
-import { Formik, FastField } from "formik";
+import { Formik, FastField, Form } from "formik";
 import Input from "_components/FormikField/Input";
 import TextArea from "_components/FormikField/TextArea";
 import {Date} from "_components/FormikField/DateTime";
-import { FormControlLabel, Switch } from "@mui/material";
+import { FormControlLabel, Switch, Button } from "@mui/material";
 import "./index.scss";
 
-export default function ExaminingForm() {
+export default function ExaminingForm({handleSubmit}) {
   const [isSetAppointment, setAppointment] = useState(false);
   return (
     <Formik
       initialValues={{
-        symtomp: "",
-        diagnostic: "",
-        prescription: "",
-        appointmentDate: new window.Date(),
-        bloodPressure: "",
-        pulse: "",
-        temperature: "",
+        SYMPTOM: "",
+        DIAGNOSTIC: "",        
+        APPOINTMENT_DATE: new window.Date(),
+        BLOOD_PRESSURE: "",
+        PULSE: "",
+        TEMPERATURE: "",
       }}
+      onSubmit={handleSubmit}
     >
       {() => {
         return (
-          <div className="ExaminingForm">
+          <Form className="ExaminingForm">
             <div className="ExaminingForm__symptom col-1-5">
               <FastField
-                name="pulse"
-                id="pulse"
+                name="PULSE"
+                id="PULSE"
                 component={Input}
                 label="Mạch"
                 required
@@ -34,8 +34,8 @@ export default function ExaminingForm() {
             </div>
             <div className="ExaminingForm__symptom col-5-9">
               <FastField
-                name="bloodPressure"
-                id="bloodPressure"
+                name="BLOOD_PRESSURE"
+                id="BLOOD_PRESSURE"
                 component={Input}
                 label="Huyết áp"
                 required
@@ -43,8 +43,8 @@ export default function ExaminingForm() {
             </div>
             <div className="ExaminingForm__symptom col-9-13">
               <FastField
-                name="temperature"
-                id="temperature"
+                name="TEMPERATURE"
+                id="TEMPERATURE"
                 component={Input}
                 label="Nhiệt độ"
                 required
@@ -52,8 +52,8 @@ export default function ExaminingForm() {
             </div>
             <div className="ExaminingForm__symptom col-1-13">
               <FastField
-                name="symtomp"
-                id="symtomp"
+                name="SYMPTOM"
+                id="SYMPTOM"
                 component={TextArea}
                 label="Triệu chứng"
                 rows="2"
@@ -62,15 +62,15 @@ export default function ExaminingForm() {
             </div>
             <div className="ExaminingForm__symptom col-1-13">
               <FastField
-                name="diagnostic"
-                id="diagnostic"
+                name="DIAGNOSTIC"
+                id="DIAGNOSTIC"
                 component={TextArea}
                 label="Chẩn đoán"
                 rows="2"
                 required
               />
             </div>
-            <div className="col-1-13">
+            <div className="col-1-9">
               <FormControlLabel
                 control={
                   <Switch
@@ -89,15 +89,18 @@ export default function ExaminingForm() {
               />
               {isSetAppointment && (
                 <FastField
-                  name="appointmentDate"
-                  id="appointmentDate"
+                  name="APPOINTMENT_DATE"
+                  id="APPOINTMENT_DATE"
                   label="Ngày tái khám"
                   component={Date}
                   required
                 />
               )}
             </div>
-          </div>
+            <div className="col-10-13">
+                <Button type="submit">Xác nhận</Button>
+            </div>
+          </Form>
         );
       }}
     </Formik>

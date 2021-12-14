@@ -4,10 +4,10 @@ import ExaminingForm from './ExaminingForm';
 import "./index.scss";
 // import PropTypes from 'prop-types'
 
-function ExaminingInfo(props) {
+function ExaminingInfo({handleSubmit}) {
   return (
     <div className="ECServiceInfo">
-      <ExaminingForm/>
+      <ExaminingForm handleSubmit={handleSubmit}/>
     </div>
   );
 }

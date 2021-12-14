@@ -1,0 +1,73 @@
+@import "_assets/style/_colors.scss";
+
+.appoinment-rightbar-content {
+    width: 95%;
+    border:0;
+    border-collapse: collapse;
+    margin: 0 auto;
+    margin-bottom: 1rem;
+    tr{ 
+        position: relative;        
+        // background: rgba($color: #fff, $alpha: 0.1);              
+        cursor: pointer; 
+        td{         
+            text-align: center;
+            padding: .5rem 0;            
+            &:first-child{
+                border-radius: 7px 0 0 7px;
+                color: $light-yellow;
+                font-size: 0.7rem;
+                width: 25%;
+            }
+            &:last-child {                
+                border-radius: 0 7px 7px 0;
+                padding-left: 2rem;
+                text-align: left;
+            }
+            p {
+                margin: 0;
+                &:last-child {
+                    margin-top: .5rem;
+                    font-size: .85rem;
+                }
+            }            
+            .eye-button{
+                color: #fff;
+                font-size: small;
+            }
+        }   
+       &:hover {
+        background: rgba($color: #fff, $alpha: 0.3);  
+       }
+       &.unread::after {
+        content: "";
+        position: absolute;
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background-color: #b3eafc;
+        right: 10px;
+        top: 42.5%
+    }
+    }  
+} 
+.appointment-demand-header{
+    p{
+        color:#FCDF98;
+        font-size: 15px;
+        font-weight: 500;
+    }
+}
+
+.appointment__timenote {
+    box-sizing: border-box;
+    text-align: left;
+    width: 94%;
+    margin: .5rem auto;
+    padding: .5rem .7rem;
+    background-color: rgba($color: #fff, $alpha: 0.3);
+    font: {
+        size: 15px;
+        weight: 500
+    }
+}

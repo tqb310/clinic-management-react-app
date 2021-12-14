@@ -1,0 +1,41 @@
+@import "_assets/style/_colors.scss";
+
+.queryRightbar {
+    padding: 1rem;
+    &__header {
+        min-height: 39px;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 0.7px solid $background-main;
+        border-radius: 30px;      
+        cursor: pointer;        
+        &:hover span{
+            opacity: 0;
+        }
+        &:hover .queryRightbar__id {
+            width: 100%;
+        }
+        span {
+            position: absolute;
+            width: 40%;
+            transition: all .3s;
+            font-weight: 500;
+            color: $light-yellow;
+        }         
+        .queryRightbar__id {
+            width: 60%;
+            padding: 10px 0px;
+            background-color: $background-main;
+            border-radius: 30px;
+            color: $primary-color;
+            font-weight: 500;
+            text-decoration: underline;
+            transition: all .5s;
+            position: absolute;
+            right: 0;
+        }
+        
+    }
+}

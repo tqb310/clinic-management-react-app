@@ -1,0 +1,50 @@
+@import "_assets/style/_colors.scss";
+
+.container {
+  margin-top: 6.5px;
+  .card-wrapper {
+    display: flex;
+    justify-content: space-between;
+    .card {
+      width: 48%;
+      display: grid;
+      grid-template-columns: 30% 67%;
+      // grid-gap: 0.8rem;
+      background: #fff;     
+      overflow: hidden;
+      padding: 10px 0;
+      img {
+        display: inline-block;
+        margin-left: 5px;
+      }
+      .text-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        // justify-content: space-between;
+      }
+      h5,
+      h4 {
+        margin: 0;
+      }
+      .greendark,
+      .reddark {
+        font-size: 2em;
+      }
+      .greenlight {
+        color: $greenlight;
+      }
+      .greendark {
+        color: $greendark;
+      }
+      .redlight {
+        color: $redlight;
+      }
+      .reddark {
+        color: $reddark;
+      }
+    }
+  }
+}
+
+

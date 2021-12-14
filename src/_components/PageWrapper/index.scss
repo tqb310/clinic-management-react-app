@@ -4,11 +4,17 @@
   display: flex;
   min-height: 100vh;
   &__left {   
+    position: relative;
     padding: 10px 0;
-    flex: 0.7;
+    flex: 0.6;   
+    .pagewrapper__logout {            
+      position: absolute;
+      bottom: 20px;
+      left: 23%
+    }
   }
   &__center {    
-    flex: 8.3;
+    flex: 8.4;
     border-radius: 20px 0 0 20px;
     background: $background-main;       
   }
@@ -16,15 +22,14 @@
     flex: 3;
     background-color: $primary-color;
     border-radius: 10px 0 0 10px;
-    color: white;
   }
   &__logo {
     display: block;
     margin: auto;
-    margin-bottom: 40px;
+    margin-bottom: 2rem;
   }
   &__header {
-    height: 114px;
+    height: 100px;
     padding: 0 20px;
     position: sticky;
     top: 0;
@@ -32,7 +37,23 @@
   }
   &__main {
     box-sizing: border-box;    
-    padding: 0px 5px 20px 20px;    
-    height: 85%;
+    padding: 0px 5px 0px 20px;    
+    height: 86.5%;
+  }
+  &__createCard {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: $secondary-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all .3s;
+    &:hover {
+      opacity: 0.8;
+    }
   }
 }

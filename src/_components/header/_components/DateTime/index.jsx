@@ -14,11 +14,11 @@ function DateTime() {
   return (
     <Box className="datetime">
       <Box className="date">
-        <FontAwesomeIcon className="date__icon" icon="calendar-week" />
+        <FontAwesomeIcon className="date__icon" icon="calendar-week" style={{color: '#2E3192'}}/>
         <Typography component="span" className="date__data">{date}</Typography>
       </Box>
       <Box>
-        <FontAwesomeIcon className="time__icon" icon="clock" />
+        <FontAwesomeIcon className="time__icon" icon="clock" style={{color: '#2E3192'}}/>
         <Typography component="span" className="time__data">{time}</Typography>
       </Box>
     </Box>

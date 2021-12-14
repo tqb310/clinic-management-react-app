@@ -1,10 +1,12 @@
 import React from "react";
 import { Box, Badge, IconButton } from "@mui/material";
-import { ArrowDropDown } from "@mui/icons-material";
+import { KeyboardArrowDown } from "@mui/icons-material";
 import {CustomPaper} from '_components/StyledComponent/Paper.js';
+import authentication from '_services/authentication.service';
 import "./index.scss";
 // import PropTypes from 'prop-types'
 // const {CustomPaper} = cs;
+
 function Profile(props) {
   return (
     <CustomPaper className="profile">
@@ -17,12 +19,12 @@ function Profile(props) {
         }}
         overlap="circular"
       >
-        <Box className="profile__avatar">N</Box>
+        <Box className="profile__avatar">{authentication.getCurrentUser()?.payload.employee_name.slice(0,1)}</Box>
       </Badge>
-      <Box className="profile__name">Nguyễn Văn A</Box>
+      <Box className="profile__name">{authentication.getCurrentUser()?.payload.employee_name}</Box>
       <Box>
         <IconButton sx={{width: 20, height: 20}}>
-          <ArrowDropDown />
+          <KeyboardArrowDown style={{color: '#2E3192'}}/>
         </IconButton>
       </Box>
     </CustomPaper>

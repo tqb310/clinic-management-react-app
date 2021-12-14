@@ -12,20 +12,20 @@ import "./index.scss";
 
 function Dashboard(props) {
   return (
-    <div className="dashboard">
-      <p className="dashboard__title">
+    <div className="reception__dashboard">
+      <p className="reception__dashboard__title">
         Xin chào, <span>{authentication.getCurrentUser()?.payload.employee_name}</span>
       </p>
-      <div className="dashboard__cards">
+      <div className="reception__dashboard__cards">
         <CardContainer />
       </div>
-      <div className="dashboard__averageVisitChart">
+      <div className="reception__dashboard__averageVisitChart">
           <VisitChart/>
       </div>
-      <div className="dashboard__roomState">
+      <div className="reception__dashboard__roomState">
           <RoomState/>
       </div>
-      <div className="dashboard__appointment">
+      <div className="reception__dashboard__appointment">
           <Appointment/>
       </div>
       <RightBar>

@@ -1,10 +1,10 @@
 import React from "react";
 import {
-  FormControl,  
+  FormControl,
   FormHelperText,
   InputLabel,
   InputAdornment,
-  Input
+  Input,
 } from "@mui/material";
 // import { ErrorMessage } from "formik";
 // import PropTypes from 'prop-types'
@@ -20,11 +20,20 @@ function TextArea({ form, field, label, required, icon: Icon, ...rest }) {
       error={isError}
       required={required}
       sx={{
-        "& label+.MuiInputBase-root": { marginTop: "8px !important" },        
+        "& label+.MuiInputBase-root": { marginTop: "8px !important" },
       }}
     >
-      <InputLabel sx={{fontSize: 14, top: '4%', left: '-2%'}}>{label}</InputLabel>
-      <Input        
+      <InputLabel
+        sx={{
+          fontSize: 14,
+          top: "4%",
+          left: "-2%",
+          "& .MuiFormLabel-asterisk": { color: "red" },
+        }}
+      >
+        {label}
+      </InputLabel>
+      <Input
         {...field}
         {...rest}
         label={label}

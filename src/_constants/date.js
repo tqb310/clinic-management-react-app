@@ -8,7 +8,7 @@ export const dateMap = new Map([
     [6, 'Bảy'],
 ]);
 
-export const hours =  [
+export const hours = [
     "7:00",
     "8:00",
     "9:00",
@@ -19,7 +19,7 @@ export const hours =  [
     "14:00",
     "15:00",
     "16:00",
-  ];
+];
 
 export const dayLength = 86400000;
 
@@ -29,6 +29,10 @@ export const dateParse = (date) => {
 
 export const timeParse = dateTime => {
     return `${dateTime.getHours()}:${dateTime.getMinutes()}:${dateTime.getSeconds()}`
+}
+
+export const dateTimeNow = () => {
+    return `${dateParse(new Date())} ${timeParse(new Date())}`
 }
 
 export let today

@@ -3,7 +3,7 @@ import React from "react";
 import "./index.scss";
 // import PropTypes from 'prop-types'
 
-function ServiceInfo(props) {
+function ServiceInfo({data}) {
   return (
     <div className="ECServiceInfo">
       <table className="ECServiceInfo__table">

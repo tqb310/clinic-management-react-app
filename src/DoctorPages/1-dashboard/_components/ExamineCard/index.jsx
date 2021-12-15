@@ -10,7 +10,8 @@ import PrescriptionForm from "./Prescription";
 import "./index.scss";
 // import PropTypes from 'prop-types'
 
-function ExamineCard({ handleSubmitFinal }) {
+function ExamineCard({ data, continuous, handleSubmitFinal }) {
+  console.log(data)
   const [open, setOpen] = useState(false);
   // const [isValidForm, setValidForm] = useState(true);
   const [prescriptionData, setPrescriptionData] = useState([]);
@@ -24,7 +25,7 @@ function ExamineCard({ handleSubmitFinal }) {
   };
   const handleSubmitExamining = (data) => {
     //  console.log("FINAL: ", data);
-     setExaminingData(data);
+    setExaminingData(data);
   };
   const handleSubmitComplete = () => {
     if (prescriptionData.length === 0) {
@@ -48,7 +49,7 @@ function ExamineCard({ handleSubmitFinal }) {
         <div className="DTExamineCard__header">
           <p>Phiếu khám bệnh</p>
           <p>
-            <span>#123456</span>
+            <span>{data.diagnostic.DIAGNOSTIC_ID}</span>
           </p>
         </div>
         <div className="DTExamineCard__cardInfo">
@@ -83,10 +84,10 @@ function ExamineCard({ handleSubmitFinal }) {
         </div>
         <div className="DTExamineCard__content">
           <div className="DTExamineCard__patientInfo">
-            <PatientInfo />
+            <PatientInfo data={data.diagnostic.PATIENT}/>
           </div>
           <div className="DTExamineCard__service">
-            <ServiceInfo />
+            <ServiceInfo data={data.diagnostic.SERVICE_ID_SERVICEs}/>
           </div>
           <div className="DTExamineCard__examineInfo">
             <ExaminingInfo handleSubmit={handleSubmitExamining} />

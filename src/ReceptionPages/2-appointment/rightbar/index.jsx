@@ -39,7 +39,7 @@ function AppointmentDemand() {
     async function fetchData() {
       const dataApi = await appointment.getAllAppointmentRequest()
       switch (dataApi) {
-        case undefined: alert('Lỗi server, vui lòng thử lại'); break;
+        case undefined: break;
         case null: alert('Chưa đăng nhập, vui lòng đăng nhập'); break;
         default: setData(dataApi)
       }

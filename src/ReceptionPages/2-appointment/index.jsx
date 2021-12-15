@@ -25,7 +25,7 @@ function Appointment(props) {
                 const dataApi = await appointment.getAppointmentByWeek(dateParse(today));
                 console.log(dataApi);
                 switch (dataApi) {
-                    case null: alert("Lỗi server, vui lòng thử lại"); break
+                    case null: break;
                     case undefined: alert("Bạn không có quyền truy cập vào tính năng này!"); break
                     default: setData(dataApi)
                 }

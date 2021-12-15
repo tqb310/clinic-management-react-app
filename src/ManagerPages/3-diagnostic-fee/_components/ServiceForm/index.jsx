@@ -14,7 +14,8 @@ import "./index.scss";
 
 export default function ServiceForm({ open, handleClose, handleSubmit }) {
   const handleSubmitForm = (value) => {    
-    handleSubmit(value, open.index);
+    handleSubmit(value, open.SERVICE_ID);
+    console.log(open.SERVICE_ID);
     handleClose();
   };
   return (
@@ -38,8 +39,8 @@ export default function ServiceForm({ open, handleClose, handleSubmit }) {
         </DialogTitle>
         <Formik
           initialValues={{
-            NAME: open.service?.NAME || "",
-            FEE: open.service?.FEE || "",          
+            SERVICE_NAME: open.SERVICE_NAME || "",
+            FEE: open.FEE || "",          
           }}
           onSubmit={handleSubmitForm}
         >
@@ -54,8 +55,8 @@ export default function ServiceForm({ open, handleClose, handleSubmit }) {
                 >
                   <div className="col-1-7">
                     <FastField
-                      id="NAME"
-                      name="NAME"
+                      id="SERVICE_NAME"
+                      name="SERVICE_NAME"
                       label="Tên dịch vụ"
                       component={Input}
                       left="-5%"

@@ -50,7 +50,7 @@ export const AppointmentHeadCells = [
     {
       id: "patientName",
       numeric: false,
-      width: '35%',      
+      width: '25%',      
       label: "Bệnh nhân",
     }, 
     {
@@ -62,7 +62,7 @@ export const AppointmentHeadCells = [
     {
       id: "room",
       numeric: true,
-      width: '15%',      
+      width: '25%',      
       label: "Bác sĩ",
     },   
     {
@@ -89,7 +89,7 @@ export const ExamineHeadCells = [
     {
       id: "phoneNumber",
       numeric: false,
-      width: '30%',      
+      width: '20%',      
       label: "Điện thoại",
     },
     {

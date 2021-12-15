@@ -26,5 +26,10 @@ export const employee = {
     createEmployee: '/manager/employees'
 }
 
-
+export const services = {
+    getAllServices: '/manager/medical-examination-fee',
+    postService: '/manager/medical-examination-fee',
+    updateFee: '/manager/medical-examination-fee',
+    getAllServicesUser: '/user/medical-examination-fee',
+}
 //Them tat ca url cua api vao day

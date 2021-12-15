@@ -19,13 +19,13 @@ const data = [
 
 const newRows = (queue) => {
   const kq = queue.map((data, index) => {
-    // console.log(data);
+    console.log(data);
     return createData(
       data.DIAGNOSTIC_ID,
       index + 1,
       data.PATIENT?.PATIENT_NAME,
       data.PATIENT?.PHONE,
-      "8:30",
+      new Date(data.CREATE_AT).getDate()+'/'+(new Date(data.CREATE_AT).getMonth()+1)+'/'+new Date(data.CREATE_AT).getFullYear(),
       1,
       data.STATUS
     )
@@ -43,7 +43,7 @@ function Main(props) {
     }
     fetchData()
   }, [])
-  console.log((diagnostics))
+  // console.log((diagnostics))
 
   const history = useHistory();
   const {path} = useRouteMatch();

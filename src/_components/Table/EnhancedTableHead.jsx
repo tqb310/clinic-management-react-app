@@ -48,17 +48,17 @@ export const StateComp = ({ stateArray, state }) => {
   return (
     <div
       style={{
-        backgroundColor: state && stateArray[state]["colors"][0],
+        backgroundColor: state !== undefined && stateArray[state]["colors"][0],
         width: "auto",
         margin: "auto",
         textAlign: "center",
-        color: state && stateArray[state]["colors"][1],
+        color: state !== undefined && stateArray[state]["colors"][1],
         borderRadius: 5,
         padding: 2.5,
         fontWeight: 500,
       }}
     >
-      {state && stateArray[state]["label"]}
+      {state !== undefined && stateArray[state]["label"]}
     </div>
   );
 };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { TextField, Button } from "@mui/material";
 import { CustomPaper } from "_components/StyledComponent";
@@ -7,22 +7,50 @@ import PatientInfo from "DoctorPages/1-dashboard/_components/PatientInfo";
 import ExaminingInfo from "./ExaminingInfo";
 import ServiceInfo from "./ServiceInfo";
 import PrescriptionInfo from "./PrescriptionInfo";
+import DiagnosticService from "_services/diagnostic.service";
 // import { rows } from "_constants/FakeData/ExamineList.js";
 import TabTableWrapper from "_components/TabTableWrapper";
 import "./index.scss";
 
-const data = [
+const tab = [
   { title: "Thông tin bệnh nhân" },
   { title: "Thông tin khám bệnh" },
   { title: "Dịch vụ" },
   { title: "Toa thuốc" },
 ];
 
-const componentArr = [PatientInfo, ExaminingInfo, ServiceInfo, PrescriptionInfo];
+const componentArr = [
+  PatientInfo,
+  ExaminingInfo,
+  ServiceInfo,
+  PrescriptionInfo,
+];
 export default function DetailCard() {
   const { id } = useParams();
   const history = useHistory();
+  const [data, setData] = useState({});
   //   const data = rows.find((row) => row.id === id);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const dataApi = await DiagnosticService.getDiagnosticById(id);
+        console.log(dataApi);
+        switch (dataApi) {
+          case null:
+            alert("Lỗi server, vui lòng thử lại");
+            break;
+          case undefined:
+            alert("Bạn không có quyền truy cập vào tính năng này!");
+            break;
+          default:
+            setData(dataApi);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchData();
+  }, []);
   return (
     <div className="DetailCard">
       <div className="DetailCard__title">
@@ -60,7 +88,7 @@ export default function DetailCard() {
             <span>Ngày lập</span>
             <TextField
               variant="filled"
-              value="13/12/2021"
+              value={new Date(data.CREATE_AT).toLocaleDateString()}
               size="small"
               sx={{
                 "& .MuiInputBase-input": {
@@ -102,7 +130,7 @@ export default function DetailCard() {
             <span>Loại</span>
             <Button>Tái khám - vdf1515</Button>
           </p>
-          <p style={{flex: 1}}>
+          <p style={{ flex: 1 }}>
             <span>Ngày tái khám</span>
             <TextField
               variant="filled"
@@ -118,14 +146,14 @@ export default function DetailCard() {
           </p>
         </div>
         <TabTableWrapper
-          tabNameArr={data}
-          style={{marginTop: 15, marginRight: 0, height: "61%" }}
+          tabNameArr={tab}
+          style={{ marginTop: 15, marginRight: 0, height: "61%" }}
         >
           {(id) => {
             const Component = componentArr[id];
             return (
               <div style={{ padding: "1rem", height: "100%" }}>
-                <Component />
+                <Component data1={data}/>
               </div>
             );
           }}

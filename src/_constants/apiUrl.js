@@ -16,6 +16,7 @@ export const diagnostic = {
     getAllDiagnostic: '/reception/diagnostic',
     getRoom: '/doctor/room',
     getDiagnosticStackByRoom: '/doctor/stack',
-    updateDiagnostic: '/doctor/diagnostic'
+    updateDiagnostic: '/doctor/diagnostic',
+    getDiagnosticById: '/reception/diagnostic/',
 }
 //Them tat ca url cua api vao day

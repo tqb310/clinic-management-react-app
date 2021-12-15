@@ -1,6 +1,7 @@
-export function createData(orderNum, patientName, phoneNumber, checkIn, room, state) {
+//Math.random().toString(32).substr(2, 10)
+export function createData(id, orderNum, patientName, phoneNumber, checkIn, room, state) {
   return {
-    id: Math.random().toString(32).substr(2, 10),
+    id: id,
     orderNum,
     patientName,
     phoneNumber,

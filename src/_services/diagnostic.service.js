@@ -80,6 +80,20 @@ const diagnostic = {
             console.log(error)
         }
     },
+    async getDiagnosticById(id) {
+        try {
+            let stack = await axiosClient.get(
+                diagnosticUrl.getDiagnosticById + id,
+                {
+                    headers: { access_token: authentication.getCurrentUser().token }
+                }
+            )
+            // console.log(stack)
+            return stack;
+        } catch (error) {
+            console.log(error)
+        }
+    },
     async updateDiagnostic(data) {
         try {
             await axiosClient.put(

@@ -91,6 +91,7 @@ export default function EnhancedTable({
               const { state, type, ...tempRow } = row;
               const rowsField = Object.keys(tempRow);
               //   console.log(examineType[type]["colors"]);
+              console.log(rowsField)
               return (
                 <tr
                   onClick={() => {
@@ -100,7 +101,7 @@ export default function EnhancedTable({
                     }
                     setSelectId(row.id)
                   }}
-                  className={!selectId.localeCompare(row.id) ? "active" : ""}
+                  className={(selectId && !selectId.localeCompare(row.id)) ? "active" : ""}
                   role="checkbox"
                   aria-checked={isItemSelected}
                   tabIndex={-1}

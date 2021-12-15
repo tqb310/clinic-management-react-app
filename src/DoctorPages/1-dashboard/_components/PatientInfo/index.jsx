@@ -6,7 +6,7 @@ import gender from '_constants/gender'
 import "./index.scss";
 // import PropTypes from 'prop-types'
 
-function PatientInfo({data}) {
+function PatientInfo({data, data1}) {
   console.log(data)
   return (
     <div className="ECPatientInfo">
@@ -17,7 +17,7 @@ function PatientInfo({data}) {
         <TextField
           variant="filled"
           label="Tên bệnh nhân"
-          value={data.PATIENT_NAME}
+          value={data && data.PATIENT_NAME }
           size="small"
           sx={{
             "& .MuiInputBase-input": {},
@@ -29,7 +29,7 @@ function PatientInfo({data}) {
         <TextField
           variant="filled"
           label="Ngày sinh"
-          value={data.DATE_OF_BIRTH}
+          value={data && data.DATE_OF_BIRTH}
           size="small"
           sx={{
             "& .MuiInputBase-input": {},
@@ -53,7 +53,7 @@ function PatientInfo({data}) {
         <TextField
           variant="filled"
           label="Giới tính"
-          value={gender.get(data.GENDER)}
+          value={gender.get(data && data.GENDER)}
           size="small"
           sx={{
             "& .MuiInputBase-input": {},
@@ -65,7 +65,7 @@ function PatientInfo({data}) {
         <TextField
           variant="filled"
           label="Điện thoại"
-          value={data.PHONE}
+          value={data && data.PHONE}
           size="small"
           sx={{
             "& .MuiInputBase-input": {},
@@ -77,7 +77,7 @@ function PatientInfo({data}) {
         <TextField
           variant="filled"
           label="CMND/CCCD"
-          value={data.IDENTITY_NUMBER}
+          value={data && data.IDENTITY_NUMBER}
           size="small"
           sx={{
             "& .MuiInputBase-input": {},
@@ -89,7 +89,7 @@ function PatientInfo({data}) {
         <TextField
           variant="filled"
           label="Nghề nghiệp"
-          value={data.OCCUPATION}
+          value={data && data.OCCUPATION}
           size="small"
           sx={{
             "& .MuiInputBase-input": {},
@@ -103,7 +103,7 @@ function PatientInfo({data}) {
           rows={2}
           variant="filled"
           label="Địa chỉ"
-          value={data.ADDRESS}
+          value={data && data.ADDRESS}
           size="small"
           sx={{
             "& .MuiInputBase-input": {},

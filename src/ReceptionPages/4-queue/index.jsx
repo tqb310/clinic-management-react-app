@@ -60,7 +60,7 @@ function Query(props) {
 
   socketIO.on('diagnostic-stack-change', (stack) => {
     console.log(newRows(mergeStack(stack)))
-    //setQueue(mergeStack(stack))
+    setQueue(mergeStack(stack))
   })
   return (
     <div>

@@ -36,7 +36,7 @@ function Content(props) {
       ).slice(-2)}:${(
         "0" + new Date(data.TIMES.toString().slice(0, 21)).getMinutes()
       ).slice(-2)}`,
-      room: data.EMPLOYEE_NAME,
+      room: data.EMPLOYEE_NAME,      
       state: 0,
       type: data.TYPE,
     };

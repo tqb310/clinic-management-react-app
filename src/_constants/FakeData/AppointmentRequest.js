@@ -42,14 +42,14 @@ export const data = [
 ];
 
 export const stateData = {
-  1: {
-    label: "Đã tiếp nhận",
-    colors: ["#ECFBF6", "#03B575"],
-  },
   0: {
     label: "Chưa tiếp nhận",
     colors: ["#EBF0FF", "#1F58E7"],
   },
+  1: {
+    label: "Đã tiếp nhận",
+    colors: ["#ECFBF6", "#03B575"],
+  }, 
   2: {
     label: "Đã hủy",
     colors: ["#F3F3F3", "#BDBDBD"],
@@ -70,9 +70,9 @@ export const examineType = {
   },
 }
 
-function createData(orderNum, patientName, checkIn, room, state, type) {
-  return {
-    id: Math.random().toString(32).substr(2, 10),
+function createData(id, orderNum, patientName, checkIn, room, state, type) {
+  return {    
+    id: id,
     orderNum,
     patientName,    
     checkIn,

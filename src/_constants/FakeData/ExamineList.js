@@ -1,10 +1,11 @@
-function createData(cardId, patientName, phoneNumber, createAt, state) {
+export function createData(cardId, patientName, phoneNumber, createAt,room, state) {
     return {
       id: Math.random().toString(32).substr(2,10),    
       cardId,  
       patientName,
       phoneNumber,
       createAt,
+      room,
       state,
     };
   }

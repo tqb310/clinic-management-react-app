@@ -8,9 +8,9 @@ import socketIO from '_services/socket.io';
 import diagnosticService, {mergeStack} from '_services/diagnostic.service';
 import {
   rows,
-  createData,
   replaceDateWhenQueueEmpty
 } from "_constants/FakeData/QueryTable";
+import {createData} from '_constants/FakeData/ExamineList'
 
 const data = [
   { title: "Tất cả", number: 50 },
@@ -62,6 +62,7 @@ function Query(props) {
     console.log(newRows(mergeStack(stack)))
     setQueue(mergeStack(stack))
   })
+  console.log(newRows(queue))
   return (
     <div>
       <TabTableWrapper tabNameArr={data} isAction>

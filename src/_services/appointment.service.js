@@ -46,6 +46,22 @@ const appointment = {
                 default:console.log('Lỗi Không xác định');return undefined
             }
         }
+    },
+    async confirmRequest(requestId, status){
+        try {
+            const request = await axiosClient.put(
+                appoimentUrl.confirmRequest + requestId,
+                {status},
+                { headers: { access_token: authentication.getCurrentUser().token } }
+            )
+            return request
+        } catch (error) {
+            switch(error.response.status){
+                case 500:return undefined;
+                case 401:return null;
+                default:console.log('Lỗi Không xác định');return undefined
+            }
+        }
     }
 
 }

@@ -43,6 +43,7 @@ export default function EnhancedTable({ data, selectIndex, handleSelectIndex }) 
       isCheckbox={true}
       selectId={selectId}
       setSelectId={handleSelectId}
+      isSwap
     />
   );
 }

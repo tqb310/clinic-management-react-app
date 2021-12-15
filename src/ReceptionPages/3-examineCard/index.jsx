@@ -5,6 +5,8 @@ import {RightBar} from '_components/StyledComponent';
 
 const MainLazy = lazy(() => import('./Main'));
 const CreateFormLazy = lazy(() => import('./CreateForm'));
+const DetailCard = lazy(() => import('./DetailCard'));
+
 function Accounting(props) {
     const {path} = useRouteMatch();
     return (
@@ -12,6 +14,7 @@ function Accounting(props) {
             <Switch>
                 <Route path={path + '/'} exact component={MainLazy}/>
                 <Route path={path + '/them-phieu-kham'} component={CreateFormLazy}/>
+                <Route path={path + '/:id'} component={DetailCard}/>
                 <Route render={() => (<Redirect to={path}/>)}/>
             </Switch>
             <RightBar>

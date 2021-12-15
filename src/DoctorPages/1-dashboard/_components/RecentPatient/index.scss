@@ -1,0 +1,52 @@
+@import "_assets/style/_colors.scss";
+
+.RecentPatientItem {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.8rem 0;
+  &__avatar {
+    flex: 1;
+    &Inner {
+      width: 40px;
+      height: 40px;
+      border-radius: 7.5px;
+      color: white;
+      background-color: #ad8200;
+      text-align: center;
+      line-height: 2.5rem;
+      font: {
+        size: 1.3rem;
+        weight: 500;
+      }
+      margin: auto;
+    }
+  }
+  &__state {
+    flex: 1.5;
+  }
+  &__patient {
+    box-sizing: border-box;
+    flex: 4;
+    padding: 0 0.4rem;
+    div:first-child {        
+        font-weight: 500;
+    }
+    div:last-child {
+        font-size: 12.5px;
+        color: #888;
+    }
+  }
+}
+
+.DTRecentPatient {
+  box-sizing: border-box;
+  padding: 0.7rem 0 2rem 1.3rem;
+  height: 278px;
+  &__header {
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+  }
+  &__content {
+    padding-right: 1.3rem;
+  }
+}

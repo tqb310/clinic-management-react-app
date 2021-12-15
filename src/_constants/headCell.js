@@ -63,17 +63,47 @@ export const AppointmentHeadCells = [
       id: "room",
       numeric: true,
       width: '15%',      
-      label: "Phòng",
+      label: "Bác sĩ",
     },   
     {
       id: "state",
       numeric: true,
       width: '25%',      
       label: "Trạng thái",
+    }, 
+  ];
+
+export const ExamineHeadCells = [
+    {
+      id: "orderNum",
+      numeric: true,
+      width: '10%',      
+      label: "Mã phiếu",
     },
-    // {
-    //   width: '5%'
-    // }
+    {
+      id: "patientName",
+      numeric: false,
+      width: 'auto',      
+      label: "Bệnh nhân",
+    }, 
+    {
+      id: "phoneNumber",
+      numeric: false,
+      width: '30%',      
+      label: "Điện thoại",
+    },
+    {
+      id: "createAt",
+      numeric: true,
+      width: '15%',      
+      label: "Ngày lập",
+    },   
+    {
+      id: "state",
+      numeric: true,
+      width: '15%',      
+      label: "Trạng thái",
+    },   
   ];
 
   // {filteredData.length ? (

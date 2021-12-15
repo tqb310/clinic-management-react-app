@@ -2,7 +2,7 @@
 @import "_assets/style/_mixins.scss";
 
 .CardInfor {
-    @include outlineTitle("Thông tin phiếu khám");
+    @include outlineTitle("Thông tin phiếu khám", $background-main, $primary-color, $lightest-yellow);
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     p {

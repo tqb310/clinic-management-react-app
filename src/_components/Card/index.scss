@@ -1,0 +1,31 @@
+.dcardContent {
+    width: 36%;
+    margin: 0.4rem 0.3rem;
+    padding: 0.5rem 1rem;
+    &__title {
+        display: flex;
+        align-items: center;
+        font-weight: 600;
+        font-size: 15px;
+        &Icon {
+            background-color: white;
+            padding: .2rem .3rem;
+            margin-right: .4rem;
+            border-radius: 5px;
+        }
+    }
+    &__number {
+        margin-top: .4rem;
+        margin-bottom: .3rem;     
+        font-size: large;
+        font-weight: 700;
+    }
+    &__compare {
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.8rem;    
+        &Title {
+            font-weight: 400;
+        }
+    }
+}

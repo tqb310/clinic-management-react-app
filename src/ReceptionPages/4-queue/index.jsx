@@ -64,7 +64,7 @@ function Query(props) {
   })
   return (
     <div>
-      <TabTableWrapper tabNameArr={data}>
+      <TabTableWrapper tabNameArr={data} isAction>
         {() => (
           <div>
             <EnhancedTable data={newRows(queue)} selectIndex={selectIndex} handleSelectIndex={handleSelectIndex} />

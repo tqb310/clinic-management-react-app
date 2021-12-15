@@ -11,7 +11,7 @@ import Table from "_components/Table";
 import { AppointmentHeadCells } from "_constants/headCell";
 import {
   stateData,
-  rows,
+  // rows,
   examineType,
 } from "_constants/FakeData/AppointmentRequest";
 import "./index.scss";
@@ -22,11 +22,32 @@ function Content(props) {
   const [dayActive, setDayActive] = useState(new Date(Date.now()));
   const [rendereDate, setRenderedDate] = useState(new Date(Date.now()));
   const [openForm, setOpenForm] = useState(false);
-  const [selectId, setSelectId] = useState(rows[0].id);
   const filteredData = props.data.filter(
     (appointment) =>
       compare2Days(new Date(appointment.TIMES), dayActive) === true
   );
+  const afterHandledData = filteredData.map((data, index) => {
+    return {
+      id: Math.random().toString(32).substr(2, 10),
+      orderNum: index + 1,
+      patientName: data.PATIENT_NAME,
+      checkIn: `${(
+        "0" + new Date(data.TIMES.toString().slice(0, 21)).getHours()
+      ).slice(-2)}:${(
+        "0" + new Date(data.TIMES.toString().slice(0, 21)).getMinutes()
+      ).slice(-2)}`,
+      room: data.EMPLOYEE_NAME,
+      state: 0,
+      type: data.TYPE,
+    };
+  });
+  console.log(afterHandledData);
+  const [selectId, setSelectId] = useState(afterHandledData[0]?.id || '');
+  // SUBMIT DATA
+  const handleSubmit = (value) => {
+    console.log(value);
+  };
+  //
   const handleClose = (e) => {
     // console.log(e);
     setOpenForm(false);
@@ -126,13 +147,17 @@ function Content(props) {
         >
           Thêm
         </Button>
-        <Form open={openForm} handleClose={handleClose} />
+        <Form
+          open={openForm}
+          handleClose={handleClose}
+          handleSubmit={handleSubmit}
+        />
       </div>
       <div className="appointment-wrapper">
         {filteredData.length ? (
           <Table
             headCells={AppointmentHeadCells}
-            rows={rows}
+            rows={afterHandledData}
             stateArray={stateData}
             rowsPerPage={10}
             examineType={examineType}

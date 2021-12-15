@@ -3,6 +3,13 @@ export const gender = [
     {key: 'Nữ', value: 2},
 ]
 
+export const role = [
+    {key: 'Tiếp tân', value: 1},
+    {key: 'Quản lý', value: 2},
+    {key: 'Bác sĩ', value: 3},
+]
+
+
 export const province = [
     {id: 1, key: 'Bình Thuận', value: 1},
     {id: 2, key: 'TP.HCM', value: 2},

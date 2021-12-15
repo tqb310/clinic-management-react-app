@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import authentication from '_services/authentication.service';
-import role from '_constants/role'
-import doctorImage from 'PublicPages/login/assets/doctor.png'
-import hopitalImage from 'PublicPages/login/assets/hopital.png'
+import role from '_constants/role';
+import doctorImage from 'PublicPages/login/assets/doctor.png';
+import hopitalImage from 'PublicPages/login/assets/hopital.png';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import {
     CardMedia,
     Typography,
@@ -29,6 +31,7 @@ function Login(props) {
         }        
     })
     const login = async()=>{
+        toast.success('Đang đăng nhập');
         const status = await authentication.login(username, password)
         const user = authentication.getCurrentUser()?.payload
         switch(status){
@@ -118,6 +121,7 @@ function Login(props) {
                     </Button>
                 </div>
             </div>
+            <ToastContainer />
         </div>
 
     )

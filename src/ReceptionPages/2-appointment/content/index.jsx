@@ -41,7 +41,7 @@ function Content(props) {
       type: data.TYPE,
     };
   });
-  console.log(afterHandledData);
+  console.log(filteredData);
   const [selectId, setSelectId] = useState(afterHandledData[0]?.id || '');
   // SUBMIT DATA
   const handleSubmit = (value) => {

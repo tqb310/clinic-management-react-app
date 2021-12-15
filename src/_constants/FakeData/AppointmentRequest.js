@@ -42,17 +42,21 @@ export const data = [
 ];
 
 export const stateData = {
-  0: {
+  1: {
     label: "Đã tiếp nhận",
     colors: ["#ECFBF6", "#03B575"],
   },
-  1: {
+  0: {
     label: "Chưa tiếp nhận",
     colors: ["#EBF0FF", "#1F58E7"],
   },
   2: {
     label: "Đã hủy",
     colors: ["#F3F3F3", "#BDBDBD"],
+  },
+  3: {
+    label: "Quá giờ",
+    colors: ["#FFF3F2", "#E74F48"],
   },
 };
 

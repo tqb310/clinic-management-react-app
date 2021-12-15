@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import TabTableWrapper from "_components/TabTableWrapper";
 import Table from "_components/Table";
@@ -20,10 +19,12 @@ const data = [
 
 const newRows = (queue) => {
   const kq = queue.map((data, index) => {
+    // console.log(data);
     return createData(
+      data.DIAGNOSTIC_ID,
       index + 1,
-      data.PATIENT.PATIENT_NAME,
-      data.PATIENT.PHONE,
+      data.PATIENT?.PATIENT_NAME,
+      data.PATIENT?.PHONE,
       "8:30",
       1,
       data.STATUS
@@ -33,8 +34,8 @@ const newRows = (queue) => {
 }
 
 function Main(props) {
-  const [selectId, setSelectId] = useState(rows[0].id);
   const [diagnostics, setDiagnostics] = useState([])
+  const [selectId, setSelectId] = useState('');
   useEffect(() => {
     async function fetchData() {
       let data = await diagnosticService.getAllDiagnostic()

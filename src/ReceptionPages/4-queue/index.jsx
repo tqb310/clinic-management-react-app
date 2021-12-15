@@ -72,7 +72,7 @@ function Query(props) {
         )}
       </TabTableWrapper>
       <RightBar>
-        <RightBarContent data={(selectIndex < queue.length)? queue[selectIndex] : replaceDateWhenQueueEmpty} />
+        <RightBarContent data={(selectIndex < (queue && queue.length))? queue[selectIndex] : replaceDateWhenQueueEmpty} />
       </RightBar>
     </div>
   );

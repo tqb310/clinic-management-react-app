@@ -14,6 +14,19 @@ const employee = {
         } catch (error) {
             return null
         }
+    },
+    async createEmployee(data){
+        try {
+            let result =  await axiosClient.post(
+                employeeUrl.createEmployee,
+                data,
+                { headers: { access_token: authentication.getCurrentUser().token } }
+            )
+            return result
+        } catch (error) {
+            console.log(error)
+            return null
+        }
     }
 }
 

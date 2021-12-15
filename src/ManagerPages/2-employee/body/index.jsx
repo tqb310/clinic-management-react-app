@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {genderMap} from '_constants/gender'
+import position from '_constants/FakeData/EmployeePosition'
 import './index.scss'
 
 function Body({employees, expandIndex, handleExpandIndex}) {
@@ -20,7 +21,7 @@ function Body({employees, expandIndex, handleExpandIndex}) {
                         <td className='manage-employee-id'>{employee.EMPLOYEE_ID}</td>
                         <td className='manage-employee-name'>{employee.EMPLOYEE_NAME}</td>
                         <td className='manage-employee-phone'>{employee.PHONE}</td>
-                        <td className='manage-employee-position'>{employee.POSITION}</td>
+                        <td className='manage-employee-position'>{position.get(employee.POSITION)}</td>
                         <td className='manage-employee-salary'>{employee.SALARY}</td>
                     </tr>,
                     // (expandIndex == index) && (

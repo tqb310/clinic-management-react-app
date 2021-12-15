@@ -11,6 +11,7 @@ import {
   FormControl,
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
+import userService from '_services/user.service'
 // import handlePriceFormat from "_helpers/handlePriceFormat.js";
 import "./index.scss";
 
@@ -18,8 +19,15 @@ function PasswordForm({ open, handleClose }) {
   const [oldPass, setOldPass] = useState("");
   const [newPass, setNewPass] = useState("");
   const [confirm, setConfirm] = useState("");
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     console.log({ oldPass, newPass });
+    let result = await userService.changePassword({oldPass, newPass})
+    switch(result){
+      case null: alert('Lỗi server');break;
+      case undefined: alert('Mật khẩu không đúng!'); break;
+      default: alert('Đổi mật khẩu thành công')
+    }
+
   };
   return (
     <Dialog modal={true} open={open} onClose={handleClose}>

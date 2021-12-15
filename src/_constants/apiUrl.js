@@ -1,6 +1,6 @@
 export const auth = {
     login: '/login',
-
+    changPass: '/user/password'
 }
 
 export const appointment = {
@@ -22,7 +22,8 @@ export const diagnostic = {
 }
 
 export const employee = {
-    getAllEmployee: '/manage/employee'
+    getAllEmployee: '/manager/employees',
+    createEmployee: '/manager/employees'
 }
 
 

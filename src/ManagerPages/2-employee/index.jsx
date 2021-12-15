@@ -19,13 +19,17 @@ function Employee(props) {
     async function fetchData(){
       try {
         let data = await employeeService.getAllEmployee()
-
+        console.log(data)
+        switch(data){
+          case null: alert('Lỗi server, vui lòng thử lại');break;
+          default:setEmployeeData(data)
+        }
       } catch (error) {
         
       }
     }
     fetchData()
-  })
+  },[])
   const handleClose = () => {
       setOpen(false);
   }
@@ -36,8 +40,14 @@ function Employee(props) {
       setExpandIndex(index);
     }
   };
-  const handleSubmit = (value) => {
+  const handleSubmit = async (value) => {
       console.log(value);
+      try {
+        let result = await employeeService.createEmployee(value)
+        console.log(result)
+      } catch (error) {
+        console.log(error)
+      }
   }
   return (
     <div className="manage-employee-wrap">

@@ -21,5 +21,9 @@ export const diagnostic = {
     getDiagnosticById: '/reception/diagnostic/',
 }
 
+export const employee = {
+    getAllEmployee: '/manage/employee'
+}
+
 
 //Them tat ca url cua api vao day

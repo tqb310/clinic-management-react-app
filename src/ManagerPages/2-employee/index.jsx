@@ -1,18 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Header from "./header";
 import Body from "./body";
-import employeeData from "_constants/FakeData/Employee";
+// import employeeData from "_constants/FakeData/Employee";
 import { RightBar } from "_components/StyledComponent";
 import EmployeeInfomation from "./rightBar";
 import { Button } from "@mui/material";
 import { Add } from "@mui/icons-material";
 import EmployeeForm from "./EmployeeForm";
+import employeeService from '_services/employee.service'
 import "./index.scss";
 
 function Employee(props) {
   const [expandIndex, setExpandIndex] = useState(-1);
   const [open, setOpen] = useState(false);
+  const [employeeData, setEmployeeData] = useState([])
+  useEffect(()=>{
+    async function fetchData(){
+      try {
+        let data = await employeeService.getAllEmployee()
+
+      } catch (error) {
+        
+      }
+    }
+    fetchData()
+  })
   const handleClose = () => {
       setOpen(false);
   }

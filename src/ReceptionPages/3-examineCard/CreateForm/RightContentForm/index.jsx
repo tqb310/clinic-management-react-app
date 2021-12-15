@@ -1,16 +1,18 @@
 import React from "react";
-import { FastField } from "formik";
+import { FastField, Field } from "formik";
 import { FormControlLabel, RadioGroup, Radio, Checkbox } from "@mui/material";
 import { CustomPaper } from "_components/StyledComponent";
 import Select from "_components/FormikField/Select";
 import { Date } from "_components/FormikField/DateTime";
 import { receptionist } from "_constants/FakeData/Select";
-import { services } from "_constants/FakeData/Checkbox";
+// import { services } from "_constants/FakeData/Checkbox";
 import handlePriceFormat from "_helpers/handlePriceFormat";
+
 import "./index.scss";
 // import PropTypes from 'prop-types'
 
-function RightContent(props) {
+function RightContent({serviceData}) {
+  
   return (
     <div className="RightContent">
       <CustomPaper className="RightContent__card">
@@ -86,12 +88,13 @@ function RightContent(props) {
       <CustomPaper className="RightContent__card">
         <h4>Thông tin dịch vụ</h4>
         <div className="col-1-13">
-          <FastField name="SERVICES">
+          <Field name="SERVICES">
             {({ form, field }) => {
+              console.log(field);
               const handleChange = (e) => {                
                 // console.log(e.target.value);
                 let tempFee = form.values.DIAGNOSTIC_FEE;
-                const subtract = services.find((item) => item.value === e.target.value).fee;
+                const subtract = serviceData.find((item) => item.SERVICE_ID === e.target.value)?.FEE;
                 if(e.target.checked){
                   tempFee += subtract;
                 }else {
@@ -109,27 +112,27 @@ function RightContent(props) {
                     </tr>
                   </thead>
                   <tbody>
-                    {services.map((service, index) => (
+                    {serviceData.map((service, index) => (
                       <tr key={index}>
                         <td>
                           <FormControlLabel
                             {...field}
                             onChange={handleChange}
-                            value={service.value}
+                            value={service.SERVICE_ID}
                             sx={{ "& .MuiTypography-root": { fontSize: 14 } }}
-                            checked={field.value.includes(service.value)}
+                            checked={field.value.includes(service.SERVICE_ID+'')}
                             control={<Checkbox id="normal" />}
-                            label={service.key}
+                            label={service.SERVICE_NAME}
                           />
                         </td>
-                        <td>{handlePriceFormat(service.fee)}</td>
+                        <td>{handlePriceFormat(service.FEE)}</td>
                       </tr>
                     ))}
                   </tbody>
                 </table>
               )
             }}
-          </FastField>
+          </Field>
         </div>
       </CustomPaper>
     </div>

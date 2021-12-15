@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Formik, Form,} from "formik";
 import { CustomPaper } from "_components/StyledComponent";
 import LeftContent from "../LeftContentForm";
@@ -6,11 +6,24 @@ import RightContent from "../RightContentForm/index";
 import Payment from "../Payment";
 import { district, province, ward, gender } from "_constants/FakeData/Select";
 import authentication from "_services/authentication.service";
+import Services from "_services/servicesUsing.service";
 import "./index.scss";
 // import PropTypes from 'prop-types';
 
 function ContentForm({onSubmit}) {  
   // console.log(authentication.getCurrentUser()?.payload);
+  const [serviceData, setServiceData] = useState([]);
+  // const [fee, setFee] = useState(0);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await Services.getAllServicesUser();      
+      // console.log(res);
+      setServiceData(res);
+      // console.log(res[0].FEE + 2);
+    }
+    fetchData();
+  }, [])
   return (
     <div>
       <Formik
@@ -32,7 +45,7 @@ function ContentForm({onSubmit}) {
           RECEPTIONIST: authentication.getCurrentUser()?.payload.employee_id,
           DOCTOR_ID: "1",
           SERVICES: ['1'],
-          DIAGNOSTIC_FEE: 80000
+          DIAGNOSTIC_FEE: 30000
         }}
         onSubmit={(value) => {
           const p = province.find(item => item.value == value.ADDRESS.province).key;
@@ -47,7 +60,7 @@ function ContentForm({onSubmit}) {
         }}
       >
         {({values, errors}) => {
-          // console.log(values);
+          console.log(values);          
           const ddistrict = district.filter(item => item.province === values.ADDRESS.province);
           const dward = ward.filter(item => item.district === values.ADDRESS.district);
           return (
@@ -57,7 +70,7 @@ function ContentForm({onSubmit}) {
                   <LeftContent province={province} district={ddistrict} ward={dward} gender={gender}/>
                 </CustomPaper>
                 <div className="ContentForm__right">
-                  <RightContent/>
+                  <RightContent serviceData={serviceData}/>
                 </div>
               </div>
               <div className="ContentForm__payment">

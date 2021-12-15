@@ -62,6 +62,18 @@ const appointment = {
                 default:console.log('Lỗi Không xác định');return undefined
             }
         }
+    },
+    async createAppointmentRequest(data){
+        try {
+            const result = await axiosClient.post(
+                appoimentUrl.createAppointmentRequest,
+                data
+            )
+            return result
+        } catch (error) {
+            console.log(error)
+            return null
+        }
     }
 
 }

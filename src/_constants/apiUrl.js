@@ -8,6 +8,7 @@ export const appointment = {
     getAppointmentByWeek: '/reception/appointment-by-week',
     getAllAppointmentRequest: '/reception/appointment-request',
     confirmRequest: '/reception/appointment-request/',
+    createAppointmentRequest: '/customer/appointment-request'
 }
 
 export const diagnostic = {
@@ -19,4 +20,6 @@ export const diagnostic = {
     updateDiagnostic: '/doctor/diagnostic',
     getDiagnosticById: '/reception/diagnostic/',
 }
+
+
 //Them tat ca url cua api vao day

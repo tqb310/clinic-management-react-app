@@ -1,6 +1,6 @@
 export const gender = [
-    {key: 'Nam', value: 1},
-    {key: 'Nữ', value: 2},
+    {key: 'Nam', value: true},
+    {key: 'Nữ', value: false},
 ]
 
 export const role = [

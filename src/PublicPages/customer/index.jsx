@@ -16,6 +16,8 @@ import { Close } from "@mui/icons-material";
 import General from "./General";
 import DateTimeChoice from "./DateTime";
 import { gender, district, province, ward } from "_constants/FakeData/Select";
+import appointment from '_services/appointment.service'
+import {dateParse, timeParse} from '_constants/date'
 import "./index.scss";
 
 function FormikStep({ children }) {
@@ -131,7 +133,7 @@ function RequestForm() {
           },
         },
       }}
-      onSubmit={(value, helpers) => {
+      onSubmit={ async (value, helpers) => {
         const p = province.find(
           (item) => item.value == value.patient.address.province
         ).key;
@@ -144,12 +146,20 @@ function RequestForm() {
         const det = value.patient.address.details;
         const handledValue = {
           ...value,
+          appointment:{
+            ...value.appointment,
+            time: `${dateParse(value.appointment.time.date)} ${value.appointment.time.time}`
+          },
           patient: {
             ...value.patient,
+            date_of_birth:dateParse(value.patient.date_of_birth),
             ADDRESS: `${det ? det + ", " : ""}${w}, ${d}, ${p}`,
           },
         };
         console.log(handledValue);
+        let result = await appointment.createAppointmentRequest(handledValue)
+        if(!result) alert('Lỗi server, vui lòng thử lại')
+        else alert('Tạo thành công')
       }}
     >
       <FormikStep label="Điền thông tin bệnh nhân">

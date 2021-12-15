@@ -27,6 +27,7 @@ function ContentForm({onSubmit}) {
   return (
     <div>
       <Formik
+        enableReinitialize
         initialValues={{
           PATIENT_NAME: "",
           PHONE: "",
@@ -45,7 +46,7 @@ function ContentForm({onSubmit}) {
           RECEPTIONIST: authentication.getCurrentUser()?.payload.employee_id,
           DOCTOR_ID: "1",
           SERVICES: ['1'],
-          DIAGNOSTIC_FEE: 30000
+          DIAGNOSTIC_FEE: serviceData[0]?.FEE || 0
         }}
         onSubmit={(value) => {
           const p = province.find(item => item.value == value.ADDRESS.province).key;

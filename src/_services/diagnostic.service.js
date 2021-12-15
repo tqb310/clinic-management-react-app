@@ -28,16 +28,42 @@ const diagnostic = {
         }
     },
     async getDiagnosticStack() {
+        const mergeStack = (stack) => {
+            return [...stack.room1.map(data => {
+                const kq = {
+                    room: 1,
+                    data
+                }
+                return kq
+            }), ...stack.room2.map(data => {
+                const kq = {
+                    room: 2,
+                    data
+                }
+                return kq
+            })]
+        }
+
         try {
             let stacks = await axiosClient.get(
                 diagnosticUrl.getDiagnostic,
                 { headers: { access_token: authentication.getCurrentUser().token } }
             )
-            console.log(stacks)
+            return mergeStack(stacks)
         } catch (error) {
             console.log(error)
         }
     },
+
+    async getAllDiagnostic() {
+        try {
+            let diagnostics = await axiosClient.get(
+                diagnosticUrl.getAllDiagnostic,
+                { headers: { access_token: authentication.getCurrentUser().token } }
+            )
+            return diagnostics
+        }catch(error){
+
     async getDiagnosticStackByRoom(room) {
         try {
             let stack = await axiosClient.get(
@@ -65,3 +91,19 @@ const diagnostic = {
 }
 
 export default diagnostic;
+
+export const mergeStack = (stack) => {
+    return [...stack.room1.map(data => {
+        const kq = {
+            room: 1,
+            data
+        }
+        return kq
+    }), ...stack.room2.map(data => {
+        const kq = {
+            room: 2,
+            data
+        }
+        return kq
+    })]
+}

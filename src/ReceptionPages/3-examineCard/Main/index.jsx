@@ -1,9 +1,12 @@
-import React, {useState} from "react";
-import {useRouteMatch, useHistory} from 'react-router-dom';
+
+import React, { useState, useEffect } from "react";
 import TabTableWrapper from "_components/TabTableWrapper";
 import Table from "_components/Table";
+import diagnosticService from '_services/diagnostic.service'
+import {useRouteMatch, useHistory} from 'react-router-dom';
 import { ExamineHeadCells } from "_constants/headCell";
 import { rows, stateData } from "_constants/FakeData/ExamineList";
+
 import "./index.scss";
 // import PropTypes from 'prop-types'
 
@@ -15,21 +18,46 @@ const data = [
   { title: "Hoàn tất", number: 4 },
 ];
 
+const newRows = (queue) => {
+  const kq = queue.map((data, index) => {
+    return createData(
+      index + 1,
+      data.PATIENT.PATIENT_NAME,
+      data.PATIENT.PHONE,
+      "8:30",
+      1,
+      data.STATUS
+    )
+  })
+  return kq
+}
+
 function Main(props) {
   const [selectId, setSelectId] = useState(rows[0].id);
+  const [diagnostics, setDiagnostics] = useState([])
+  useEffect(() => {
+    async function fetchData() {
+      let data = await diagnosticService.getAllDiagnostic()
+      setDiagnostics(data)
+    }
+    fetchData()
+  }, [])
+  console.log((diagnostics))
+
   const history = useHistory();
   const {path} = useRouteMatch();
   const onClickItem = (id) => {
     history.push(`${path}${id}`);
   }
+
   return (
     <TabTableWrapper tabNameArr={data} isAction>
       {(index) => {
         return (
           <div>
             <Table
+              rows={newRows(diagnostics)}
               headCells={ExamineHeadCells}
-              rows={rows}
               stateArray={stateData}
               rowsPerPage={10}
               isCheckbox={true}

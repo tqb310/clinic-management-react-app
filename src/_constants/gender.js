@@ -1,4 +1,5 @@
-export const genderMap = new Map([
-    [false, 'Nữ'],
-    [true, 'Nam']
-]);
+const gender = new Map([
+    [true, 'Nam'],
+    [false, 'Nữ']
+])
+export default gender

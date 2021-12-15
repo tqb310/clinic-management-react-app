@@ -27,7 +27,7 @@ export default function EnhancedTable({
   const [height, setHeight] = useState(0);
   const ref = useRef(null);
   useEffect(() => {
-    const h = ref.current.clientHeight;
+    const h =(rows.length != 0)? ref.current.clientHeight : 0;
     setHeight(h);
   }, []);
   const handleSelectAllClick = (event) => {

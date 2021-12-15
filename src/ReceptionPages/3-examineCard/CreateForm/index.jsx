@@ -14,14 +14,14 @@ function CreateForm(props) {
     console.log(value);
     value.DATE_OF_BIRTH = dateParse(value.DATE_OF_BIRTH);
     value.CREATE_AT = dateParse(value.CREATE_AT) + " " + timeParse(value.CREATE_AT);
-    // let data = await diagnostic.createDiagnostic(value);
-    // switch (data) {
-    //   case null:
-    //     alert("Co loi xay ra!");
-    //     break;
-    //   default:
-    //     alert(`Tao phieu kham thanh cong, so thu tu: ${data}`);
-    // }
+    let data = await diagnostic.createDiagnostic(value);
+    switch (data) {
+      case null:
+        alert("Co loi xay ra!");
+        break;
+      default:
+        alert(`Tao phieu kham thanh cong, so thu tu: ${data}`);
+    }
   };
   
   return (

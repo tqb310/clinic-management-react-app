@@ -64,6 +64,9 @@ const diagnostic = {
             return diagnostics
         }catch(error){
 
+        }
+    },
+
     async getDiagnosticStackByRoom(room) {
         try {
             let stack = await axiosClient.get(

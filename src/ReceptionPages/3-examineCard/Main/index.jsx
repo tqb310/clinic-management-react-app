@@ -5,7 +5,7 @@ import Table from "_components/Table";
 import diagnosticService from '_services/diagnostic.service'
 import {useRouteMatch, useHistory} from 'react-router-dom';
 import { ExamineHeadCells } from "_constants/headCell";
-import { rows, stateData } from "_constants/FakeData/ExamineList";
+import { rows, stateData, createData } from "_constants/FakeData/QueryTable";
 
 import "./index.scss";
 // import PropTypes from 'prop-types'

@@ -1,5 +1,5 @@
 import React from 'react'
-import {genderMap} from '_constants/gender'
+import gender from '_constants/gender'
 import './index.scss'
 import Button from '@mui/material/Button'
 
@@ -15,7 +15,7 @@ function EmployeeInfomation({employee}) {
                 <p><span>Họ và tên:</span> {employee.EMPLOYEE_NAME}</p>
                 <p><span>CMND / CCCD:</span> {employee.IDENTITY_NUMBER}</p>
                 <p><span>Số điện thoại:</span> {employee.PHONE}</p>
-                <p><span>Giới tính:</span> {genderMap.get(employee.GENDER)}</p>
+                <p><span>Giới tính:</span> {gender.get(employee.GENDER)}</p>
                 <p><span>Ngày sinh:</span> {employee.DATE_OF_BIRTH}</p>
                 <p><span>Địa chỉ:</span> {employee.ADDRESS}</p>
                 <p><span>Vị trí:</span> {employee.POSITION}</p>

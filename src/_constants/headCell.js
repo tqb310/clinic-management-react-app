@@ -97,7 +97,13 @@ export const ExamineHeadCells = [
       numeric: true,
       width: '15%',      
       label: "Ngày lập",
-    },   
+    },
+    {
+      id: "room",
+      numeric: true,
+      width: '15%',      
+      label: "Phòng",
+    },      
     {
       id: "state",
       numeric: true,

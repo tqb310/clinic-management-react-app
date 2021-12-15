@@ -1,7 +1,7 @@
 import React from "react";
 import { TextField } from "@mui/material";
 import {dateParse} from '_constants/date'
-import {genderMap} from '_constants/gender'
+import gender from '_constants/gender'
 // import {CustomPaper} from '_components/StyledComponent';
 import "./index.scss";
 // import PropTypes from 'prop-types'
@@ -53,7 +53,7 @@ function PatientInfo({data}) {
         <TextField
           variant="filled"
           label="Giới tính"
-          value={genderMap.get(data.GENDER)}
+          value={gender.get(data.GENDER)}
           size="small"
           sx={{
             "& .MuiInputBase-input": {},

@@ -13,7 +13,7 @@ export const appointment = {
 export const diagnostic = {
     createDiagostic: '/reception/diagnostic',
     getDiagnostic: '/reception/diagnostic-stack',
-    getAllDiagnostic: '/reception/diagnostic'
+    getAllDiagnostic: '/reception/diagnostic',
     getRoom: '/doctor/room',
     getDiagnosticStackByRoom: '/doctor/stack',
     updateDiagnostic: '/doctor/diagnostic'

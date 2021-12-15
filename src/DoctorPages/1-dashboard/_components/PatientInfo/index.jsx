@@ -1,10 +1,13 @@
 import React from "react";
 import { TextField } from "@mui/material";
+import {dateParse} from '_constants/date'
+import {genderMap} from '_constants/gender'
 // import {CustomPaper} from '_components/StyledComponent';
 import "./index.scss";
 // import PropTypes from 'prop-types'
 
-function PatientInfo(props) {
+function PatientInfo({data}) {
+  console.log(data)
   return (
     <div className="ECPatientInfo">
       <div className="ECPatientInfo__avatar col-1-3 row-1-3">
@@ -14,7 +17,7 @@ function PatientInfo(props) {
         <TextField
           variant="filled"
           label="Tên bệnh nhân"
-          value="Truong Quoc Bao"
+          value={data.PATIENT_NAME}
           size="small"
           sx={{
             "& .MuiInputBase-input": {},
@@ -26,7 +29,7 @@ function PatientInfo(props) {
         <TextField
           variant="filled"
           label="Ngày sinh"
-          value="03/10/2000"
+          value={data.DATE_OF_BIRTH}
           size="small"
           sx={{
             "& .MuiInputBase-input": {},
@@ -50,7 +53,7 @@ function PatientInfo(props) {
         <TextField
           variant="filled"
           label="Giới tính"
-          value="Nam"
+          value={genderMap.get(data.GENDER)}
           size="small"
           sx={{
             "& .MuiInputBase-input": {},
@@ -62,7 +65,7 @@ function PatientInfo(props) {
         <TextField
           variant="filled"
           label="Điện thoại"
-          value="0346126584"
+          value={data.PHONE}
           size="small"
           sx={{
             "& .MuiInputBase-input": {},
@@ -74,7 +77,7 @@ function PatientInfo(props) {
         <TextField
           variant="filled"
           label="CMND/CCCD"
-          value="261612472"
+          value={data.IDENTITY_NUMBER}
           size="small"
           sx={{
             "& .MuiInputBase-input": {},
@@ -86,7 +89,7 @@ function PatientInfo(props) {
         <TextField
           variant="filled"
           label="Nghề nghiệp"
-          value="Sinh viên"
+          value={data.OCCUPATION}
           size="small"
           sx={{
             "& .MuiInputBase-input": {},
@@ -100,7 +103,7 @@ function PatientInfo(props) {
           rows={2}
           variant="filled"
           label="Địa chỉ"
-          value="Số 4 - đường Lê Hồng Phong - thị trấn Ma lâm - huyện Hàm Thuận Bắc - tỉnh Bình Thuận"
+          value={data.ADDRESS}
           size="small"
           sx={{
             "& .MuiInputBase-input": {},
@@ -114,7 +117,7 @@ function PatientInfo(props) {
           rows={2}
           variant="filled"
           label="Ghi chú"
-          value="vdfnkgvdfngdkjndv"
+          value="ABC"
           size="small"
           sx={{
             "& .MuiInputBase-input": {},

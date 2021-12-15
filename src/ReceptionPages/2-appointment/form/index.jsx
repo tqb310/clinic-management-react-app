@@ -11,7 +11,7 @@ import {
   IconButton,
 } from "@mui/material";
 // import { Date } from "_components/FormikField/DateTime";
-// import { gender, district, province, ward } from "_constants/FakeData/Select";
+import { gender, district, province, ward } from "_constants/FakeData/Select";
 import { Close } from "@mui/icons-material";
 import General from "./General";
 import DateTimeChoice from "./DateTime";
@@ -76,7 +76,7 @@ function FormikStepper({ children, onSubmit, ...rest }) {
                   onClick={() => setCurrentTab(currentTab - 1)}
                   sx={{
                     color: "#2E3192",
-                    marginRight: '1rem',
+                    marginRight: "1rem",
                     "&:hover": { backgroundColor: "#e8e8fc" },
                   }}
                 >
@@ -101,8 +101,28 @@ function FormikStepper({ children, onSubmit, ...rest }) {
   );
 }
 
-function AppointmentForm({ open, handleClose }) {
+function AppointmentForm({ open, handleClose, handleSubmit }) {
   // const [oldCustomer, setOldCustomer] = useState(false);
+  const handleSubmitForm = (value) => {
+    const p = province.find(
+      (item) => item.value == value.patient.address.province
+    ).key;
+    const d = district.find(
+      (item) => item.value == value.patient.address.district
+    ).key;
+    const w = ward.find(
+      (item) => item.value == value.patient.address.ward
+    ).key;
+    const det = value.patient.address.details;
+    const handledValue = {
+      ...value,
+      patient: {
+        ...value.patient,
+        ADDRESS: `${det ? det + ", " : ""}${w}, ${d}, ${p}`,
+      },
+    };
+    handleSubmit(handledValue);
+  };
   return (
     <Dialog modal={true} open={open} onClose={handleClose}>
       <DialogTitle
@@ -147,9 +167,7 @@ function AppointmentForm({ open, handleClose }) {
               },
             },
           }}
-          onSubmit={(value, helpers) => {
-            console.log(value);
-          }}
+          onSubmit={handleSubmitForm}
         >
           <FormikStep label="Điền thông tin bệnh nhân">
             <General />

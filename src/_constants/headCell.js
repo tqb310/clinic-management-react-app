@@ -63,7 +63,7 @@ export const AppointmentHeadCells = [
       id: "room",
       numeric: true,
       width: '15%',      
-      label: "Phòng",
+      label: "Bác sĩ",
     },   
     {
       id: "state",

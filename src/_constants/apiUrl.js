@@ -6,7 +6,8 @@ export const auth = {
 export const appointment = {
     getAllAppointment: '/reception/appointment',
     getAppointmentByWeek: '/reception/appointment-by-week',
-    getAllAppointmentRequest: '/reception/appointment-request'
+    getAllAppointmentRequest: '/reception/appointment-request',
+    confirmRequest: '/reception/appointment-request/',
 }
 
 export const diagnostic = {

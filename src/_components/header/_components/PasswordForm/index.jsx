@@ -11,7 +11,7 @@ import {
   FormControl,
 } from "@mui/material";
 import { Close } from "@mui/icons-material";
-import handlePriceFormat from "_helpers/handlePriceFormat.js";
+// import handlePriceFormat from "_helpers/handlePriceFormat.js";
 import "./index.scss";
 
 function PasswordForm({ open, handleClose }) {

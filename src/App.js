@@ -7,6 +7,7 @@ const ReceptionistModule = lazy(() => import('./ReceptionPages'));
 const DoctorModule = lazy(() => import('./DoctorPages'));
 const ManagerModule = lazy(() => import('./ManagerPages'));
 const Login = lazy(() => import('./PublicPages/login'));
+const Customer = lazy(() => import('./PublicPages/customer'));
 const NotFound = lazy(() => import('_components/NotFound'));
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
           <Switch>
             <Route path="/" exact render={() => (<Redirect to="/dang-nhap"/>)}/>
             <Route path="/dang-nhap" exact component={Login}/>
+            <Route path="/dat-lich-hen" exact component={Customer}/>
             <PrivateRoute path="/tiep-tan" roles="1" component={ReceptionistModule}/>
             <PrivateRoute path="/quan-ly" roles="2" component={ManagerModule}/>
             <PrivateRoute path="/bac-si" roles="3" component={DoctorModule}/>

@@ -17,7 +17,7 @@ function RoomState(props) {
               <p className="room">Phòng 1</p>
               <p className="doctor">BS.Phúc</p>
             </td>
-            <td>#24 Nguyễn Văn A</td>
+            <td>#24 Nguyễn Văn Vĩnh</td>
           </tr>
           <tr>
             <td>
@@ -27,7 +27,7 @@ function RoomState(props) {
               <p className="room">Siêu âm</p>
               {/* <p className="doctor">BS.Ly</p> */}
             </td>
-            <td>#23 Nguyễn Thị B</td>
+            <td>#23 Hoàng Tuấn</td>
           </tr>
           <tr>
             <td>
@@ -37,7 +37,7 @@ function RoomState(props) {
               <p className="room">Xét nghiệm máu</p>
               {/* <p className="doctor">BS.Ly</p> */}
             </td>
-            <td>#23 Nguyễn Thị B</td>
+            <td>#25 Võ Nguyên Lực</td>
           </tr>
           <tr>
             <td>

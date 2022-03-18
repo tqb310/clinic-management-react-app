@@ -1,0 +1,43 @@
+.RoomState {
+    padding: .6rem 1rem;
+    &__title {
+        font-weight: 600;
+        margin-bottom: .5rem;
+    }
+    table {
+        width: 100%;
+        tr {
+            cursor: pointer;
+        }
+        td {
+            padding: .5rem;
+            font-size: 14px;
+            &:last-child {
+                text-align: right;
+                color: #888
+            }
+        }
+        .statusDot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+        .statusDot.available {
+            background-color: green;
+        }
+        .statusDot.non-available {
+            background-color: red;
+        }
+        .room, .doctor {
+            margin: 0;            
+        }        
+        .room {
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .doctor {
+            font-size: .8rem;
+            color: #888
+        }
+    }
+}

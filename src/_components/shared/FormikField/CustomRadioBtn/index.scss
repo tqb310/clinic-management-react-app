@@ -1,0 +1,29 @@
+@import "_assets/style/_colors.scss";
+
+.CustomRadio__container {
+    align-self: flex-end;
+    .CustomRadio__input {
+        appearance: none;
+    }
+    
+    .CustomRadio__input + label {
+        display: inline-block;
+        padding: .1rem .3rem;
+        border: 2px solid #bdbdbd;
+        border-radius: .5rem;
+        color: #bdbdbd;
+        cursor: pointer;
+        font-weight: 500;
+        user-select: none;
+    }
+
+    input[type=radio]:checked + label {
+        display: inline-block;
+        padding: .1rem .3rem;
+        border: 2px solid $primary-color;
+        border-radius: .5rem;
+        color: $primary-color;
+        cursor: pointer;
+        font-weight: 600;
+    }
+}

@@ -3,6 +3,13 @@ import { auth } from "_constants/apiUrl";
 import decodeBase64String from "_helpers/decodeBase64String";
 
 const authentication = {
+  // LOGIN
+  /**
+   * 
+   * @param {String} email 
+   * @param {String} password 
+   * @returns {Number} Status code
+   */
   async login(email, password) {
     const url = auth.login;
     try {
@@ -18,12 +25,12 @@ const authentication = {
 
     }
   },
-
+  // LOGOUT
   logout() {
     localStorage.removeItem("accessToken");
-    window.location.reload();
+    window.location.assign('/dang-nhap');
   },
-
+   
   getCurrentUser() {
     const tokenString = localStorage.getItem("accessToken");
     if (tokenString) {
@@ -37,8 +44,8 @@ const authentication = {
           return null;
       }
     }
-    return null;
-  },
+    // return null;
+  }
 };
 
 export default authentication;

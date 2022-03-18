@@ -1,8 +1,0 @@
-@import '_assets/style/_colors.scss';
-@import '_assets/style/_mixins.scss';
-
-.ServiceForm {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    @include gridDivide();
-}

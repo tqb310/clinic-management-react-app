@@ -52,10 +52,10 @@ function Dashboard(props) {
             </div>
             <Grid
                 container
-                columnSpacing={3}
+                spacing={3}
                 className="dashboard-section"
             >
-                <Grid item lg="8">
+                <Grid item lg={8}>
                     <BarChart
                         title="Số lượng trung bình bệnh nhân đến khám"
                         height={250}
@@ -64,7 +64,7 @@ function Dashboard(props) {
                         widthItem={38}
                     />
                 </Grid>
-                <Grid item lg="4">
+                <Grid item lg={4}>
                     <RoomState />
                 </Grid>
             </Grid>

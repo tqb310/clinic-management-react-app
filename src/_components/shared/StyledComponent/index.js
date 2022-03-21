@@ -1,3 +1,2 @@
-export {CustomPaper} from './Paper';
+export * from './Paper';
 export {RightBar} from './RightBar';
-

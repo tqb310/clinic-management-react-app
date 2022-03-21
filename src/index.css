@@ -1,55 +1,57 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 html {
-  font-size: 62.5%;
+    font-size: 62.5%;
 }
-body {  
-  font-family: 'Signika Negative',-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  overflow: hidden;
-  font-size: 1.6rem;  
+body {
+    font-family: 'Signika Negative', -apple-system,
+        BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+        'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+        'Helvetica Neue', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow: hidden;
+    font-size: 1.6rem;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas,
+        'Courier New', monospace;
 }
 
 :root {
-  --primary-color: #2E3192;
-  --secondary-color: #EFAD0A;
+    --primary-color: #2e3192;
+    --secondary-color: #efad0a;
 
-  --custom-paper-hover: #F8F8F8;  
-  --background-main: #F5F8FE;
-  --text-color: #333;
-  --scrollbar-color: #B2B1B9;
-  /* GREEN */
-  --lightest-green: #ECFBF6;
-  --light-green : #34EEAE;
-  --dark-green: #03B575;
+    --custom-paper-hover: #f8f8f8;
+    --background-main: #f5f8fe;
+    --text-color: #333;
+    --scrollbar-color: #b2b1b9;
+    /* GREEN */
+    --lightest-green: #ecfbf6;
+    --light-green: #34eeae;
+    --dark-green: #03b575;
 
-  /* RED */
-  --light-red: #FF7E77;
-  --dark-red: #E74F48;
+    /* RED */
+    --lightest-red: #fceae9;
+    --light-red: #ff7e77;
+    --dark-red: #e74f48;
 
-  /* GRAY */
-  --light-gray: #CDD0CB;  
-  --dark-gray: #52575C;
+    /* GRAY */
+    --light-gray: #cdd0cb;
+    --dark-gray: #52575c;
 
-  /* YELLOW */
-  --lightest-yellow: #E6D8C8;
-  --lightest-yellow2: #FFF9ED;
-  --light-yellow: #FCDF98;
+    /* YELLOW */
+    --lightest-yellow: #e6d8c8;
+    --lightest-yellow2: #fff9ed;
+    --light-yellow: #fcdf98;
 
-  /* BLUE */
-  --lightest-blue: #EBF0FF;
-  --dark-blue: #1F58E7;
+    /* BLUE */
+    --lightest-blue: #ebf0ff;
+    --dark-blue: #1f58e7;
 }
 
 /* .row {

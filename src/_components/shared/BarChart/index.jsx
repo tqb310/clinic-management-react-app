@@ -8,11 +8,11 @@ import "./index.scss";
 function BarChart({ title, yAxis, height, data, widthItem }) {
   const max = data.reduce((a, b) => (a > b.value ? a : b.value), 0);
   const contentHeight = (height - 40) * 0.9 / yAxis.length * (yAxis.length - 1);
-  const valuePerPxl = contentHeight / yAxis[yAxis.length - 1];  
+  const valuePerPxl = contentHeight / yAxis[yAxis.length - 1];
   return (
     <CustomPaper className="BarChart" sx={{ height }}>
       <div className="BarChart__header">
-        <Typography variant="p" fontWeight={600}>{title}</Typography>
+        <Typography variant="h6">{title}</Typography>
         <span>
           <Button
             sx={{
@@ -28,7 +28,7 @@ function BarChart({ title, yAxis, height, data, widthItem }) {
           </Button>
         </span>
       </div>
-      <div className="BarChart__frame" style={{height: (height - 40) + 'px'}}>
+      <div className="BarChart__frame" style={{ height: (height - 40) + 'px' }}>
         <table>
           {yAxis &&
             [...yAxis].reverse().map((num, index) => (
@@ -41,13 +41,12 @@ function BarChart({ title, yAxis, height, data, widthItem }) {
             ))}
         </table>
       </div>
-      <div className="BarChart__content" style={{height: (height - 40) + 'px'}}>
+      <div className="BarChart__content" style={{ height: (height - 40) + 'px' }}>
         {data.map((item, index) => (
-          <div key={index} className="BarChart__item" style={{width: widthItem + 'px'}}>
+          <div key={index} className="BarChart__item" style={{ width: widthItem + 'px' }}>
             <div
-              className={`BarChart__shape-item ${
-                item.value === max ? " max" : ""
-              }`}
+              className={`BarChart__shape-item ${item.value === max ? " max" : ""
+                }`}
               style={{ height: Math.min(contentHeight, item.value * valuePerPxl) + 'px' }}
             >
               {item.value}

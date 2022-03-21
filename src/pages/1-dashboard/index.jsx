@@ -4,8 +4,7 @@ import BarChart from "_components/shared/BarChart";
 import RoomState from "./_components/RoomState";
 import Appointment from "./_components/Appointment";
 import { RightBar } from "_components/shared/StyledComponent";
-import { Grid } from '@mui/material';
-
+import { Grid, Typography } from '@mui/material';
 // import VisitChart from "./_components/VisitChart";
 // import authentication from "_services/authentication.service";
 // import { Scrollbars } from "react-custom-scrollbars-2";
@@ -34,13 +33,13 @@ function Dashboard(props) {
   console.log(props);
   return (
     <div className="dashboard">
-      <p className="dashboard__title">
+      <Typography variant="h5" color="primary" gutterBottom className="dashboard__title">
         Xin chào,{" "}
-        <span>
+        <Typography variant="h5" color="secondary" component="span">
           {/* {authentication.getCurrentUser()?.payload.employee_name} */}
           Trương Quốc Bảo
-        </span>
-      </p>
+        </Typography>
+      </Typography>
       <div className="dashboard-section">
         <CardContainer />
       </div>

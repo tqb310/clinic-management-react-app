@@ -16,7 +16,7 @@ function Header() {
   const pname = Routes.find(route => route.path === pathname)?.name || '';
   return (
     <Box className="header">
-      <Typography variant="h5" color="primary" sx={{ fontWeight: 700, flex: 1 }}>
+      <Typography variant="h4" color="primary" sx={{ fontWeight: 700, flex: 1 }}>
         {pname}
       </Typography>
       <DateTime />

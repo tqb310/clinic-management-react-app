@@ -5,9 +5,10 @@ export const RightBar = styled(Box)`
     position: fixed;
     right: 0;
     top: 0;
-    color: white;
-    height: 100%;
-    width: 25%;
+    bottom: 0;
+    right: 0;
+    color: white;    
+    width: 400px;
     text-align: center;
     border-radius: 10px 0 0 10px;
 `;

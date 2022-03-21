@@ -1,4 +1,4 @@
-@import "_assets/style/_colors.scss";
+
 
 .container {
   margin-top: 6.5px;
@@ -32,16 +32,16 @@
         font-size: 2em;
       }
       .greenlight {
-        color: $greenlight;
+        color: var(--light-green);
       }
       .greendark {
-        color: $greendark;
+        color: var(--dark-green);
       }
       .redlight {
-        color: $redlight;
+        color: var(--light-red);
       }
       .reddark {
-        color: $reddark;
+        color: var(--dark-red);
       }
     }
   }

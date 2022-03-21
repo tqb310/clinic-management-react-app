@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Box, Typography } from "@mui/material";
 import "./index.scss";
@@ -15,11 +15,11 @@ function DateTime() {
     <Box className="datetime">
       <Box className="date">
         <FontAwesomeIcon className="date__icon" icon="calendar-week" style={{color: '#2E3192'}}/>
-        <Typography component="span" className="date__data">{date}</Typography>
+        <Typography variant="span">{date}</Typography>
       </Box>
       <Box>
         <FontAwesomeIcon className="time__icon" icon="clock" style={{color: '#2E3192'}}/>
-        <Typography component="span" className="time__data">{time}</Typography>
+        <Typography variant="span">{time}</Typography>
       </Box>
     </Box>
   );
@@ -34,4 +34,4 @@ const getDateTime = (setTime, setDate) => {
 }
 
 
-export default DateTime;
+export default memo(DateTime);

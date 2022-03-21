@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, memo } from "react";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import { Tooltip } from "@mui/material";
@@ -6,7 +6,7 @@ import "./index.scss";
 
 const iconStyles = {
   color: "#A0A4A8",
-  fontSize: 27,
+  fontSize: 32,
   transition: "all .3s",
   display: "block",
   margin: "auto",
@@ -19,27 +19,23 @@ const iconStyles = {
 const activeIconStyles = {
   ...iconStyles,  
   color: "white",
-  backgroundColor: "#2E3192",
-  // transform: "scale(1.2,1.2)",
-  // boxShadow: "0px 4px 20px #2E3192",
+  backgroundColor: "#2E3192", 
   borderRadius: 2,
   "&:hover": {},
 };
 
-function SideBar({ routes }) {
-  // const { path } = useRouteMatch();
+function SideBar({ routes }) { 
   // console.log(path);
   const [selectedTab, setSelectedTab] = useState(0);
-  return (
-    <div>
-      <ul className="sidebar">
+  return (    
+      <nav className="sidebar">
         {routes.map((route, index) => {
           const { id, path, name, icon: Icon } = route;
           return (
             <li key={id} className="sidebar__item">
               <Tooltip title={name} followCursor arrow>
                 <NavLink
-                  style={{ display: "block", padding: "20px 10px" }}
+                  style={{ display: "block", padding: "15px 0" }}
                   to={path}
                   isActive={(match, location) => {
                     if (match) {
@@ -55,8 +51,7 @@ function SideBar({ routes }) {
             </li>
           );
         })}
-      </ul>
-    </div>
+      </nav>    
   );
 }
 
@@ -73,4 +68,4 @@ SideBar.propTypes = {
   ),
 };
 
-export default SideBar;
+export default memo(SideBar);

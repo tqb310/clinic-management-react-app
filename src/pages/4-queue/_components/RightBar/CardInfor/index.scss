@@ -1,8 +1,8 @@
-@import "_assets/style/_colors.scss";
+
 @import "_assets/style/_mixins.scss";
 
 .CardInfor {
-    @include outlineTitle("Thông tin phiếu khám", $background-main, $primary-color, $lightest-yellow);
+    @include outlineTitle("Thông tin phiếu khám", var(--background-main), var(--primary-color), var(--lightest-yellow));
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     p {
@@ -32,8 +32,8 @@
         @include iconInRightBar(0.15rem);
     }
     .in-process {        
-        background-color: $lightest-blue; 
-        color: $dark-blue;
+        background-color: var(--lightest-blue); 
+        color: var(--dark-blue);
         text-align: center;
         font-weight: 500;
         border-radius: 5px;

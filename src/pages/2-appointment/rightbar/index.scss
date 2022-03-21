@@ -1,4 +1,4 @@
-@import "_assets/style/_colors.scss";
+
 
 .appoinment-rightbar-content {
     width: 95%;
@@ -15,7 +15,7 @@
             padding: .5rem 0;            
             &:first-child{
                 border-radius: 7px 0 0 7px;
-                color: $light-yellow;
+                color: var(--light-yellow);
                 font-size: 0.7rem;
                 width: 25%;
             }

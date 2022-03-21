@@ -3,8 +3,8 @@ import { Box, Badge, IconButton, Menu, MenuItem } from "@mui/material";
 import { KeyboardArrowDown } from "@mui/icons-material";
 import { CustomPaper } from "_components/shared/StyledComponent/Paper.js";
 import authentication from "_services/authentication.service";
-import ProfileForm from '../ProfileForm';
-import PasswordForm from '../PasswordForm';
+import ProfileForm from "../ProfileForm";
+import PasswordForm from "../PasswordForm";
 import "./index.scss";
 // import PropTypes from 'prop-types'
 // const {CustomPaper} = cs;
@@ -19,7 +19,7 @@ function Profile(props) {
   };
   const handleClose = () => {
     setAnchorEl(null);
-  }
+  };
   const handleCloseForm = () => {
     setOpenPass(false);
     setOpenProfile(false);
@@ -30,23 +30,14 @@ function Profile(props) {
     else setOpenProfile(true);
   };
   return (
-    <CustomPaper className="profile">
-      <Badge
-        variant="dot"
-        color="success"
-        anchorOrigin={{
-          vertical: "bottom",
-          horizontal: "right",
-        }}
-        overlap="circular"
-      >
-        <Box className="profile__avatar">
-          {authentication.getCurrentUser()?.payload.employee_name.slice(0, 1)}
-        </Box>
-      </Badge>
-      <Box className="profile__name">
-        {authentication.getCurrentUser()?.payload.employee_name}
+    <Box className="profile">
+      <Box className="profile__avatar">
+        {/* {authentication.getCurrentUser()?.payload.employee_name.slice(0, 1)} */}
+        TB
       </Box>
+      {/* <Box className="profile__name">
+       {authentication.getCurrentUser()?.payload.employee_name} 
+      </Box> */}
       <Box>
         <IconButton sx={{ width: 20, height: 20 }} onClick={handleClick}>
           <KeyboardArrowDown style={{ color: "#2E3192" }} />
@@ -74,7 +65,7 @@ function Profile(props) {
       </Menu>
       <ProfileForm open={openProfile} handleClose={handleCloseForm} />
       <PasswordForm open={openPass} handleClose={handleCloseForm} />
-    </CustomPaper>
+    </Box>
   );
 }
 

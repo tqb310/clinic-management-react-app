@@ -1,7 +1,7 @@
 .dcardContent {
-    width: 36%;
+    width: 100%;
     margin: 0.4rem 0.3rem;
-    padding: 0.5rem 1rem;
+    padding: 1rem 2rem;    
     &__title {
         display: flex;
         align-items: center;
@@ -23,9 +23,13 @@
     &__compare {
         display: flex;
         justify-content: space-between;
-        font-size: 0.8rem;    
-        &Title {
+        &-title {
+            font-size: 1.2rem;    
             font-weight: 400;
+        }
+        &-number {
+            font-size: 1.4rem;    
+            
         }
     }
 }

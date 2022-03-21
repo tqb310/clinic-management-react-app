@@ -1,7 +1,7 @@
-import React from "react";
-import { Button } from "@mui/material";
-import {KeyboardArrowDown} from "@mui/icons-material";
-import { CustomPaper } from "_components/shared/StyledComponent";
+import React, {memo} from "react";
+import { Grid } from "@mui/material";
+// import {KeyboardArrowDown} from "@mui/icons-material";
+// import { CustomPaper } from "_components/shared/StyledComponent";
 import Card from "_components/shared/Card";
 import "./index.scss";
 // import PropTypes from 'prop-types'
@@ -41,10 +41,10 @@ const cardInfo = [
   },
 ];
 
-function CardContainer(props) {
+function CardContainer() {
   return (
-    <CustomPaper className="dashboardCard">
-      <div className="dashboardCard__select">
+    <div className="dashboardCard">
+      {/* <div className="dashboardCard__select">
         <Button
           sx={{
             color: "#25282B",
@@ -59,24 +59,25 @@ function CardContainer(props) {
         >
           Hôm nay
         </Button>
-      </div>
-      <div className="dashboardCard__content">
+      </div> */}
+      <Grid container columnSpacing={4} className="dashboardCard__content">
         {cardInfo.map((card, index) => (
-          <Card
-            key={index}
-            ptitle={card.title}
-            pdata={card.pdata}
-            cdata={card.cdata}
-            icon={card.icon}
-            color={card.color}
-            bgColor={card.bgColor}
-          ></Card>
+          <Grid item lg="3" key={index}>
+            <Card              
+              ptitle={card.title}
+              pdata={card.pdata}
+              cdata={card.cdata}
+              icon={card.icon}
+              color={card.color}
+              bgColor={card.bgColor}
+            ></Card>
+          </Grid>
         ))}
-      </div>
-    </CustomPaper>
+      </Grid>
+    </div>
   );
 }
 
 CardContainer.propTypes = {};
 
-export default CardContainer;
+export default memo(CardContainer);

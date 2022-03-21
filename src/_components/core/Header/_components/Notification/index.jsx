@@ -1,23 +1,19 @@
-import React from 'react';
-import { Badge } from '@mui/material';
-import {Notifications} from '@mui/icons-material';
-import {CustomPaper} from '_components/shared/StyledComponent/Paper.js';
-import './index.scss'
+import React from "react";
+import { Badge, IconButton } from "@mui/material";
+import { Notifications } from "@mui/icons-material";
+import "./index.scss";
 // import PropTypes from 'prop-types'
 
 function Notification(props) {
-    return (
-        <CustomPaper className="notification" >
-            <Badge variant="dot" color="warning">
-                <Notifications className="notification__icon"/>
-            </Badge>
-        </CustomPaper>
-    )
+  return (
+    <IconButton className="notification" sx={{marginRight: 2}}>
+      <Badge variant="dot" color="warning">
+        <Notifications fontSize="2" className="notification__icon" />
+      </Badge>
+    </IconButton>
+  );
 }
 
-Notification.propTypes = {
+Notification.propTypes = {};
 
-}
-
-export default Notification
-
+export default Notification;

@@ -1,4 +1,4 @@
-@import "_assets/style/_colors.scss";
+
 
 .DoctorDashboard {
   margin-right: 1rem;
@@ -10,11 +10,11 @@
     margin-bottom: 1rem;
     .DoctorDashboard__title {
       margin: 0;      
-      color: $primary-color;
+      color: var(--primary-color);
       font-weight: 700;
       font-size: large;
       span {
-        color: $secondary-color;
+        color: var(--secondary-color);
       }
     }
     .DoctorDashboard__room {

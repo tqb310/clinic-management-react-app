@@ -1,5 +1,5 @@
 @import "_assets/style/_mixins.scss";
-@import "_assets/style/_colors.scss";
+
 
 .RightContent {
   &__card {
@@ -15,8 +15,8 @@
     table {
       font-size: 15px;
       thead {
-        background-color: $lightest-blue;
-        color: $primary-color;
+        background-color: var(--lightest-blue);
+        color: var(--primary-color);
       }
       td {
         text-align: center;

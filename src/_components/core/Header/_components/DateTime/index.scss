@@ -1,8 +1,9 @@
 .datetime {
     display: flex;
     padding: 10px;
-    justify-content: center;
+    justify-content: flex-start;
     user-select: none;
+    flex: 1.5;
     .date, .time {
         padding: 0 20px;
         &__icon {

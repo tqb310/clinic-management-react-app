@@ -1,12 +1,12 @@
-@import "_assets/style/_colors.scss";
+
 @import "_assets/style/_mixins.scss";
 
 .PatientInfor {
   @include outlineTitle(
     "Thông tin bệnh nhân",
-    $background-main,
-    $primary-color,
-    $lightest-yellow
+    var(--background-main),
+    var(--primary-color),
+    var(--lightest-yellow)
   );
   &__EditIcon {
     position: absolute;

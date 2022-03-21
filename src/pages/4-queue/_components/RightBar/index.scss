@@ -1,4 +1,4 @@
-@import "_assets/style/_colors.scss";
+
 
 .queryRightbar {
     padding: 1rem;
@@ -8,7 +8,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        border: 0.7px solid $background-main;
+        border: 0.7px solid var(--background-main);
         border-radius: 30px;      
         cursor: pointer;        
         &:hover span{
@@ -22,14 +22,14 @@
             width: 40%;
             transition: all .3s;
             font-weight: 500;
-            color: $light-yellow;
+            color: var(--light-yellow);
         }         
         .queryRightbar__id {
             width: 60%;
             padding: 10px 0px;
-            background-color: $background-main;
+            background-color: var(--background-main);
             border-radius: 30px;
-            color: $primary-color;
+            color: var(--primary-color);
             font-weight: 500;
             text-decoration: underline;
             transition: all .5s;

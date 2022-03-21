@@ -1,4 +1,4 @@
-@import "_assets/style/_colors.scss";
+
 
 .content-container {
   max-width: 100%;
@@ -14,14 +14,14 @@
     align-items: center;
     padding: 0 1.5rem;
     h4:first-child {
-      color: $word-color;
+      color: var(--text-color);
       margin: 0;
     }
     .month {
       h4 {
         display: inline-block;
         margin-right: 1rem;
-        color: $word-color;
+        color: var(--text-color);
         user-select: none;
       }
       .chevron-circle-left-icon {
@@ -92,7 +92,7 @@
         width: 0.4rem;
         height: 0.4rem;
         border-radius: 50%;
-        background-color: $reddark;
+        background-color: var(--dark-red);
       }
       .date {
         width: calc(100% / 8);

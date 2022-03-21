@@ -1,30 +1,27 @@
-@import '_assets/style/_colors.scss';
-
 .profile {
     display: inline-flex;
     padding: 7px 12px;  
     user-select: none;  
-    align-items: center;
-    margin: 0px 20px;
+    align-items: center;    
     height: inherit;
+    margin-left: 6px;
     &__avatar {
         width: 27px;
         height: 27px;
         border-radius: 50%;
         color: white;
-        background: $primary-color;
+        background: var(--primary-color);
         text-align: center;
         font-weight: 600;
-        line-height: 1.7em;
+        line-height: 27px;
+        font-size: 1.3rem;
+        margin-right: 5px
     };
 
-    &__name {
-        font-size: 14px;
-        font-weight: 600;
-        line-height: 1.7em;
-        margin: 0 10px;
-    };
-    &:hover {
-        background-color: $custom-paper-hover;
-    }
+    // &__name {
+    //     font-size: 14px;
+    //     font-weight: 600;
+    //     line-height: 1.7em;
+    //     margin: 0 10px;
+    // };
 }

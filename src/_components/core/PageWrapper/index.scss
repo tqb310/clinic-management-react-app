@@ -1,5 +1,3 @@
-@import "_assets/style/_colors.scss";
-
 .pagewrapper {
   display: flex;
   min-height: 100vh;
@@ -16,11 +14,11 @@
   &__center {    
     flex: 8.4;
     border-radius: 20px 0 0 20px;
-    background: $background-main;       
+    background: var(--background-main);       
   }
   &__right {
     flex: 3;
-    background-color: $primary-color;
+    background-color: var(--primary-color);
     border-radius: 10px 0 0 10px;
   }
   &__logo {
@@ -35,8 +33,7 @@
     top: 0;
     background-color: transparent;
   }
-  &__main {
-    box-sizing: border-box;    
+  &__main {     
     padding: 0px 5px 0px 20px;    
     height: 86.5%;
   }
@@ -47,7 +44,7 @@
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    background-color: $secondary-color;
+    background-color: var(--secondary-color);
     display: flex;
     justify-content: center;
     align-items: center;

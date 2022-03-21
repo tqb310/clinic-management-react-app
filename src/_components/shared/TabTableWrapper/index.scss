@@ -1,4 +1,4 @@
-@import "_assets/style/_colors.scss";
+
 @import "_assets/style/_mixins.scss";
 
 .TabTableWrapper {    
@@ -22,14 +22,14 @@
                 @include badge(#EEE);
             }
             &:hover {
-                color: $primary-color;
+                color: var(--primary-color);
             }
         }
         .TabTableWrapper__tabItem.active {   
             position: relative;         
-            color: $primary-color;
+            color: var(--primary-color);
             .TabTableWrapper__tabItemBadge {
-               @include badge($lightest-blue);
+               @include badge(var(--lightest-blue));
             }
             &::after {
                 content: " ";
@@ -38,7 +38,7 @@
                 left: 0;
                 width: 100%;
                 height: 2px;
-                background-color: $primary-color;
+                background-color: var(--primary-color);
             }
         }
     }

@@ -1,85 +1,58 @@
-import React from "react";
-import { Button } from "@mui/material";
+import React, { memo, useMemo } from "react";
+import { Button, Typography } from "@mui/material";
 import { KeyboardArrowDown } from "@mui/icons-material";
-import {CustomPaper} from "_components/shared/StyledComponent";
+import { CustomPaper } from "_components/shared/StyledComponent";
 import "./index.scss";
 // import PropTypes from 'prop-types'
 
-const data = [
-  { day: "Hai", number: 9 },
-  { day: "Ba", number: 12 },
-  { day: "Tư", number: 4 },
-  { day: "Năm", number: 7 },
-  { day: "Sáu", number: 11 },
-  { day: "Bảy", number: 21 },
-  { day: "CN", number: 17 },
-];
-const max = data.reduce((a, b) => (a > b.number ? a : b.number), 0);
-
-function BarChart(props) {
+function BarChart({ title, yAxis, height, data, widthItem }) {
+  const max = data.reduce((a, b) => (a > b.value ? a : b.value), 0);
+  const contentHeight = (height - 40) * 0.9 / yAxis.length * (yAxis.length - 1);
+  const valuePerPxl = contentHeight / yAxis[yAxis.length - 1];  
   return (
-    <CustomPaper className="BarChart">
+    <CustomPaper className="BarChart" sx={{ height }}>
       <div className="BarChart__header">
-        <p>Số cuộc hẹn trong tuần</p>
+        <Typography variant="p" fontWeight={600}>{title}</Typography>
         <span>
           <Button
-            sx={{ color: "#25282B", textTransform: "capitalize", padding: 0, fontSize: 13, textAlign: 'center' }}
+            sx={{
+              color: "#25282B",
+              textTransform: "capitalize",
+              padding: 0,
+              fontSize: 13,
+              textAlign: "center",
+            }}
             endIcon={<KeyboardArrowDown style={{ color: "#2E3192" }} />}
           >
-            Tuần này
+            Hàng tháng
           </Button>
         </span>
       </div>
-      <div className="BarChart__frame">
+      <div className="BarChart__frame" style={{height: (height - 40) + 'px'}}>
         <table>
-          <tr>
-            <td>20+</td>
-            <td>
-              <div className="BarChart__dotline"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>15</td>
-            <td>
-              <div className="BarChart__dotline"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>10</td>
-            <td>
-              <div className="BarChart__dotline"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>
-              <div className="BarChart__dotline"></div>
-            </td>
-          </tr>
-          <tr>
-            <td>0</td>
-            <td>
-              <div className="BarChart__dotline"></div>
-            </td>
-          </tr>
+          {yAxis &&
+            [...yAxis].reverse().map((num, index) => (
+              <tr key={index}>
+                <td>{`${num}${index ? "" : "+"}`}</td>
+                <td>
+                  <div className="BarChart__dotline"></div>
+                </td>
+              </tr>
+            ))}
         </table>
       </div>
-      <div className="BarChart__content">
+      <div className="BarChart__content" style={{height: (height - 40) + 'px'}}>
         {data.map((item, index) => (
-          <div
-            key={index}
-            className="BarChart__item"
-            style={{ left: 40 + index * 50 }}
-          >
+          <div key={index} className="BarChart__item" style={{width: widthItem + 'px'}}>
             <div
-              className={`BarChart__baritem + ${
-                item.number === max ? " max" : ""
+              className={`BarChart__shape-item ${
+                item.value === max ? " max" : ""
               }`}
-              style={{ height: Math.min(141, item.number * 7.05) }}
+              style={{ height: Math.min(contentHeight, item.value * valuePerPxl) + 'px' }}
             >
-              {item.number}
+              {item.value}
             </div>
-            <div className="BarChart__worditem">{item.day}</div>
+            <div className="BarChart__title-item">{item.key}</div>
           </div>
         ))}
       </div>
@@ -89,4 +62,4 @@ function BarChart(props) {
 
 BarChart.propTypes = {};
 
-export default BarChart;
+export default memo(BarChart);

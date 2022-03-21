@@ -6,6 +6,7 @@ $in-active: #A0A4A8;
     flex-flow: column;
     padding: 0;
     margin: 0;
+    flex-grow: 1;
     &__item {
         // padding: 20px 10px;
         align-self: stretch;   

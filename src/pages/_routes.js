@@ -7,5 +7,5 @@ context.keys().forEach(path => {
     routes.push(require(`${path}`).default);
 });
 
-console.log(context.resolve);
+// console.log(context.resolve);
 export default routes;

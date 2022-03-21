@@ -11,12 +11,12 @@ function Card({ptitle, pdata, cdata, color, bgColor, icon}) {
                 <div className="dcardContent__titleIcon">
                     <FontAwesomeIcon icon={icon} style={{color: color}}/>
                 </div>
-                <div className="dcardContent__titleWord">{ptitle}</div>
+                <div className="dcardContent__titleWord" >{ptitle}</div>
             </div>
             <div className="dcardContent__number">{pdata}</div>
             <div className="dcardContent__compare">
-                <div className="dcardContent__compareTitle">Hôm qua</div>
-                <div className="dcardContent__compareNumber" style={{color: color}}>&#8593; +{cdata}%</div>
+                <div className="dcardContent__compare-title">Hôm qua</div>
+                <div className="dcardContent__compare-number" style={{color: color}}>&#8593; +{cdata}%</div>
             </div>
         </CustomPaper>
     )

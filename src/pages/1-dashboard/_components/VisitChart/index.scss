@@ -1,11 +1,11 @@
-@import "_assets/style/_colors.scss";
+
 @import "_assets/style/_mixins.scss";
 
 .VisitChart {
   min-height: 225px;
   position: relative;
   background-color: white;
-  color: $word-color;
+  color: var(--text-color);
   font-weight: 500;
   border-radius: 8px;
 //   margin-top: 0.8rem;

@@ -1,8 +1,6 @@
-.dashboardCard {
-    height: 100%;   
+.dashboardCard {    
     &__content {
-        display: flex;
-        flex-wrap: wrap;
+        display: flex;        
         justify-content: center;
         align-items: center;
     }

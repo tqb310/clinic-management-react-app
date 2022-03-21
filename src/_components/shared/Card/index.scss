@@ -1,7 +1,7 @@
 .dcardContent {
     width: 100%;
     margin: 0.4rem 0.3rem;
-    padding: 1rem 2rem;    
+    padding: 1rem 2rem;
     &__title {
         display: flex;
         align-items: center;
@@ -9,27 +9,26 @@
         font-size: 15px;
         &Icon {
             background-color: white;
-            padding: .2rem .3rem;
-            margin-right: .4rem;
+            padding: 0.2rem 0.3rem;
+            margin-right: 0.4rem;
             border-radius: 5px;
         }
     }
     &__number {
-        margin-top: .4rem;
-        margin-bottom: .3rem;     
-        font-size: large;
+        margin-top: 0.4rem;
+        margin-bottom: 0.3rem;
+        font-size: 2rem;
         font-weight: 700;
     }
     &__compare {
         display: flex;
         justify-content: space-between;
         &-title {
-            font-size: 1.2rem;    
+            font-size: 1.2rem;
             font-weight: 400;
         }
         &-number {
-            font-size: 1.4rem;    
-            
+            font-size: 1.4rem;
         }
     }
 }

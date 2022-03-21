@@ -21,7 +21,7 @@ function ListItem({
                 <Typography variant="subtitle2">
                     {title}
                 </Typography>
-                <Typography variant="caption">
+                <Typography variant="caption" color="#888">
                     {subtitle}
                 </Typography>
             </div>

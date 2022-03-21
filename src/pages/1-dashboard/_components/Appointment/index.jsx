@@ -1,86 +1,134 @@
-import React from "react";
-import { CustomPaper } from "_components/shared/StyledComponent";
-import "./index.scss";
+import React, {memo} from 'react';
+import {CustomPaper} from '_components/shared/StyledComponent';
+import {Typography, Avatar} from '@mui/material';
+import MalePatient from '_assets/images/male-patient.png';
+import FemalePatient from '_assets/images/female-patient.png';
+import './index.scss';
 // import PropTypes from 'prop-types'
-
+const data = [
+    {
+        id: 1,
+        name: 'Nguyễn Văn Hải Long',
+        phone: '0923456789',
+        time: '9:30',
+        room: 1,
+        gender: 1,
+        status: 'Chưa khám',
+    },
+    {
+        id: 2,
+        name: 'Hoàng Văn Vĩnh',
+        phone: '0988989891',
+        time: '9:45',
+        room: 1,
+        gender: 1,
+        status: 'Chưa khám',
+    },
+    {
+        id: 3,
+        name: 'Đinh Hoàng Nguyên',
+        phone: '0374646382',
+        time: '10:00',
+        room: 1,
+        gender: 1,
+        status: 'Chưa khám',
+    },
+    {
+        id: 4,
+        name: 'Võ Văn Thanh',
+        phone: '0900898876',
+        room: 1,
+        time: '10:15',
+        gender: 1,
+        status: 'Chưa khám',
+    },
+    {
+        id: 5,
+        name: 'Lê Thị Thúy',
+        phone: '0907875747',
+        room: 1,
+        time: '10:30',
+        gender: 1,
+        status: 'Chưa khám',
+    },
+    {
+        id: 6,
+        name: 'Nguyễn Vinh Thắng',
+        phone: '0989888736',
+        room: 1,
+        time: '10:45',
+        gender: 1,
+        status: 'Chưa khám',
+    },
+];
 function Appointment(props) {
-  return (
-    <CustomPaper className="Appointment">
-      <div className="Appointment__title">Lịch hẹn hôm nay</div>
-      <table>
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Tên</th>
-            <th>Số điện thoại</th>
-            <th>Phòng khám</th>
-            <th>Giờ</th>
-            <th>Trạng thái</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Nguyễn Văn Hải Long</td>
-            <td>0923456789</td>
-            <td>1</td>
-            <td>9:30</td>
-            <td>Chưa khám</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Hoàng Văn Vĩnh</td>
-            <td>0988989891</td>
-            <td>1</td>
-            <td>9:45</td>
-            <td>Chưa khám</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Đinh Hoàng Nguyên</td>
-            <td>0374646382</td>
-            <td>1</td>
-            <td>10:00</td>
-            <td>Chưa khám</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Võ Văn Thanh</td>
-            <td>0900898876</td>
-            <td>1</td>
-            <td>10:15</td>
-            <td>Chưa khám</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>Lê Tấn Phát</td>
-            <td>0907875747</td>
-            <td>1</td>
-            <td>10:30</td>
-            <td>Chưa khám</td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>Nguyễn Vinh Thắng</td>
-            <td>0989888736</td>
-            <td>1</td>
-            <td>10:45</td>
-            <td>Chưa khám</td>
-          </tr>
-          <tr>
-            <td>7</td>
-            <td>Đặng Hoàng Nguyên</td>
-            <td>098573747</td>
-            <td>1</td>
-            <td>11:00</td>
-            <td>Chưa khám</td>
-          </tr>
-        </tbody>
-      </table>
-    </CustomPaper>
-  );
+    return (
+        <CustomPaper className="Appointment">
+            <div className="Appointment__title">
+                <Typography variant="h5" sx={{mb: 2}}>
+                    Lịch hẹn hôm nay
+                </Typography>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th align="left">#</th>
+                        <th align="left">Tên bệnh nhân</th>
+                        <th align="left">Số điện thoại</th>
+                        <th>Phòng khám</th>
+                        <th>Giờ</th>
+                        <th>Trạng thái</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data &&
+                        data.map((patient, index) => (
+                            <tr key={index}>
+                                <td align="left">
+                                    {patient.id}
+                                </td>
+                                <td
+                                    align="left"
+                                    style={{
+                                        display: 'flex',
+                                        alignItems:
+                                            'center',
+                                    }}
+                                >
+                                    <Avatar
+                                        src={
+                                            patient.gender
+                                                ? MalePatient
+                                                : FemalePatient
+                                        }
+                                        sx={{
+                                            width: 32,
+                                            height: 32,
+                                            mr: 1,
+                                        }}
+                                    />
+                                    {patient.name}
+                                </td>
+                                <td align="left">
+                                    {patient.phone}
+                                </td>
+                                <td align="center">
+                                    {patient.room}
+                                </td>
+                                <td align="center">
+                                    {patient.time}
+                                </td>
+                                <td align="center">
+                                    {patient.status}
+                                </td>
+                            </tr>
+                        ))}
+                </tbody>
+            </table>
+        </CustomPaper>
+    );
 }
 
 Appointment.propTypes = {};
 
-export default Appointment;
+export default memo(Appointment);

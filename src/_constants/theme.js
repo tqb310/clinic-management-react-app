@@ -8,11 +8,11 @@ export default {
         },
         success: {
             main: '#03b575',
-            light: '#ECFBF6',
+            light: '#f7fdfb',
         },
         error: {
             main: '#e74f48',
-            light: '#fceae9',
+            light: '#fdf5f4',
         },
     },
     typography: {

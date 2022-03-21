@@ -1,17 +1,31 @@
 .Appointment {
-    padding: .6rem 1rem;
-    &__title {
-        font-weight: 600;
-        margin-bottom: .5rem;
-    }
+    padding: 1rem 2rem;
     table {
         width: 100%;
+        border-collapse: collapse;
+        thead {
+            background-color: rgba(
+                $color: #aaa,
+                $alpha: 0.1
+            );
+        }
         th {
-            color: var(--primary-color);
+            color: #555;
+            padding: 1rem 0;
         }
         td {
-            text-align: center;
-            padding: .5rem;
+            padding: 1rem 0;
+            color: #555;
+            border-bottom: 1px solid #efefef;
+        }
+        th:first-child,
+        td:first-child {
+            width: 40px;
+            padding-left: 1rem;
+        }
+        th:first-child,
+        th:last-child {
+            border-radius: 2px;
         }
     }
 }

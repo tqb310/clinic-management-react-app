@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {Typography, Stack} from '@mui/material';
 import {CustomPaper} from '_components/shared/StyledComponent';
 import ListItem from '_components/shared/ListItem';
@@ -13,7 +13,7 @@ function RoomState(props) {
     return (
         <CustomPaper className="RoomState">
             <Typography
-                variant="h6"
+                variant="h5"
                 className="RoomState__title"
             >
                 Bác sĩ
@@ -58,4 +58,4 @@ function RoomState(props) {
 
 RoomState.propTypes = {};
 
-export default RoomState;
+export default memo(RoomState);

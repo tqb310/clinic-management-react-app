@@ -48,7 +48,7 @@ const data = [
         phone: '0907875747',
         room: 1,
         time: '10:30',
-        gender: 1,
+        gender: 0,
         status: 'Chưa khám',
     },
     {

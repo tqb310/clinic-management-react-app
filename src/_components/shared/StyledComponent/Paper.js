@@ -4,6 +4,17 @@ import {
     experimental_sx as sx,
 } from '@mui/material/styles';
 
+const statusColors = {
+    success: {
+        color: theme => theme.palette.success.main,
+        bgColor: theme => theme.palette.success.light,
+    },
+    error: {
+        color: theme => theme.palette.error.main,
+        bgColor: theme => theme.palette.error.light,
+    },
+};
+
 export const CustomPaper = styled(Paper)`
     box-shadow: 0 4px 8px #ddd;
     border-radius: 10px;
@@ -11,19 +22,18 @@ export const CustomPaper = styled(Paper)`
 `;
 
 export const StatusPaper = styled('div')(
-    ({theme, statusCode}) => {
+    ({theme, status, ...rest}) => {
         return {
             minWidth: 50,
-            backgroundColor: statusCode
-                ? theme.palette.success.light
-                : theme.palette.error.light,
-            color: statusCode
-                ? theme.palette.success.main
-                : theme.palette.error.main,
+            backgroundColor:
+                statusColors[status]?.bgColor(theme),
+            color: statusColors[status]?.color(theme),
             borderRadius: 16,
             padding: '0.5rem 1rem',
             fontSize: '1.25rem',
             fontWeight: '500',
+            display: 'inline-block',
+            ...rest,
         };
     },
 );

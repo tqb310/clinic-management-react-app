@@ -14,6 +14,10 @@ export default {
             main: '#e74f48',
             light: '#fdf5f4',
         },
+        blue: {
+            main: '#1f58e7',
+            light: '#ebf0ff',
+        },
     },
     typography: {
         fontFamily: `'Signika Negative',-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',

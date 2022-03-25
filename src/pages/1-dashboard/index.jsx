@@ -71,7 +71,12 @@ function Dashboard(props) {
             <div>
                 <Appointment />
             </div>
-            <RightBar>
+            <RightBar
+                sx={{
+                    backgroundColor: theme =>
+                        theme.palette.primary.main,
+                }}
+            >
                 <div>Hoạt động gần đây</div>
                 {/* <div>Bệnh nhân</div> */}
             </RightBar>

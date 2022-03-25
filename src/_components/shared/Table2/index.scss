@@ -1,0 +1,52 @@
+.shared-table__th {
+    position: relative;
+    cursor: pointer;
+    span {
+        transition: opacity 0.2s;
+        will-change: opacity;
+    }
+    &:hover {
+        span {
+            opacity: 0.7;
+        }
+        .shared-table__th-action-icon {
+            opacity: 0.7;
+        }
+        .shared-table__th-action-icon.active {
+            opacity: 0.7;
+        }
+    }
+    &-action-icon {
+        font-size: 1.8rem;
+        vertical-align: middle;
+        color: var(--primary-color);
+        margin-left: 5px;
+        transition: transform 0.3s;
+        will-change: transform;
+        &.sort {
+            opacity: 0;
+            transition: opacity 0.2s;
+            will-change: opacity;
+            &.active {
+                opacity: 1;
+                &.desc {
+                    transform: rotate(180deg);
+                }
+                &.asc {
+                    transform: rotate(0deg);
+                }
+            }
+        }
+    }
+    &-filter-menu {
+        display: none;
+        position: absolute;
+        background-color: white;
+        width: 500px;
+        height: 200px;
+        opacity: 1 !important;
+    }
+    &-filter-menu.open {
+        display: block;
+    }
+}

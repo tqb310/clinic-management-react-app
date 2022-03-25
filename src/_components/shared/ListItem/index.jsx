@@ -25,7 +25,9 @@ function ListItem({
                     {subtitle}
                 </Typography>
             </div>
-            <StatusPaper statusCode={statusCode}>
+            <StatusPaper
+                status={statusCode ? 'success' : 'error'}
+            >
                 {statusText}
             </StatusPaper>
         </div>

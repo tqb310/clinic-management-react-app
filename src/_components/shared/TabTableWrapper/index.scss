@@ -1,65 +1,47 @@
+@import '_assets/style/_mixins.scss';
 
-@import "_assets/style/_mixins.scss";
-
-.TabTableWrapper {    
-    background-color: white;    
-    margin-right: 15px;
-    margin-top: 6.5px;
+.TabTableWrapper {
+    background-color: white;
+    min-height: 100%;
+    position: relative;
     &__tablabel {
-        display: flex;       
-        border-bottom: 1px solid #EEE; 
-        box-shadow: 0px 4px 10px #EEE;
+        display: flex;
+        border-bottom: 1px solid #eee;
+        box-shadow: 0px 4px 10px #eee;
+        height: 40px;
         .TabTableWrapper__tabItem {
             flex: 1;
             text-align: center;
-            padding: 12px 0;
             user-select: none;
+            height: 100%;
             cursor: pointer;
-            transition: all .3s;
+            transition: all 0.3s;
             font-weight: 500;
+            font-size: 1.5rem;
             color: #555;
+            line-height: 40px;
             .TabTableWrapper__tabItemBadge {
-                @include badge(#EEE);
+                @include badge(#eee);
+                line-height: 20px;
             }
             &:hover {
                 color: var(--primary-color);
             }
         }
-        .TabTableWrapper__tabItem.active {   
-            position: relative;         
+        .TabTableWrapper__tabItem.active {
+            position: relative;
             color: var(--primary-color);
             .TabTableWrapper__tabItemBadge {
-               @include badge(var(--lightest-blue));
+                @include badge(var(--lightest-blue));
             }
             &::after {
-                content: " ";
+                content: ' ';
                 position: absolute;
                 bottom: 0;
                 left: 0;
                 width: 100%;
-                height: 2px;
+                height: 3px;
                 background-color: var(--primary-color);
-            }
-        }
-    }
-    
-    &__actions {
-        margin: 10px 30px;
-        display: flex;
-        justify-content: space-between;
-        .TabTableWrapper__search {
-            display: flex;
-            flex-basis: 20em;
-            align-items: center;
-            box-shadow: 0px 0px 8px #EEE;
-            .input {
-                font-size: 14px;
-                width: 100%;
-            }
-            .icon {
-                opacity: 0.3;
-                margin-bottom: 3px;
-                padding: 0 8px
             }
         }
     }

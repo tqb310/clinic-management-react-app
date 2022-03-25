@@ -5,7 +5,14 @@ import {CustomPaper} from '_components/shared/StyledComponent';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
-function BarChart({title, yAxis, height, data, widthItem}) {
+function BarChart({
+    title,
+    yAxis,
+    height,
+    data,
+    widthItem,
+    ...rest
+}) {
     const max = data.reduce(
         (a, b) => (a > b.value ? a : b.value),
         0,
@@ -16,7 +23,10 @@ function BarChart({title, yAxis, height, data, widthItem}) {
     const valuePerPxl =
         contentHeight / yAxis[yAxis.length - 1];
     return (
-        <CustomPaper className="BarChart" sx={{height}}>
+        <CustomPaper
+            className="BarChart"
+            sx={{height, ...rest}}
+        >
             <div className="BarChart__header">
                 <Typography variant="h5">
                     {title}

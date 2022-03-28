@@ -1,0 +1,38 @@
+.appointment-demand__item {
+    padding: 2rem;
+    background-color: #fcfcfc;
+    border-radius: 20px;
+    margin: 15px 25px;
+    box-shadow: 0 0 8px #ccc;
+    &-info {
+        display: flex;
+        font-size: 1.5rem;
+        text-align: left;
+        margin-bottom: 15px;
+        &-name {
+            margin-bottom: 2px;
+        }
+        &-phone {
+            color: #888;
+        }
+        &-timestamp {
+            margin-left: auto;
+            color: #888;
+            font-size: 1.2rem;
+        }
+    }
+    &-datetime {
+        display: flex;
+        padding-left: 1.5rem;
+        font-size: 1.5rem;
+        color: #444;
+        font-weight: 600;
+        margin-bottom: 20px;
+        span {
+            margin-left: 5px;
+        }
+    }
+    &-time {
+        margin-left: 30px;
+    }
+}

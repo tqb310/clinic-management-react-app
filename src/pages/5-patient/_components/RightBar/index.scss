@@ -1,0 +1,35 @@
+.patient-rightbar {
+    padding: 0 1.5rem;
+    &__header {
+        min-height: 39px;
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        margin-bottom: 20px;
+        &:hover span {
+            opacity: 0;
+        }
+        &:hover .patient-rightbar__id {
+            width: 100%;
+        }
+        span {
+            position: absolute;
+            width: 40%;
+            transition: all 0.3s;
+        }
+        .patient-rightbar__id {
+            width: 60%;
+            padding: 10px 0px;
+            background-color: var(--primary-color);
+            border-radius: 10px;
+            color: #fff;
+            font-weight: 500;
+            text-decoration: underline;
+            transition: all 0.5s;
+            position: absolute;
+            right: 0;
+        }
+    }
+}

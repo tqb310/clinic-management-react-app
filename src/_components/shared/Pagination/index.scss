@@ -1,0 +1,15 @@
+.table-container__pagination {
+    margin-top: 6px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    .page-text {
+        user-select: none;
+    }
+    .icon-button {
+        margin: 0 10px;
+        .icon {
+            font-size: 1.6rem;
+        }
+    }
+}

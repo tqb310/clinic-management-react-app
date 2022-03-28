@@ -7,8 +7,8 @@ export const RightBar = styled(Box)`
     top: 0;
     bottom: 0;
     right: 0;
-    color: white;
     width: 400px;
     text-align: center;
-    border-radius: 10px 0 0 10px;
+    padding-top: 20px;
+    border-left: 2px solid #eee;
 `;

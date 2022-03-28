@@ -3,6 +3,11 @@ export const tableHeadRowStyles = {
     color: theme => theme.palette.primary.main,
 };
 
+export const tableRowStyles = {
+    borderBottom: '1px solid #ddd',
+    transition: 'all .3s',
+};
+
 export const tableHeadCellStyles = {
     textAlign: 'left',
     height: '40px',

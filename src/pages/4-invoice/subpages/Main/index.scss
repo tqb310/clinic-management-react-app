@@ -1,0 +1,27 @@
+.table-container {
+    &__actions {
+        padding: 0.9rem 2rem;
+        display: flex;
+        // justify-content: space-between;
+        .table-container__search {
+            display: flex;
+            flex-basis: 300px;
+            align-items: center;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            .input {
+                font-size: 1.4rem;
+                width: 100%;
+            }
+            .icon {
+                opacity: 0.3;
+                margin-bottom: 3px;
+                padding: 0 8px;
+                font-size: 3.5rem;
+            }
+        }
+        .table-container__button-group {
+            margin-left: auto;
+        }
+    }
+}

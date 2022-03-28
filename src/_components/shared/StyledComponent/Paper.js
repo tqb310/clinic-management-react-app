@@ -1,8 +1,5 @@
 import {Paper} from '@mui/material';
-import {
-    styled,
-    experimental_sx as sx,
-} from '@mui/material/styles';
+import {styled} from '@mui/material/styles';
 
 const statusColors = {
     success: {
@@ -12,6 +9,14 @@ const statusColors = {
     error: {
         color: theme => theme.palette.error.main,
         bgColor: theme => theme.palette.error.light,
+    },
+    disabled: {
+        color: _ => '#555',
+        bgColor: _ => '#eee',
+    },
+    primary: {
+        color: theme => theme.palette.blue.main,
+        bgColor: theme => theme.palette.blue.light,
     },
 };
 
@@ -24,15 +29,16 @@ export const CustomPaper = styled(Paper)`
 export const StatusPaper = styled('div')(
     ({theme, status, ...rest}) => {
         return {
-            minWidth: 50,
+            minWidth: 70,
             backgroundColor:
                 statusColors[status]?.bgColor(theme),
             color: statusColors[status]?.color(theme),
-            borderRadius: 16,
+            borderRadius: 10,
             padding: '0.5rem 1rem',
             fontSize: '1.25rem',
             fontWeight: '500',
             display: 'inline-block',
+            textAlign: 'center',
             ...rest,
         };
     },

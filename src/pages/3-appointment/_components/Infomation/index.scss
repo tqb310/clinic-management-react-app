@@ -1,0 +1,31 @@
+.card-wrapper {
+    margin-bottom: 20px;
+    .card {
+        display: flex;
+        align-items: center;
+        background: #fff;
+        padding: 1.5rem 1rem;
+        img {
+            display: inline-block;
+            margin-left: 5px;
+        }
+        .text-wrapper {
+            display: flex;
+            flex-direction: column;
+            margin-left: 15px;
+            text-align: left;
+        }
+        // .greenlight {
+        //     color: var(--light-green);
+        // }
+        // .greendark {
+        //     color: var(--dark-green);
+        // }
+        // .redlight {
+        //     color: var(--light-red);
+        // }
+        // .reddark {
+        //     color: var(--dark-red);
+        // }
+    }
+}

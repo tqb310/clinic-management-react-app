@@ -4,11 +4,11 @@ import {StatusPaper} from '_components/shared/StyledComponent';
 import './index.scss';
 
 function ListItem({
-    avatar,
-    title,
-    subtitle,
-    statusText,
-    statusCode,
+    avatar = null,
+    title = '',
+    subtitle = '',
+    statusText = '',
+    statusCode = 0,
 }) {
     return (
         <div className="list-item">
@@ -25,11 +25,15 @@ function ListItem({
                     {subtitle}
                 </Typography>
             </div>
-            <StatusPaper
-                status={statusCode ? 'success' : 'error'}
-            >
-                {statusText}
-            </StatusPaper>
+            {statusText && (
+                <StatusPaper
+                    status={
+                        statusCode ? 'success' : 'error'
+                    }
+                >
+                    {statusText}
+                </StatusPaper>
+            )}
         </div>
     );
 }

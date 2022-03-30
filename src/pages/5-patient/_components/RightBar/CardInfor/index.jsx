@@ -4,53 +4,44 @@ import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {CustomPaper} from '_components/shared/StyledComponent';
 import './index.scss';
 import {Typography} from '@mui/material';
+import HumanBody from '_assets/images/human-body.png';
 // import {dateParse} from '_constants/date';
 // import PropTypes from 'prop-types'
 
-function CardInfor({createAt, type, doctor, status}) {
+function CheckupInfo({createAt, type, doctor, status}) {
     return (
-        <CustomPaper className="CardInfor">
+        <CustomPaper className="checkup-info">
             <Typography
                 variant="h6"
                 sx={{gridColumn: '1/3', mb: 2}}
             >
-                Lịch sử khám bệnh
+                Thông tin lâm sàng
             </Typography>
-            <p className="title">
-                <EventAvailable className="CardInfor__icon" />
-                Ngày tạo
-            </p>
-            <p>28/03/2022</p>
-            <p className="title">
-                <FontAwesomeIcon
-                    icon="stethoscope"
-                    className="CardInfor__icon"
-                />
-                Loại
-            </p>
-            <p className="link">Khám mới</p>
-            <p className="title">
-                <FontAwesomeIcon
-                    className="CardInfor__icon"
-                    icon="user-md"
-                />
-                Bác sĩ
-            </p>
-            <p>Trương Quốc Bảo</p>
-            <p className="CardInfor__last title">
-                <FontAwesomeIcon
-                    className="CardInfor__icon"
-                    icon="spinner"
-                />
-                Trạng thái
-            </p>
-            <p className="CardInfor__last in-process">
-                Đã khám
-            </p>
+            <ul className="checkup-info__insights">
+                <li className="checkup-info__item">
+                    <span>80</span>Nhịp tim (nhịp/ phút)
+                </li>
+                <li className="checkup-info__item">
+                    <span>120</span>Huyết áp (mmHg)
+                </li>
+                <li className="checkup-info__item">
+                    <span>90</span>Nhịp thở (nhịp/ phút)
+                </li>
+                <li className="checkup-info__item">
+                    <span>37.5</span>Nhiệt độ (&#176;C)
+                </li>
+                <li className="checkup-info__item">
+                    <span>170</span>Chiều cao (cm)
+                </li>
+                <li className="checkup-info__item">
+                    <span>65</span>Cân nặng (kg)
+                </li>
+            </ul>
+            <img src={HumanBody} alt="cơ thể" width={136} />
         </CustomPaper>
     );
 }
 
-CardInfor.propTypes = {};
+CheckupInfo.propTypes = {};
 
-export default CardInfor;
+export default CheckupInfo;

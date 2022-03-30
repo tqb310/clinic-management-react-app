@@ -26,7 +26,7 @@ import MalePatient from '_assets/images/male-patient.png';
 import FemalePatient from '_assets/images/female-patient.png';
 import MenuPopup from '_components/shared/Menu';
 import {statusText} from '_constants/general';
-import {sortAction} from '../../_reducers/appointmentTableReducer';
+import {sortAction} from '../../_localReducers/appointmentTableReducer';
 import {StatusPaper} from '_components/shared/StyledComponent';
 // import PropTypes from 'prop-types'
 

@@ -1,0 +1,17 @@
+.drawer-content {
+    img {
+        position: absolute;
+        right: 25%;
+    }
+    width: 500px;
+    height: 100%;
+    background-color: #fff;
+    padding: 1rem 2rem;
+    &__info-group {
+        margin-bottom: 10px;
+    }
+    &__actions {
+        display: flex;
+        margin-top: 45px;
+    }
+}

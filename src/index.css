@@ -21,7 +21,9 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas,
         'Courier New', monospace;
 }
-
+ul {
+    list-style: none;
+}
 :root {
     --primary-color: #2e3192;
     --secondary-color: #efad0a;
@@ -29,7 +31,7 @@ code {
     --custom-paper-hover: #f8f8f8;
     --background-main: #f5f8fe;
     --text-color: #333;
-    --scrollbar-color: #ddd;
+    --scrollbar-color: #eee;
     /* GREEN */
     --lightest-green: #f7fdfb;
     --light-green: #34eeae;

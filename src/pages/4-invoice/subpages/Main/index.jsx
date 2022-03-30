@@ -20,7 +20,10 @@ import {
     nextPageAction,
     backPageAction,
     resetTableAction,
-} from './_reducers/tableReducer';
+    switchDrawer,
+} from './_localReducers/tableReducer';
+import Drawer from '_components/shared/Drawer';
+import DrawerContent from './_components/DrawerContent';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
@@ -62,6 +65,9 @@ function Main(props) {
     //Invoking when click on next page
     const handleBackPage = e => {
         dispatchTable(backPageAction());
+    };
+    const closeDrawer = _ => {
+        dispatchTable(switchDrawer(false));
     };
     return (
         <TabTableWrapper tabNameArr={tabNames}>
@@ -129,6 +135,39 @@ function Main(props) {
                             currentPage={state.page}
                             rowsPerPage={state.rowsPerPage}
                         />
+                        <Drawer
+                            anchor="right"
+                            open={state.isOpenDrawer}
+                            onClose={closeDrawer}
+                        >
+                            <DrawerContent
+                                id={
+                                    state
+                                        .selectedPaidInvoice
+                                        ?.id
+                                }
+                                patientName={
+                                    state
+                                        .selectedPaidInvoice
+                                        ?.patientName
+                                }
+                                patientPhone={
+                                    state
+                                        .selectedPaidInvoice
+                                        ?.phone
+                                }
+                                createAt={
+                                    state
+                                        .selectedPaidInvoice
+                                        ?.createAt
+                                }
+                                note={
+                                    state
+                                        .selectedPaidInvoice
+                                        ?.note
+                                }
+                            />
+                        </Drawer>
                     </Box>
                 );
             }}

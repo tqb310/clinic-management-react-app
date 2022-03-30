@@ -1,4 +1,6 @@
 import {ArrowDownward} from '@mui/icons-material';
+
+//For Invoice table
 export const headCells = [
     {
         id: 1,
@@ -41,5 +43,29 @@ export const headCells = [
     {
         id: 7,
         label: '',
+    },
+];
+
+//For service table in a invoice
+export const serviceHeadCells = [
+    {
+        id: 1,
+        label: 'Mục',
+        style: {width: 'auto', textAlign: 'left'},
+    },
+    {
+        id: 2,
+        label: 'SL',
+        style: {width: '40px', textAlign: 'left'},
+    },
+    {
+        id: 3,
+        label: 'Đơn giá',
+        style: {width: '80px', textAlign: 'left'},
+    },
+    {
+        id: 4,
+        label: 'Thành tiền',
+        style: {width: '80px', textAlign: 'left'},
     },
 ];

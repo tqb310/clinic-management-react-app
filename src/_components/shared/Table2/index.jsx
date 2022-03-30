@@ -10,6 +10,9 @@ export const Table = memo(function ({
     hoverStyle = {},
     activeStyle = {},
     selected = [],
+    isRenderEmptyRow = true,
+    rowsPerPage = 8,
+    rowHeight = '61.5px',
     ...rest
 }) {
     const [selectedState, setSelectedState] =
@@ -38,12 +41,15 @@ export const Table = memo(function ({
                                 },
                             );
                         })}
-                    {data.length < 8 &&
+                    {isRenderEmptyRow &&
+                        data.length < rowsPerPage &&
                         Array.from(
-                            new Array(8 - data.length),
+                            new Array(
+                                rowsPerPage - data.length,
+                            ),
                             _ => (
                                 <TableRow
-                                    sx={{height: '61.1px'}}
+                                    sx={{height: rowHeight}}
                                 />
                             ),
                         )}

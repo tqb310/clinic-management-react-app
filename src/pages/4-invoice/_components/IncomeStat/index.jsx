@@ -1,5 +1,4 @@
 import React, {memo} from 'react';
-import {CustomPaper} from '_components/shared/StyledComponent';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -9,10 +8,10 @@ import {
     Title,
     Tooltip,
     Legend,
+    ArcElement,
 } from 'chart.js';
-import {Line} from 'react-chartjs-2';
+import {Line, Doughnut} from 'react-chartjs-2';
 import {Typography, Box} from '@mui/material';
-// import faker from 'faker';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
@@ -24,9 +23,10 @@ ChartJS.register(
     Title,
     Tooltip,
     Legend,
+    ArcElement,
 );
 
-export const options = {
+const lineOptions = {
     responsive: true,
     plugins: {
         legend: {
@@ -35,7 +35,7 @@ export const options = {
     },
 };
 
-const labels = [
+const lineLabels = [
     'Tháng 1',
     'Tháng 2',
     'Tháng 3',
@@ -50,8 +50,8 @@ const labels = [
     'Tháng 12',
 ];
 
-export const data = {
-    labels,
+const lineData = {
+    labels: lineLabels,
     datasets: [
         {
             label: 'Doanh thu',
@@ -60,6 +60,25 @@ export const data = {
             ],
             borderColor: '#c6d9ff',
             backgroundColor: '#6b9eff',
+        },
+    ],
+};
+
+const douData = {
+    labels: ['Doanh thu', 'Chi tiêu'],
+    datasets: [
+        {
+            label: '# of Votes',
+            data: [50000, 5000],
+            backgroundColor: [
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(255, 99, 132, 0.2)',
+            ],
+            borderColor: [
+                'rgba(54, 162, 235, 1)',
+                'rgba(255, 99, 132, 1)',
+            ],
+            borderWidth: 2,
         },
     ],
 };
@@ -73,7 +92,16 @@ function IncomeStat({}) {
             >
                 Doanh thu trung bình hàng tháng
             </Typography>
-            <Line options={options} data={data} />
+            <Line options={lineOptions} data={lineData} />
+            <Typography
+                variant="h5"
+                fontWeight={700}
+                mb={2}
+                mt={5}
+            >
+                Tỉ lệ thu chi tháng này
+                <Doughnut data={douData} />
+            </Typography>
         </Box>
     );
 }

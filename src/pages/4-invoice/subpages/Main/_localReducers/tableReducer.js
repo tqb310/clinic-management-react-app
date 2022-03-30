@@ -20,6 +20,8 @@ export const initState = {
     orderBy: '',
     order: 'asc',
     filterdProperty: '',
+    isOpenDrawer: false,
+    selectedPaidInvoice: '',
 };
 
 export const reducer = (state, action) => {
@@ -79,6 +81,20 @@ export const reducer = (state, action) => {
                 ...state,
                 filterdProperty: action.payload,
             };
+        case 'SWITCH_DRAWER':
+            return {
+                ...state,
+                isOpenDrawer: action.payload,
+            };
+        case 'SET_SELECTED_PAID_INVOICE': {
+            return {
+                ...state,
+                selectedPaidInvoice:
+                    state.data.find(
+                        item => item.id === action.payload,
+                    ) || null,
+            };
+        }
         default:
             return {};
     }
@@ -119,5 +135,15 @@ export const sortAction = data => ({
 
 export const setFilteredPropertyAction = data => ({
     type: 'SET_FILTERED_PROPERTY',
+    payload: data,
+});
+
+export const switchDrawer = data => ({
+    type: 'SWITCH_DRAWER',
+    payload: data,
+});
+
+export const setSelectedPaidInvoice = data => ({
+    type: 'SET_SELECTED_PAID_INVOICE',
     payload: data,
 });

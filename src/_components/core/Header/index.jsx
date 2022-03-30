@@ -14,7 +14,7 @@ function Header() {
     const {pathname} = useLocation();
     // console.log('HEADER re-render');
     const pname =
-        Routes.find(route => route.path === pathname)
+        Routes.find(route => pathname.includes(route.path))
             ?.name || '';
     return (
         <Box className="header">

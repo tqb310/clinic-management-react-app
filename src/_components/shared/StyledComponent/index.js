@@ -1,3 +1,3 @@
 export * from './Paper';
-export {RightBar} from './RightBar';
-export * from './Button';
+export * from './RightBar';
+export * from './Divider';

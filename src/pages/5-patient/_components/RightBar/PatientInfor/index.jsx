@@ -2,15 +2,16 @@ import React, {memo} from 'react';
 import {
     Work,
     BrandingWatermark,
-    Home,
     Edit,
-    Wc,
-    Cake,
+    EventNote,
 } from '@mui/icons-material';
 import {IconButton} from '@mui/material';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Typography, Avatar} from '@mui/material';
-import {CustomPaper} from '_components/shared/StyledComponent';
+import {
+    CustomPaper,
+    Dot,
+} from '_components/shared/StyledComponent';
 import FemalePatient from '_assets/images/female-patient.png';
 // import {dateParse} from '_constants/date';
 // import {gender} from '_constants/general';
@@ -45,7 +46,10 @@ function PatientInfor({data}) {
                 />
                 <div className="PatientInfor__name">
                     <p>Trương Thị Lan</p>
-                    <p>0123456789</p>
+                    <p>
+                        Lần khám gần nhất:{' '}
+                        <span>28/03/2022</span>
+                    </p>
                 </div>
             </div>
             <div className="PatientInfor__rest">
@@ -63,24 +67,26 @@ function PatientInfor({data}) {
                     </p>
                     <p>261612345</p>
                 </div>
-                <div className="PatientInfor__item">
+                <div className="PatientInfor__item full">
                     <p>
-                        <BrandingWatermark className="queryIcon" />
+                        <EventNote className="queryIcon" />
                         Lịch hẹn tái khám
                     </p>
-                    <p>29/03/2022</p>
+                    <span>29/03/2022</span> <Dot />{' '}
+                    <span>07:15</span>
                 </div>
-            </div>
-            <div className="PatientInfor__note">
-                <p>
-                    <Edit className="queryIcon" />
-                    Ghi chú
-                </p>
-                <p>
-                    {' '}
-                    Bệnh nhân bị khiếm thính, vui lòng giao
-                    tiếp với người nhà của bệnh nhân
-                </p>
+                <div className="PatientInfor__note PatientInfor__item full">
+                    <p>
+                        <Edit className="queryIcon" />
+                        Ghi chú
+                    </p>
+                    <p>
+                        {' '}
+                        Bệnh nhân bị khiếm thính, vui lòng
+                        giao tiếp với người nhà của bệnh
+                        nhân
+                    </p>
+                </div>
             </div>
         </CustomPaper>
     );

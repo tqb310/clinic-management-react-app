@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React, {memo, useState, Fragment} from 'react';
 import {headCells} from '../../_constants/HeadCells';
 import {
     tableCellStyles,
@@ -17,18 +17,25 @@ import {
     Box,
     Typography,
     IconButton,
+    MenuItem,
+    ListItemText,
+    ListItemIcon,
 } from '@mui/material';
 import MalePatient from '_assets/images/male-patient.png';
 import FemalePatient from '_assets/images/female-patient.png';
 import {StatusPaper} from '_components/shared/StyledComponent';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import menuItems from '../../_constants/Menu';
+import MenuPopup from '_components/shared/Menu';
+import {MoreHoriz} from '@mui/icons-material';
 import {
     selectAction,
     sortAction,
-} from '../../_reducers/tableReducer';
+    switchDrawer,
+    setSelectedPaidInvoice,
+} from '../../_localReducers/tableReducer';
 // import PropTypes from 'prop-types'
 
-function ExamineTable({
+function InvoiceTable({
     tableData,
     selected,
     dispatchTable,
@@ -37,6 +44,7 @@ function ExamineTable({
     order,
     orderBy,
 }) {
+    const [anchor, setAnchor] = useState(null);
     //Handle when check a row
     const handleSelect = id => e => {
         if (e.target.checked) {
@@ -72,6 +80,17 @@ function ExamineTable({
                     return;
             }
         };
+    const openMenu = id => e => {
+        setAnchor(e.currentTarget);
+        dispatchTable(setSelectedPaidInvoice(id));
+    };
+    const closeMenu = _ => {
+        setAnchor(null);
+    };
+    const openDrawer = _ => {
+        dispatchTable(switchDrawer(true));
+        setAnchor(null);
+    };
     return (
         <Table
             sx={{
@@ -259,16 +278,45 @@ function ExamineTable({
                             },
                         }}
                     >
-                        <IconButton>
+                        <IconButton
+                            onClick={openMenu(row.id)}
+                        >
                             {' '}
-                            <FontAwesomeIcon
-                                icon="edit"
-                                color="#aaa"
-                                style={{
-                                    fontSize: '1.5rem',
-                                }}
+                            <MoreHoriz
+                                sx={{fontSize: '1.6rem'}}
                             />
                         </IconButton>
+                        <MenuPopup
+                            anchor={anchor}
+                            closeMenu={closeMenu}
+                            menuItems={menuItems}
+                            renderItem={({
+                                id,
+                                icon: Icon = null,
+                                label = '',
+                                style = {},
+                            }) => (
+                                <MenuItem
+                                    key={id}
+                                    onClick={openDrawer}
+                                >
+                                    {Icon && (
+                                        <ListItemIcon>
+                                            <Icon
+                                                sx={{
+                                                    ...style,
+                                                }}
+                                            />
+                                        </ListItemIcon>
+                                    )}
+                                    <ListItemText
+                                        sx={{...style}}
+                                    >
+                                        {label}
+                                    </ListItemText>
+                                </MenuItem>
+                            )}
+                        />
                     </TableCell>
                 </TableRow>
             )}
@@ -276,6 +324,6 @@ function ExamineTable({
     );
 }
 
-ExamineTable.propTypes = {};
+InvoiceTable.propTypes = {};
 
-export default memo(ExamineTable);
+export default memo(InvoiceTable);

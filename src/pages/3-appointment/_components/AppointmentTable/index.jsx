@@ -31,7 +31,7 @@ import {
     backPageAction,
     switchForm,
     resetTableAction,
-} from './_reducers/appointmentTableReducer';
+} from './_localReducers/appointmentTableReducer';
 import './index.scss';
 
 function AppointmentTable({data}) {

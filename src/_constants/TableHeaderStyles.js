@@ -1,6 +1,6 @@
 export const tableHeadRowStyles = {
-    backgroundColor: '#f1f4fb',
-    color: theme => theme.palette.primary.main,
+    backgroundColor: 'rgba(170,170,170,0.1)',
+    color: '#555',
 };
 
 export const tableRowStyles = {

@@ -7,35 +7,23 @@ import './index.scss';
 // import PropTypes from 'prop-types';
 
 function RightBarContent({data}) {
-    // const info = data.data
-    // console.log(info)
     return (
         <div className="patient-rightbar">
+            <PatientInfor />
+
             <CustomPaper className="patient-rightbar__header">
                 <Typography
                     variant="h6"
                     component="span"
                     color="#555"
                 >
-                    Mã bệnh nhân
+                    Lịch sử khám bệnh
                 </Typography>
                 <div className="patient-rightbar__id">
-                    #1234
+                    Xem chi tiết
                 </div>
             </CustomPaper>
-            <div>
-                <PatientInfor
-                // data={info.diagnostic.PATIENT}
-                />
-                <CardInfor
-                // createAt={info.diagnostic.CREATE_AT}
-                // type={'Khám mới'}
-                // doctor={
-                //     info.diagnostic.DOCTOR.EMPLOYEE_NAME
-                // }
-                // status={info.status}
-                />
-            </div>
+            <CardInfor />
         </div>
     );
 }

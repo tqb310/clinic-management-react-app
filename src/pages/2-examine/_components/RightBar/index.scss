@@ -1,91 +1,54 @@
-.RBDoctorHome__queueItem {
-    color: black;
-    background-color: #ECFBF6;
-    border-radius: 8px;
-    margin-top: 7px;
-    padding: 0.6rem 0.2rem;
-    .RBDoctorHome__patient {
-        flex: 4;
+.queue-list-doctor__item {
+    display: flex;
+    align-items: center;
+    padding: 10px 5px;
+    user-select: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 0 8px #ccc;
+    border-radius: 10px;
+    margin-top: 15px;
+    &.active {
+        background-color: #f8f8f8;
+    }
+    &:hover {
+        background-color: #f5f5f5;
+    }
+    &-info {
         text-align: left;
-        margin-left: .5rem;
-        font-weight: 500;
-        color: #333;
-        p:first-child {
-            margin-top: 0;
-            margin-bottom: 4px;
-        }
-        p:last-child {
-            margin: 0;
-        }
-    }
-    .RBDoctorHome__avatar, .RBDoctorHome__orderNum {
-        flex: 1
-    }
-    .RBDoctorHome__avatarInner {
-        width: 45px;
-        height: 50px;
-        border-radius: 10px;
-        color: white;
-        background-color: #ad8200;
-        text-align: center;
-        line-height: 2.9rem;
-        font: {
-            size: 1.3rem;
-            weight: 500
-        };
-        margin: auto
-    }
-    .RBDoctorHome__orderNumInner {
-        height: 40px;
-        width: 40px;
-        border-radius: 50%;
-        background-color: #c1ffe2;
-        line-height: 2.4rem;
-        font-weight: 500;
-        color: #03B575;
     }
 }
 
 .RBDoctorHome {
     box-sizing: border-box;
-    padding: 1rem;
-    h4 {
-        margin-top: 0;
-        color: #FCDF98;
-        text-align: center;
-    }
+    padding-left: 2rem;
+    padding-right: 2rem;
     &__examining {
-        // background-color: rgba($color: #fff, $alpha: 0.9);
         background-color: var(--background-main);
         border-radius: 8px;
         color: black;
     }
     &__queueTab {
-        color: black;
-        background-color: var(--background-main);
         display: flex;
-        border-radius: 8px;
-        margin-top: 2rem;
-        margin-bottom: .8rem;
-        div {
-            flex: 1;
-            padding: 7px 0;
-            user-select: none;
+        background-color: #f9f9f9;
+        justify-content: space-between;
+        padding: 1.5rem;
+        border-radius: 30px;
+        &-item {
+            padding: 0.8rem 0;
+            width: 47%;
+            border-radius: 20px;
+            font-weight: 400;
+            font-size: 1.4rem;
+            color: #444;
             cursor: pointer;
-            font-weight: 500;
             &:hover {
-                background-color: #e0e3ff;
+                background-color: #f0f0f0;
             }
         }
-        div:first-child {
-            border-radius: 8px 0 0 8px;
-        }
-        div:last-child {
-            border-radius: 0 8px 8px 0;
+        &-item.active {
+            background-color: var(--primary-color);
+            color: #fff;
         }
     }
-    // &__queueList {
-       
-    // }
 }
-

@@ -16,12 +16,9 @@
     }
 
     input[type='radio']:checked + label {
-        display: inline-block;
-        padding: 0.1rem 0.3rem;
         border: 2px solid var(--primary-color);
         border-radius: 0.5rem;
         color: var(--primary-color);
-        cursor: pointer;
         font-weight: 600;
     }
 }

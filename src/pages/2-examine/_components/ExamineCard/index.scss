@@ -1,54 +1,67 @@
-
-@import "_assets/style/_mixins.scss";
+@import '_assets/style/_mixins.scss';
 
 .DTExamineCard {
-  padding: 0.7rem 1.5rem;
-  &__header {
-    display: flex;
-    justify-content: space-between;
-    // padding: 0 1.5rem;
-    p {
-      margin: 0;
-      span {
-        font-weight: 700;
-      }
+    padding: 1rem 2rem;
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        p {
+            margin: 0;
+            span {
+                font-weight: 700;
+            }
+        }
+        p:first-child {
+            font-weight: 700;
+        }
     }
-    p:first-child {
-      font-weight: 700;
+    &__cardInfo {
+        display: flex;
+        justify-content: space-between;
+        p {
+            margin-bottom: 0;
+            margin-top: 0.7rem;
+            span {
+                font-weight: 500;
+                margin-right: 10px;
+            }
+        }
     }
-  }
-  &__cardInfo {
-    display: flex;
-    justify-content: space-between;
-    p {
-      margin-bottom: 0;
-      margin-top: 0.7rem;
-      span {
-        font-weight: 500;
-        margin-right: 10px;
-      }
+    &__content {
+        .DTExamineCard__patientInfo {
+            @include outlineTitle(
+                'Thông tin bệnh nhân',
+                #aaa,
+                #fff,
+                #000
+            );
+        }
+        .DTExamineCard__service {
+            @include outlineTitle(
+                'Dịch vụ',
+                #aaa,
+                #fff,
+                #000
+            );
+        }
+        .DTExamineCard__examineInfo {
+            @include outlineTitle(
+                'Khám lâm sàng',
+                #aaa,
+                #fff,
+                #000
+            );
+        }
     }
-  }
-  &__content {
-    .DTExamineCard__patientInfo {
-      @include outlineTitle("Thông tin bệnh nhân", #aaa, #fff, #000);
+    &__footer {
+        z-index: 1000;
+        position: sticky;
+        bottom: 0px;
+        background-color: #fafafa;
+        margin-top: 1rem;
+        padding: 1rem 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        border: 1px solid rgba($color: #000000, $alpha: 0.1);
     }
-    .DTExamineCard__service {
-      @include outlineTitle("Dịch vụ", #aaa, #fff, #000);
-    }
-    .DTExamineCard__examineInfo {
-      @include outlineTitle("Khám lâm sàng", #aaa, #fff, #000);
-    }
-  }
-  &__footer {
-    z-index: 1000;
-    position: sticky;
-    bottom: 0px;
-    background-color: #fafafa;
-    margin-top: 1rem;
-    padding: 1rem 0.5rem;
-    display: flex;
-    justify-content: space-between;
-    border: 1px solid rgba($color: #000000, $alpha: 0.1);
-  }
 }

@@ -81,33 +81,36 @@ function App() {
                             </Box>
                             <Box className="pagewrapper__main">
                                 <Switch>
-                                    {Routes.map(
-                                        ({
-                                            id,
-                                            path,
-                                            exact,
-                                            component,
-                                            name,
-                                        }) => {
-                                            return (
-                                                <Route
-                                                    key={id}
-                                                    name={
-                                                        name
-                                                    }
-                                                    path={
-                                                        path
-                                                    }
-                                                    exact={
-                                                        exact
-                                                    }
-                                                    component={
-                                                        component
-                                                    }
-                                                />
-                                            );
-                                        },
-                                    )}
+                                    {Routes &&
+                                        Routes.map(
+                                            ({
+                                                id,
+                                                path,
+                                                exact,
+                                                component,
+                                                name,
+                                            }) => {
+                                                return (
+                                                    <Route
+                                                        key={
+                                                            id
+                                                        }
+                                                        name={
+                                                            name
+                                                        }
+                                                        path={
+                                                            path
+                                                        }
+                                                        exact={
+                                                            exact
+                                                        }
+                                                        component={
+                                                            component
+                                                        }
+                                                    />
+                                                );
+                                            },
+                                        )}
                                     <Route
                                         render={() => {
                                             return (

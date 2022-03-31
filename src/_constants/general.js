@@ -1,4 +1,7 @@
-export const gender = ['Nữ', 'Nam'];
+export const gender = [
+    {key: 'Nữ', value: 0, id: 1},
+    {key: 'Nam', value: 1, id: 2},
+];
 
 export const cardType = ['Khám mới', 'Tái khám'];
 

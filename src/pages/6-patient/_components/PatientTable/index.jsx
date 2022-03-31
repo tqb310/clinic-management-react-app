@@ -231,7 +231,7 @@ function PatientTable({
                         {row.dob}
                     </TableCell>
                     <TableCell type="td">
-                        {gender[row.gender]}
+                        {gender[row.gender].key}
                     </TableCell>
                     <TableCell type="td">
                         {row.address}

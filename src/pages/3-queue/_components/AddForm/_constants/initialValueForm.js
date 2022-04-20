@@ -1,4 +1,4 @@
-export default {
+const initialValue = {
     PATIENT_NAME: '',
     PATIENT_PHONE: '',
     PATIENT_TYPE: '',
@@ -14,3 +14,5 @@ export default {
     NOTE: '',
     SERVICES: [1],
 };
+
+export default initialValue;

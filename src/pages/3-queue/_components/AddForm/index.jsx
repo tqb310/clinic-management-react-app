@@ -31,7 +31,7 @@ import {
 import './index.scss';
 // import PropTypes from 'prop-types';
 
-function AddForm({}) {
+function AddForm() {
     const [open, setOpen] = useState(false);
     const handleClose = () => {
         setOpen(false);
@@ -189,7 +189,7 @@ function AddForm({}) {
                                 </Grid>
                                 <Grid item xs={1}>
                                     <IconButton
-                                        onClick={setOpen}
+                                        onClick={handleOpen}
                                     >
                                         <Add color="primary" />
                                     </IconButton>

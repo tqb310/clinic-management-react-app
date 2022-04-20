@@ -1,13 +1,12 @@
-import React, {useState, useReducer} from 'react';
+import React from 'react';
 import PatientTable from './_components/PatientTable';
 import {RightBar} from '_components/shared/StyledComponent';
 import RightBarContent from './_components/RightBar';
+import {useSelector, useDispatch} from 'react-redux';
 import {
-    reducer,
-    initState,
-    nextPageAction,
-    backPageAction,
-} from './_localReducer/patientReducer';
+    nextPage,
+    backPage,
+} from '_redux/slice/patientSlice';
 import {Typography} from '@mui/material';
 import {CustomPaper} from '_components/shared/StyledComponent';
 import Pagination from '_components/shared/Pagination';
@@ -15,12 +14,9 @@ import MaleIcon from '_assets/images/male.png';
 import FemaleIcon from '_assets/images/female.png';
 import PatientIcon from '_assets/images/dentistry.png';
 import TodayPatientIcon from '_assets/images/today-patient.png';
+import queryData from '_helpers/queryData';
 import './index.scss';
 // import PropTypes from 'prop-types';
-// import socketIO from '_services/socket.io';
-// import diagnosticService, {
-//     mergeStack,
-// } from '_services/diagnostic.service';
 
 const PatientStat = ({title, number, img}) => (
     <div className="patient-stat">
@@ -41,53 +37,31 @@ const PatientStat = ({title, number, img}) => (
     </div>
 );
 function Patient(props) {
-    const [queue, setQueue] = useState([]);
-    const [selectIndex, setSelectIndex] = useState(0);
-    const handleSelectIndex = index => {
-        setSelectIndex(index);
-    };
-    const [state, localDispatch] = useReducer(
-        reducer,
-        initState,
+    // const [queue, setQueue] = useState([]);
+    // const [selectIndex, setSelectIndex] = useState(0);
+    // const handleSelectIndex = index => {
+    //     setSelectIndex(index);
+    // };
+    const patientState = useSelector(
+        state => state.patients,
     );
-    // useEffect(() => {
-    //   const fetchData = async () => {
-    //     try {
-    //       let stack = await diagnosticService.getDiagnosticStack();
-    //       setQueue(stack)
-    //     } catch (error) {
-    //       console.log(error)
-    //     }
-    //   }
-    //   fetchData()
-    // }, [])
+    const dispatch = useDispatch();
 
-    // socketIO.on('diagnostic-stack-change', (stack) => {
-    //   console.log(newRows(mergeStack(stack)))
-    //   setQueue(mergeStack(stack))
-    // })
-    // console.log(newRows(queue))
-    // const handleResetData = e => {
-    //     dispatchTable(resetTableAction([...preservedData]));
-    // };
-    //Invoking when delete all selected items
-    // const handleDeleteItem = e => {
-    //     dispatchTable(
-    //         deleteAction(
-    //             [...state.data].filter(
-    //                 item =>
-    //                     !state.selected.includes(item.id),
-    //             ),
-    //         ),
-    //     );
-    // };
     //Invoking when click on next page
     const handleNextPage = e => {
-        localDispatch(nextPageAction());
+        dispatch(nextPage());
     };
+    const maleNumber = queryData(
+        patientState.data,
+        data => data.gender === 1,
+    ).length;
+    const femaleNumber = queryData(
+        patientState.data,
+        data => data.gender === 0,
+    ).length;
     //Invoking when click on next page
     const handleBackPage = e => {
-        localDispatch(backPageAction());
+        dispatch(backPage());
     };
     return (
         <>
@@ -95,7 +69,7 @@ function Patient(props) {
                 <PatientStat
                     img={PatientIcon}
                     title="Tổng số bệnh nhân"
-                    number={4321}
+                    number={patientState.data.length}
                 />
                 <PatientStat
                     img={TodayPatientIcon}
@@ -105,12 +79,12 @@ function Patient(props) {
                 <PatientStat
                     img={MaleIcon}
                     title="Bệnh nhân nam"
-                    number={2301}
+                    number={maleNumber}
                 />
                 <PatientStat
                     img={FemaleIcon}
                     title="Bệnh nhân nữ"
-                    number={2020}
+                    number={femaleNumber}
                 />
             </CustomPaper>
             <CustomPaper className="patient-table-container">
@@ -118,20 +92,19 @@ function Patient(props) {
                     Danh sách bệnh nhân
                 </Typography>
                 <PatientTable
-                    tableData={state.data}
-                    rowsPerPage={state.rowsPerPage}
-                    page={state.page}
-                    selected={state.selected}
-                    dispatchTable={localDispatch}
-                    order={state.order}
-                    orderBy={state.orderBy}
+                    tableData={patientState.data}
+                    rowsPerPage={patientState.rowsPerPage}
+                    page={patientState.page}
+                    selected={patientState.selected}
+                    order={patientState.order}
+                    orderBy={patientState.orderBy}
                 />
                 <Pagination
                     handleNextPage={handleNextPage}
                     handleBackPage={handleBackPage}
-                    pageTotal={state.data.length}
-                    currentPage={state.page}
-                    rowsPerPage={state.rowsPerPage}
+                    pageTotal={patientState.data.length}
+                    currentPage={patientState.page}
+                    rowsPerPage={patientState.rowsPerPage}
                 />
             </CustomPaper>
             <RightBar>

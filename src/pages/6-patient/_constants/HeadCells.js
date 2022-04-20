@@ -9,7 +9,7 @@ export const headCells = [
     {
         id: 2,
         label: 'Tên bệnh nhân',
-        property: 'patientName',
+        property: 'first_name',
         icon: ArrowDownward,
         action: 'sort',
         style: {width: '250px'},
@@ -35,6 +35,12 @@ export const headCells = [
     {
         id: 7,
         label: '',
+        style: {width: '30px'},
+    },
+    {
+        id: 8,
+        label: '',
+        style: {width: '30px'},
     },
 ];
 

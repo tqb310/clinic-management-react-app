@@ -82,7 +82,7 @@ const douData = {
         },
     ],
 };
-function IncomeStat({}) {
+function IncomeStat() {
     return (
         <Box className="income-stat__container">
             <Typography

@@ -19,7 +19,7 @@ function SelectedServiceTable({
                 ),
             )
         );
-    }, [selectedServiceId]);
+    }, [selectedServiceId, serviceData]);
     const handleDelete = id => _ => {
         const newSelected = [...selectedServiceId];
         newSelected.splice(

@@ -5,7 +5,7 @@ import {
     DoDisturbAltOutlined,
 } from '@mui/icons-material';
 
-export default [
+const menu = [
     {
         id: 0,
         label: 'Xem chi tiết',
@@ -35,3 +35,4 @@ export default [
         },
     },
 ];
+export default menu;

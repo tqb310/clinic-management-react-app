@@ -22,41 +22,35 @@ import MalePatient from '_assets/images/male-patient.png';
 import FemalePatient from '_assets/images/female-patient.png';
 // import {StatusPaper} from '_components/shared/StyledComponent';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
-import {
-    selectAction,
-    sortAction,
-} from '../../_localReducer/patientReducer';
+import {useDispatch} from 'react-redux';
+import {select, sort} from '_redux/slice/patientSlice';
 // import PropTypes from 'prop-types'
 
 function PatientTable({
     tableData,
     selected,
-    dispatchTable,
     rowsPerPage,
     page,
     order,
     orderBy,
 }) {
+    const dispatch = useDispatch();
     //Handle when check a row
     const handleSelect = id => e => {
         if (e.target.checked) {
-            dispatchTable(selectAction([...selected, id]));
+            dispatch(select([...selected, id]));
         } else {
-            dispatchTable(
-                selectAction(
-                    [...selected].filter(i => i !== id),
-                ),
+            dispatch(
+                select([...selected].filter(i => i !== id)),
             );
         }
     };
     //Handle when check all rows
     const handleSelectAll = e => {
         if (e.target.checked) {
-            dispatchTable(
-                selectAction(tableData.map(row => row.id)),
-            );
+            dispatch(select(tableData.map(row => row.id)));
         } else {
-            dispatchTable(selectAction([]));
+            dispatch(select([]));
         }
     };
     const handleActions =
@@ -64,7 +58,7 @@ function PatientTable({
         e => {
             switch (action) {
                 case 'sort':
-                    dispatchTable(sortAction(key));
+                    dispatch(sort(key));
                     break;
                 case 'filter':
                     return;
@@ -221,7 +215,7 @@ function PatientTable({
                             }}
                         />
                         <Box>
-                            <p>{row.patientName}</p>
+                            <p>{`${row.last_name} ${row.first_name}`}</p>
                             <Typography color="#888">
                                 {row.phone}
                             </Typography>
@@ -234,7 +228,28 @@ function PatientTable({
                         {gender[row.gender].key}
                     </TableCell>
                     <TableCell type="td">
-                        {row.address}
+                        {`${row.district} - ${row.province}`}
+                    </TableCell>
+                    <TableCell
+                        type="td"
+                        sx={{
+                            width: '45px',
+                            '& svg': {
+                                opacity: 0.5,
+                                transition: 'opacity .3s',
+                            },
+                        }}
+                    >
+                        <IconButton>
+                            {' '}
+                            <FontAwesomeIcon
+                                icon="edit"
+                                color="#aaa"
+                                style={{
+                                    fontSize: '1.5rem',
+                                }}
+                            />
+                        </IconButton>
                     </TableCell>
                     <TableCell
                         type="td"

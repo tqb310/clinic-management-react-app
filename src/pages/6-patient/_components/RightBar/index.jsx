@@ -9,8 +9,6 @@ import './index.scss';
 function RightBarContent({data}) {
     return (
         <div className="patient-rightbar">
-            <PatientInfor />
-
             <CustomPaper className="patient-rightbar__header">
                 <Typography
                     variant="h6"
@@ -23,6 +21,8 @@ function RightBarContent({data}) {
                     Xem chi tiết
                 </div>
             </CustomPaper>
+            <PatientInfor />
+
             <CardInfor />
         </div>
     );

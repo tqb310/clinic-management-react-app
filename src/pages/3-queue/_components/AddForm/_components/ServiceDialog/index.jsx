@@ -5,7 +5,6 @@ import {
     DialogTitle,
     List,
     ListItem,
-    Icon,
 } from '@mui/material';
 import {Close} from '@mui/icons-material';
 import './index.scss';

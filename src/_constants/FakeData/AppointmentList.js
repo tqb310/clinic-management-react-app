@@ -1,4 +1,4 @@
-export default [
+const data = [
     {
         id: 1,
         patientName: 'Truong Thi Kim Lan',
@@ -176,3 +176,4 @@ export default [
         status: 1,
     },
 ];
+export default data;

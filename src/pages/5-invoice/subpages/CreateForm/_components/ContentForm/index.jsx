@@ -1,9 +1,9 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import {Formik, Form} from 'formik';
 import {CustomPaper} from '_components/shared/StyledComponent';
 import LeftContent from '../LeftContentForm';
 import RightContent from '../RightContentForm';
-import Payment from '../Payment';
+// import Payment from '../Payment';
 import {
     district,
     province,

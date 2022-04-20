@@ -44,7 +44,7 @@ function QueueListItem({className = ''}) {
         </Box>
     );
 }
-function QueueList({}) {
+function QueueList() {
     return (
         <Box className="queue-list">
             <Box className="queue-list__tab">

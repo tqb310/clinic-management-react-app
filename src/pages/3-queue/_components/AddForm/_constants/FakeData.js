@@ -1,4 +1,4 @@
-export default [
+const data = [
     {
         id: 1,
         serviceName: 'Khám thường',
@@ -25,3 +25,4 @@ export default [
         serviceFee: '80000Đ',
     },
 ];
+export default data;

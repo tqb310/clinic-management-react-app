@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-// import { store } from './_app/store';
-// import { Provider } from 'react-redux';
+import {store} from './_redux/store';
+import {Provider} from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import {
     ThemeProvider,
@@ -19,11 +19,11 @@ library.add(fas, far, fab);
 const theme = createTheme(ThemeObject);
 ReactDOM.render(
     <React.StrictMode>
-        {/* <Provider store={store}> */}
-        <ThemeProvider theme={theme}>
-            <App />
-        </ThemeProvider>
-        {/* </Provider> */}
+        <Provider store={store}>
+            <ThemeProvider theme={theme}>
+                <App />
+            </ThemeProvider>
+        </Provider>
     </React.StrictMode>,
     document.getElementById('root'),
 );

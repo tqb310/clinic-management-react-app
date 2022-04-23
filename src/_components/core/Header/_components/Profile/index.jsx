@@ -7,7 +7,6 @@ import {
 } from '@mui/material';
 import {KeyboardArrowDown} from '@mui/icons-material';
 // import {CustomPaper} from '_components/shared/StyledComponent/Paper.js';
-// import authentication from '_services/authentication.service';
 import ProfileForm from '../ProfileForm';
 import PasswordForm from '../PasswordForm';
 import './index.scss';

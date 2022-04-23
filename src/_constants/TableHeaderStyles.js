@@ -1,7 +1,4 @@
-export const tableHeadRowStyles = {
-    backgroundColor: 'rgba(170,170,170,0.1)',
-    color: '#555',
-};
+export const tableHeadRowStyles = {};
 
 export const tableRowStyles = {
     borderBottom: '1px solid #ddd',
@@ -9,6 +6,8 @@ export const tableRowStyles = {
 };
 
 export const tableHeadCellStyles = {
+    color: '#555',
+    backgroundColor: 'rgba(170,170,170,0.1)',
     textAlign: 'left',
     height: '40px',
     fontSize: '1.4rem',

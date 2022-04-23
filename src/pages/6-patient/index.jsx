@@ -9,7 +9,6 @@ import {
 } from '_redux/slice/patientSlice';
 import {Typography} from '@mui/material';
 import {CustomPaper} from '_components/shared/StyledComponent';
-import Pagination from '_components/shared/Pagination';
 import MaleIcon from '_assets/images/male.png';
 import FemaleIcon from '_assets/images/female.png';
 import PatientIcon from '_assets/images/dentistry.png';
@@ -93,18 +92,7 @@ function Patient(props) {
                 </Typography>
                 <PatientTable
                     tableData={patientState.data}
-                    rowsPerPage={patientState.rowsPerPage}
-                    page={patientState.page}
                     selected={patientState.selected}
-                    order={patientState.order}
-                    orderBy={patientState.orderBy}
-                />
-                <Pagination
-                    handleNextPage={handleNextPage}
-                    handleBackPage={handleBackPage}
-                    pageTotal={patientState.data.length}
-                    currentPage={patientState.page}
-                    rowsPerPage={patientState.rowsPerPage}
                 />
             </CustomPaper>
             <RightBar>

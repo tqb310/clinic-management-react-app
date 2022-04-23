@@ -6,7 +6,6 @@ import Appointment from './_components/Appointment';
 import {RightBar} from '_components/shared/StyledComponent';
 import {Grid, Typography} from '@mui/material';
 // import VisitChart from "./_components/VisitChart";
-// import authentication from "_services/authentication.service";
 // import { Scrollbars } from "react-custom-scrollbars-2";
 // import {RightBar} from '_components/shared/StyledComponent/RightBar';
 // import PropTypes from 'prop-types';

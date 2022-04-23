@@ -1,8 +1,7 @@
 import React, {useState, memo} from 'react';
 // import {data} from "_constants/FakeData/AppointmentRequest";
-// import appointment from '_services/appointment.service';
 import {Typography} from '@mui/material';
-import {today} from '_constants/date';
+// import {today} from '_constants/date';
 import RequestItem from './_components/RequestItem';
 import {Scrollbars} from 'react-custom-scrollbars-2';
 // import ConfirmRequest from '../ConfirmRequest';
@@ -45,7 +44,7 @@ import './index.scss';
 // }
 
 function AppointmentDemand({sx}) {
-    const [data, setData] = useState([]);
+    // const [data, setData] = useState([]);
     // const [open, setOpen] = useState(false);
     // const handleClose = () => {
     //     setOpen(false);

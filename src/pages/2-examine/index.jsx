@@ -1,17 +1,14 @@
 import React, {useState} from 'react';
-// import authentication from '_services/authentication.service';
 import ExamineCard from './_components/ExamineCard';
 import RightBarContent from './_components/RightBar';
 import {data as fakeData} from '_constants/FakeData/Diagnostic';
-import {dateTimeNow} from '_constants/date';
+// import {dateTimeNow} from '_constants/date';
 // import socket from '_services/socket.io';
-// import diagnosticService from '_services/diagnostic.service'
-import diagnostic from '_services/diagnostic.service';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
 function Dashboard(props) {
-    const [room, setRoom] = useState(1);
+    // const [room, setRoom] = useState(1);
     const [queue, setQueue] = useState([]);
     const [continuous, setContinuous] = useState(false);
     // socket.on('diagnostic-stack-change', (stack) => {
@@ -38,21 +35,9 @@ function Dashboard(props) {
     //Cập nhật phiếu khám bên module bác sĩ
 
     const handleSubmitFinal = async data => {
-        console.log(data);
-        console.log(queue[0].diagnostic.DIAGNOSTIC_ID);
-        await diagnostic.updateDiagnostic({
-            room: room,
-            pnum: queue[0].order,
-            id: queue[0].diagnostic.DIAGNOSTIC_ID,
-            SYMPTOM: data.SYMPTOM,
-            DIAGNOSTIC: data.DIAGNOSTIC,
-            APPOINTMENT_DATE: data.APPOINTMENT_DATE,
-            BLOOD_PRESSURE: data.BLOOD_PRESSURE,
-            PULSE: data.PULSE,
-            TEMPERATURE: data.TEMPERATURE,
-            PRESCRIPTION: data.PRESCRIPTION,
-            CREATE_AT: dateTimeNow(),
-        });
+        // console.log(data);
+        // console.log(queue[0].diagnostic.DIAGNOSTIC_ID);
+        await null;
     };
     return (
         <div className="DoctorDashboard">

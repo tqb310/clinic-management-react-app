@@ -7,7 +7,7 @@ import './index.scss';
 // import PropTypes from 'prop-types'
 
 function PatientInfo({data, data1}) {
-    console.log(data);
+    // console.log(data);
     return (
         <div className="ECPatientInfo">
             <div className="ECPatientInfo__avatar col-1-3 row-1-3">

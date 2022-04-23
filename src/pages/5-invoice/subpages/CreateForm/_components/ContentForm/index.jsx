@@ -10,7 +10,6 @@ import {
     ward,
     gender,
 } from '_constants/FakeData/Select';
-import authentication from '_services/authentication.service';
 // import Services from "_services/servicesUsing.service";
 import './index.scss';
 // import PropTypes from 'prop-types';
@@ -48,9 +47,7 @@ function ContentForm({onSubmit}) {
                         province: '',
                     },
                     NOTE: '',
-                    RECEPTIONIST:
-                        authentication.getCurrentUser()
-                            ?.payload.employee_id,
+                    RECEPTIONIST: '',
                     DOCTOR_ID: '1',
                     SERVICES: ['1'],
                     DIAGNOSTIC_FEE:

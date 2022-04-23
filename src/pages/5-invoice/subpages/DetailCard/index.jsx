@@ -7,7 +7,6 @@ import PatientInfo from 'pages/2-examine/_components/PatientInfo';
 import ExaminingInfo from './_components/ExaminingInfo';
 import ServiceInfo from './_components/ServiceInfo';
 import PrescriptionInfo from './_components/PrescriptionInfo';
-import DiagnosticService from '_services/diagnostic.service';
 // import { rows } from "_constants/FakeData/ExamineList.js";
 import TabTableWrapper from '_components/shared/TabTableWrapper';
 import './index.scss';
@@ -34,11 +33,8 @@ function DetailCard() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const dataApi =
-                    await DiagnosticService.getDiagnosticById(
-                        id,
-                    );
-                console.log(dataApi);
+                const dataApi = await null;
+                // console.log(dataApi);
                 switch (dataApi) {
                     case null:
                         alert(
@@ -54,7 +50,7 @@ function DetailCard() {
                         setData(dataApi);
                 }
             } catch (error) {
-                console.log(error);
+                // console.log(error);
             }
         };
         fetchData();

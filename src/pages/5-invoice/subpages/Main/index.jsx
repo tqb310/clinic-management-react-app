@@ -1,27 +1,20 @@
-import React, {useReducer, useRef} from 'react';
+import React from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import TabTableWrapper from '_components/shared/TabTableWrapper';
-// import diagnosticService from '_services/diagnostic.service';
 // import {useRouteMatch, useHistory} from 'react-router-dom';
-// import {createData} from '_constants/FakeData/QueryTable';
 import {Box, InputBase, Button} from '@mui/material';
 import {
     Search,
     Add,
     Delete,
-    RestartAlt,
     FilterList,
 } from '@mui/icons-material';
-import Pagination from '_components/shared/Pagination';
 import ExamineTable from './_components/ExamineTable';
 import {
-    initState,
-    reducer,
-    deleteAction,
-    nextPageAction,
-    backPageAction,
-    resetTableAction,
+    deleteData,
+    // selectData,
     switchDrawer,
-} from './_localReducers/tableReducer';
+} from '_redux/slice/invoiceSlice';
 import Drawer from '_components/shared/Drawer';
 import DrawerContent from './_components/DrawerContent';
 import './index.scss';
@@ -34,47 +27,39 @@ const tabNames = [
 ];
 
 function Main(props) {
-    const preservedData = useRef(initState.data).current;
-    const [state, dispatchTable] = useReducer(
-        reducer,
-        initState,
-    );
+    const dispatch = useDispatch();
+    const {
+        data = [],
+        selected = [],
+        isOpenDrawer = false,
+        selectedPaidInvoice = [],
+    } = useSelector(state => state.invoices);
     // const history = useHistory();
     // const {path} = useRouteMatch();
     // const onClickItem = id => {
     //     history.push(`${path}${id}`);
     // };
-    const handleResetData = e => {
-        dispatchTable(resetTableAction([...preservedData]));
-    };
+
     //Invoking when delete all selected items
-    const handleDeleteItem = e => {
-        dispatchTable(
-            deleteAction(
-                [...state.data].filter(
-                    item =>
-                        !state.selected.includes(item.id),
-                ),
+    const handleDeleteItem = _ => {
+        dispatch(
+            deleteData(
+                data.filter(
+                    item => !selected.includes(item.id),
+                ) || [],
             ),
         );
     };
     //Invoking when click on next page
-    const handleNextPage = e => {
-        dispatchTable(nextPageAction());
-    };
-    //Invoking when click on next page
-    const handleBackPage = e => {
-        dispatchTable(backPageAction());
-    };
     const closeDrawer = _ => {
-        dispatchTable(switchDrawer(false));
+        dispatch(switchDrawer(false));
     };
     return (
         <TabTableWrapper tabNameArr={tabNames}>
             {index => {
                 return (
                     <Box className="table-container">
-                        <Box className="table-container__actions">
+                        <Box className="table-container__toolbars">
                             <Box className="table-container__search">
                                 <Search className="icon" />
                                 <InputBase
@@ -82,19 +67,12 @@ function Main(props) {
                                     placeholder="Số thứ tự, tên, số điện thoại ..."
                                 />
                             </Box>
-                            <Button
-                                variant="outlined"
-                                startIcon={<RestartAlt />}
-                                sx={{ml: 2}}
-                                onClick={handleResetData}
-                            >
-                                Tái thiết
-                            </Button>
+
                             <Button
                                 variant="outlined"
                                 startIcon={<FilterList />}
                                 sx={{ml: 2}}
-                                onClick={handleResetData}
+                                onClick={null}
                             >
                                 Lọc
                             </Button>
@@ -110,8 +88,7 @@ function Main(props) {
                                 startIcon={<Delete />}
                                 sx={{ml: 1}}
                                 disabled={
-                                    state.selected
-                                        .length === 0
+                                    selected.length === 0
                                 }
                                 color="error"
                                 onClick={handleDeleteItem}
@@ -120,51 +97,34 @@ function Main(props) {
                             </Button>
                         </Box>
                         <ExamineTable
-                            tableData={state.data}
-                            rowsPerPage={state.rowsPerPage}
-                            page={state.page}
-                            selected={state.selected}
-                            dispatchTable={dispatchTable}
-                            order={state.order}
-                            orderBy={state.orderBy}
-                        />
-                        <Pagination
-                            handleNextPage={handleNextPage}
-                            handleBackPage={handleBackPage}
-                            pageTotal={state.data.length}
-                            currentPage={state.page}
-                            rowsPerPage={state.rowsPerPage}
+                            tableData={data}
+                            selected={selected}
                         />
                         <Drawer
                             anchor="right"
-                            open={state.isOpenDrawer}
+                            open={isOpenDrawer}
                             onClose={closeDrawer}
                         >
                             <DrawerContent
                                 id={
-                                    state
-                                        .selectedPaidInvoice
-                                        ?.id
+                                    selectedPaidInvoice.id ||
+                                    NaN
                                 }
                                 patientName={
-                                    state
-                                        .selectedPaidInvoice
-                                        ?.patientName
+                                    selectedPaidInvoice.patientName ||
+                                    ''
                                 }
                                 patientPhone={
-                                    state
-                                        .selectedPaidInvoice
-                                        ?.phone
+                                    selectedPaidInvoice.phone ||
+                                    ''
                                 }
                                 createAt={
-                                    state
-                                        .selectedPaidInvoice
-                                        ?.createAt
+                                    selectedPaidInvoice.createAt ||
+                                    ''
                                 }
                                 note={
-                                    state
-                                        .selectedPaidInvoice
-                                        ?.note
+                                    selectedPaidInvoice.note ||
+                                    ''
                                 }
                             />
                         </Drawer>
@@ -178,14 +138,3 @@ function Main(props) {
 Main.propTypes = {};
 
 export default Main;
-
-// const [diagnostics, setDiagnostics] = useState([]);
-// const [selectId, setSelectId] = useState('');
-// useEffect(() => {
-//   async function fetchData() {
-//     let data = await diagnosticService.getAllDiagnostic()
-//     setDiagnostics(data)
-//   }
-//   fetchData()
-// }, [])
-// console.log((diagnostics))

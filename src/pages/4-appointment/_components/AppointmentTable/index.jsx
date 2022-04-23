@@ -41,7 +41,7 @@ function AppointmentTable({data}) {
     const preservedData = useRef([...data]).current;
 
     const handleSubmit = value => {
-        console.log(value);
+        // console.log(value);
     };
     const handleOpen = e => {
         localDispatch(switchForm(true));

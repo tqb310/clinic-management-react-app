@@ -4,7 +4,7 @@ import {ArrowDownward} from '@mui/icons-material';
 export const headCells = [
     {
         id: 1,
-        label: 'Mã phiếu',
+        label: 'Mã',
         property: 'id',
         style: {textAlign: 'center', width: '80px'},
     },
@@ -30,18 +30,12 @@ export const headCells = [
     },
     {
         id: 5,
-        label: 'Bác sĩ khám',
-        property: 'doctor',
-        style: {width: '180px'},
-    },
-    {
-        id: 6,
         label: 'Tổng Phí',
         property: 'expense',
         style: {width: '140px'},
     },
     {
-        id: 7,
+        id: 6,
         label: '',
     },
 ];

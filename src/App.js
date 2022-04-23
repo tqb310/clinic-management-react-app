@@ -13,7 +13,6 @@ import SideBar from '_components/core/SideBar';
 import Header from '_components/core/Header';
 // import { Scrollbars } from "react-custom-scrollbars-2";
 import ClinicLogo from '_assets/images/clinic.png';
-import authentication from '_services/authentication.service';
 import Routes from 'pages/_routes';
 import './App.scss';
 
@@ -24,7 +23,7 @@ const Customer = lazy(() => import('./pages/customer'));
 function App() {
     return (
         <Suspense fallback={<div>Loading ...</div>}>
-            {authentication.getCurrentUser() ? (
+            {false ? (
                 <Router>
                     <Switch>
                         <Route
@@ -63,9 +62,7 @@ function App() {
                             <SideBar routes={Routes} />
                             <IconButton
                                 className="pagewrapper__logout"
-                                onClick={() =>
-                                    authentication.logout()
-                                }
+                                onClick={() => {}}
                             >
                                 <Logout
                                     sx={{

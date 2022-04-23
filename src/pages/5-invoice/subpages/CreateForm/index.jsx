@@ -3,16 +3,15 @@ import {useHistory} from 'react-router-dom';
 import {ArrowBack} from '@mui/icons-material';
 import {CustomPaper} from '_components/shared/StyledComponent';
 import ContentForm from './_components/ContentForm';
-import diagnostic from '_services/diagnostic.service';
 import {dateParse, timeParse} from '_constants/date';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
 function CreateForm(props) {
     const history = useHistory();
-    console.log(history.location);
+    // console.log(history.location);
     const handleSubmit = async value => {
-        console.log(value);
+        // console.log(value);
         value.DATE_OF_BIRTH = dateParse(
             value.DATE_OF_BIRTH,
         );
@@ -20,7 +19,7 @@ function CreateForm(props) {
             dateParse(value.CREATE_AT) +
             ' ' +
             timeParse(value.CREATE_AT);
-        let data = await diagnostic.createDiagnostic(value);
+        let data = await null;
         switch (data) {
             case null:
                 alert('Co loi xay ra!');

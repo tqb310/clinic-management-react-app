@@ -17,7 +17,7 @@ export const headCells = [
     {
         id: 3,
         label: 'Ngày sinh',
-        property: 'createAt',
+        property: 'dob',
         style: {width: '120px'},
     },
     {

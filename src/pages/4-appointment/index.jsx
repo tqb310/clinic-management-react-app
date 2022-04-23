@@ -12,9 +12,6 @@ import {
     Tooltip,
     Legend,
 } from 'chart.js';
-// import appointment from '_services/appointment.service';
-// import {dateParse} from '_constants/date';
-// import socket from '_services/socket.io';
 import {RightBar} from '_components/shared/StyledComponent';
 import appointmentData from '_constants/FakeData/AppointmentList';
 import './index.scss';
@@ -57,29 +54,6 @@ const data = [
         ],
     };
 function Appointment(props) {
-    // socket.on('AppointmentListChange', appointment => {
-    //     console.log(appointment);
-    // });
-    // const [data, setData] = useState([]);
-    // console.log(data);
-    // useEffect(() => {
-    //     const fetchData = async () => {
-    //         const today = new Date(Date.now());
-    //         try {
-    //             const dataApi = await appointment.getAppointmentByWeek(dateParse(today));
-    //             console.log(dataApi);
-    //             switch (dataApi) {
-    //                 case null: break;
-    //                 case undefined: alert("Bạn không có quyền truy cập vào tính năng này!"); break
-    //                 default: setData(dataApi)
-    //             }
-    //         } catch (error) {
-    //             console.log(error)
-    //         }
-    //     }
-    //     fetchData();
-    // }, [])
-
     return (
         <Grid
             container

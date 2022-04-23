@@ -12,7 +12,6 @@ import {
 } from '@mui/material';
 import {Close} from '@mui/icons-material';
 // import handlePriceFormat from "_helpers/handlePriceFormat.js";
-import appointment from '_services/appointment.service';
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './index.scss';
@@ -20,12 +19,8 @@ import './index.scss';
 function ConfirmRequest({open, handleClose}) {
     const handleSubmit = async () => {
         toast.success('Đang xác nhận');
-        const rs = await appointment.confirmRequest(
-            open.REQUEST_ID,
-            2,
-        );
         handleClose();
-        console.log(rs);
+        // console.log(rs);
         window.location.reload();
     };
     //   console.log(open);

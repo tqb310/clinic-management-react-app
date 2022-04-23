@@ -103,7 +103,7 @@ function RightBarContent({
     start,
 }) {
     const [selected, setSelected] = useState(1);
-    console.log(queue);
+    // console.log(queue);
     const createAvatar = name => {
         return name
             .split(' ')

@@ -17,7 +17,7 @@ function ExamineCard({
     continuous,
     handleSubmitFinal,
 }) {
-    console.log(data);
+    // console.log(data);
     const [open, setOpen] = useState(false);
     // const [isValidForm, setValidForm] = useState(true);
     const [prescriptionData, setPrescriptionData] =
@@ -27,7 +27,7 @@ function ExamineCard({
         setOpen(false);
     };
     const handleSubmitPres = data => {
-        console.log(data);
+        // console.log(data);
         setPrescriptionData(data);
     };
     const handleSubmitExamining = data => {

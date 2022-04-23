@@ -1,16 +1,8 @@
 import React, {memo} from 'react';
 import {headCells} from '../../_constants/HeadCells';
-import {
-    tableCellStyles,
-    tableHeadCellStyles,
-    tableHeadRowStyles,
-} from '_constants/TableHeaderStyles';
+import {tableHeadCellStyles} from '_constants/TableHeaderStyles';
 import {gender} from '_constants/general';
-import {
-    Table,
-    TableRow,
-    TableCell,
-} from '_components/shared/Table2';
+import {Table, TableCell} from '_components/shared/Table2';
 import {
     Checkbox,
     Avatar,
@@ -23,17 +15,17 @@ import FemalePatient from '_assets/images/female-patient.png';
 // import {StatusPaper} from '_components/shared/StyledComponent';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useDispatch} from 'react-redux';
-import {select, sort} from '_redux/slice/patientSlice';
+import {select} from '_redux/slice/patientSlice';
 // import PropTypes from 'prop-types'
+import {styled} from '@mui/material/styles';
 
-function PatientTable({
-    tableData,
-    selected,
-    rowsPerPage,
-    page,
-    order,
-    orderBy,
-}) {
+const BodyCell = styled(TableCell)`
+    text-align: left;
+    height: 60px;
+    font-size: 1.5rem;
+`;
+
+function PatientTable({tableData, selected}) {
     const dispatch = useDispatch();
     //Handle when check a row
     const handleSelect = id => e => {
@@ -53,32 +45,15 @@ function PatientTable({
             dispatch(select([]));
         }
     };
-    const handleActions =
-        (action, key = '') =>
-        e => {
-            switch (action) {
-                case 'sort':
-                    dispatch(sort(key));
-                    break;
-                case 'filter':
-                    return;
-                default:
-                    return;
-            }
-        };
+
     return (
         <Table
             sx={{
                 borderCollapse: 'collapse',
                 userSelect: 'none',
-                fontSize: '1.5rem',
                 width: '100%',
-                height: '100%',
             }}
-            data={[...tableData].slice(
-                page * rowsPerPage,
-                (page + 1) * rowsPerPage,
-            )}
+            data={tableData}
             hoverStyle={{
                 backgroundColor: '#f8f8f8',
                 '& svg': {opacity: 1},
@@ -87,15 +62,19 @@ function PatientTable({
                 backgroundColor: '#f8f8f8',
                 '& svg': {opacity: 1},
             }}
+            pagination
+            rowsPerPage={8}
+            selected={selected}
             header={() => {
                 return (
-                    <TableRow sx={tableHeadRowStyles}>
+                    <>
                         <TableCell
                             sx={{
-                                width: '50px',
+                                width: '20px',
+                                ...tableHeadCellStyles,
                             }}
                             type="th"
-                            align="center"
+                            align="right"
                         >
                             <Checkbox
                                 indeterminate={
@@ -117,25 +96,15 @@ function PatientTable({
                                     id,
                                     label,
                                     style,
-                                    property,
-                                    action,
                                     ...rest
                                 }) => (
                                     <TableCell
                                         key={id}
                                         type="th"
                                         sx={{
-                                            ...tableHeadCellStyles,
                                             ...style,
+                                            ...tableHeadCellStyles,
                                         }}
-                                        handleClick={handleActions(
-                                            action,
-                                            property,
-                                        )}
-                                        orderBy={orderBy}
-                                        order={order}
-                                        action={action}
-                                        property={property}
                                         {...rest}
                                     >
                                         <Typography
@@ -147,31 +116,13 @@ function PatientTable({
                                     </TableCell>
                                 ),
                             )}
-                    </TableRow>
+                    </>
                 );
             }}
-            renderDataRow={(
-                row,
-                index,
-                {hoverStyle, activeStyle},
-            ) => (
-                <TableRow
-                    key={index}
-                    sx={Object.assign(
-                        {
-                            borderBottom: '1px solid #ddd',
-                            transition:
-                                'background-color .3s',
-                            '&:hover': {
-                                ...hoverStyle,
-                            },
-                        },
-                        selected.includes(row.id)
-                            ? {...activeStyle}
-                            : {},
-                    )}
-                >
-                    <TableCell
+            renderDataRow={row => (
+                <>
+                    <BodyCell
+                        type="td"
                         sx={{
                             textAlign: 'center',
                             width: '20px',
@@ -183,23 +134,20 @@ function PatientTable({
                             )}
                             onChange={handleSelect(row.id)}
                         />
-                    </TableCell>
-                    <TableCell
+                    </BodyCell>
+                    <BodyCell
                         type="td"
                         sx={{
-                            ...tableCellStyles,
                             textAlign: 'center',
                         }}
                     >
                         {row.id}
-                    </TableCell>
-                    <TableCell
+                    </BodyCell>
+                    <BodyCell
                         type="td"
                         sx={{
                             display: 'flex',
                             alignItems: 'center',
-                            height: '100%',
-                            ...tableCellStyles,
                         }}
                     >
                         <Avatar
@@ -215,22 +163,26 @@ function PatientTable({
                             }}
                         />
                         <Box>
-                            <p>{`${row.last_name} ${row.first_name}`}</p>
+                            <p>
+                                {row.last_name +
+                                    ' ' +
+                                    row.first_name}
+                            </p>
                             <Typography color="#888">
                                 {row.phone}
                             </Typography>
                         </Box>
-                    </TableCell>
-                    <TableCell type="td">
-                        {row.dob}
-                    </TableCell>
-                    <TableCell type="td">
-                        {gender[row.gender].key}
-                    </TableCell>
-                    <TableCell type="td">
-                        {`${row.district} - ${row.province}`}
-                    </TableCell>
-                    <TableCell
+                    </BodyCell>
+                    <BodyCell type="td">{row.dob}</BodyCell>
+                    <BodyCell type="td">
+                        {row.gender ? 'Nữ' : 'Nam'}
+                    </BodyCell>
+                    <BodyCell type="td">
+                        {row.district +
+                            ' - ' +
+                            row.province}
+                    </BodyCell>
+                    <BodyCell
                         type="td"
                         sx={{
                             width: '45px',
@@ -241,17 +193,10 @@ function PatientTable({
                         }}
                     >
                         <IconButton>
-                            {' '}
-                            <FontAwesomeIcon
-                                icon="edit"
-                                color="#aaa"
-                                style={{
-                                    fontSize: '1.5rem',
-                                }}
-                            />
+                            <FontAwesomeIcon icon="pen-to-square" />
                         </IconButton>
-                    </TableCell>
-                    <TableCell
+                    </BodyCell>
+                    <BodyCell
                         type="td"
                         sx={{
                             width: '45px',
@@ -262,17 +207,10 @@ function PatientTable({
                         }}
                     >
                         <IconButton>
-                            {' '}
-                            <FontAwesomeIcon
-                                icon="edit"
-                                color="#aaa"
-                                style={{
-                                    fontSize: '1.5rem',
-                                }}
-                            />
+                            <FontAwesomeIcon icon="pen-to-square" />
                         </IconButton>
-                    </TableCell>
-                </TableRow>
+                    </BodyCell>
+                </>
             )}
         />
     );

@@ -16,7 +16,6 @@ import {
     province,
     ward,
 } from '_constants/FakeData/Select';
-import appointment from '_services/appointment.service';
 import {dateParse} from '_constants/date';
 import './index.scss';
 
@@ -217,10 +216,7 @@ function RequestForm() {
                     },
                 };
                 console.log(handledValue);
-                let result =
-                    await appointment.createAppointmentRequest(
-                        handledValue,
-                    );
+                let result = await null;
                 if (!result)
                     alert('Lỗi server, vui lòng thử lại');
                 else alert('Tạo thành công');

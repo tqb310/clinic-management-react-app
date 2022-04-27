@@ -9,5 +9,6 @@ const route = {
     exact: true,
     component: lazy(() => import('./index')),
     icon: Sick,
+    roles: [0, 1, 2],
 };
 export default route;

@@ -1,10 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom';
 import role from '_constants/role';
 import doctorImage from './assets/doctor.png';
 import hopitalImage from './assets/hopital.png';
 import {ToastContainer, toast} from 'react-toastify';
+import authentication from '_services/firebase/authentication.service';
 import 'react-toastify/dist/ReactToastify.css';
+// import {useSelector} from 'react-redux';
 import {
     CardMedia,
     Typography,
@@ -23,25 +25,23 @@ import './index.scss';
 function Login(props) {
     const history = useHistory();
     //state
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPass, setShowPass] = useState(false);
-    useEffect(() => {
-        const user = null;
-        if (user) {
-            history.replace(role.get(user.role).url);
-        }
-    });
+
     const login = async () => {
         toast.success('Đang đăng nhập');
-        const status = await null;
+        const status = await authentication.logIn(
+            email,
+            password,
+        );
         const user = null;
         switch (status) {
             case null:
                 console.log('null');
                 break;
             case 1:
-                alert('Username không đúng!');
+                alert('Email không đúng!');
                 break;
             case 2:
                 alert('Password không đúng!');
@@ -126,9 +126,9 @@ function Login(props) {
                             placeholder="Eg:abcd@gmail.com"
                             id=""
                             label="Tên đăng nhập"
-                            value={username}
+                            value={email}
                             onChange={e =>
-                                setUsername(e.target.value)
+                                setEmail(e.target.value)
                             }
                         />
                     </div>

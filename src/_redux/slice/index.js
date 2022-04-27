@@ -1,11 +1,13 @@
 import patientReducer from './patientSlice';
 import appointmentReducer from './appointmentSlice';
-import invoiceSlice from './invoiceSlice';
+import invoiceReducer from './invoiceSlice';
+import currentUserReducer from './currentUserSlice';
 
 const rootReducer = {
     patients: patientReducer,
     appointments: appointmentReducer,
-    invoices: invoiceSlice,
+    invoices: invoiceReducer,
+    user: currentUserReducer,
 };
 
 export default rootReducer;

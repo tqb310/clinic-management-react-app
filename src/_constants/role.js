@@ -4,30 +4,27 @@
 //     doctor: 'Doctor'
 // };
 
-const role = new Map(
+const role = new Map([
     [
-        [
-            1,
-            {
-                url:'/tiep-tan',
-                name:'Receptionist'
-            }
-        ],
-        [
-            2,
-            {
-                url:'/quan-ly',
-                name:'Manager'
-            }
-        ],
-        [
-            3,
-            {
-                url:'/bac-si',
-                name:'Doctor'
-            }
-        ],
-    ]
-)
+        0,
+        {
+            url: '/tiep-tan',
+            name: 'Receptionist',
+        },
+    ],
+    [
+        2,
+        {
+            url: '/quan-ly',
+            name: 'Manager',
+        },
+    ],
+    [
+        1,
+        {
+            url: '/bac-si',
+            name: 'Doctor',
+        },
+    ],
+]);
 export default role;
-

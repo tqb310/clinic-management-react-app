@@ -2,13 +2,14 @@ import {lazy} from 'react';
 import {Settings} from '@mui/icons-material';
 
 const route = {
-    id: Math.random().toString(32).substr(2,10),
+    id: Math.random().toString(32).substr(2, 10),
     path: '/cai-dat',
     name: 'Cài đặt',
     isPublic: false,
     exact: true,
     component: lazy(() => import('./index')),
-    icon: Settings
-}
+    icon: Settings,
+    roles: [0, 1, 2],
+};
 
 export default route;

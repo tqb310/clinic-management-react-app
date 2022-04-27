@@ -1,6 +1,9 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import {useSelector} from 'react-redux';
+import {Redirect} from 'react-router-dom';
+import Routes from 'pages/_routes';
 
 //Fake user data storage
 //const currentUser = {name: 'Bao', role: '1', jwt: '1234'};
@@ -12,22 +15,44 @@ const Unauthorized = () => (
 
 function PrivateRoute({
     component: Component,
-    roles,
+    role,
     ...rest
 }) {
+    const currentUser = useSelector(
+        state => state.currentUser,
+    );
+
+    const filteredRoutes = Routes.filter(
+        ({role: r}) => r && r.includes(currentUser.role),
+    );
+
     return (
         <Route
             {...rest}
             render={props => {
-                //    if(!authentication.getCurrentUser()){
-                //        return <Redirect to={{pathname: '/dang-nhap', state: {from: props.location}}}/>
-                //    }
+                if (!currentUser) {
+                    return (
+                        <Redirect
+                            to={{
+                                pathname: '/dang-nhap',
+                                state: {
+                                    from: props.location,
+                                },
+                            }}
+                        />
+                    );
+                }
 
-                //    if(roles && roles.localeCompare(authentication.getCurrentUser()?.payload.role)){
-                //        return <Unauthorized {...props}/>
-                //    }
+                if (role && role !== currentUser.role) {
+                    return <Unauthorized {...props} />;
+                }
 
-                return <Component {...props} />;
+                return (
+                    <Component
+                        {...props}
+                        filteredRoutes={filteredRoutes}
+                    />
+                );
             }}
         />
     );

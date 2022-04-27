@@ -3,37 +3,31 @@ import {
     BrowserRouter as Router,
     Route,
     Switch,
-    Redirect,
-    Link,
 } from 'react-router-dom';
-// import PrivateRoute from "_components/core/PrivateRoute/index";
-import {Box, IconButton} from '@mui/material';
-import {Add, Logout} from '@mui/icons-material';
-import SideBar from '_components/core/SideBar';
-import Header from '_components/core/Header';
-// import { Scrollbars } from "react-custom-scrollbars-2";
-import ClinicLogo from '_assets/images/clinic.png';
-import Routes from 'pages/_routes';
+import Auth from '_components/core/Auth';
+import PrivateRoute from '_components/core/PrivateRoute';
+import NotLoggedInRoute from '_components/core/NotLoggedInRoute';
+import LoggedInApp from '_components/core/LoggedInApp';
 import './App.scss';
 
 const Login = lazy(() => import('./pages/login'));
 const Customer = lazy(() => import('./pages/customer'));
-// const NotFound = lazy(() => import("./_components/core/NotFound"));
+const NotFound = lazy(() =>
+    import('./_components/core/NotFound'),
+);
 
 function App() {
     return (
         <Suspense fallback={<div>Loading ...</div>}>
-            {false ? (
+            <Auth>
                 <Router>
                     <Switch>
-                        <Route
+                        <NotLoggedInRoute
                             path="/"
                             exact
-                            render={() => (
-                                <Redirect to="/dang-nhap" />
-                            )}
+                            component={Login}
                         />
-                        <Route
+                        <NotLoggedInRoute
                             path="/dang-nhap"
                             exact
                             component={Login}
@@ -43,105 +37,25 @@ function App() {
                             exact
                             component={Customer}
                         />
-                        <Route
-                            render={() => (
-                                <Redirect to="/dang-nhap" />
-                            )}
+                        <PrivateRoute
+                            path="/tiep-tan"
+                            role={0}
+                            component={LoggedInApp}
                         />
+                        <PrivateRoute
+                            path="/bac-si"
+                            role={1}
+                            component={LoggedInApp}
+                        />
+                        <PrivateRoute
+                            path="/quan-ly"
+                            role={2}
+                            component={LoggedInApp}
+                        />
+                        <Route component={NotFound} />
                     </Switch>
                 </Router>
-            ) : (
-                <Box className="pagewrapper">
-                    <Router>
-                        <Box className="pagewrapper__left">
-                            <img
-                                className="pagewrapper__logo"
-                                src={ClinicLogo}
-                                alt="Clinic logo"
-                            />
-                            <SideBar routes={Routes} />
-                            <IconButton
-                                className="pagewrapper__logout"
-                                onClick={() => {}}
-                            >
-                                <Logout
-                                    sx={{
-                                        transform:
-                                            'rotate(180deg)',
-                                    }}
-                                />
-                            </IconButton>
-                        </Box>
-                        <Box className="pagewrapper__center">
-                            <Box className="pagewrapper__header">
-                                <Header />
-                            </Box>
-                            <Box className="pagewrapper__main">
-                                <Switch>
-                                    {Routes &&
-                                        Routes.map(
-                                            ({
-                                                id,
-                                                path,
-                                                exact,
-                                                component,
-                                                name,
-                                            }) => {
-                                                return (
-                                                    <Route
-                                                        key={
-                                                            id
-                                                        }
-                                                        name={
-                                                            name
-                                                        }
-                                                        path={
-                                                            path
-                                                        }
-                                                        exact={
-                                                            exact
-                                                        }
-                                                        component={
-                                                            component
-                                                        }
-                                                    />
-                                                );
-                                            },
-                                        )}
-                                    <Route
-                                        render={() => {
-                                            return (
-                                                <Redirect to="/trang-chu" />
-                                            );
-                                        }}
-                                    />
-                                </Switch>
-                            </Box>
-                        </Box>
-                        <Box className="pagewrapper__right"></Box>
-                        <Link to="/phieu-kham/them-phieu-kham">
-                            <div className="pagewrapper__createCard">
-                                <Add
-                                    sx={{
-                                        fontSize: 32,
-                                        color: 'white',
-                                        transition:
-                                            'all .3s',
-                                        '&:hover': {
-                                            transform:
-                                                'scale(1.2,1.2)',
-                                        },
-                                        '&:active': {
-                                            transform:
-                                                'scale(0.9, 0.9)',
-                                        },
-                                    }}
-                                />
-                            </div>
-                        </Link>
-                    </Router>
-                </Box>
-            )}
+            </Auth>
         </Suspense>
     );
 }

@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import role from '_constants/role';
 import doctorImage from './assets/doctor.png';
-import hopitalImage from './assets/hopital.png';
+import clinic from '_assets/images/clinic.png';
 import {ToastContainer, toast} from 'react-toastify';
 import authentication from '_services/firebase/authentication.service';
+import {useSelector} from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
 // import {useSelector} from 'react-redux';
 import {
@@ -24,37 +25,27 @@ import './index.scss';
 
 function Login(props) {
     const history = useHistory();
-    //state
+    const currentUser = useSelector(
+        state => state.user.current,
+    );
+
+    useEffect(() => {
+        if (currentUser)
+            history.replace(role.get(currentUser.role).url);
+    }, [currentUser]);
+
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPass, setShowPass] = useState(false);
 
     const login = async () => {
-        toast.success('Đang đăng nhập');
-        const status = await authentication.logIn(
-            email,
-            password,
-        );
-        const user = null;
-        switch (status) {
-            case null:
-                console.log('null');
-                break;
-            case 1:
-                alert('Email không đúng!');
-                break;
-            case 2:
-                alert('Password không đúng!');
-                break;
-            case 3:
-                alert('Lỗi server, vui lòng thử lại!');
-                break;
-            default:
-                if (user !== undefined)
-                    history.replace(
-                        role.get(user.role).url,
-                    );
-                else alert('Lỗi server, vui lòng thử lại!');
+        toast.success('Đang đăng nhập', {
+            position: toast.POSITION.TOP_CENTER,
+        });
+        try {
+            await authentication.logIn(email, password);
+        } catch (error) {
+            console.dir(error);
         }
     };
 
@@ -77,7 +68,7 @@ function Login(props) {
                 <div className="login-right-logo">
                     <CardMedia
                         component="img"
-                        src={hopitalImage}
+                        src={clinic}
                         style={{
                             width: 50,
                             height: 50,

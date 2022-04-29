@@ -9,7 +9,7 @@ const route = {
     isPublic: false,
     component: lazy(() => import('./index')),
     icon: CreditCard,
-    roles: [0, 1, 2],
+    roles: [1, 2, 3],
 };
 
 export default route;

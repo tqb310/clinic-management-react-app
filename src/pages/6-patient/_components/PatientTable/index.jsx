@@ -1,7 +1,7 @@
 import React, {memo} from 'react';
 import {headCells} from '../../_constants/HeadCells';
 import {tableHeadCellStyles} from '_constants/TableHeaderStyles';
-import {gender} from '_constants/general';
+// import {gender} from '_constants/general';
 import {Table, TableCell} from '_components/shared/Table2';
 import {
     Checkbox,
@@ -13,9 +13,16 @@ import {
 import MalePatient from '_assets/images/male-patient.png';
 import FemalePatient from '_assets/images/female-patient.png';
 // import {StatusPaper} from '_components/shared/StyledComponent';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {useDispatch} from 'react-redux';
-import {select} from '_redux/slice/patientSlice';
+import {
+    select,
+    setSelectedPatient,
+} from '_redux/slice/patientSlice';
+import {
+    Visibility,
+    VisibilityOff,
+    BorderColor,
+} from '@mui/icons-material';
 // import PropTypes from 'prop-types'
 import {styled} from '@mui/material/styles';
 
@@ -25,7 +32,11 @@ const BodyCell = styled(TableCell)`
     font-size: 1.5rem;
 `;
 
-function PatientTable({tableData, selected}) {
+function PatientTable({
+    tableData,
+    selected,
+    selectedPatient,
+}) {
     const dispatch = useDispatch();
     //Handle when check a row
     const handleSelect = id => e => {
@@ -46,6 +57,9 @@ function PatientTable({tableData, selected}) {
         }
     };
 
+    const handleSelectPatient = id => e => {
+        dispatch(setSelectedPatient(id));
+    };
     return (
         <Table
             sx={{
@@ -102,8 +116,8 @@ function PatientTable({tableData, selected}) {
                                         key={id}
                                         type="th"
                                         sx={{
-                                            ...style,
                                             ...tableHeadCellStyles,
+                                            ...style,
                                         }}
                                         {...rest}
                                     >
@@ -175,7 +189,7 @@ function PatientTable({tableData, selected}) {
                     </BodyCell>
                     <BodyCell type="td">{row.dob}</BodyCell>
                     <BodyCell type="td">
-                        {row.gender ? 'Nữ' : 'Nam'}
+                        {row.gender ? 'Nam' : 'Nữ'}
                     </BodyCell>
                     <BodyCell type="td">
                         {row.district +
@@ -193,7 +207,9 @@ function PatientTable({tableData, selected}) {
                         }}
                     >
                         <IconButton>
-                            <FontAwesomeIcon icon="pen-to-square" />
+                            <BorderColor
+                                sx={{fontSize: '2rem'}}
+                            />
                         </IconButton>
                     </BodyCell>
                     <BodyCell
@@ -206,8 +222,25 @@ function PatientTable({tableData, selected}) {
                             },
                         }}
                     >
-                        <IconButton>
-                            <FontAwesomeIcon icon="pen-to-square" />
+                        <IconButton
+                            onClick={handleSelectPatient(
+                                row.id,
+                            )}
+                        >
+                            {selectedPatient &&
+                            selectedPatient.id ===
+                                row.id ? (
+                                <Visibility
+                                    sx={{
+                                        fontSize: '2rem',
+                                        color: 'primary.main',
+                                    }}
+                                />
+                            ) : (
+                                <VisibilityOff
+                                    sx={{fontSize: '2rem'}}
+                                />
+                            )}
                         </IconButton>
                     </BodyCell>
                 </>

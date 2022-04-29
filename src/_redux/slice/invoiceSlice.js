@@ -1,29 +1,35 @@
-import {createSlice} from '@reduxjs/toolkit';
-import InvoiceData from '_constants/FakeData/invoice.json';
+import {
+    createSlice,
+    createAsyncThunk,
+} from '@reduxjs/toolkit';
+// import InvoiceData from '_constants/FakeData/invoice.json';
+import invoiceServices from '_services/firebase/invoice.service';
 
 const initialState = {
-    data: InvoiceData,
+    data: [],
     selected: [],
     isOpenDrawer: false,
     selectedPaidInvoice: '',
+    isLoading: false,
 };
 
-const patientSlice = createSlice({
+export const setDataAsync = createAsyncThunk(
+    'invoices/setDataAsync',
+    async (_, thunkAPI) => {
+        const {patients = {}} = thunkAPI.getState();
+        const data = await invoiceServices.getDocsAll(
+            patients.data,
+        );
+        return data;
+    },
+);
+
+const appointmentSlice = createSlice({
     name: 'invoices',
     initialState,
     reducers: {
         setData: (state, action) => {
-            // return {
-            //     ...state,
-            //     data: [...action.payload],
-            // };
             state.data = action.payload;
-        },
-        resetTable: (state, action) => {
-            return {
-                ...state,
-                selected: [],
-            };
         },
         selectData: (state, action) => {
             state.selected = action.payload;
@@ -42,12 +48,20 @@ const patientSlice = createSlice({
                 ) || null;
         },
     },
+    extraReducers: {
+        [setDataAsync.pending]: state => {
+            state.isLoading = true;
+        },
+        [setDataAsync.fulfilled]: (state, action) => {
+            state.data = action.payload;
+            state.isLoading = false;
+        },
+    },
 });
 
-const {reducer, actions} = patientSlice;
+const {reducer, actions} = appointmentSlice;
 export const {
     deleteData,
-    resetTable,
     selectData,
     setData,
     switchDrawer,

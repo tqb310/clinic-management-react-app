@@ -1,4 +1,9 @@
-import React, {memo, useState, useMemo} from 'react';
+import React, {
+    memo,
+    useState,
+    useMemo,
+    useEffect,
+} from 'react';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {compare2Days, toNewDate} from '_helpers/handleDate';
 import {dateMap, dayLength} from '_constants/date';
@@ -8,10 +13,13 @@ import {
     ArrowForwardIos,
     MyLocation,
 } from '@mui/icons-material';
+import {useDispatch} from 'react-redux';
+import {selectDate} from '_redux/slice/appointmentSlice';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
-function Calendar({data}) {
+function Calendar({data = []}) {
+    const dispatch = useDispatch();
     const [rendereDate, setRenderedDate] = useState(
         new Date(Date.now()),
     );
@@ -41,6 +49,11 @@ function Calendar({data}) {
         setAnChorDay(date);
         dayActiveChange(date);
     };
+
+    useEffect(() => {
+        dispatch(selectDate(dayActive));
+    });
+
     const dates = useMemo(() => {
         return Array.from(
             new Array(7),
@@ -100,6 +113,7 @@ function Calendar({data}) {
                     {dates &&
                         dates.map((date, index) => (
                             <Box
+                                sx={{opacity: 0.5}}
                                 key={index}
                                 className={
                                     (compare2Days(
@@ -109,9 +123,7 @@ function Calendar({data}) {
                                         ? 'date--active'
                                         : compare2Days(
                                               date,
-                                              new Date(
-                                                  Date.now(),
-                                              ),
+                                              new Date(),
                                           )
                                         ? 'today'
                                         : 'date') +
@@ -119,7 +131,17 @@ function Calendar({data}) {
                                     data.some(d =>
                                         compare2Days(
                                             new Date(
-                                                d.TIMES,
+                                                [
+                                                    d.date.split(
+                                                        '/',
+                                                    )[1],
+                                                    d.date.split(
+                                                        '/',
+                                                    )[0],
+                                                    d.date.split(
+                                                        '/',
+                                                    )[2],
+                                                ].join('/'),
                                             ),
                                             date,
                                         ),

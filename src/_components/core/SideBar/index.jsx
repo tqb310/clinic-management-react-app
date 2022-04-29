@@ -1,6 +1,6 @@
 import React, {useState, memo} from 'react';
 import PropTypes from 'prop-types';
-import {NavLink} from 'react-router-dom';
+import {NavLink, useRouteMatch} from 'react-router-dom';
 import {Tooltip} from '@mui/material';
 import './index.scss';
 
@@ -26,6 +26,7 @@ const activeIconStyles = {
 
 function SideBar({filteredRoutes}) {
     // console.log(path);
+    const {path} = useRouteMatch();
     const [selectedTab, setSelectedTab] = useState(0);
     return (
         <nav className="sidebar">
@@ -33,7 +34,7 @@ function SideBar({filteredRoutes}) {
                 filteredRoutes.map((route, index) => {
                     const {
                         id,
-                        path,
+                        path: childPath,
                         name,
                         icon: Icon,
                     } = route;
@@ -52,7 +53,7 @@ function SideBar({filteredRoutes}) {
                                         display: 'block',
                                         padding: '15px 0',
                                     }}
-                                    to={path}
+                                    to={`${path}${childPath}`}
                                     isActive={(
                                         match,
                                         location,

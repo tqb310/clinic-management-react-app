@@ -6,21 +6,21 @@
 
 const role = new Map([
     [
-        0,
+        1,
         {
             url: '/tiep-tan',
             name: 'Receptionist',
         },
     ],
     [
-        2,
+        3,
         {
             url: '/quan-ly',
             name: 'Manager',
         },
     ],
     [
-        1,
+        2,
         {
             url: '/bac-si',
             name: 'Doctor',

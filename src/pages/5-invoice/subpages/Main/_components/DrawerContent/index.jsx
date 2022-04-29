@@ -7,41 +7,38 @@ import {
     TextField,
     InputAdornment,
 } from '@mui/material';
-import {
-    Table,
-    TableRow,
-    TableCell,
-} from '_components/shared/Table2';
-import {serviceHeadCells} from '../../_constants/HeadCells';
+// import {
+//     Table,
+//     TableRow,
+//     TableCell,
+// } from '_components/shared/Table2';
+// import {serviceHeadCells} from '../../_constants/HeadCells';
 import Paid from '_assets/images/paid.jpg';
+import services from '_constants/services';
+import handlePriceFormat from '_helpers/handlePriceFormat';
 import './index.scss';
 // import PropTypes from 'prop-types'
-const serviceList = [
-    {
-        id: 1,
-        itemName: 'Khám thường',
-        itemQuantity: 1,
-        itemUnitPrice: '50,000đ',
-        itemAmount: '50,000đ',
-    },
-    {
-        id: 2,
-        itemName: 'Khám thường',
-        itemQuantity: 1,
-        itemUnitPrice: '50,000đ',
-        itemAmount: '50,000đ',
-    },
-];
+// const serviceList = [
+//     {
+//         id: 1,
+//         itemName: 'Khám thường',
+//         itemQuantity: 1,
+//         itemUnitPrice: '50,000đ',
+//         itemAmount: '50,000đ',
+//     },
+//     {
+//         id: 2,
+//         itemName: 'Khám thường',
+//         itemQuantity: 1,
+//         itemUnitPrice: '50,000đ',
+//         itemAmount: '50,000đ',
+//     },
+// ];
 
-function DrawerContent({
-    id = NaN,
-    patientName = '',
-    createAt = '',
-    isPaid = false,
-}) {
+function DrawerContent({data = {}}) {
     return (
         <Box className="drawer-content">
-            {isPaid && (
+            {data.total_fee && (
                 <img src={Paid} alt="paid" width={128} />
             )}
             <Typography variant="h6" gutterBottom>
@@ -49,7 +46,7 @@ function DrawerContent({
             </Typography>
             <Box className="drawer-content__title">
                 <Typography variant="h5" gutterBottom>
-                    #{id}
+                    #{data.id}
                 </Typography>
             </Box>
             <Box className="drawer-content__info-group">
@@ -57,7 +54,7 @@ function DrawerContent({
                     Bệnh nhân
                 </Typography>
                 <Typography variant="h6">
-                    {patientName}
+                    {data.last_name + ' ' + data.first_name}
                 </Typography>
             </Box>
             <Box className="drawer-content__info-group">
@@ -65,7 +62,7 @@ function DrawerContent({
                     Ngày thanh toán
                 </Typography>
                 <Typography variant="h6">
-                    {createAt}
+                    {data.create_at}
                 </Typography>
             </Box>
             <Divider
@@ -74,76 +71,55 @@ function DrawerContent({
                     my: '20px',
                 }}
             />
-            <Table
-                sx={{
-                    width: '100%',
-                }}
-                data={serviceList}
-                rowHeight="35px"
-                rowsPerPage={5}
-                header={() => {
-                    return (
-                        <TableRow>
-                            {serviceHeadCells &&
-                                serviceHeadCells.map(
-                                    cell => (
-                                        <TableCell
-                                            key={cell.id}
-                                            sx={{
-                                                ...cell.style,
-                                            }}
-                                            type="th"
-                                        >
-                                            <Typography
-                                                sx={{
-                                                    fontSize:
-                                                        '1.4rem',
-                                                    color: '#888',
-                                                }}
-                                            >
-                                                {cell.label}
-                                            </Typography>
-                                        </TableCell>
-                                    ),
-                                )}
-                        </TableRow>
-                    );
-                }}
-                renderDataRow={row => {
-                    return (
-                        <TableRow
-                            key={row.id}
-                            sx={{
-                                height: '35px',
-                                '& td': {
-                                    fontSize: '1.4rem',
-                                },
-                            }}
+            <Box className="drawer-content__table">
+                <Box className="drawer-content__table-head">
+                    <Box
+                        sx={{
+                            width: '60px',
+                        }}
+                    >
+                        STT
+                    </Box>
+                    <Box sx={{flex: 1}}>Dịch vụ</Box>
+                    <Box sx={{width: '100px'}}>
+                        Phí (VND)
+                    </Box>
+                </Box>
+                <Box className="drawer-content__table-body">
+                    {data.services.map((value, index) => (
+                        <Box
+                            key={index}
+                            className="drawer-content__table-body-row"
                         >
-                            <TableCell>
-                                {row.itemName}
-                            </TableCell>
-                            <TableCell>
-                                {row.itemQuantity}
-                            </TableCell>
-                            <TableCell>
-                                {row.itemUnitPrice}
-                            </TableCell>
-                            <TableCell>
-                                {row.itemAmount}
-                            </TableCell>
-                        </TableRow>
-                    );
-                }}
-            />
+                            <Box
+                                sx={{
+                                    width: '60px',
+                                }}
+                            >
+                                {index + 1}
+                            </Box>
+                            <Box sx={{flex: 1}}>
+                                {
+                                    services[value - 1]
+                                        .serviceName
+                                }
+                            </Box>
+                            <Box sx={{width: '100px'}}>
+                                {handlePriceFormat(
+                                    services[value - 1]
+                                        .serviceFee,
+                                )}
+                            </Box>
+                        </Box>
+                    ))}
+                </Box>
+            </Box>
             <Typography sx={{textAlign: 'right'}}>
-                Tổng cộng{' '}
-                <Typography
-                    component="span"
-                    variant="h5"
-                    sx={{mx: 2}}
-                >
-                    100.000 đ
+                <span style={{marginRight: '10px'}}>
+                    Tổng cộng
+                </span>
+                <Typography component="span" variant="h5">
+                    {handlePriceFormat(data.total_fee)} đ
                 </Typography>
             </Typography>
             <Box className="drawer-content__info-group">
@@ -151,6 +127,9 @@ function DrawerContent({
                 <TextField
                     size="small"
                     fullWidth
+                    value={handlePriceFormat(
+                        data.paying_customer,
+                    )}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
@@ -164,8 +143,8 @@ function DrawerContent({
                 <Typography>Tiền thừa</Typography>
                 <TextField
                     size="small"
-                    value="20.000"
                     fullWidth
+                    value={handlePriceFormat(data.change)}
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
@@ -181,6 +160,7 @@ function DrawerContent({
                     fullWidth
                     multiline
                     rows={2}
+                    value={data.note}
                     size="small"
                 />
             </Box>
@@ -190,10 +170,14 @@ function DrawerContent({
                     variant="outlined"
                     color="error"
                     sx={{ml: 'auto !important', mr: 2}}
+                    disabled={data.total_fee}
                 >
                     Hủy
                 </Button>
-                <Button variant="contained">
+                <Button
+                    variant="contained"
+                    disabled={data.total_fee}
+                >
                     Xác nhận
                 </Button>
             </Box>

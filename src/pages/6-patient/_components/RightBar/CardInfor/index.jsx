@@ -1,6 +1,6 @@
-import React from 'react';
-import {EventAvailable} from '@mui/icons-material';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import React, {memo} from 'react';
+// import {EventAvailable} from '@mui/icons-material';
+// import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {CustomPaper} from '_components/shared/StyledComponent';
 import './index.scss';
 import {Typography} from '@mui/material';
@@ -8,7 +8,7 @@ import HumanBody from '_assets/images/human-body.png';
 // import {dateParse} from '_constants/date';
 // import PropTypes from 'prop-types'
 
-function CheckupInfo({createAt, type, doctor, status}) {
+function CheckupInfo({data}) {
     return (
         <CustomPaper className="checkup-info">
             <Typography
@@ -44,4 +44,4 @@ function CheckupInfo({createAt, type, doctor, status}) {
 
 CheckupInfo.propTypes = {};
 
-export default CheckupInfo;
+export default memo(CheckupInfo);

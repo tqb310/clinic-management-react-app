@@ -32,7 +32,7 @@ function Main(props) {
         data = [],
         selected = [],
         isOpenDrawer = false,
-        selectedPaidInvoice = [],
+        selectedPaidInvoice = {},
     } = useSelector(state => state.invoices);
     // const history = useHistory();
     // const {path} = useRouteMatch();
@@ -106,26 +106,7 @@ function Main(props) {
                             onClose={closeDrawer}
                         >
                             <DrawerContent
-                                id={
-                                    selectedPaidInvoice.id ||
-                                    NaN
-                                }
-                                patientName={
-                                    selectedPaidInvoice.patientName ||
-                                    ''
-                                }
-                                patientPhone={
-                                    selectedPaidInvoice.phone ||
-                                    ''
-                                }
-                                createAt={
-                                    selectedPaidInvoice.createAt ||
-                                    ''
-                                }
-                                note={
-                                    selectedPaidInvoice.note ||
-                                    ''
-                                }
+                                data={selectedPaidInvoice}
                             />
                         </Drawer>
                     </Box>

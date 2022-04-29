@@ -11,7 +11,7 @@ export const headCells = [
     {
         id: 2,
         label: 'Tên bệnh nhân',
-        property: 'patientName',
+        property: 'first_name',
         icon: ArrowDownward,
         action: 'sort',
         style: {width: 'auto'},
@@ -20,19 +20,19 @@ export const headCells = [
         id: 3,
         label: 'Ngày lập',
         property: 'createAt',
-        style: {width: '120px'},
+        style: {width: '150px'},
     },
     {
         id: 4,
         label: 'Loại phiếu',
         property: 'type',
-        style: {width: '110px'},
+        style: {width: '150px'},
     },
     {
         id: 5,
         label: 'Tổng Phí',
         property: 'expense',
-        style: {width: '140px'},
+        style: {width: '150px'},
     },
     {
         id: 6,

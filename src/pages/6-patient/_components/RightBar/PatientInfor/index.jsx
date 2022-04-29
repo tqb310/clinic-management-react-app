@@ -5,14 +5,15 @@ import {
     Edit,
     EventNote,
 } from '@mui/icons-material';
-import {IconButton} from '@mui/material';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+// import {IconButton} from '@mui/material';
+// import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Typography, Avatar} from '@mui/material';
 import {
     CustomPaper,
     Dot,
 } from '_components/shared/StyledComponent';
 import FemalePatient from '_assets/images/female-patient.png';
+import MalePatient from '_assets/images/male-patient.png';
 // import {dateParse} from '_constants/date';
 // import {gender} from '_constants/general';
 import './index.scss';
@@ -28,7 +29,7 @@ function PatientInfor({data}) {
             >
                 Thông tin bệnh nhân
             </Typography>
-            <div className="PatientInfor__EditIcon">
+            {/* <div className="PatientInfor__EditIcon">
                 <IconButton>
                     <FontAwesomeIcon
                         icon="edit"
@@ -38,14 +39,22 @@ function PatientInfor({data}) {
                         }}
                     />
                 </IconButton>
-            </div>
+            </div> */}
             <div className="PatientInfor__general">
                 <Avatar
                     className="PatientInfor__avatar"
-                    src={FemalePatient}
+                    src={
+                        data.gender
+                            ? MalePatient
+                            : FemalePatient
+                    }
                 />
                 <div className="PatientInfor__name">
-                    <p>Trương Thị Lan</p>
+                    <p>
+                        {data.last_name +
+                            ' ' +
+                            data.first_name}
+                    </p>
                     <p>
                         Lần khám gần nhất:{' '}
                         <span>28/03/2022</span>
@@ -58,14 +67,14 @@ function PatientInfor({data}) {
                         <Work className="queryIcon" />
                         Nghề nghiệp
                     </p>
-                    <p>Nghề may</p>
+                    <p>{data.occupation}</p>
                 </div>
                 <div className="PatientInfor__item">
                     <p>
                         <BrandingWatermark className="queryIcon" />
                         Thẻ căn cước
                     </p>
-                    <p>261612345</p>
+                    <p>{data.identity_number}</p>
                 </div>
                 <div className="PatientInfor__item full">
                     <p>
@@ -80,12 +89,7 @@ function PatientInfor({data}) {
                         <Edit className="queryIcon" />
                         Ghi chú
                     </p>
-                    <p>
-                        {' '}
-                        Bệnh nhân bị khiếm thính, vui lòng
-                        giao tiếp với người nhà của bệnh
-                        nhân
-                    </p>
+                    <p>{data.note}</p>
                 </div>
             </div>
         </CustomPaper>

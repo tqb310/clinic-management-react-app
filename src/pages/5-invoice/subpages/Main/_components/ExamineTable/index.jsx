@@ -126,8 +126,8 @@ function InvoiceTable({tableData, selected}) {
                                         key={id}
                                         type="th"
                                         sx={{
-                                            ...style,
                                             ...tableHeadCellStyles,
+                                            ...style,
                                         }}
                                         {...rest}
                                     >
@@ -187,7 +187,11 @@ function InvoiceTable({tableData, selected}) {
                             }}
                         />
                         <Box>
-                            <p>{row.patientName}</p>
+                            <p>
+                                {row.last_name +
+                                    ' ' +
+                                    row.first_name}
+                            </p>
                             <Typography color="#888">
                                 {row.phone}
                             </Typography>

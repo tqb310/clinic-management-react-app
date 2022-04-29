@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom';
 import Auth from '_components/core/Auth';
 import PrivateRoute from '_components/core/PrivateRoute';
-import NotLoggedInRoute from '_components/core/NotLoggedInRoute';
+// import NotLoggedInRoute from '_components/core/NotLoggedInRoute';
 import LoggedInApp from '_components/core/LoggedInApp';
 import './App.scss';
 
@@ -19,15 +19,15 @@ const NotFound = lazy(() =>
 function App() {
     return (
         <Suspense fallback={<div>Loading ...</div>}>
-            <Auth>
-                <Router>
+            <Router>
+                <Auth>
                     <Switch>
-                        <NotLoggedInRoute
+                        <Route
                             path="/"
                             exact
                             component={Login}
                         />
-                        <NotLoggedInRoute
+                        <Route
                             path="/dang-nhap"
                             exact
                             component={Login}
@@ -39,23 +39,23 @@ function App() {
                         />
                         <PrivateRoute
                             path="/tiep-tan"
-                            role={0}
-                            component={LoggedInApp}
-                        />
-                        <PrivateRoute
-                            path="/bac-si"
                             role={1}
                             component={LoggedInApp}
                         />
                         <PrivateRoute
-                            path="/quan-ly"
+                            path="/bac-si"
                             role={2}
+                            component={LoggedInApp}
+                        />
+                        <PrivateRoute
+                            path="/quan-ly"
+                            role={3}
                             component={LoggedInApp}
                         />
                         <Route component={NotFound} />
                     </Switch>
-                </Router>
-            </Auth>
+                </Auth>
+            </Router>
         </Suspense>
     );
 }

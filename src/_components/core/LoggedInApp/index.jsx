@@ -10,12 +10,24 @@ import {
     Redirect,
     Link,
     useRouteMatch,
+    // useHistory,
 } from 'react-router-dom';
-import 'index.scss';
+import authentication from '_services/firebase/authentication.service';
+// import {removeMe} from '_redux/slice/currentUserSlice';
+// import {useDispatch} from 'react-redux';
+import './index.scss';
 
 function LoggedInApp({filteredRoutes}) {
     const {path} = useRouteMatch();
-
+    // const dispatch = useDispatch();
+    const onLogOut = async () => {
+        try {
+            // dispatch(removeMe());
+            await authentication.logOut();
+        } catch (error) {
+            return;
+        }
+    };
     return (
         <Box className="pagewrapper">
             <Box className="pagewrapper__left">
@@ -27,7 +39,7 @@ function LoggedInApp({filteredRoutes}) {
                 <SideBar filteredRoutes={filteredRoutes} />
                 <IconButton
                     className="pagewrapper__logout"
-                    onClick={() => {}}
+                    onClick={onLogOut}
                 >
                     <Logout
                         sx={{
@@ -52,7 +64,7 @@ function LoggedInApp({filteredRoutes}) {
                                     return (
                                         <Route
                                             key={id}
-                                            path={`${path}/${childPath}`}
+                                            path={`${path}${childPath}`}
                                             {...rest}
                                         />
                                     );

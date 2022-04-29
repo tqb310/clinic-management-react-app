@@ -80,7 +80,7 @@ function ContentForm({onSubmit}) {
                 }}
             >
                 {({values, errors}) => {
-                    console.log(values);
+                    // console.log(values);
                     const ddistrict = district.filter(
                         item =>
                             item.province ===

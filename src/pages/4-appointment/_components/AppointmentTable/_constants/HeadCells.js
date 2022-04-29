@@ -2,23 +2,29 @@ import {ArrowDownward} from '@mui/icons-material';
 export const headCells = [
     {
         id: 1,
+        label: 'STT',
+        property: 'id',
+        style: {width: '60px', textAlign: 'center'},
+    },
+    {
+        id: 2,
         label: 'Bệnh nhân',
-        property: 'patientName',
+        property: 'first_name',
         icon: ArrowDownward,
         action: 'sort',
         style: {pl: '1rem'},
     },
     {
-        id: 2,
-        label: 'Giờ',
+        id: 3,
+        label: 'Loại',
         property: 'time',
-        style: {width: '50px'},
+        style: {width: '100px'},
     },
     {
-        id: 3,
-        label: 'Bác sĩ',
-        property: 'doctor',
-        style: {width: '150px'},
+        id: 5,
+        label: 'Giờ',
+        property: 'time',
+        style: {width: '80px'},
     },
     {
         id: 4,

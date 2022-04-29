@@ -1,12 +1,9 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import PatientTable from './_components/PatientTable';
 import {RightBar} from '_components/shared/StyledComponent';
 import RightBarContent from './_components/RightBar';
 import {useSelector, useDispatch} from 'react-redux';
-import {
-    nextPage,
-    backPage,
-} from '_redux/slice/patientSlice';
+import {setDataAsync} from '_redux/slice/patientSlice';
 import {Typography} from '@mui/material';
 import {CustomPaper} from '_components/shared/StyledComponent';
 import MaleIcon from '_assets/images/male.png';
@@ -41,27 +38,38 @@ function Patient(props) {
     // const handleSelectIndex = index => {
     //     setSelectIndex(index);
     // };
+    const [maleNumber, setMaleNumber] = useState(0);
+    const [femaleNumber, setFemaleNumber] = useState(0);
     const patientState = useSelector(
         state => state.patients,
     );
     const dispatch = useDispatch();
+    useEffect(() => {
+        const fetchData = async () => {
+            const result = await dispatch(
+                setDataAsync(),
+            ).unwrap();
+            setMaleNumber(
+                queryData(result, data => data.gender === 1)
+                    .length,
+            );
+            setFemaleNumber(
+                queryData(result, data => data.gender === 0)
+                    .length,
+            );
+        };
+        fetchData();
+    }, []);
 
-    //Invoking when click on next page
-    const handleNextPage = e => {
-        dispatch(nextPage());
-    };
-    const maleNumber = queryData(
-        patientState.data,
-        data => data.gender === 1,
-    ).length;
-    const femaleNumber = queryData(
-        patientState.data,
-        data => data.gender === 0,
-    ).length;
-    //Invoking when click on next page
-    const handleBackPage = e => {
-        dispatch(backPage());
-    };
+    // maleNumber = queryData(
+    //     patientState.data,
+    //     data => data.gender === 1,
+    // ).length;
+    // femaleNumber = queryData(
+    //     patientState.data,
+    //     data => data.gender === 0,
+    // ).length;
+
     return (
         <>
             <CustomPaper className="patient-stat-container">
@@ -87,22 +95,23 @@ function Patient(props) {
                 />
             </CustomPaper>
             <CustomPaper className="patient-table-container">
-                <Typography variant="h5" sx={{mb: 2}}>
+                <Typography
+                    variant="h5"
+                    sx={{mb: 2, mt: 1}}
+                >
                     Danh sách bệnh nhân
                 </Typography>
                 <PatientTable
                     tableData={patientState.data}
                     selected={patientState.selected}
+                    selectedPatient={
+                        patientState.selectedPatient
+                    }
                 />
             </CustomPaper>
             <RightBar>
                 <RightBarContent
-                // data={
-                //     selectIndex <
-                //     (queue && queue.length)
-                //         ? queue[selectIndex]
-                //         : replaceDateWhenQueueEmpty
-                // }
+                    data={patientState.selectedPatient}
                 />
             </RightBar>
         </>

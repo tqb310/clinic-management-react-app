@@ -37,7 +37,7 @@ export const Table = memo(function ({
     ...rest
 }) {
     const preservedData = useRef(data).current;
-    console.log(preservedData);
+    // console.log(preservedData);
     const [tableState, dispatchTable] = useReducer(
         reducer,
         {...initState, data},

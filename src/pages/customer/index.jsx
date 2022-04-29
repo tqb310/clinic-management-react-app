@@ -215,7 +215,7 @@ function RequestForm() {
                         }${w}, ${d}, ${p}`,
                     },
                 };
-                console.log(handledValue);
+                // console.log(handledValue);
                 let result = await null;
                 if (!result)
                     alert('Lỗi server, vui lòng thử lại');

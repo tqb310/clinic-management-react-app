@@ -19,11 +19,14 @@ function PrivateRoute({
     ...rest
 }) {
     const currentUser = useSelector(
-        state => state.currentUser,
+        state => state.user.current,
     );
 
     const filteredRoutes = Routes.filter(
-        ({role: r}) => r && r.includes(currentUser.role),
+        ({roles}) =>
+            roles &&
+            currentUser &&
+            roles.includes(currentUser.role),
     );
 
     return (

@@ -7,11 +7,29 @@
     height: 100%;
     background-color: #fff;
     padding: 1rem 2rem;
+    &__table {
+        margin-bottom: 10px;
+        &-head {
+            display: flex;
+        }
+        &-head {
+            color: #777;
+            font-size: 1.5rem;
+        }
+        &-body {
+            height: 190px;
+            overflow-y: auto;
+            &-row {
+                padding: 1rem 0;
+                display: flex;
+            }
+        }
+    }
     &__info-group {
         margin-bottom: 10px;
     }
     &__actions {
         display: flex;
-        margin-top: 45px;
+        margin-top: 35px;
     }
 }

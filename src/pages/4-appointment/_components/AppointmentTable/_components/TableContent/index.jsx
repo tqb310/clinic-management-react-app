@@ -1,17 +1,8 @@
 import React, {memo, useState} from 'react';
-import {
-    Table,
-    TableRow,
-    TableCell,
-} from '_components/shared/Table2';
+import {Table, TableCell} from '_components/shared/Table2';
 import {headCells} from '../../_constants/HeadCells';
 import menuItems from '../../_constants/Menu';
-import {
-    tableCellStyles,
-    tableHeadCellStyles,
-    tableHeadRowStyles,
-    tableRowStyles,
-} from '_constants/TableHeaderStyles';
+import {tableHeadCellStyles} from '_constants/TableHeaderStyles';
 import {
     Avatar,
     Box,
@@ -26,32 +17,19 @@ import MalePatient from '_assets/images/male-patient.png';
 import FemalePatient from '_assets/images/female-patient.png';
 import MenuPopup from '_components/shared/Menu';
 import {statusText} from '_constants/general';
-import {sortAction} from '../../_localReducers/appointmentTableReducer';
 import {StatusPaper} from '_components/shared/StyledComponent';
+import {styled} from '@mui/material/styles';
 // import PropTypes from 'prop-types'
 
-function TableContent({
-    tableData = [],
-    localDispatch = null,
-    rowsPerPage = 8,
-    page = 0,
-    order = '',
-    orderBy = '',
-}) {
+const BodyCell = styled(TableCell)`
+    text-align: left;
+    height: 60px;
+    font-size: 1.5rem;
+`;
+const getOpacity = status => (status ? 1 : 0.5);
+
+function TableContent({tableData = []}) {
     const [anchor, setAnchor] = useState(null);
-    const handleActions =
-        (action, key = '') =>
-        e => {
-            switch (action) {
-                case 'sort':
-                    localDispatch(sortAction(key));
-                    break;
-                case 'filter':
-                    return;
-                default:
-                    return;
-            }
-        };
     const openMenu = e => {
         setAnchor(e.currentTarget);
     };
@@ -67,10 +45,9 @@ function TableContent({
                 width: '100%',
                 height: '100%',
             }}
-            data={[...tableData].slice(
-                page * rowsPerPage,
-                (page + 1) * rowsPerPage,
-            )}
+            data={tableData}
+            pagination
+            rowsPerPage={8}
             hoverStyle={{
                 backgroundColor: '#f8f8f8',
                 opacity: 1,
@@ -78,15 +55,13 @@ function TableContent({
             }}
             header={() => {
                 return (
-                    <TableRow sx={tableHeadRowStyles}>
+                    <>
                         {headCells &&
                             headCells.map(
                                 ({
                                     id,
                                     label,
                                     style,
-                                    property,
-                                    action,
                                     ...rest
                                 }) => (
                                     <TableCell
@@ -96,14 +71,6 @@ function TableContent({
                                             ...tableHeadCellStyles,
                                             ...style,
                                         }}
-                                        handleClick={handleActions(
-                                            action,
-                                            property,
-                                        )}
-                                        orderBy={orderBy}
-                                        order={order}
-                                        action={action}
-                                        property={property}
                                         {...rest}
                                     >
                                         <Typography
@@ -115,28 +82,26 @@ function TableContent({
                                     </TableCell>
                                 ),
                             )}
-                    </TableRow>
+                    </>
                 );
             }}
-            renderDataRow={(row, index, {hoverStyle}) => (
-                <TableRow
-                    key={index}
-                    sx={{
-                        opacity: !row.status ? 0.2 : 1,
-                        ...tableRowStyles,
-                        '&:hover': {
-                            ...hoverStyle,
-                        },
-                    }}
-                >
-                    <TableCell
+            renderDataRow={row => (
+                <>
+                    <BodyCell
                         type="td"
                         sx={{
-                            pl: '1rem',
+                            textAlign: 'center',
+                            opacity: getOpacity(row.status),
+                        }}
+                    >
+                        {row.id}
+                    </BodyCell>
+                    <BodyCell
+                        type="td"
+                        sx={{
+                            opacity: getOpacity(row.status),
                             display: 'flex',
                             alignItems: 'center',
-                            height: '100%',
-                            ...tableCellStyles,
                         }}
                     >
                         <Avatar
@@ -152,19 +117,38 @@ function TableContent({
                             }}
                         />
                         <Box>
-                            <p>{row.patientName}</p>
+                            <p>
+                                {row.last_name +
+                                    ' ' +
+                                    row.first_name}
+                            </p>
                             <Typography color="#888">
                                 {row.phone}
                             </Typography>
                         </Box>
-                    </TableCell>
-                    <TableCell type="td">
+                    </BodyCell>
+                    <BodyCell
+                        type="td"
+                        sx={{
+                            opacity: getOpacity(row.status),
+                        }}
+                    >
+                        {row.type ? 'Tái khám' : 'Khám mới'}
+                    </BodyCell>
+                    <BodyCell
+                        type="td"
+                        sx={{
+                            opacity: getOpacity(row.status),
+                        }}
+                    >
                         {row.time}
-                    </TableCell>
-                    <TableCell type="td">
-                        {row.doctor}
-                    </TableCell>
-                    <TableCell type="td">
+                    </BodyCell>
+                    <BodyCell
+                        type="td"
+                        sx={{
+                            opacity: getOpacity(row.status),
+                        }}
+                    >
                         <StatusPaper
                             status={
                                 statusText[row.status]
@@ -173,11 +157,12 @@ function TableContent({
                         >
                             {statusText[row.status]?.text}
                         </StatusPaper>
-                    </TableCell>
-                    <TableCell
+                    </BodyCell>
+                    <BodyCell
                         type="td"
                         sx={{
                             width: '45px',
+                            opacity: getOpacity(row.status),
                             '& svg': {
                                 opacity: 0.5,
                                 transition: 'opacity .3s',
@@ -217,8 +202,8 @@ function TableContent({
                                 </MenuItem>
                             )}
                         />
-                    </TableCell>
-                </TableRow>
+                    </BodyCell>
+                </>
             )}
         />
     );

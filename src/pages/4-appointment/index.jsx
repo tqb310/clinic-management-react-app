@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React, {memo, useEffect} from 'react';
 import Infomation from './_components/Infomation';
 import AppointmentTable from './_components/AppointmentTable';
 import AppointmentDemand from './_components/AppointmentDemand';
@@ -13,7 +13,9 @@ import {
     Legend,
 } from 'chart.js';
 import {RightBar} from '_components/shared/StyledComponent';
-import appointmentData from '_constants/FakeData/AppointmentList';
+// import appointmentData from '_constants/FakeData/AppointmentList';
+import {useDispatch, useSelector} from 'react-redux';
+import {setDataAsync} from '_redux/slice/appointmentSlice';
 import './index.scss';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -54,6 +56,13 @@ const data = [
         ],
     };
 function Appointment(props) {
+    const dispatch = useDispatch();
+    const appointmentState = useSelector(
+        state => state.appointments,
+    );
+    useEffect(() => {
+        dispatch(setDataAsync());
+    }, []);
     return (
         <Grid
             container
@@ -79,7 +88,7 @@ function Appointment(props) {
                 </CustomPaper>
             </Grid>
             <Grid item lg={7}>
-                <AppointmentTable data={appointmentData} />
+                <AppointmentTable data={appointmentState} />
             </Grid>
             <RightBar>
                 <AppointmentDemand />

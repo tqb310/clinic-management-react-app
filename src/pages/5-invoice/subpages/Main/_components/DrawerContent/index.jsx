@@ -86,7 +86,7 @@ function DrawerContent({data = {}}) {
                     </Box>
                 </Box>
                 <Box className="drawer-content__table-body">
-                    {data.services.map((value, index) => (
+                    {data.services?.map((value, index) => (
                         <Box
                             key={index}
                             className="drawer-content__table-body-row"

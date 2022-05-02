@@ -3,7 +3,10 @@ export const gender = [
     {key: 'Nam', value: 1, id: 2},
 ];
 
-export const cardType = ['Khám mới', 'Tái khám'];
+export const cardType = [
+    {key: 'Khám mới', value: 0, id: 1},
+    {key: 'Tái Khám', value: 1, id: 2},
+];
 
 export const statusText = [
     {text: 'Đã hủy', style: 'disabled'},

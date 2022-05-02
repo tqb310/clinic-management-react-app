@@ -111,7 +111,7 @@ function RightBarContent({
             .join('');
     };
     return (
-        <RightBar className="RBDoctorHome">
+        <RightBar className="RBDoctorHome" pt={2}>
             <Typography
                 variant="h5"
                 fontWeight={700}

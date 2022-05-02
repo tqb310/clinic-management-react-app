@@ -9,6 +9,7 @@ import {KeyboardArrowDown} from '@mui/icons-material';
 // import {CustomPaper} from '_components/shared/StyledComponent/Paper.js';
 import ProfileForm from '../ProfileForm';
 import PasswordForm from '../PasswordForm';
+import {useSelector} from 'react-redux';
 import './index.scss';
 // import PropTypes from 'prop-types'
 // const {CustomPaper} = cs;
@@ -18,7 +19,6 @@ function Profile(props) {
     const [openProfile, setOpenProfile] =
         React.useState(false);
     const [openPass, setOpenPass] = React.useState(false);
-    const open = Boolean(anchorEl);
     const handleClick = event => {
         setAnchorEl(event.currentTarget);
     };
@@ -34,16 +34,16 @@ function Profile(props) {
         if (num) setOpenPass(true);
         else setOpenProfile(true);
     };
+    const name = useSelector(
+        state => state.user.current.name,
+    );
     // console.dir(anchorEl);
     return (
         <Box className="profile">
             <Box className="profile__avatar">
-                {/* {authentication.getCurrentUser()?.payload.employee_name.slice(0, 1)} */}
-                TB
+                {name?.split(' ')[0][0] +
+                    name?.split(' ').slice(-1)[0][0]}
             </Box>
-            {/* <Box className="profile__name">
-       {authentication.getCurrentUser()?.payload.employee_name} 
-      </Box> */}
             <Box>
                 <IconButton
                     sx={{width: 20, height: 20}}
@@ -57,7 +57,7 @@ function Profile(props) {
             <Menu
                 id="basic-menu"
                 anchorEl={anchorEl}
-                open={open}
+                open={Boolean(anchorEl)}
                 onClose={handleClose}
                 anchorOrigin={{
                     vertical: 'bottom',

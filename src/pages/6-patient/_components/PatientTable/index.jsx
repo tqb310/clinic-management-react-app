@@ -17,6 +17,7 @@ import {useDispatch} from 'react-redux';
 import {
     select,
     setSelectedPatient,
+    setLatestInvoiceAsync,
 } from '_redux/slice/patientSlice';
 import {
     Visibility,
@@ -58,7 +59,12 @@ function PatientTable({
     };
 
     const handleSelectPatient = id => e => {
-        dispatch(setSelectedPatient(id));
+        if (selectedPatient && id === selectedPatient.id) {
+            dispatch(setSelectedPatient(null));
+        } else {
+            dispatch(setSelectedPatient(id));
+            dispatch(setLatestInvoiceAsync(id));
+        }
     };
     return (
         <Table

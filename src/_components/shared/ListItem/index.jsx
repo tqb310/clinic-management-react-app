@@ -9,9 +9,10 @@ function ListItem({
     subtitle = '',
     statusText = '',
     statusCode = 0,
+    onClick,
 }) {
     return (
-        <div className="list-item">
+        <div className="list-item" onClick={onClick}>
             <Avatar
                 src={avatar}
                 sx={{width: 32, height: 32}}

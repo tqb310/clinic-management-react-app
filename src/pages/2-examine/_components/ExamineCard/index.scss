@@ -16,11 +16,13 @@
         }
     }
     &__cardInfo {
-        display: flex;
-        justify-content: space-between;
+        // display: flex;
+        // justify-content: space-between;
         p {
             margin-bottom: 0;
             margin-top: 0.7rem;
+            margin-left: auto;
+            width: fit-content;
             span {
                 font-weight: 500;
                 margin-right: 10px;
@@ -59,9 +61,10 @@
         bottom: 0px;
         background-color: #fafafa;
         margin-top: 1rem;
-        padding: 1rem 0.5rem;
+        padding: 1rem 2rem;
         display: flex;
         justify-content: space-between;
         border: 1px solid rgba($color: #000000, $alpha: 0.1);
+        border-radius: 10px;
     }
 }

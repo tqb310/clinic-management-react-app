@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {TextField, Button} from '@mui/material';
+import {TextField, Button, Typography} from '@mui/material';
 import {
     RadioButtonUnchecked,
     CheckCircle,
@@ -53,10 +53,12 @@ function ExamineCard({
     return (
         <CustomPaper className="DTExamineCard">
             <div className="DTExamineCard__header">
-                <p>Phiếu khám bệnh</p>
+                <Typography variant="h5" gutterBottom>
+                    Phiếu khám bệnh
+                </Typography>
                 <p>
                     <span>
-                        {data.diagnostic.DIAGNOSTIC_ID}
+                        #{data.diagnostic.DIAGNOSTIC_ID}
                     </span>
                 </p>
             </div>
@@ -72,20 +74,6 @@ function ExamineCard({
                                 paddingTop: 0,
                             },
                             width: 150,
-                        }}
-                    />
-                </p>
-                <p>
-                    <span>Nhân viên tiếp nhận</span>
-                    <TextField
-                        variant="filled"
-                        value="Đặng Ngọc Liêm"
-                        size="small"
-                        sx={{
-                            '& .MuiInputBase-input': {
-                                paddingTop: 0,
-                            },
-                            width: 200,
                         }}
                     />
                 </p>

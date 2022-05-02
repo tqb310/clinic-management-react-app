@@ -15,22 +15,23 @@
     $titleColor
 ) {
     position: relative;
-    margin-top: 1.7rem;
+    margin-top: 3rem;
     border: 0.7px solid $borderColor;
     border-radius: 20px;
-    padding: 1.3rem 1.6rem;
+    padding: 2rem 2rem;
     text-align: left;
     &::before {
         content: $title;
         display: inline-block;
         color: $titleColor;
         font-weight: 500;
-        font-size: 1.3rem;
+        font-size: 1.6rem;
         padding: 0.1rem 1rem;
         background-color: $bgTitleColor;
         position: absolute;
-        top: -10px;
+        top: -2px;
         left: 10px;
+        transform: translateY(-50%);
     }
 }
 

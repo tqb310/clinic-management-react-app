@@ -5,8 +5,6 @@ import {
     Edit,
     EventNote,
 } from '@mui/icons-material';
-// import {IconButton} from '@mui/material';
-// import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import {Typography, Avatar} from '@mui/material';
 import {
     CustomPaper,
@@ -14,9 +12,12 @@ import {
 } from '_components/shared/StyledComponent';
 import FemalePatient from '_assets/images/female-patient.png';
 import MalePatient from '_assets/images/male-patient.png';
+import {formatDate} from '_helpers/handleDate';
+import './index.scss';
+// import {IconButton} from '@mui/material';
+// import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 // import {dateParse} from '_constants/date';
 // import {gender} from '_constants/general';
-import './index.scss';
 // import PropTypes from 'prop-types'
 
 function PatientInfor({data}) {
@@ -57,7 +58,12 @@ function PatientInfor({data}) {
                     </p>
                     <p>
                         Lần khám gần nhất:{' '}
-                        <span>28/03/2022</span>
+                        <span>
+                            {data.create_at ||
+                                formatDate(
+                                    new Date().toLocaleDateString(),
+                                )}
+                        </span>
                     </p>
                 </div>
             </div>
@@ -81,8 +87,17 @@ function PatientInfor({data}) {
                         <EventNote className="queryIcon" />
                         Lịch hẹn tái khám
                     </p>
-                    <span>29/03/2022</span> <Dot />{' '}
-                    <span>07:15</span>
+                    <span>
+                        {data.follow_up_date || 'Không có'}
+                    </span>{' '}
+                    {data.follow_up_time && (
+                        <>
+                            <Dot />
+                            <span>
+                                {data.follow_up_time}
+                            </span>
+                        </>
+                    )}
                 </div>
                 <div className="PatientInfor__note PatientInfor__item full">
                     <p>

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useLayoutEffect, useState} from 'react';
 import PatientTable from './_components/PatientTable';
 import {RightBar} from '_components/shared/StyledComponent';
 import RightBarContent from './_components/RightBar';
@@ -44,7 +44,7 @@ function Patient(props) {
         state => state.patients,
     );
     const dispatch = useDispatch();
-    useEffect(() => {
+    useLayoutEffect(() => {
         const fetchData = async () => {
             const result = await dispatch(
                 setDataAsync(),

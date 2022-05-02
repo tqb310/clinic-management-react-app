@@ -1,13 +1,20 @@
 @import '_assets/style/_mixins.scss';
 
+$color-map: (
+    1: #03045e,
+    2: #6bcb77,
+    3: #fd5d5d,
+);
+
 .checkup-info {
     display: grid;
     grid-template-columns: repeat(2, auto);
     text-align: left;
     padding: 1rem 2rem;
     &__insights {
+        margin-top: 10px;
         .checkup-info__item {
-            margin-bottom: 17px;
+            margin-bottom: 25px;
             font-size: 1.5rem;
             color: #888;
             font-weight: 300;
@@ -27,17 +34,11 @@
                 }
             }
         }
-        .checkup-info__item:nth-of-type(3n + 1)
-            > span::before {
-            background-color: #03045e;
-        }
-        .checkup-info__item:nth-of-type(3n + 2)
-            > span::before {
-            background-color: #6bcb77;
-        }
-        .checkup-info__item:nth-of-type(3n + 3)
-            > span::before {
-            background-color: #fd5d5d;
+        @each $key, $value in $color-map {
+            .checkup-info__item:nth-of-type(3n + #{$key})
+                > span::before {
+                background-color: $value;
+            }
         }
     }
     img {

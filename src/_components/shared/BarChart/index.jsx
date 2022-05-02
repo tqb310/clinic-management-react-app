@@ -31,7 +31,7 @@ function BarChart({
                 <Typography variant="h5">
                     {title}
                 </Typography>
-                <span>
+                {/* <span>
                     <Button
                         sx={{
                             color: '#25282B',
@@ -48,7 +48,7 @@ function BarChart({
                     >
                         Hàng tháng
                     </Button>
-                </span>
+                </span> */}
             </div>
             <div
                 className="BarChart__frame"

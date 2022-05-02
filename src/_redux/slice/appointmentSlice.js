@@ -36,7 +36,7 @@ const appointmentSlice = createSlice({
             state.selected = action.payload;
             state.dataByDate = state.data.filter(
                 appointment => {
-                    return compare2Days(
+                    return !compare2Days(
                         new Date([
                             appointment.date.split('/')[1],
                             appointment.date.split('/')[0],

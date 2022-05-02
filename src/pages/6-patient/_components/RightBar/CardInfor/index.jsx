@@ -19,22 +19,26 @@ function CheckupInfo({data}) {
             </Typography>
             <ul className="checkup-info__insights">
                 <li className="checkup-info__item">
-                    <span>80</span>Nhịp tim (nhịp/ phút)
+                    <span>{data.heart_rate || 91}</span>Nhịp
+                    tim (nhịp/ phút)
                 </li>
                 <li className="checkup-info__item">
-                    <span>120</span>Huyết áp (mmHg)
+                    <span>{data.blood_pressure || 80}</span>
+                    Huyết áp (mmHg)
                 </li>
                 <li className="checkup-info__item">
-                    <span>90</span>Nhịp thở (nhịp/ phút)
+                    <span>{data.breathing_rate || 92}</span>
+                    Nhịp thở (nhịp/ phút)
                 </li>
                 <li className="checkup-info__item">
-                    <span>37.5</span>Nhiệt độ (&#176;C)
+                    <span>{data.temperature || 37}</span>
+                    Nhiệt độ (&#176;C)
                 </li>
                 <li className="checkup-info__item">
-                    <span>170</span>Chiều cao (cm)
+                    <span>{data.height}</span>Chiều cao (cm)
                 </li>
                 <li className="checkup-info__item">
-                    <span>65</span>Cân nặng (kg)
+                    <span>{data.weight}</span>Cân nặng (kg)
                 </li>
             </ul>
             <img src={HumanBody} alt="cơ thể" width={136} />

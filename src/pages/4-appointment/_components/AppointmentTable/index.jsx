@@ -15,14 +15,6 @@ import TableContent from './_components/TableContent';
 import {useDispatch} from 'react-redux';
 import {setOpenForm} from '_redux/slice/appointmentSlice';
 
-// import {
-//     reducer,
-//     initState,
-//     nextPageAction,
-//     backPageAction,
-//     switchForm,
-//     resetTableAction,
-// } from './_localReducers/appointmentTableReducer';
 import './index.scss';
 
 function AppointmentTable({data = {}}) {

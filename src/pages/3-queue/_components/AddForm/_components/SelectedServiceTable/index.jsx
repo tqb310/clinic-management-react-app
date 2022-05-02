@@ -2,6 +2,7 @@ import React, {memo, useMemo} from 'react';
 import {IconButton} from '@mui/material';
 import {Delete} from '@mui/icons-material';
 import {HeadCell} from '../../_constants';
+import handlePrice from '_helpers/handlePriceFormat';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
@@ -50,7 +51,11 @@ function SelectedServiceTable({
                             <tr key={row.id}>
                                 <td>{index + 1}</td>
                                 <td>{row.serviceName}</td>
-                                <td>{row.serviceFee}</td>
+                                <td>
+                                    {handlePrice(
+                                        row.serviceFee,
+                                    )}
+                                </td>
                                 <td>
                                     <IconButton
                                         onClick={handleDelete(

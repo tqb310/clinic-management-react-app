@@ -1,10 +1,15 @@
-import React, {memo} from 'react';
+import React, {memo, useEffect} from 'react';
 import CardContainer from './_components/CardContainer';
 import BarChart from '_components/shared/BarChart';
 import RoomState from './_components/RoomState';
 import Appointment from './_components/Appointment';
 import {RightBar} from '_components/shared/StyledComponent';
 import {Grid, Typography} from '@mui/material';
+import Doctor from '_assets/images/doctor2.png';
+import {useSelector, useDispatch} from 'react-redux';
+// import {setDataAsync as setPatients} from '_redux/slice/patientSlice';
+// import {setDataAsync as setInvoices} from '_redux/slice/invoiceSlice';
+import {setDataAsync as setAppointments} from '_redux/slice/appointmentSlice';
 // import VisitChart from "./_components/VisitChart";
 // import { Scrollbars } from "react-custom-scrollbars-2";
 // import {RightBar} from '_components/shared/StyledComponent/RightBar';
@@ -28,6 +33,16 @@ const data = [
 
 function Dashboard(props) {
     // console.log(props);
+    const dispatch = useDispatch();
+    const name = useSelector(
+        state => state.user.current.name,
+    );
+
+    useEffect(() => {
+        // dispatch(setPatients());
+        // dispatch(setInvoices());
+        dispatch(setAppointments());
+    });
     return (
         <div className="dashboard">
             <Typography
@@ -43,7 +58,7 @@ function Dashboard(props) {
                     component="span"
                 >
                     {/* {authentication.getCurrentUser()?.payload.employee_name} */}
-                    Trương Quốc Bảo
+                    {name}
                 </Typography>
             </Typography>
             <div className="dashboard-section">
@@ -56,7 +71,7 @@ function Dashboard(props) {
             >
                 <Grid item lg={8}>
                     <BarChart
-                        title="Số lượng trung bình bệnh nhân đến khám"
+                        title="Số lượt khám trong năm nay"
                         height={250}
                         yAxis={[0, 50, 100, 150, 200, 250]}
                         data={data}
@@ -70,14 +85,12 @@ function Dashboard(props) {
             <div>
                 <Appointment />
             </div>
-            <RightBar
-                sx={{
-                    backgroundColor: theme =>
-                        theme.palette.primary.main,
-                }}
-            >
-                <div>Hoạt động gần đây</div>
-                {/* <div>Bệnh nhân</div> */}
+            <RightBar>
+                <img
+                    src={Doctor}
+                    alt="doctor"
+                    width={400}
+                />
             </RightBar>
         </div>
     );

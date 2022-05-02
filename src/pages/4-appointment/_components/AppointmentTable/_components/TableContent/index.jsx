@@ -26,7 +26,21 @@ const BodyCell = styled(TableCell)`
     height: 60px;
     font-size: 1.5rem;
 `;
-const getOpacity = status => (status ? 1 : 0.5);
+const getCancelledStyle = status =>
+    status
+        ? {opacity: 1}
+        : {
+              opacity: 0.6,
+              '&::after': {
+                  position: 'absolute',
+                  content: '""',
+                  width: '100%',
+                  height: '1.5px',
+                  backgroundColor: '#bbb',
+                  top: '52%',
+                  left: 0,
+              },
+          };
 
 function TableContent({tableData = []}) {
     const [anchor, setAnchor] = useState(null);
@@ -47,7 +61,7 @@ function TableContent({tableData = []}) {
             }}
             data={tableData}
             pagination
-            rowsPerPage={8}
+            rowsPerPage={7}
             hoverStyle={{
                 backgroundColor: '#f8f8f8',
                 opacity: 1,
@@ -91,7 +105,10 @@ function TableContent({tableData = []}) {
                         type="td"
                         sx={{
                             textAlign: 'center',
-                            opacity: getOpacity(row.status),
+                            position: 'relative',
+                            ...getCancelledStyle(
+                                row.status,
+                            ),
                         }}
                     >
                         {row.id}
@@ -99,9 +116,12 @@ function TableContent({tableData = []}) {
                     <BodyCell
                         type="td"
                         sx={{
-                            opacity: getOpacity(row.status),
                             display: 'flex',
                             alignItems: 'center',
+                            ...getCancelledStyle(
+                                row.status,
+                            ),
+                            position: 'relative',
                         }}
                     >
                         <Avatar
@@ -130,7 +150,10 @@ function TableContent({tableData = []}) {
                     <BodyCell
                         type="td"
                         sx={{
-                            opacity: getOpacity(row.status),
+                            ...getCancelledStyle(
+                                row.status,
+                            ),
+                            position: 'relative',
                         }}
                     >
                         {row.type ? 'Tái khám' : 'Khám mới'}
@@ -138,7 +161,10 @@ function TableContent({tableData = []}) {
                     <BodyCell
                         type="td"
                         sx={{
-                            opacity: getOpacity(row.status),
+                            ...getCancelledStyle(
+                                row.status,
+                            ),
+                            position: 'relative',
                         }}
                     >
                         {row.time}
@@ -146,7 +172,10 @@ function TableContent({tableData = []}) {
                     <BodyCell
                         type="td"
                         sx={{
-                            opacity: getOpacity(row.status),
+                            ...getCancelledStyle(
+                                row.status,
+                            ),
+                            position: 'relative',
                         }}
                     >
                         <StatusPaper
@@ -162,7 +191,10 @@ function TableContent({tableData = []}) {
                         type="td"
                         sx={{
                             width: '45px',
-                            opacity: getOpacity(row.status),
+                            ...getCancelledStyle(
+                                row.status,
+                            ),
+                            position: 'relative',
                             '& svg': {
                                 opacity: 0.5,
                                 transition: 'opacity .3s',

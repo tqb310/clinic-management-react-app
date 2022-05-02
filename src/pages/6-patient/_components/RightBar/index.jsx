@@ -2,7 +2,7 @@ import React, {memo} from 'react';
 import PatientInfor from './PatientInfor';
 import CardInfor from './CardInfor';
 // import {CustomPaper} from '_components/shared/StyledComponent';
-import {Typography} from '@mui/material';
+// import {Typography} from '@mui/material';
 import PaperImage from '_assets/images/paper.png';
 import {VisibilityOff} from '@mui/icons-material';
 import './index.scss';
@@ -38,7 +38,10 @@ function RightBarContent({data}) {
                         src={PaperImage}
                         alt="empty logo"
                         width={256}
-                        style={{marginTop: '60px'}}
+                        style={{
+                            marginTop: '160px',
+                            opacity: 0.4,
+                        }}
                     />
                     <p style={{marginTop: '100px'}}>
                         {' '}

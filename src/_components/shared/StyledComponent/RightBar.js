@@ -9,6 +9,5 @@ export const RightBar = styled(Box)`
     right: 0;
     width: 400px;
     text-align: center;
-    padding-top: 20px;
     border-left: 2px solid #eee;
 `;

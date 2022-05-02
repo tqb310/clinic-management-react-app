@@ -113,38 +113,51 @@ function Calendar({data = []}) {
                     {dates &&
                         dates.map((date, index) => (
                             <Box
-                                sx={{opacity: 0.5}}
+                                sx={{
+                                    opacity:
+                                        compare2Days(
+                                            date,
+                                            new Date(
+                                                Date.now(),
+                                            ),
+                                        ) === -1
+                                            ? 0.3
+                                            : 1,
+                                }}
                                 key={index}
                                 className={
-                                    (compare2Days(
+                                    (!compare2Days(
                                         date,
                                         dayActive,
                                     )
                                         ? 'date--active'
-                                        : compare2Days(
+                                        : !compare2Days(
                                               date,
                                               new Date(),
                                           )
                                         ? 'today'
                                         : 'date') +
                                     (data &&
-                                    data.some(d =>
-                                        compare2Days(
-                                            new Date(
-                                                [
-                                                    d.date.split(
+                                    data.some(
+                                        d =>
+                                            !compare2Days(
+                                                new Date(
+                                                    [
+                                                        d.date.split(
+                                                            '/',
+                                                        )[1],
+                                                        d.date.split(
+                                                            '/',
+                                                        )[0],
+                                                        d.date.split(
+                                                            '/',
+                                                        )[2],
+                                                    ].join(
                                                         '/',
-                                                    )[1],
-                                                    d.date.split(
-                                                        '/',
-                                                    )[0],
-                                                    d.date.split(
-                                                        '/',
-                                                    )[2],
-                                                ].join('/'),
+                                                    ),
+                                                ),
+                                                date,
                                             ),
-                                            date,
-                                        ),
                                     )
                                         ? ' dot-notify'
                                         : '')

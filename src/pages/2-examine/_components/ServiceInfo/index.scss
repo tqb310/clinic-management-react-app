@@ -1,9 +1,11 @@
+@import '_assets/style/_mixins.scss';
 
-@import "_assets/style/_mixins.scss";
-
-
-.ECServiceInfo {   
+.ECServiceInfo {
     &__table {
         width: 100%;
+        td {
+            padding: 1rem 0;
+            font-size: 1.7rem;
+        }
     }
 }

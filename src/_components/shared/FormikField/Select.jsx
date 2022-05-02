@@ -3,10 +3,11 @@ import {
     FormControl,
     FormHelperText,
     InputLabel,
-    //   InputAdornment,
+    //InputAdornment,
     Select,
     MenuItem,
 } from '@mui/material';
+import {useLocation} from '_contexts/LocationContext';
 
 export const province = [
     {id: 1, key: 'Bình Thuận', value: 1},
@@ -21,9 +22,11 @@ export default function SelectField({
     variant = 'outlined',
     ...rest
 }) {
+    const {onChange} = useLocation();
     const isError = form.errors[field.name];
     const handleChange = e => {
         field.onChange(e);
+        onChange(e);
         if (field.name === 'ADDRESS.province') {
             form.setFieldValue('ADDRESS.district', '');
             form.setFieldValue('ADDRESS.ward', '');
@@ -36,24 +39,24 @@ export default function SelectField({
         if (field.name === 'ADDRESS.ward') {
             form.setFieldValue('ADDRESS.details', '');
         }
+        // console.log(e.target.name);
     };
     return (
         <FormControl
-            sx={{
-                '& .MuiInputBase-root': {
-                    // marginTop: '6px !important',
-                },
-                '& label': {
-                    top: '-6px',
-                },
-            }}
+            sx={
+                {
+                    // '& .MuiInputBase-root': {
+                    //     marginTop: '6px !important',
+                    // },
+                }
+            }
             fullWidth
             required={required}
+            size="small"
         >
             <InputLabel
                 id="demo-simple-select-label"
                 sx={{
-                    // top: '6px',
                     '& .MuiFormLabel-asterisk': {
                         color: 'red',
                     },

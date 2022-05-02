@@ -7,6 +7,8 @@ import {
     Input,
     OutlinedInput,
 } from '@mui/material';
+import {useDispatch} from 'react-redux';
+import {setPatientHint} from '_redux/slice/queueSlice';
 // import { ErrorMessage } from "formik";
 // import PropTypes from 'prop-types'
 
@@ -18,13 +20,32 @@ function InputField({
     left,
     icon: Icon,
     variant = 'standard',
+    autoComplete,
     ...rest
 }) {
-    // console.log(field);
+    const dispatch = useDispatch();
     const isError = form.errors[field.name];
+    const handleChange = e => {
+        field.onChange(e);
+        if (field.name === 'PATIENT_PHONE') {
+            if (e.target.value.trim()) {
+                dispatch(
+                    setPatientHint(e.target.value.trim()),
+                );
+            } else {
+                dispatch(
+                    setPatientHint(e.target.value.trim()),
+                );
+            }
+        }
+    };
+    const handleClick = e => {
+        if (field.name === 'PATIENT_PHONE') {
+            e.stopPropagation();
+        }
+    };
     return (
         <FormControl
-            // style={{ margin: "0.1rem 0" }}
             size="small"
             fullWidth
             error={isError}
@@ -52,12 +73,21 @@ function InputField({
                 label={label}
                 sx={{fontSize: 15}}
                 {...rest}
+                onChange={handleChange}
+                onClick={handleClick}
+                autoComplete={autoComplete}
                 endAdornment={
                     Icon && (
                         <InputAdornment position="end">
-                            <Icon
-                                sx={{fontSize: '1.8rem'}}
-                            />
+                            {typeof Icon === 'object' ? (
+                                <Icon
+                                    sx={{
+                                        fontSize: '1.8rem',
+                                    }}
+                                />
+                            ) : (
+                                Icon
+                            )}
                         </InputAdornment>
                     )
                 }

@@ -16,12 +16,12 @@ import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './index.scss';
 
-function ConfirmRequest({open, handleClose}) {
+function ConfirmRequest({title, open, handleClose, data}) {
     const handleSubmit = async () => {
-        toast.success('Đang xác nhận');
-        handleClose();
+        // toast.success('Đang xác nhận');
+        // handleClose();
         // console.log(rs);
-        window.location.reload();
+        // window.location.reload();
     };
     //   console.log(open);
 
@@ -39,7 +39,7 @@ function ConfirmRequest({open, handleClose}) {
                     fontWeight: 600,
                 }}
             >
-                Xác nhận yêu cầu lịch hẹn
+                {title}
                 <IconButton
                     sx={{
                         position: 'absolute',
@@ -82,7 +82,7 @@ function ConfirmRequest({open, handleClose}) {
                             value={open.IDENTITY_NUMBER}
                         />
                     </div>
-                    <div className="col-8-13">
+                    <div className="col-7-13">
                         <TextField
                             style={{
                                 width: '100%',
@@ -119,18 +119,7 @@ function ConfirmRequest({open, handleClose}) {
                             }
                         />
                     </div>
-                    <div className="col-8-10">
-                        <TextField
-                            style={{
-                                width: '100%',
-                                margin: '1rem 0',
-                            }}
-                            label="Bác sĩ"
-                            size="small"
-                            value={open.DOCTOR_ID}
-                        />
-                    </div>
-                    <div className="col-10-13">
+                    <div className="col-7-13">
                         <TextField
                             style={{
                                 width: '100%',

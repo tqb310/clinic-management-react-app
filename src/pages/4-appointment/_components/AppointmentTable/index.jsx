@@ -13,8 +13,11 @@ import NoResultDate from './_assets/no-date-result.png';
 import Calendar from './_components/Calendar';
 import TableContent from './_components/TableContent';
 import {useDispatch} from 'react-redux';
-import {setOpenForm} from '_redux/slice/appointmentSlice';
-
+import {
+    setOpenForm,
+    openAppointmentDetail,
+} from '_redux/slice/appointmentSlice';
+import ConfirmRequest from '../ConfirmRequest';
 import './index.scss';
 
 function AppointmentTable({data = {}}) {
@@ -28,7 +31,9 @@ function AppointmentTable({data = {}}) {
     const handleClose = e => {
         dispatch(setOpenForm(false));
     };
-
+    const handleCloseAppointmentDetail = e => {
+        dispatch(openAppointmentDetail(false));
+    };
     return (
         <CustomPaper className="content-container">
             <Box className="content-header">
@@ -73,6 +78,15 @@ function AppointmentTable({data = {}}) {
                         <TableContent
                             tableData={data.dataByDate}
                             selected={data.selected}
+                        />
+                        <ConfirmRequest
+                            title="Chi tiết lịch hẹn"
+                            open={
+                                data.isOpenAppointmentDetail
+                            }
+                            handleClose={
+                                handleCloseAppointmentDetail
+                            }
                         />
                     </Fragment>
                 ) : (

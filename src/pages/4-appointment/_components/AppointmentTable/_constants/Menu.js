@@ -4,6 +4,7 @@ import {
     RestartAltOutlined,
     DoDisturbAltOutlined,
 } from '@mui/icons-material';
+import {openAppointmentDetail} from '_redux/slice/appointmentSlice';
 
 const menu = [
     {
@@ -11,6 +12,10 @@ const menu = [
         label: 'Xem chi tiết',
         icon: RemoveRedEyeOutlined,
         style: {fontSize: '2rem'},
+        onClick: (dispatch, closeMenu) => e => {
+            closeMenu();
+            dispatch(openAppointmentDetail(true));
+        },
     },
     {
         id: 1,

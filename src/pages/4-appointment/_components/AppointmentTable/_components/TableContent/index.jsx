@@ -19,6 +19,8 @@ import MenuPopup from '_components/shared/Menu';
 import {statusText} from '_constants/general';
 import {StatusPaper} from '_components/shared/StyledComponent';
 import {styled} from '@mui/material/styles';
+// import {openAppointmentDetail} from '_redux/slice/appointmentSlice';
+import {useDispatch} from 'react-redux';
 // import PropTypes from 'prop-types'
 
 const BodyCell = styled(TableCell)`
@@ -43,6 +45,7 @@ const getCancelledStyle = status =>
           };
 
 function TableContent({tableData = []}) {
+    const dispatch = useDispatch();
     const [anchor, setAnchor] = useState(null);
     const openMenu = e => {
         setAnchor(e.currentTarget);
@@ -50,6 +53,9 @@ function TableContent({tableData = []}) {
     const closeMenu = e => {
         setAnchor(null);
     };
+    // const handleOpenAppointmentDetail = e => {
+    //     dispatch(openAppointmentDetail(true));
+    // };
     return (
         <Table
             sx={{
@@ -215,8 +221,19 @@ function TableContent({tableData = []}) {
                                 icon: Icon = null,
                                 label = '',
                                 style = {},
+                                onClick = null,
                             }) => (
-                                <MenuItem key={id}>
+                                <MenuItem
+                                    key={id}
+                                    onClick={
+                                        onClick
+                                            ? onClick(
+                                                  dispatch,
+                                                  closeMenu,
+                                              )
+                                            : null
+                                    }
+                                >
                                     {Icon && (
                                         <ListItemIcon>
                                             <Icon

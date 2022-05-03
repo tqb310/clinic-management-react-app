@@ -12,9 +12,6 @@ import {useDispatch} from 'react-redux';
 // import PropTypes from 'prop-types';
 
 const MainLazy = lazy(() => import('./subpages/Main'));
-const CreateFormLazy = lazy(() =>
-    import('./subpages/CreateForm'),
-);
 const DetailCard = lazy(() =>
     import('./subpages/DetailCard'),
 );
@@ -32,10 +29,6 @@ function Invoice(props) {
                     path={path + '/'}
                     exact
                     component={MainLazy}
-                />
-                <Route
-                    path={path + '/them-phieu-kham'}
-                    component={CreateFormLazy}
                 />
                 <Route
                     path={path + '/:id'}

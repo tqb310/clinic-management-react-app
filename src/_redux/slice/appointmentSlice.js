@@ -3,7 +3,10 @@ import {
     createAsyncThunk,
 } from '@reduxjs/toolkit';
 // import InvoiceData from '_constants/FakeData/appointment.json';
-import {compare2Days} from '_helpers/handleDate';
+import {
+    compare2Days,
+    formatDate,
+} from '_helpers/handleDate';
 import appointmentServices from '_services/firebase/appointment.service';
 
 const initialState = {
@@ -12,6 +15,8 @@ const initialState = {
     isOpenForm: false,
     isLoading: false,
     dataByDate: [],
+    selectedAppointment: null,
+    isOpenAppointmentDetail: false,
 };
 
 export const setDataAsync = createAsyncThunk(
@@ -37,11 +42,9 @@ const appointmentSlice = createSlice({
             state.dataByDate = state.data.filter(
                 appointment => {
                     return !compare2Days(
-                        new Date([
-                            appointment.date.split('/')[1],
-                            appointment.date.split('/')[0],
-                            appointment.date.split('/')[2],
-                        ]),
+                        new Date(
+                            formatDate(appointment.date),
+                        ),
                         action.payload,
                     );
                 },
@@ -53,6 +56,16 @@ const appointmentSlice = createSlice({
         },
         setOpenForm: (state, action) => {
             state.isOpenForm = action.payload;
+        },
+        setSelectedAppointment: (state, action) => {
+            state.selectedAppointment =
+                state.dataByDate.find(
+                    appointment =>
+                        appointment.id === action.payload,
+                );
+        },
+        openAppointmentDetail: (state, action) => {
+            state.isOpenAppointmentDetail = action.payload;
         },
     },
     extraReducers: {
@@ -72,5 +85,7 @@ export const {
     selectDate,
     setData,
     setOpenForm,
+    openAppointmentDetail,
+    setSelectedAppointment,
 } = actions;
 export default reducer;

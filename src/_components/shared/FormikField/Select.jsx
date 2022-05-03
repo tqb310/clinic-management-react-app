@@ -7,7 +7,7 @@ import {
     Select,
     MenuItem,
 } from '@mui/material';
-import {useLocation} from '_contexts/LocationContext';
+// import {useLocation} from '_contexts/LocationContext';
 
 export const province = [
     {id: 1, key: 'Bình Thuận', value: 1},
@@ -20,13 +20,14 @@ export default function SelectField({
     required,
     items,
     variant = 'outlined',
+    onChangeLocation,
     ...rest
 }) {
-    const {onChange} = useLocation();
+    // const {onChange} = useLocation();
     const isError = form.errors[field.name];
     const handleChange = e => {
         field.onChange(e);
-        onChange(e);
+        if (onChangeLocation) onChangeLocation(e);
         if (field.name === 'ADDRESS.province') {
             form.setFieldValue('ADDRESS.district', '');
             form.setFieldValue('ADDRESS.ward', '');

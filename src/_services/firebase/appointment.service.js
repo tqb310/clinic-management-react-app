@@ -3,6 +3,7 @@ import {
     getDoc,
     collection,
     getDocs,
+    setDoc,
 } from 'firebase/firestore';
 import patientService from './patient.service';
 import {db} from './app';
@@ -55,6 +56,15 @@ const appointmentServices = {
             const docRef = doc(appointmentRef, id);
             const result = await getDoc(docRef);
             return result.data();
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    async update(id, data) {
+        try {
+            const docRef = doc(appointmentRef, id);
+            setDoc(docRef, data);
         } catch (error) {
             throw error;
         }

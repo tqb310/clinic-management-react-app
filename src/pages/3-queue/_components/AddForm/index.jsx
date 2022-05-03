@@ -5,6 +5,9 @@ import {
     Typography,
     Grid,
     IconButton,
+    TextField,
+    FormControlLabel,
+    Switch,
 } from '@mui/material';
 import {
     Person,
@@ -40,11 +43,11 @@ import MalePatient from '_assets/images/male-patient.png';
 import FemalePatient from '_assets/images/female-patient.png';
 import {formatDate} from '_helpers/handleDate';
 import './index.scss';
-// import PropTypes from 'prop-types';
 
 function AddForm({handleSubmit}) {
     const [initialvalueState, setInitialValue] =
         useState(initialValue);
+    const [switchEdit, setSwitchEdit] = useState(false);
     const [open, setOpen] = useState(false);
     const isOpenHint = useSelector(
         state => state.queues.isOpenHint,
@@ -56,7 +59,12 @@ function AddForm({handleSubmit}) {
         state => state.queues.selected,
     );
     const dispatch = useDispatch();
-    const {provinces, districts, wards} = useLocation();
+    const {
+        provinces,
+        districts,
+        wards,
+        onChange: onChangeLocation,
+    } = useLocation();
 
     const handleClose = () => {
         setOpen(false);
@@ -69,6 +77,10 @@ function AddForm({handleSubmit}) {
     };
     const handleSelect = item => e => {
         dispatch(setSelectedPatient(item));
+    };
+    const handleReset = e => {
+        dispatch(setSelectedPatient(null));
+        setSwitchEdit(false);
     };
     useEffect(() => {
         if (selectedPatient) {
@@ -90,6 +102,8 @@ function AddForm({handleSubmit}) {
                 WEIGHT: selectedPatient.weight,
                 PATIENT_GENDER: selectedPatient.gender,
             });
+        } else {
+            setInitialValue(initialValue);
         }
     }, [selectedPatient]);
     return (
@@ -100,7 +114,7 @@ function AddForm({handleSubmit}) {
 
             <Formik
                 enableReinitialize
-                initialValues={initialValue}
+                initialValues={initialvalueState}
                 onSubmit={handleSubmit}
                 onChange={() => {
                     console.log(
@@ -251,55 +265,134 @@ function AddForm({handleSubmit}) {
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
-                                    <Typography
-                                        variant="subtitle2"
-                                        color="#888"
-                                        gutterBottom
-                                        ml={1}
+                                    <Box
+                                        sx={{
+                                            display: 'flex',
+                                            justifyContent:
+                                                'space-between',
+                                        }}
                                     >
-                                        Địa chỉ
-                                    </Typography>
+                                        <Typography
+                                            variant="subtitle2"
+                                            color="#888"
+                                            gutterBottom
+                                            ml={1}
+                                        >
+                                            Địa chỉ
+                                        </Typography>
+                                        {selectedPatient && (
+                                            <FormControlLabel
+                                                sx={{
+                                                    mr: 0,
+                                                    mb: 1,
+                                                }}
+                                                label="Chỉnh sửa"
+                                                control={
+                                                    <Switch
+                                                        size="small"
+                                                        checked={
+                                                            switchEdit
+                                                        }
+                                                        onChange={e =>
+                                                            setSwitchEdit(
+                                                                e
+                                                                    .target
+                                                                    .checked,
+                                                            )
+                                                        }
+                                                    />
+                                                }
+                                            />
+                                        )}
+                                    </Box>
                                 </Grid>
-                                <Grid item xs={4}>
-                                    <Field
-                                        name="ADDRESS.province"
-                                        id="ADDRESS.province"
-                                        component={Select}
-                                        label="Tỉnh/ thành phố"
-                                        items={provinces}
-                                        required
-                                    />
-                                </Grid>
-                                <Grid item xs={4}>
-                                    <Field
-                                        name="ADDRESS.district"
-                                        id="ADDRESS.district"
-                                        component={Select}
-                                        label="Huyện/ quận"
-                                        items={districts}
-                                        required
-                                    />
-                                </Grid>
-                                <Grid item xs={4}>
-                                    <Field
-                                        name="ADDRESS.ward"
-                                        id="ADDRESS.ward"
-                                        component={Select}
-                                        label="Xã/ phường"
-                                        items={wards}
-                                        required
-                                    />
-                                </Grid>
-                                <Grid item xs={12}>
-                                    <FastField
-                                        name="ADDRESS.detail"
-                                        id="ADDRESS.detail"
-                                        component={TextArea}
-                                        label="Số nhà, tên đường ..."
-                                        rows={2}
-                                        icon={Home}
-                                    />
-                                </Grid>
+                                {!selectedPatient ||
+                                switchEdit ? (
+                                    <>
+                                        <Grid item xs={4}>
+                                            <Field
+                                                name="ADDRESS.province"
+                                                id="ADDRESS.province"
+                                                component={
+                                                    Select
+                                                }
+                                                label="Tỉnh/ thành phố"
+                                                items={
+                                                    provinces
+                                                }
+                                                onChangeLocation={
+                                                    onChangeLocation
+                                                }
+                                                required
+                                            />
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <Field
+                                                name="ADDRESS.district"
+                                                id="ADDRESS.district"
+                                                component={
+                                                    Select
+                                                }
+                                                label="Huyện/ quận"
+                                                items={
+                                                    districts
+                                                }
+                                                onChangeLocation={
+                                                    onChangeLocation
+                                                }
+                                                required
+                                            />
+                                        </Grid>
+                                        <Grid item xs={4}>
+                                            <Field
+                                                name="ADDRESS.ward"
+                                                id="ADDRESS.ward"
+                                                component={
+                                                    Select
+                                                }
+                                                label="Xã/ phường"
+                                                items={
+                                                    wards
+                                                }
+                                                onChangeLocation={
+                                                    onChangeLocation
+                                                }
+                                                required
+                                            />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <FastField
+                                                name="ADDRESS.detail"
+                                                id="ADDRESS.detail"
+                                                component={
+                                                    TextArea
+                                                }
+                                                label="Số nhà, tên đường ..."
+                                                rows={2}
+                                                icon={Home}
+                                            />
+                                        </Grid>
+                                    </>
+                                ) : (
+                                    <Grid item xs={12}>
+                                        {' '}
+                                        <TextField
+                                            sx={{mb: 2}}
+                                            fullWidth
+                                            size="small"
+                                            value={
+                                                selectedPatient.district +
+                                                ' - ' +
+                                                selectedPatient.province
+                                            }
+                                            multiline
+                                            rows={3}
+                                            inputProps={{
+                                                readOnly: true,
+                                            }}
+                                        />
+                                    </Grid>
+                                )}
                                 <Grid item xs={12}>
                                     <FastField
                                         name="NOTE"
@@ -388,12 +481,14 @@ function AddForm({handleSubmit}) {
                                 >
                                     <Button
                                         onClick={
-                                            form.handleReset
+                                            handleReset
                                         }
                                         variant="outlined"
                                         color="error"
                                         sx={{
                                             width: '100%',
+                                            backgroundColor:
+                                                'white',
                                         }}
                                     >
                                         Hủy
@@ -407,7 +502,5 @@ function AddForm({handleSubmit}) {
         </Box>
     );
 }
-
-AddForm.propTypes = {};
 
 export default memo(AddForm);

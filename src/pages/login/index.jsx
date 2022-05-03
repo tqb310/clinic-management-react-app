@@ -32,7 +32,7 @@ function Login(props) {
     useEffect(() => {
         if (currentUser)
             history.replace(role.get(currentUser.role).url);
-    }, [currentUser]);
+    }, [currentUser, history]);
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');

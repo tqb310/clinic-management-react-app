@@ -201,7 +201,7 @@ function InvoiceTable({tableData, selected}) {
                         {row.create_at}
                     </BodyCell>
                     <BodyCell type="td">
-                        {cardType[row.type]}
+                        {cardType[row.type].key}
                     </BodyCell>
                     <BodyCell type="td">
                         <StatusPaper

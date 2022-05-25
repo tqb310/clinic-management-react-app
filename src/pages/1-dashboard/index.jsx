@@ -7,9 +7,12 @@ import {RightBar} from '_components/shared/StyledComponent';
 import {Grid, Typography} from '@mui/material';
 import Doctor from '_assets/images/doctor2.png';
 import {useSelector, useDispatch} from 'react-redux';
+import {
+    setDataAsync as setAppointments,
+    selectDate,
+} from '_redux/slice/appointmentSlice';
 // import {setDataAsync as setPatients} from '_redux/slice/patientSlice';
 // import {setDataAsync as setInvoices} from '_redux/slice/invoiceSlice';
-import {setDataAsync as setAppointments} from '_redux/slice/appointmentSlice';
 // import VisitChart from "./_components/VisitChart";
 // import { Scrollbars } from "react-custom-scrollbars-2";
 // import {RightBar} from '_components/shared/StyledComponent/RightBar';
@@ -37,12 +40,19 @@ function Dashboard(props) {
     const name = useSelector(
         state => state.user.current.name,
     );
+    const todayAppointments = useSelector(
+        state => state.appointments.dataByDate,
+    );
 
     useEffect(() => {
         // dispatch(setPatients());
         // dispatch(setInvoices());
-        dispatch(setAppointments());
-    });
+        const fetchData = async () => {
+            await dispatch(setAppointments()).unwrap();
+            dispatch(selectDate(new Date()));
+        };
+        fetchData();
+    }, []);
     return (
         <div className="dashboard">
             <Typography
@@ -57,7 +67,6 @@ function Dashboard(props) {
                     color="secondary"
                     component="span"
                 >
-                    {/* {authentication.getCurrentUser()?.payload.employee_name} */}
                     {name}
                 </Typography>
             </Typography>
@@ -83,7 +92,9 @@ function Dashboard(props) {
                 </Grid>
             </Grid>
             <div>
-                <Appointment />
+                <Appointment
+                    todayAppointments={todayAppointments}
+                />
             </div>
             <RightBar>
                 <img

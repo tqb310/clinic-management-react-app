@@ -1,5 +1,3 @@
-export const tableHeadRowStyles = {};
-
 export const tableRowStyles = {
     borderBottom: '1px solid #ddd',
     transition: 'all .3s',

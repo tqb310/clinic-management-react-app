@@ -1,7 +1,6 @@
 import React, {memo} from 'react';
 import {headCells} from '../../_constants/HeadCells';
 import {tableHeadCellStyles} from '_constants/TableHeaderStyles';
-// import {gender} from '_constants/general';
 import {Table, TableCell} from '_components/shared/Table2';
 import {
     Checkbox,
@@ -12,6 +11,7 @@ import {
 } from '@mui/material';
 import MalePatient from '_assets/images/male-patient.png';
 import FemalePatient from '_assets/images/female-patient.png';
+// import {gender} from '_constants/general';
 // import {StatusPaper} from '_components/shared/StyledComponent';
 import {useDispatch} from 'react-redux';
 import {

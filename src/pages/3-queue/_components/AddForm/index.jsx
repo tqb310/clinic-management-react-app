@@ -21,7 +21,7 @@ import {
 import {Formik, Form, FastField, Field} from 'formik';
 import {
     Input,
-    Date,
+    DatePickerField,
     Select,
     TextArea,
 } from '_components/shared/FormikField';
@@ -41,11 +41,11 @@ import Popup from '_components/shared/Popup';
 import ListItem from '_components/shared/ListItem';
 import MalePatient from '_assets/images/male-patient.png';
 import FemalePatient from '_assets/images/female-patient.png';
-import {formatDate} from '_helpers/handleDate';
+import getInitialDataFormat from '_helpers/getInitialDataFormat';
 import './index.scss';
 
 function AddForm({handleSubmit}) {
-    const [initialvalueState, setInitialValue] =
+    const [initialValueState, setInitialValue] =
         useState(initialValue);
     const [switchEdit, setSwitchEdit] = useState(false);
     const [open, setOpen] = useState(false);
@@ -79,42 +79,27 @@ function AddForm({handleSubmit}) {
         dispatch(setSelectedPatient(item));
     };
     const handleReset = e => {
-        dispatch(setSelectedPatient(null));
-        setSwitchEdit(false);
+        if (selectedPatient)
+            dispatch(setSelectedPatient(null));
+        setInitialValue(pre => ({...pre, initialValue}));
+        setSwitchEdit(pre => false);
     };
     useEffect(() => {
         if (selectedPatient) {
             setInitialValue({
-                ...initialvalueState,
-                PATIENT_NAME:
-                    selectedPatient.last_name +
-                    ' ' +
-                    selectedPatient.first_name,
-                PATIENT_PHONE: selectedPatient.phone,
-                DATE_OF_BIRTH: formatDate(
-                    selectedPatient.dob,
-                ),
-                OCCUPATION: selectedPatient.occupation,
-                IDENTITY_NUMBER:
-                    selectedPatient.identity_number,
-                SERVICES: [1],
-                HEIGHT: selectedPatient.height,
-                WEIGHT: selectedPatient.weight,
-                PATIENT_GENDER: selectedPatient.gender,
+                ...initialValueState,
+                ...getInitialDataFormat(selectedPatient),
             });
-        } else {
-            setInitialValue(initialValue);
-        }
+        } else setInitialValue(initialValue);
     }, [selectedPatient]);
     return (
         <Box className="add-form">
             <Typography variant="h5">
                 Tạo phiếu khám
             </Typography>
-
             <Formik
                 enableReinitialize
-                initialValues={initialvalueState}
+                initialValues={initialValueState}
                 onSubmit={handleSubmit}
                 onChange={() => {
                     console.log(
@@ -123,7 +108,7 @@ function AddForm({handleSubmit}) {
                 }}
             >
                 {form => {
-                    console.log(form);
+                    // console.log(form);
                     return (
                         <Form>
                             <Grid
@@ -219,7 +204,9 @@ function AddForm({handleSubmit}) {
                                     <FastField
                                         name="DATE_OF_BIRTH"
                                         id="DATE_OF_BIRTH"
-                                        component={Date}
+                                        component={
+                                            DatePickerField
+                                        }
                                         label="Ngày sinh"
                                         required
                                     />

@@ -9,8 +9,8 @@ import {openAppointmentDetail} from '_redux/slice/appointmentSlice';
 const menu = [
     {
         id: 0,
-        label: 'Xem chi tiết',
-        icon: RemoveRedEyeOutlined,
+        label: 'Xem & chỉnh sửa',
+        icon: EditOutlined,
         style: {fontSize: '2rem'},
         onClick: (dispatch, closeMenu) => e => {
             closeMenu();
@@ -19,19 +19,12 @@ const menu = [
     },
     {
         id: 1,
-        label: 'Chỉnh sửa',
-        icon: EditOutlined,
-        divider: true,
-        style: {fontSize: '2rem'},
-    },
-    {
-        id: 2,
         label: 'Khôi phục',
         icon: RestartAltOutlined,
         style: {fontSize: '2rem'},
     },
     {
-        id: 3,
+        id: 2,
         label: 'Hủy',
         icon: DoDisturbAltOutlined,
         style: {

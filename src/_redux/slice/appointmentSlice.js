@@ -38,15 +38,28 @@ const appointmentSlice = createSlice({
             state.data = action.payload;
         },
         selectDate: (state, action) => {
-            state.selected = action.payload;
-            state.dataByDate = state.data.filter(
+            state.selectedDate =
+                action.payload || state.selectedDate;
+            const tempData = state.data.filter(
                 appointment => {
                     return !compare2Days(
                         new Date(
                             formatDate(appointment.date),
                         ),
-                        action.payload,
+                        action.payload ||
+                            state.selectedDate,
                     );
+                },
+            );
+            state.dataByDate = tempData.sort(
+                (item1, item2) => {
+                    const time1 = new Date(
+                        formatDate(item1.date, item1.time),
+                    ).getTime();
+                    const time2 = new Date(
+                        formatDate(item2.date, item2.time),
+                    ).getTime();
+                    return time1 - time2;
                 },
             );
         },

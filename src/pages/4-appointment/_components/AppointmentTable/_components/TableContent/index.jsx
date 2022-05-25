@@ -19,7 +19,7 @@ import MenuPopup from '_components/shared/Menu';
 import {statusText} from '_constants/general';
 import {StatusPaper} from '_components/shared/StyledComponent';
 import {styled} from '@mui/material/styles';
-// import {openAppointmentDetail} from '_redux/slice/appointmentSlice';
+import {setSelectedAppointment} from '_redux/slice/appointmentSlice';
 import {useDispatch} from 'react-redux';
 // import PropTypes from 'prop-types'
 
@@ -47,7 +47,8 @@ const getCancelledStyle = status =>
 function TableContent({tableData = []}) {
     const dispatch = useDispatch();
     const [anchor, setAnchor] = useState(null);
-    const openMenu = e => {
+    const openMenu = id => e => {
+        dispatch(setSelectedAppointment(id));
         setAnchor(e.currentTarget);
     };
     const closeMenu = e => {
@@ -68,11 +69,6 @@ function TableContent({tableData = []}) {
             data={tableData}
             pagination
             rowsPerPage={7}
-            hoverStyle={{
-                backgroundColor: '#f8f8f8',
-                opacity: 1,
-                '& svg': {opacity: 1},
-            }}
             header={() => {
                 return (
                     <>
@@ -207,7 +203,9 @@ function TableContent({tableData = []}) {
                             },
                         }}
                     >
-                        <IconButton onClick={openMenu}>
+                        <IconButton
+                            onClick={openMenu(row.id)}
+                        >
                             <MoreHoriz
                                 sx={{fontSize: '1.6rem'}}
                             />

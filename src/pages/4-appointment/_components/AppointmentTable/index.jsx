@@ -1,5 +1,5 @@
 import React, {memo, Fragment} from 'react';
-import {Add, Search, FilterList} from '@mui/icons-material';
+import {Add, Search} from '@mui/icons-material';
 import {
     Button,
     Typography,
@@ -7,7 +7,7 @@ import {
     InputBase,
 } from '@mui/material';
 import {CustomPaper} from '_components/shared/StyledComponent';
-// import {compare2Days} from '_helpers/handleDate';
+import {formatDate} from '_helpers/handleDate';
 import Form from '../AppointmentForm';
 import NoResultDate from './_assets/no-date-result.png';
 import Calendar from './_components/Calendar';
@@ -17,14 +17,67 @@ import {
     setOpenForm,
     openAppointmentDetail,
 } from '_redux/slice/appointmentSlice';
+import LocationProvider from '_contexts/LocationContext';
+import appointmentService from '_services/firebase/appointment.service';
 import ConfirmRequest from '../ConfirmRequest';
 import './index.scss';
 
 function AppointmentTable({data = {}}) {
     const dispatch = useDispatch();
-    const handleSubmit = value => {
-        // console.log(value);
+    const handleCreateSubmit = value => {
+        console.log(value);
     };
+    const handleUpdateSubmit = async value => {
+        const {
+            PATIENT_NAME,
+            PATIENT_PHONE,
+            HEIGHT,
+            WEIGHT,
+            DATE_OF_BIRTH,
+            IDENTITY_NUMBER,
+            OCCUPATION,
+            PATIENT_GENDER,
+            DATE,
+            HOUR,
+            MINUTE,
+            NOTE,
+            PATIENT_TYPE,
+            STATUS,
+        } = value;
+        const tempName = PATIENT_NAME.split(' ');
+        const payload = {
+            patient: {
+                first_name: tempName[tempName.length - 1],
+                last_name: tempName
+                    .slice(0, tempName.length - 1)
+                    .join(' '),
+                phone: PATIENT_PHONE,
+                height: HEIGHT,
+                weight: WEIGHT,
+                dob: formatDate(DATE_OF_BIRTH, '', 'm/d/y'),
+                identity_number: IDENTITY_NUMBER,
+                occupation: OCCUPATION,
+                gender: PATIENT_GENDER,
+            },
+            appointment: {
+                date: formatDate(DATE, '', 'm/d/y'),
+                time: HOUR + ':' + MINUTE,
+                note: NOTE || '',
+                type: PATIENT_TYPE,
+                status: STATUS,
+            },
+        };
+        try {
+            await appointmentService.update(
+                data.selectedAppointment.id.toString(),
+                data.selectedAppointment.patient_id.toString(),
+                payload,
+            );
+        } catch (error) {
+            console.log(error.message);
+        }
+    };
+
     const handleOpen = e => {
         dispatch(setOpenForm(true));
     };
@@ -51,14 +104,7 @@ function AppointmentTable({data = {}}) {
                     />
                 </Box>
                 <Button
-                    sx={{ml: 1}}
-                    variant="outlined"
-                    startIcon={<FilterList />}
-                >
-                    Lọc
-                </Button>
-                <Button
-                    sx={{ml: 1}}
+                    sx={{ml: 'auto'}}
                     variant="outlined"
                     startIcon={<Add />}
                     onClick={handleOpen}
@@ -68,7 +114,7 @@ function AppointmentTable({data = {}}) {
                 <Form
                     open={data.isOpenForm}
                     handleClose={handleClose}
-                    handleSubmit={handleSubmit}
+                    handleSubmit={handleCreateSubmit}
                 />
             </Box>
             <Box className="appointment-wrapper">
@@ -79,15 +125,23 @@ function AppointmentTable({data = {}}) {
                             tableData={data.dataByDate}
                             selected={data.selected}
                         />
-                        <ConfirmRequest
-                            title="Chi tiết lịch hẹn"
-                            open={
-                                data.isOpenAppointmentDetail
-                            }
-                            handleClose={
-                                handleCloseAppointmentDetail
-                            }
-                        />
+                        <LocationProvider>
+                            <ConfirmRequest
+                                title="Chi tiết lịch hẹn"
+                                open={
+                                    data.isOpenAppointmentDetail
+                                }
+                                handleClose={
+                                    handleCloseAppointmentDetail
+                                }
+                                data={
+                                    data.selectedAppointment
+                                }
+                                handleSubmit={
+                                    handleUpdateSubmit
+                                }
+                            />
+                        </LocationProvider>
                     </Fragment>
                 ) : (
                     <Box className="appointment__no-data">

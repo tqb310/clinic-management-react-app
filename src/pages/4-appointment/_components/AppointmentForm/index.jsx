@@ -228,7 +228,6 @@ function AppointmentForm({
                             },
                         },
                         appointment: {
-                            doctor_id: '',
                             time: {
                                 date: null,
                                 time: '',
@@ -240,7 +239,7 @@ function AppointmentForm({
                     <FormikStep label="Điền thông tin bệnh nhân">
                         <General />
                     </FormikStep>
-                    <FormikStep label="Chọn ngày và bác sĩ khám">
+                    <FormikStep label="Chọn ngày và giờ">
                         <DateTimeChoice />
                     </FormikStep>
                 </FormikStepper>

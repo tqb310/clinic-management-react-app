@@ -3,11 +3,12 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DatePicker from '@mui/lab/DatePicker';
 
-export const Date = ({
+export const DatePickerField = ({
     form,
     field,
     label,
     required,
+    minDate,
     ...rest
 }) => {
     const isError = form.errors[field.name];
@@ -31,6 +32,7 @@ export const Date = ({
                 value={field.value}
                 onChange={handleDateChange}
                 format="DD-MM-YYYY"
+                minDate={minDate || null}
                 renderInput={params => {
                     // console.log(params);
                     params.error = isError;

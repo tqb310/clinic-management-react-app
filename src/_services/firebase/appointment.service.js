@@ -61,10 +61,24 @@ const appointmentServices = {
         }
     },
 
-    async update(id, data) {
+    async update(aid, pid, data) {
         try {
-            const docRef = doc(appointmentRef, id);
-            setDoc(docRef, data);
+            const docRef = doc(appointmentRef, aid);
+            const patientRes = await patientService.update(
+                pid,
+                data.patient,
+            );
+            const appointmentRes = await setDoc(
+                docRef,
+                data.appointment,
+                {
+                    merge: true,
+                },
+            );
+            return {
+                patientRes,
+                appointmentRes,
+            };
         } catch (error) {
             throw error;
         }

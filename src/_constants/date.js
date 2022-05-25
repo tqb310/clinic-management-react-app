@@ -9,32 +9,65 @@ export const dateMap = new Map([
 ]);
 
 export const hours = [
-    "7:00",
-    "8:00",
-    "9:00",
-    "10:00",
-    "11:00",
-    "12:00",
-    "13:00",
-    "14:00",
-    "15:00",
-    "16:00",
+    '7:00',
+    '8:00',
+    '9:00',
+    '10:00',
+    '11:00',
+    '12:00',
+    '13:00',
+    '14:00',
+    '15:00',
+    '16:00',
+    '17:00',
 ];
 
+export const hourSelect = [
+    {id: 1, key: '7', value: '7'},
+    {id: 2, key: '8', value: '8'},
+    {id: 3, key: '9', value: '9'},
+    {id: 4, key: '10', value: '10'},
+    {id: 5, key: '11', value: '11'},
+    {id: 6, key: '12', value: '12'},
+    {id: 7, key: '13', value: '13'},
+    {id: 8, key: '14', value: '14'},
+    {id: 9, key: '15', value: '15'},
+    {id: 10, key: '16', value: '16'},
+    {id: 12, key: '17', value: '17'},
+    {id: 13, key: '18', value: '18'},
+];
+
+export const minuteSelect = [
+    {id: 1, key: '00', value: '00'},
+    {id: 2, key: '15', value: '15'},
+    {id: 3, key: '30', value: '30'},
+    {id: 4, key: '45', value: '45'},
+];
+
+export const handleMinute = minute => {
+    const minuteNumber = parseInt(minute);
+    if (minuteNumber < 15) return '00';
+    if (minuteNumber < 30) return '15';
+    if (minuteNumber < 45) return '30';
+    if (minuteNumber < 60) return '45';
+    return '00';
+};
 export const dayLength = 86400000;
 
-export const dateParse = (date) => {
-    return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
-}
+export const dateParse = date => {
+    return `${date.getDate()}/${
+        date.getMonth() + 1
+    }/${date.getFullYear()}`;
+};
 
 export const timeParse = dateTime => {
-    return `${dateTime.getHours()}:${dateTime.getMinutes()}:${dateTime.getSeconds()}`
-}
+    return `${dateTime.getHours()}:${dateTime.getMinutes()}:${dateTime.getSeconds()}`;
+};
 
 export const dateTimeNow = () => {
-    return `${dateParse(new Date())} ${timeParse(new Date())}`
-}
+    return `${dateParse(new Date())} ${timeParse(
+        new Date(),
+    )}`;
+};
 
-export let today
-
-
+export let today;

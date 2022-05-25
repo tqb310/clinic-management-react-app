@@ -5,6 +5,7 @@ import {
     getDocs,
     query,
     where,
+    setDoc,
 } from 'firebase/firestore';
 import {db} from './app';
 
@@ -47,6 +48,15 @@ const patientServices = {
                 result.push({...doc.data()});
             });
             return result;
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    async update(id, data) {
+        try {
+            const docRef = doc(patientRef, id);
+            setDoc(docRef, data, {merge: true});
         } catch (error) {
             throw error;
         }

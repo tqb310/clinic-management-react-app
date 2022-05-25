@@ -1,8 +1,8 @@
-import {ArrowDownward} from '@mui/icons-material';
+// import {ArrowDownward} from '@mui/icons-material';
 export const headCells = [
     {
         id: 1,
-        label: '#',
+        label: 'Mã',
         property: 'id',
         style: {width: '100px', textAlign: 'center'},
     },
@@ -10,8 +10,8 @@ export const headCells = [
         id: 2,
         label: 'Bệnh nhân',
         property: 'first_name',
-        icon: ArrowDownward,
-        action: 'sort',
+        // icon: ArrowDownward,
+        // action: 'sort',
         style: {},
     },
     {

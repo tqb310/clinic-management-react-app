@@ -1,4 +1,4 @@
-import React, {memo, useEffect, useState} from 'react';
+import React, {memo, useEffect} from 'react';
 import {
     CustomPaper,
     StatusPaper,
@@ -17,11 +17,6 @@ import {styled} from '@mui/material/styles';
 import {tableHeadCellStyles} from '_constants/TableHeaderStyles';
 import {statusText} from '_constants/general';
 import {MoreHoriz} from '@mui/icons-material';
-import {useSelector} from 'react-redux';
-import {
-    compare2Days,
-    formatDate,
-} from '_helpers/handleDate';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
@@ -31,24 +26,7 @@ const BodyCell = styled(TableCell)`
     font-size: 1.5rem;
 `;
 
-function Appointment(props) {
-    const appointments = useSelector(
-        state => state.appointments.data,
-    );
-    const [todayAppointments, setTodayAppointments] =
-        useState([]);
-    useEffect(() => {
-        if (appointments) {
-            const tempAppointments = appointments.filter(
-                item =>
-                    !compare2Days(
-                        new Date(formatDate(item.date)),
-                        new Date(),
-                    ),
-            );
-            setTodayAppointments(tempAppointments);
-        }
-    }, [appointments]);
+function Appointment({todayAppointments}) {
     return (
         <CustomPaper className="Appointment">
             <div className="Appointment__title">
@@ -64,14 +42,11 @@ function Appointment(props) {
                     width: '100%',
                     height: '100%',
                 }}
-                data={todayAppointments}
+                data={todayAppointments.filter(item =>
+                    parseInt(item?.status),
+                )}
                 pagination
                 rowsPerPage={7}
-                hoverStyle={{
-                    backgroundColor: '#f8f8f8',
-                    opacity: 1,
-                    '& svg': {opacity: 1},
-                }}
                 header={() => {
                     return (
                         <>
@@ -177,7 +152,7 @@ function Appointment(props) {
                                 },
                             }}
                         >
-                            <IconButton onClick={null}>
+                            <IconButton>
                                 <MoreHoriz
                                     sx={{
                                         fontSize: '1.6rem',

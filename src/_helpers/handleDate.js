@@ -27,11 +27,18 @@ export const compare2Days = (date1, date2) => {
     // return false;
 };
 
-export function formatDate(date, time = '') {
+export function formatDate(
+    date,
+    time = '',
+    format = 'd/m/y',
+) {
     if (!date) return;
-    const [d, m, y] = date.split('/');
-    // console.log(`${m}/${d}/${y}${time ? ' ' + time : ''}`);
-    return `${m}/${d}/${y}${time ? ' ' + time : ''}`;
+    if (format === 'd/m/y') {
+        const [d, m, y] = date.split('/');
+        return `${m}/${d}/${y}${time ? ' ' + time : ''}`;
+    }
+    const [m, d, y] = date.split('/');
+    return `${d}/${m}/${y}${time ? ' ' + time : ''}`;
 }
 export const getDatesInAMonth = (month, year) => {
     switch (month) {

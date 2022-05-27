@@ -35,8 +35,8 @@ const currentUserSlice = createSlice({
             state.isLoading = true;
         },
         [setMeAsync.rejected]: (state, action) => {
-            state.isLoading = action.error;
-            state.error = action.payload;
+            state.isLoading = false;
+            state.error = action.error;
         },
         [setMeAsync.fulfilled]: (state, action) => {
             state.isLoading = false;

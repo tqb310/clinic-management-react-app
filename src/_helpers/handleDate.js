@@ -31,13 +31,22 @@ export function formatDate(
     date,
     time = '',
     format = 'd/m/y',
+    hasNumPad = false,
 ) {
     if (!date) return;
     if (format === 'd/m/y') {
-        const [d, m, y] = date.split('/');
+        let [d, m, y] = date.split('/');
+        if (hasNumPad) {
+            d = d.padStart(2, '0');
+            m = d.padStart(2, '0');
+        }
         return `${m}/${d}/${y}${time ? ' ' + time : ''}`;
     }
-    const [m, d, y] = date.split('/');
+    let [m, d, y] = date.split('/');
+    if (hasNumPad) {
+        d = d.padStart(2, '0');
+        m = d.padStart(2, '0');
+    }
     return `${d}/${m}/${y}${time ? ' ' + time : ''}`;
 }
 export const getDatesInAMonth = (month, year) => {

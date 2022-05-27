@@ -15,7 +15,10 @@ import {
 import {RightBar} from '_components/shared/StyledComponent';
 // import appointmentData from '_constants/FakeData/AppointmentList';
 import {useDispatch, useSelector} from 'react-redux';
-import {setDataAsync} from '_redux/slice/appointmentSlice';
+import {
+    setDataAsync,
+    setDataByDateAsync,
+} from '_redux/slice/appointmentSlice';
 import './index.scss';
 
 ChartJS.register(ArcElement, Tooltip, Legend);

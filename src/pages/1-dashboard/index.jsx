@@ -7,10 +7,7 @@ import {RightBar} from '_components/shared/StyledComponent';
 import {Grid, Typography} from '@mui/material';
 import Doctor from '_assets/images/doctor2.png';
 import {useSelector, useDispatch} from 'react-redux';
-import {
-    setDataAsync as setAppointments,
-    selectDate,
-} from '_redux/slice/appointmentSlice';
+import {setDataByDateAsync as setAppointmentsByDate} from '_redux/slice/appointmentSlice';
 // import {setDataAsync as setPatients} from '_redux/slice/patientSlice';
 // import {setDataAsync as setInvoices} from '_redux/slice/invoiceSlice';
 // import VisitChart from "./_components/VisitChart";
@@ -41,15 +38,16 @@ function Dashboard(props) {
         state => state.user.current.name,
     );
     const todayAppointments = useSelector(
-        state => state.appointments.dataByDate,
+        state => state.appointments.data,
     );
 
     useEffect(() => {
         // dispatch(setPatients());
         // dispatch(setInvoices());
         const fetchData = async () => {
-            await dispatch(setAppointments()).unwrap();
-            dispatch(selectDate(new Date()));
+            await dispatch(
+                setAppointmentsByDate(),
+            ).unwrap();
         };
         fetchData();
     }, []);

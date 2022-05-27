@@ -17,6 +17,7 @@ const initialState = {
     dataByDate: [],
     selectedAppointment: null,
     isOpenAppointmentDetail: false,
+    err: '',
 };
 
 export const setDataAsync = createAsyncThunk(
@@ -25,6 +26,23 @@ export const setDataAsync = createAsyncThunk(
         const {patients = {}} = thunkAPI.getState();
         const data = await appointmentServices.getDocsAll(
             patients.data,
+        );
+        return data;
+    },
+);
+
+export const setDataByDateAsync = createAsyncThunk(
+    'appointments/setDataByDateAsync',
+    async (_, thunkAPI) => {
+        const {patients = {}} = thunkAPI.getState();
+        const data = await appointmentServices.getDocByDate(
+            formatDate(
+                new Date().toLocaleDateString(),
+                '',
+                'm/d/y',
+                true,
+            ),
+            patients,
         );
         return data;
     },
@@ -40,8 +58,9 @@ const appointmentSlice = createSlice({
         selectDate: (state, action) => {
             state.selectedDate =
                 action.payload || state.selectedDate;
-            const tempData = state.data.filter(
-                appointment => {
+            const tempData =
+                state.data &&
+                state.data.filter(appointment => {
                     return !compare2Days(
                         new Date(
                             formatDate(appointment.date),
@@ -49,10 +68,10 @@ const appointmentSlice = createSlice({
                         action.payload ||
                             state.selectedDate,
                     );
-                },
-            );
-            state.dataByDate = tempData.sort(
-                (item1, item2) => {
+                });
+            state.dataByDate =
+                tempData &&
+                tempData.sort((item1, item2) => {
                     const time1 = new Date(
                         formatDate(item1.date, item1.time),
                     ).getTime();
@@ -60,8 +79,7 @@ const appointmentSlice = createSlice({
                         formatDate(item2.date, item2.time),
                     ).getTime();
                     return time1 - time2;
-                },
-            );
+                });
         },
         deleteData: (state, action) => {
             state.selected = [];
@@ -88,6 +106,17 @@ const appointmentSlice = createSlice({
         [setDataAsync.fulfilled]: (state, action) => {
             state.data = action.payload;
             state.isLoading = false;
+        },
+        [setDataByDateAsync.pending]: state => {
+            state.isLoading = true;
+        },
+        [setDataByDateAsync.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.err = action.error;
+        },
+        [setDataByDateAsync.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            state.data = action.payload;
         },
     },
 });

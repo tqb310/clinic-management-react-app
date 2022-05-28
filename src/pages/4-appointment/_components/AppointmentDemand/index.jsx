@@ -65,24 +65,27 @@ function AppointmentDemand() {
     }, []);
 
     useEffect(() => {
-        const tempList = requestState.data.filter(
-            item =>
-                item.status === tabsName[tabIndex].status &&
-                getCreatedTime(
-                    new Date(
-                        formatDate(
-                            item.create_at_date,
-                            item.create_at_time,
+        //To compute the request list for each state
+        const filteredRequestList =
+            requestState.data.filter(
+                item =>
+                    item.status ===
+                        tabsName[tabIndex].status &&
+                    getCreatedTime(
+                        new Date(
+                            formatDate(
+                                item.create_at_date,
+                                item.create_at_time,
+                            ),
                         ),
-                    ),
-                    new Date(),
-                ).ms < tabsName[tabIndex].thresholdTime,
-        );
-        setRequestList(tempList);
+                        new Date(),
+                    ).ms < tabsName[tabIndex].thresholdTime,
+            );
+        setRequestList(filteredRequestList);
     }, [requestState.data, tabIndex]);
 
     useEffect(() => {
-        //Computing number
+        //To compute the number of requests for each state
         const tempNumberState = requestState.data.reduce(
             (result, item) => {
                 const difference = getCreatedTime(

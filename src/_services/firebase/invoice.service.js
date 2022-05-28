@@ -3,6 +3,7 @@ import {
     getDoc,
     collection,
     getDocs,
+    addDoc,
 } from 'firebase/firestore';
 import patientService from './patient.service';
 import {db} from './app';
@@ -10,13 +11,18 @@ import {db} from './app';
 const invoiceRef = collection(db, 'invoices');
 
 const invoiceServices = {
+    /**
+     * @async
+     * @param {*} patients
+     * @returns
+     */
     async getDocsAll(patients) {
         try {
             // console.log('PATIENTS: ', patients);
             const snapshot = await getDocs(invoiceRef);
             let invoices = [];
             snapshot.forEach((doc, index) => {
-                invoices.push({...doc.data()});
+                invoices.push({...doc.data(), id: doc.id});
             });
             const results = invoices.map(
                 async (invoice, index) => {
@@ -46,12 +52,29 @@ const invoiceServices = {
             throw error;
         }
     },
-
+    /**
+     * @async
+     * @param {*} id
+     * @returns
+     */
     async getDocById(id) {
         try {
             const docRef = doc(invoiceRef, id);
             const result = await getDoc(docRef);
-            return result.data();
+            return {...result.data(), id: result.id};
+        } catch (error) {
+            throw error;
+        }
+    },
+    /**
+     * @async
+     * @param {*} data
+     * @returns
+     */
+    async addInvoice(data) {
+        try {
+            const res = await addDoc(invoiceRef, data);
+            return res;
         } catch (error) {
             throw error;
         }

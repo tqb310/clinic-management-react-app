@@ -8,6 +8,11 @@ import {auth, db} from './app';
 // const userRef = collection(db, 'users');
 
 const authentication = {
+    /**
+     * @async
+     * @param {*} email
+     * @param {*} password
+     */
     async logIn(email, password) {
         try {
             await signInWithEmailAndPassword(
@@ -19,7 +24,9 @@ const authentication = {
             throw error;
         }
     },
-
+    /**
+     * @async
+     */
     async logOut() {
         try {
             await signOut(auth);
@@ -28,7 +35,11 @@ const authentication = {
             throw error;
         }
     },
-
+    /**
+     * @async
+     * @param {*} uid
+     * @returns
+     */
     async getMe(uid) {
         try {
             const docRef = doc(db, 'users', uid);

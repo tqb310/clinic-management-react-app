@@ -8,6 +8,7 @@ import {
     formatDate,
 } from '_helpers/handleDate';
 import appointmentServices from '_services/firebase/appointment.service';
+import getDateTimeComparator from '../../_helpers/getDateTimeComparator';
 
 const initialState = {
     data: [],
@@ -71,15 +72,12 @@ const appointmentSlice = createSlice({
                 });
             state.dataByDate =
                 tempData &&
-                tempData.sort((item1, item2) => {
-                    const time1 = new Date(
-                        formatDate(item1.date, item1.time),
-                    ).getTime();
-                    const time2 = new Date(
-                        formatDate(item2.date, item2.time),
-                    ).getTime();
-                    return time1 - time2;
-                });
+                tempData.sort((item1, item2) =>
+                    getDateTimeComparator(
+                        formatDate(item1.date),
+                        formatDate(item2.date),
+                    ),
+                );
         },
         deleteData: (state, action) => {
             state.selected = [];

@@ -15,6 +15,7 @@ import {
 } from '@mui/icons-material';
 import {useDispatch} from 'react-redux';
 import {selectDate} from '_redux/slice/appointmentSlice';
+import {formatDate} from '_helpers/handleDate';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
@@ -142,18 +143,11 @@ function Calendar({data = []}) {
                                         d =>
                                             !compare2Days(
                                                 new Date(
-                                                    [
-                                                        d.date.split(
-                                                            '/',
-                                                        )[1],
-                                                        d.date.split(
-                                                            '/',
-                                                        )[0],
-                                                        d.date.split(
-                                                            '/',
-                                                        )[2],
-                                                    ].join(
-                                                        '/',
+                                                    formatDate(
+                                                        d.date,
+                                                        '',
+                                                        'd/m/y',
+                                                        true,
                                                     ),
                                                 ),
                                                 date,

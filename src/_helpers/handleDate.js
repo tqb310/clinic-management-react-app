@@ -1,11 +1,6 @@
 import {dayLength} from '_constants/date';
 
 export const compare2Days = (date1, date2) => {
-    // const difference = date1.getTime() - date2.getTime();
-    // console.log(difference);
-    // if (difference > 0) return 1;
-    // if (difference < 0) return -1;
-    // return 0;
     if (date1.getFullYear() > date2.getFullYear()) return 1;
     if (date1.getFullYear() < date2.getFullYear())
         return -1;
@@ -17,14 +12,6 @@ export const compare2Days = (date1, date2) => {
     if (date1.getDate() > date2.getDate()) return 1;
     if (date1.getDate() < date2.getDate()) return -1;
     return 0;
-
-    // if (
-    //     date1.getDate() === date2.getDate() &&
-    //     date1.getMonth() === date2.getMonth() &&
-    //     date1.getFullYear() === date2.getFullYear()
-    // )
-    //     return true;
-    // return false;
 };
 
 export function formatDate(
@@ -38,7 +25,7 @@ export function formatDate(
         let [d, m, y] = date.split('/');
         if (hasNumPad) {
             d = d.padStart(2, '0');
-            m = d.padStart(2, '0');
+            m = m.padStart(2, '0');
         }
         return `${m}/${d}/${y}${time ? ' ' + time : ''}`;
     }
@@ -49,6 +36,7 @@ export function formatDate(
     }
     return `${d}/${m}/${y}${time ? ' ' + time : ''}`;
 }
+
 export const getDatesInAMonth = (month, year) => {
     switch (month) {
         case 1:
@@ -102,19 +90,19 @@ export const getCreatedTime = (time1, time2) => {
     const difference = time2.getTime() - time1.getTime();
     result.ms = difference;
     result.difference = difference / 1000;
-    if (result.difference > 60) {
+    if (result.difference >= 60) {
         result.difference /= 60;
         unit = ' phút';
     }
-    if (result.difference > 60) {
+    if (result.difference >= 60) {
         result.difference /= 60;
         unit = ' giờ';
     }
-    if (result.difference > 24) {
+    if (result.difference >= 24) {
         result.difference /= 24;
         unit = ' ngày';
     }
-    if (result.difference > 30) {
+    if (result.difference >= 30) {
         result.difference /= 30;
         unit = ' tháng';
     }

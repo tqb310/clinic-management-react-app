@@ -161,7 +161,9 @@ function PatientTable({
                             textAlign: 'center',
                         }}
                     >
-                        {row.id}
+                        {row.id
+                            .slice(0, 4)
+                            .padStart(4, '0')}
                     </BodyCell>
                     <BodyCell
                         type="td"
@@ -200,7 +202,9 @@ function PatientTable({
                     <BodyCell type="td">
                         {row.district +
                             ' - ' +
-                            row.province}
+                            row.province +
+                            ' - ' +
+                            (row.ward || '')}
                     </BodyCell>
                     <BodyCell
                         type="td"

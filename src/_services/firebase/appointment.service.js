@@ -13,13 +13,22 @@ import {db} from './app';
 const appointmentRef = collection(db, 'appointments');
 
 const appointmentServices = {
+    /**
+     * @async
+     * @method
+     * @param {*} patients patient list
+     * @returns
+     */
     async getDocsAll(patients) {
         try {
             // console.log('PATIENTS: ', patients);
             const snapshot = await getDocs(appointmentRef);
             let appointments = [];
             snapshot.forEach((doc, index) => {
-                appointments.push({...doc.data()});
+                appointments.push({
+                    ...doc.data(),
+                    id: doc.id,
+                });
             });
             const results = appointments.map(
                 async (appointment, index) => {
@@ -52,27 +61,39 @@ const appointmentServices = {
             throw error;
         }
     },
-
+    /**
+     * @async
+     * @param {*} id appointment id
+     * @returns
+     */
     async getDocById(id) {
         try {
             const docRef = doc(appointmentRef, id);
             const result = await getDoc(docRef);
-            return result.data();
+            return {...result.data(), id: result.id};
         } catch (error) {
             throw error;
         }
     },
-
+    /**
+     * @async
+     * @param {*} date
+     * @param {*} patients patient list
+     * @returns
+     */
     async getDocByDate(date, patients) {
         try {
             const q = query(
                 appointmentRef,
-                where('date', '==', '26/05/2022'),
+                where('date', '==', date),
             );
             const snapshot = await getDocs(q);
             const appointments = [];
             snapshot.forEach(doc => {
-                appointments.push(doc.data());
+                appointments.push({
+                    ...doc.data(),
+                    id: doc.id,
+                });
             });
             const results = appointments.map(
                 async (appointment, index) => {
@@ -105,7 +126,13 @@ const appointmentServices = {
             throw error;
         }
     },
-
+    /**
+     * @async
+     * @param {*} aid
+     * @param {*} pid
+     * @param {*} data
+     * @returns
+     */
     async update(aid, pid, data) {
         try {
             const docRef = doc(appointmentRef, aid);

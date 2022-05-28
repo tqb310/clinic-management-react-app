@@ -13,6 +13,25 @@ export const ProvinceData = Object.values(ProvinceJson);
 export const DistrictData = Object.values(DistrictJson);
 // export const WardData =  Object.values(WardJson);
 
+//Get the name of province, district, ward code
+export function getLocationName(level, code) {
+    if (!code) return;
+    switch (level) {
+        case 'province':
+            return ProvinceData.find(
+                province => province.code === code,
+            ).name;
+        case 'district':
+            return DistrictData.find(
+                district => district.code === code,
+            ).name;
+        case 'ward':
+            return Object.values(WardJson)[code].name;
+        default:
+            return;
+    }
+}
+//Mapping json data to select data format
 export const mapJsonToSelect = (item, index) => {
     return {
         id: index,

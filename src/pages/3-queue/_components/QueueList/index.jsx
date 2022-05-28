@@ -1,17 +1,32 @@
-import React, {memo, useState} from 'react';
+import React, {memo, useState, useEffect} from 'react';
 import {Box, Button, Typography} from '@mui/material';
 import {Add, Search} from '@mui/icons-material';
 import {Dot} from '_components/shared/StyledComponent';
+import {useDispatch} from 'react-redux';
+import {
+    setDataByStatusAsync,
+    setNumberEachStatusAsync,
+} from '_redux/slice/queueSlice';
+import {onSnapshot, collection} from 'firebase/firestore';
+import {db} from '_services/firebase/app';
 import './index.scss';
 // import PropTypes from 'prop-types';
 
 const tabsName = [
-    {id: 1, title: 'Đang khám', number: 12},
-    {id: 2, title: 'Đang chờ', number: 12},
-    {id: 3, title: 'Qua lượt', number: 12},
+    {id: 1, title: 'Đang khám', tag: 'serving', status: 2},
+    {id: 2, title: 'Đang chờ', tag: 'waiting', status: 1},
+    {id: 3, title: 'Qua lượt', tag: 'missed', status: 0},
 ];
 
-function QueueListItem({className = ''}) {
+function QueueListItem({
+    className = '',
+    name,
+    gender,
+    dob,
+    date,
+    time,
+    numericalOrder,
+}) {
     return (
         <Box className={`queue-list__item ${className}`}>
             <Typography
@@ -22,19 +37,17 @@ function QueueListItem({className = ''}) {
                     textAlign: 'center',
                 }}
             >
-                # 26
+                # {numericalOrder}
             </Typography>
             <Box className="queue-list__item-info">
-                <Typography variant="h6">
-                    Truong Thi Lan
-                </Typography>
+                <Typography variant="h6">{name}</Typography>
                 <Typography color="#888" fontWeight={400}>
-                    Nữ <Dot />{' '}
+                    {gender} <Dot />{' '}
                     <Typography
                         component="span"
                         fontWeight={400}
                     >
-                        23/12/1999
+                        {dob}
                     </Typography>
                 </Typography>
                 <Typography color="#888" fontWeight={400}>
@@ -43,15 +56,41 @@ function QueueListItem({className = ''}) {
                         component="span"
                         fontWeight={400}
                     >
-                        7:45 <Dot /> 30/03/2022
+                        {time} <Dot /> {date}
                     </Typography>
                 </Typography>
             </Box>
         </Box>
     );
 }
-function QueueList() {
+function QueueList({queueData, numberEachStatus}) {
+    const dispatch = useDispatch();
     const [tab, setTab] = useState(1);
+    const [status, setStatus] = useState(2);
+
+    const handleTabClick = (status, id) => e => {
+        setTab(id);
+        setStatus(status);
+        dispatch(setDataByStatusAsync(status));
+    };
+    useEffect(() => {
+        const unsub = onSnapshot(
+            collection(db, 'queue'),
+            () => {
+                const eventHandler = async () => {
+                    await dispatch(
+                        setDataByStatusAsync(status),
+                    );
+                    await dispatch(
+                        setNumberEachStatusAsync(),
+                    );
+                };
+                eventHandler();
+            },
+        );
+        return unsub;
+    }, [status]);
+
     return (
         <Box className="queue-list">
             <Box className="queue-list__tab">
@@ -61,12 +100,15 @@ function QueueList() {
                         className={`queue-list__tab-item ${
                             tab === item.id ? 'active' : ''
                         }`}
-                        onClick={setTab.bind(null, item.id)}
+                        onClick={handleTabClick(
+                            item.status,
+                            item.id,
+                        )}
                     >
                         <Typography fontWeight="700">
                             {item.title}
                         </Typography>{' '}
-                        ({item.number})
+                        ({numberEachStatus?.[item.tag]})
                     </Box>
                 ))}
             </Box>
@@ -95,7 +137,26 @@ function QueueList() {
                 </Button>
             </Box>
             <Box className="queue-list__content">
-                <QueueListItem />
+                {queueData &&
+                    queueData.map(item => (
+                        <QueueListItem
+                            key={item.id}
+                            name={
+                                item.last_name +
+                                ' ' +
+                                item.first_name
+                            }
+                            gender={
+                                item.gender ? 'Nam' : 'Nữ'
+                            }
+                            dob={item.dob}
+                            time={item.time}
+                            date={item.date}
+                            numericalOrder={
+                                item.numerical_order
+                            }
+                        />
+                    ))}
             </Box>
         </Box>
     );

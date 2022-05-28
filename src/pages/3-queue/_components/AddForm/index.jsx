@@ -45,20 +45,32 @@ import getInitialDataFormat from '_helpers/getInitialDataFormat';
 import './index.scss';
 
 function AddForm({handleSubmit}) {
+    //Initial value for form
     const [initialValueState, setInitialValue] =
         useState(initialValue);
+    // Switch to address editor mode
     const [switchEdit, setSwitchEdit] = useState(false);
+    //Service modal
     const [open, setOpen] = useState(false);
+
+    //Open hint list
     const isOpenHint = useSelector(
         state => state.queues.isOpenHint,
     );
+
+    //Get all patients in hint list
     const filteredPatient = useSelector(
         state => state.queues.patientHint,
     );
+
+    //Select a patient from hint list (state)
     const selectedPatient = useSelector(
         state => state.queues.selected,
     );
+
     const dispatch = useDispatch();
+
+    //Location data
     const {
         provinces,
         districts,
@@ -66,24 +78,48 @@ function AddForm({handleSubmit}) {
         onChange: onChangeLocation,
     } = useLocation();
 
+    // Close service modal
     const handleClose = () => {
         setOpen(false);
     };
+    // Open service modal
     const handleOpen = () => {
         setOpen(true);
     };
+
+    // Close hint list
     const closeMenu = () => {
         dispatch(setPatientHint(''));
     };
+
+    //Select a patient from hint list (dispatch)
     const handleSelect = item => e => {
         dispatch(setSelectedPatient(item));
     };
+
+    //Reset form
     const handleReset = e => {
         if (selectedPatient)
             dispatch(setSelectedPatient(null));
         setInitialValue(pre => ({...pre, initialValue}));
-        setSwitchEdit(pre => false);
+        setSwitchEdit(false);
     };
+    //Submit FOrm
+    const handleSubmitFormik = async (values, actions) => {
+        const isExistedPatient =
+            selectedPatient && selectedPatient.id;
+        try {
+            await handleSubmit(
+                values,
+                actions,
+                isExistedPatient,
+            );
+            handleReset();
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     useEffect(() => {
         if (selectedPatient) {
             setInitialValue({
@@ -92,6 +128,7 @@ function AddForm({handleSubmit}) {
             });
         } else setInitialValue(initialValue);
     }, [selectedPatient]);
+
     return (
         <Box className="add-form">
             <Typography variant="h5">
@@ -100,7 +137,7 @@ function AddForm({handleSubmit}) {
             <Formik
                 enableReinitialize
                 initialValues={initialValueState}
-                onSubmit={handleSubmit}
+                onSubmit={handleSubmitFormik}
                 onChange={() => {
                     console.log(
                         'All Form State is changed',
@@ -447,9 +484,10 @@ function AddForm({handleSubmit}) {
                                     }}
                                 >
                                     <Button
-                                        onClick={
-                                            form.submitForm
-                                        }
+                                        // onClick={
+                                        //     form.submitForm
+                                        // }
+                                        type="submit"
                                         variant="contained"
                                         sx={{
                                             width: '100%',

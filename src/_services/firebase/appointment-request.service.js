@@ -8,10 +8,14 @@ import {db} from './app';
 
 const appointmentRequestRef = collection(
     db,
-    'appointment_requests',
+    'appointment-requests',
 );
 
 const appointmentRequestServices = {
+    /**
+     * @async
+     * @returns
+     */
     async getDocsAll() {
         try {
             const snapshot = await getDocs(
@@ -19,19 +23,23 @@ const appointmentRequestServices = {
             );
             let result = [];
             snapshot.forEach((doc, index) => {
-                result.push({...doc.data()});
+                result.push({...doc.data(), id: doc.id});
             });
             return result;
         } catch (error) {
             throw error;
         }
     },
-
+    /**
+     * @async
+     * @param {*} id
+     * @returns
+     */
     async getDocById(id) {
         try {
             const docRef = doc(appointmentRequestRef, id);
             const result = await getDoc(docRef);
-            return result.data();
+            return {...result.data(), id: result.id};
         } catch (error) {
             throw error;
         }

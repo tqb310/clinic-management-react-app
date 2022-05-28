@@ -165,7 +165,9 @@ function InvoiceTable({tableData, selected}) {
                             textAlign: 'center',
                         }}
                     >
-                        {row.id}
+                        {row.id
+                            .slice(0, 4)
+                            .padStart(4, '0')}
                     </BodyCell>
                     <BodyCell
                         type="td"

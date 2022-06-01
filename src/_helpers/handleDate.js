@@ -32,7 +32,7 @@ export function formatDate(
     let [m, d, y] = date.split('/');
     if (hasNumPad) {
         d = d.padStart(2, '0');
-        m = d.padStart(2, '0');
+        m = m.padStart(2, '0');
     }
     return `${d}/${m}/${y}${time ? ' ' + time : ''}`;
 }

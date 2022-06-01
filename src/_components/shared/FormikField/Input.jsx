@@ -8,7 +8,6 @@ import {
     OutlinedInput,
 } from '@mui/material';
 import {useDispatch} from 'react-redux';
-import {setPatientHint} from '_redux/slice/queueSlice';
 // import { ErrorMessage } from "formik";
 // import PropTypes from 'prop-types'
 
@@ -21,26 +20,28 @@ function InputField({
     icon: Icon,
     variant = 'standard',
     autoComplete,
+    setPatientHint,
     ...rest
 }) {
     const dispatch = useDispatch();
     const isError = form.errors[field.name];
     const handleChange = e => {
         field.onChange(e);
-        if (field.name === 'PATIENT_PHONE') {
+        if (
+            /PHONE|phone/i.test(field.name) &&
+            setPatientHint
+        ) {
             if (e.target.value.trim()) {
                 dispatch(
                     setPatientHint(e.target.value.trim()),
                 );
             } else {
-                dispatch(
-                    setPatientHint(e.target.value.trim()),
-                );
+                dispatch(setPatientHint(''));
             }
         }
     };
     const handleClick = e => {
-        if (field.name === 'PATIENT_PHONE') {
+        if (/PHONE|phone/i.test(field.name)) {
             e.stopPropagation();
         }
     };

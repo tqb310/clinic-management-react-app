@@ -5,12 +5,7 @@ import Input from '_components/shared/FormikField/Input';
 import Select from '_components/shared/FormikField/Select';
 import TextArea from '_components/shared/FormikField/TextArea';
 import {DatePickerField} from '_components/shared/FormikField';
-import {
-    gender,
-    district,
-    province,
-    ward,
-} from '_constants/FakeData/Select';
+import {gender, cardType} from '_constants/general';
 import {
     Person,
     PhoneEnabled,
@@ -19,10 +14,17 @@ import {
     Home,
     Edit,
 } from '@mui/icons-material';
+import {useLocation} from '_contexts/LocationContext';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
-function General(props) {
+function General() {
+    const {
+        onChange: onChangeLocation,
+        provinces,
+        districts,
+        wards,
+    } = useLocation();
     return (
         <div className="AppointmentForm__general">
             <div className="col-1-8">
@@ -46,7 +48,12 @@ function General(props) {
                     required
                 />
             </div>
-            <div className="col-1-8">
+            <div
+                className="col-1-8"
+                style={{
+                    position: 'relative',
+                }}
+            >
                 <FastField
                     id="phone"
                     name="patient.phone"
@@ -59,8 +66,8 @@ function General(props) {
             </div>
             <div className="col-9-13">
                 <FastField
-                    id="date_of_birth"
-                    name="patient.date_of_birth"
+                    id="patient.dob"
+                    name="patient.dob"
                     component={DatePickerField}
                     label="Ngày sinh"
                     required
@@ -88,13 +95,46 @@ function General(props) {
                     required
                 />
             </div>
+            <div className="col-1-4">
+                <FastField
+                    name="patient.height"
+                    id="patient.height"
+                    component={Input}
+                    label="Chiều cao"
+                    icon="cm"
+                    required
+                />
+            </div>
+            <div className="col-5-8">
+                <FastField
+                    name="patient.weight"
+                    id="patient.weight"
+                    component={Input}
+                    label="Cân nặng"
+                    icon="kg"
+                    required
+                />
+            </div>
+            <div className="col-9-13">
+                <FastField
+                    name="patient.type"
+                    id="patient.type"
+                    component={Select}
+                    label="Loại"
+                    items={cardType}
+                    required
+                />
+            </div>
             <div className="col-1-13">
                 <FormControl
                     fullWidth
                     sx={{marginBottom: '.5rem'}}
                 >
                     <FormLabel
-                        sx={{fontWeight: 600, fontSize: 14}}
+                        sx={{
+                            fontWeight: 600,
+                            fontSize: 14,
+                        }}
                     >
                         Địa chỉ
                     </FormLabel>
@@ -112,7 +152,10 @@ function General(props) {
                             id="ADDRESS.province"
                             component={Select}
                             label="Tỉnh/Thành phố"
-                            items={province}
+                            items={provinces}
+                            onChangeLocation={
+                                onChangeLocation
+                            }
                             required
                         />
                         <Field
@@ -120,7 +163,10 @@ function General(props) {
                             id="ADDRESS.district"
                             component={Select}
                             label="Huyện/Quận"
-                            items={district}
+                            items={districts}
+                            onChangeLocation={
+                                onChangeLocation
+                            }
                             required
                         />
                         <Field
@@ -128,7 +174,10 @@ function General(props) {
                             id="ADDRESS.ward"
                             component={Select}
                             label="Xã/Phường"
-                            items={ward}
+                            items={wards}
+                            onChangeLocation={
+                                onChangeLocation
+                            }
                             required
                         />
                     </div>

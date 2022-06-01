@@ -8,6 +8,7 @@ import {
     Avatar,
     IconButton,
     Box,
+    Tooltip,
 } from '@mui/material';
 import MalePatient from '_assets/images/male-patient.png';
 import FemalePatient from '_assets/images/female-patient.png';
@@ -16,8 +17,12 @@ import {headCells} from './headCells';
 import {styled} from '@mui/material/styles';
 import {tableHeadCellStyles} from '_constants/TableHeaderStyles';
 import {statusText} from '_constants/general';
-import {MoreHoriz} from '@mui/icons-material';
 import NoData from 'pages/4-appointment/_components/AppointmentTable/_assets/no-date-result.png';
+// import {useDispatch} from 'react-redux';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import queueService from '_services/firebase/queue.service';
+// import {useHistory} from 'react-router-dom';
+// import role from '_constants/role';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
@@ -28,6 +33,23 @@ const BodyCell = styled(TableCell)`
 `;
 
 function Appointment({todayAppointments}) {
+    // const dispatch = useDispatch();
+    // const history = useHistory();
+    const addToQueue = (patientId, type) => async e => {
+        try {
+            await queueService.addToQueueWithAppointment({
+                patientId,
+                type,
+            });
+            // const rolePath = role.get(
+            //     parseInt(localStorage.getItem('role')),
+            // ).url;
+            // if (rolePath)
+            //     history.push(rolePath + '/hang-doi');
+        } catch (err) {
+            throw err;
+        }
+    };
     return (
         <CustomPaper className="Appointment">
             <div className="Appointment__title">
@@ -90,7 +112,9 @@ function Appointment({todayAppointments}) {
                                     textAlign: 'center',
                                 }}
                             >
-                                {row.id}
+                                {row.id
+                                    ?.slice(0, 4)
+                                    .padStart(4, '0')}
                             </BodyCell>
                             <BodyCell
                                 type="td"
@@ -157,14 +181,24 @@ function Appointment({todayAppointments}) {
                                     },
                                 }}
                             >
-                                <IconButton>
-                                    <MoreHoriz
-                                        sx={{
-                                            fontSize:
-                                                '1.6rem',
-                                        }}
-                                    />
-                                </IconButton>
+                                <Tooltip
+                                    title="Đưa vào hàng đợi"
+                                    followCursor
+                                >
+                                    <IconButton
+                                        onClick={addToQueue(
+                                            row.patient_id,
+                                            row.type,
+                                        )}
+                                    >
+                                        <AddCircleIcon
+                                            sx={{
+                                                fontSize:
+                                                    '1.8rem',
+                                            }}
+                                        />
+                                    </IconButton>
+                                </Tooltip>
                             </BodyCell>
                         </>
                     )}

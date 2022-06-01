@@ -27,7 +27,7 @@ function SelectedServiceTable({
             selectedServiceId.indexOf(id),
             1,
         );
-        setFieldValue('SERVICES', newSelected);
+        setFieldValue('invoice.services', newSelected);
     };
     return (
         <table className="add-form__service-table">

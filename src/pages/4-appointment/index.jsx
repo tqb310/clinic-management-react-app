@@ -15,10 +15,8 @@ import {
 import {RightBar} from '_components/shared/StyledComponent';
 // import appointmentData from '_constants/FakeData/AppointmentList';
 import {useDispatch, useSelector} from 'react-redux';
-import {
-    setDataAsync,
-    setDataByDateAsync,
-} from '_redux/slice/appointmentSlice';
+import {setDataAsync} from '_redux/slice/appointmentSlice';
+import {useFirestoreRealtime} from '_hooks';
 import './index.scss';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
@@ -63,8 +61,16 @@ function Appointment(props) {
     const appointmentState = useSelector(
         state => state.appointments,
     );
+    const firestoreRealtime = useFirestoreRealtime({
+        collectionName: 'appointments',
+        eventHandler: () => {
+            console.log('realtime db');
+            dispatch(setDataAsync());
+        },
+    });
     useEffect(() => {
-        dispatch(setDataAsync());
+        const unsub = firestoreRealtime();
+        return unsub;
     }, []);
     return (
         <Grid

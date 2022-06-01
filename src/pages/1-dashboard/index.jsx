@@ -7,13 +7,8 @@ import {RightBar} from '_components/shared/StyledComponent';
 import {Grid, Typography} from '@mui/material';
 import Doctor from '_assets/images/doctor2.png';
 import {useSelector, useDispatch} from 'react-redux';
-import {setDataByDateAsync as setAppointmentsByDate} from '_redux/slice/appointmentSlice';
-// import {setDataAsync as setPatients} from '_redux/slice/patientSlice';
-// import {setDataAsync as setInvoices} from '_redux/slice/invoiceSlice';
-// import VisitChart from "./_components/VisitChart";
-// import { Scrollbars } from "react-custom-scrollbars-2";
-// import {RightBar} from '_components/shared/StyledComponent/RightBar';
-// import PropTypes from 'prop-types';
+import {setDataByDateAsync} from '_redux/slice/appointmentSlice';
+import {useFirestoreRealtime} from '_hooks';
 import './index.scss';
 
 const data = [
@@ -40,16 +35,18 @@ function Dashboard(props) {
     const todayAppointments = useSelector(
         state => state.appointments.data,
     );
-
+    const firestoreRealtime = useFirestoreRealtime({
+        collectionName: 'appointments',
+        eventHandler: () => {
+            console.log('realtime db');
+            dispatch(setDataByDateAsync());
+        },
+    });
     useEffect(() => {
         // dispatch(setPatients());
         // dispatch(setInvoices());
-        const fetchData = async () => {
-            await dispatch(
-                setAppointmentsByDate(),
-            ).unwrap();
-        };
-        fetchData();
+        const unsub = firestoreRealtime();
+        return unsub;
     }, []);
     return (
         <div className="dashboard">
@@ -98,7 +95,9 @@ function Dashboard(props) {
                 <img
                     src={Doctor}
                     alt="doctor"
-                    width={400}
+                    width={'100%'}
+                    height={'100%'}
+                    style={{objectFit: 'cover'}}
                 />
             </RightBar>
         </div>

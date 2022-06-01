@@ -19,7 +19,7 @@ function ServiceDialog({
 }) {
     const handleSelect = id => _ => {
         onClose();
-        setFieldValue('SERVICES', [
+        setFieldValue('invoice.services', [
             ...selectedServiceId,
             id,
         ]);

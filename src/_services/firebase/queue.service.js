@@ -12,6 +12,7 @@ import invoiceServices from './invoice.service';
 import appointmentServices from './appointment.service';
 import {formatDate} from '_helpers/handleDate';
 import getOrderNumber from '_helpers/getNumecialOrder';
+import {queueModel} from '_models';
 import {db} from './app';
 
 const queueRef = collection(db, 'queue');
@@ -105,7 +106,6 @@ const queueServices = {
                     gender,
                 };
             });
-
             return Promise.all(result);
         } catch (error) {
             throw error;
@@ -139,7 +139,6 @@ const queueServices = {
                     },
                     initialData,
                 );
-                console.log(data);
                 return data;
             }
             return initialData;
@@ -189,6 +188,36 @@ const queueServices = {
             //Submit data
             const res = await addDoc(queueRef, finalData);
             return res;
+        } catch (error) {
+            throw error;
+        }
+    },
+    /**
+     * @async
+     * @param {*} data
+     */
+    async addToQueueWithAppointment(data) {
+        try {
+            //Add an invoice
+            const invoiceRes =
+                await invoiceServices.addInvoice({
+                    patient_id: data.patientId,
+                    services: [1],
+                    create_at: formatDate(
+                        new Date().toLocaleDateString(),
+                        '',
+                        'm/d/y',
+                        true,
+                    ),
+                    type: data.type,
+                    status: 0,
+                });
+            //Add to queue
+            this.addToQueue({
+                patient_id: data.patientId?.toString(),
+                invoice_id: invoiceRes.id,
+                ...queueModel(),
+            });
         } catch (error) {
             throw error;
         }

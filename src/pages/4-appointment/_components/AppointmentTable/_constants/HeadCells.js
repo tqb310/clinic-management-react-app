@@ -2,7 +2,7 @@ import {ArrowDownward} from '@mui/icons-material';
 export const headCells = [
     {
         id: 1,
-        label: 'STT',
+        label: 'Mã',
         property: 'id',
         style: {width: '60px', textAlign: 'center'},
     },

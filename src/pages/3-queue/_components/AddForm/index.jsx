@@ -41,7 +41,7 @@ import Popup from '_components/shared/Popup';
 import ListItem from '_components/shared/ListItem';
 import MalePatient from '_assets/images/male-patient.png';
 import FemalePatient from '_assets/images/female-patient.png';
-import getInitialDataFormat from '_helpers/getInitialDataFormat';
+import {getInitialPatientDataFormat} from '_helpers/getInitialDataFormat';
 import './index.scss';
 
 function AddForm({handleSubmit}) {
@@ -104,7 +104,7 @@ function AddForm({handleSubmit}) {
         setInitialValue(pre => ({...pre, initialValue}));
         setSwitchEdit(false);
     };
-    //Submit FOrm
+    //Submit Form
     const handleSubmitFormik = async (values, actions) => {
         const isExistedPatient =
             selectedPatient && selectedPatient.id;
@@ -124,7 +124,9 @@ function AddForm({handleSubmit}) {
         if (selectedPatient) {
             setInitialValue({
                 ...initialValueState,
-                ...getInitialDataFormat(selectedPatient),
+                ...getInitialPatientDataFormat(
+                    selectedPatient,
+                ),
             });
         } else setInitialValue(initialValue);
     }, [selectedPatient]);
@@ -156,8 +158,8 @@ function AddForm({handleSubmit}) {
                             >
                                 <Grid item xs={5}>
                                     <FastField
-                                        name="PATIENT_NAME"
-                                        id="PATIENT_NAME"
+                                        name="patient.patient_name"
+                                        id="patient.patient_name"
                                         component={Input}
                                         label="Tên bệnh nhân"
                                         required
@@ -173,13 +175,16 @@ function AddForm({handleSubmit}) {
                                     }}
                                 >
                                     <FastField
-                                        name="PATIENT_PHONE"
-                                        id="PATIENT_PHONE"
+                                        name="patient.phone"
+                                        id="patient.phone"
                                         component={Input}
                                         label="Số điện thoại"
                                         required
                                         icon={PhoneEnabled}
                                         autoComplete="off"
+                                        setPatientHint={
+                                            setPatientHint
+                                        }
                                     />
                                     <Popup
                                         isOpen={isOpenHint}
@@ -217,8 +222,8 @@ function AddForm({handleSubmit}) {
                                 </Grid>
                                 <Grid item xs={3}>
                                     <FastField
-                                        name="IDENTITY_NUMBER"
-                                        id="IDENTITY_NUMBER"
+                                        name="patient.identity_number"
+                                        id="patient.identity_number"
                                         component={Input}
                                         label="CCCD"
                                         icon={
@@ -229,8 +234,8 @@ function AddForm({handleSubmit}) {
                                 </Grid>
                                 <Grid item xs={5}>
                                     <FastField
-                                        name="OCCUPATION"
-                                        id="OCCUPATION"
+                                        name="patient.occupation"
+                                        id="patient.occupation"
                                         component={Input}
                                         label="Nghề nghiệp"
                                         icon={Work}
@@ -239,8 +244,8 @@ function AddForm({handleSubmit}) {
                                 </Grid>
                                 <Grid item xs={4}>
                                     <FastField
-                                        name="DATE_OF_BIRTH"
-                                        id="DATE_OF_BIRTH"
+                                        name="patient.dob"
+                                        id="patient.dob"
                                         component={
                                             DatePickerField
                                         }
@@ -250,8 +255,8 @@ function AddForm({handleSubmit}) {
                                 </Grid>
                                 <Grid item xs={3}>
                                     <FastField
-                                        name="PATIENT_GENDER"
-                                        id="PATIENT_GENDER"
+                                        name="patient.gender"
+                                        id="patient.gender"
                                         component={Select}
                                         label="Giới tính"
                                         items={gender}
@@ -260,8 +265,8 @@ function AddForm({handleSubmit}) {
                                 </Grid>
                                 <Grid item xs={4}>
                                     <FastField
-                                        name="HEIGHT"
-                                        id="HEIGHT"
+                                        name="patient.height"
+                                        id="patient.height"
                                         component={Input}
                                         label="Chiều cao"
                                         icon="cm"
@@ -270,8 +275,8 @@ function AddForm({handleSubmit}) {
                                 </Grid>
                                 <Grid item xs={4}>
                                     <FastField
-                                        name="WEIGHT"
-                                        id="WEIGHT"
+                                        name="patient.weight"
+                                        id="patient.weight"
                                         component={Input}
                                         label="Cân nặng"
                                         icon="kg"
@@ -280,8 +285,8 @@ function AddForm({handleSubmit}) {
                                 </Grid>
                                 <Grid item xs={4}>
                                     <FastField
-                                        name="PATIENT_TYPE"
-                                        id="PATIENT_TYPE"
+                                        name="invoice.type"
+                                        id="invoice.type"
                                         component={Select}
                                         label="Loại"
                                         items={cardType}
@@ -335,8 +340,8 @@ function AddForm({handleSubmit}) {
                                     <>
                                         <Grid item xs={4}>
                                             <Field
-                                                name="ADDRESS.province"
-                                                id="ADDRESS.province"
+                                                name="patient.address.province"
+                                                id="patient.address.province"
                                                 component={
                                                     Select
                                                 }
@@ -352,8 +357,8 @@ function AddForm({handleSubmit}) {
                                         </Grid>
                                         <Grid item xs={4}>
                                             <Field
-                                                name="ADDRESS.district"
-                                                id="ADDRESS.district"
+                                                name="patient.address.district"
+                                                id="patient.address.district"
                                                 component={
                                                     Select
                                                 }
@@ -369,8 +374,8 @@ function AddForm({handleSubmit}) {
                                         </Grid>
                                         <Grid item xs={4}>
                                             <Field
-                                                name="ADDRESS.ward"
-                                                id="ADDRESS.ward"
+                                                name="patient.address.ward"
+                                                id="patient.address.ward"
                                                 component={
                                                     Select
                                                 }
@@ -386,8 +391,8 @@ function AddForm({handleSubmit}) {
                                         </Grid>
                                         <Grid item xs={12}>
                                             <FastField
-                                                name="ADDRESS.detail"
-                                                id="ADDRESS.detail"
+                                                name="patient.address.details"
+                                                id="patient.address.details"
                                                 component={
                                                     TextArea
                                                 }
@@ -405,6 +410,10 @@ function AddForm({handleSubmit}) {
                                             fullWidth
                                             size="small"
                                             value={
+                                                (selectedPatient.ward
+                                                    ? selectedPatient.ward +
+                                                      ' - '
+                                                    : '') +
                                                 selectedPatient.district +
                                                 ' - ' +
                                                 selectedPatient.province
@@ -419,8 +428,8 @@ function AddForm({handleSubmit}) {
                                 )}
                                 <Grid item xs={12}>
                                     <FastField
-                                        name="NOTE"
-                                        id="NOTE"
+                                        name="note"
+                                        id="note"
                                         component={TextArea}
                                         label="Ghi chú"
                                         rows={3}
@@ -448,7 +457,8 @@ function AddForm({handleSubmit}) {
                                         open={open}
                                         selectedServiceId={
                                             form.values
-                                                ?.SERVICES
+                                                ?.invoice
+                                                ?.services
                                         }
                                         serviceData={
                                             services
@@ -465,7 +475,8 @@ function AddForm({handleSubmit}) {
                                     <SelectedServiceTable
                                         selectedServiceId={
                                             form.values
-                                                ?.SERVICES
+                                                ?.invoice
+                                                ?.services
                                         }
                                         serviceData={
                                             services
@@ -508,6 +519,7 @@ function AddForm({handleSubmit}) {
                                         onClick={
                                             handleReset
                                         }
+                                        type="reset"
                                         variant="outlined"
                                         color="error"
                                         sx={{

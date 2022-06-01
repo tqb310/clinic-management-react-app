@@ -1,21 +1,25 @@
 const initialValue = {
-    PATIENT_NAME: '',
-    PATIENT_PHONE: '',
-    PATIENT_TYPE: 0,
-    DATE_OF_BIRTH: null,
-    PATIENT_GENDER: 0,
-    OCCUPATION: '',
-    IDENTITY_NUMBER: '',
-    ADDRESS: {
-        province: '',
-        district: '',
-        ward: '',
-        detail: '',
+    patient: {
+        patient_name: '',
+        phone: '',
+        dob: null,
+        gender: 0,
+        occupation: '',
+        identity_number: '',
+        address: {
+            province: '',
+            district: '',
+            ward: '',
+            details: '',
+        },
+        note: '',
+        height: '',
+        weight: '',
     },
-    NOTE: '',
-    SERVICES: [1],
-    HEIGHT: '',
-    WEIGHT: '',
+    invoice: {
+        services: [1],
+        type: 0,
+    },
 };
 
 export default initialValue;

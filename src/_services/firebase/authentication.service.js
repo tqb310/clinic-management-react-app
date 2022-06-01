@@ -4,7 +4,6 @@ import {
 } from 'firebase/auth';
 import {doc, getDoc} from 'firebase/firestore';
 import {auth, db} from './app';
-
 // const userRef = collection(db, 'users');
 
 const authentication = {

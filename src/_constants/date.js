@@ -39,17 +39,21 @@ export const hourSelect = [
 
 export const minuteSelect = [
     {id: 1, key: '00', value: '00'},
-    {id: 2, key: '15', value: '15'},
-    {id: 3, key: '30', value: '30'},
-    {id: 4, key: '45', value: '45'},
+    {id: 2, key: '10', value: '10'},
+    {id: 3, key: '20', value: '20'},
+    {id: 4, key: '30', value: '30'},
+    {id: 5, key: '40', value: '40'},
+    {id: 6, key: '50', value: '50'},
 ];
 
 export const handleMinute = minute => {
     const minuteNumber = parseInt(minute);
-    if (minuteNumber < 15) return '00';
-    if (minuteNumber < 30) return '15';
-    if (minuteNumber < 45) return '30';
-    if (minuteNumber < 60) return '45';
+    if (minuteNumber < 10) return '00';
+    if (minuteNumber < 20) return '10';
+    if (minuteNumber < 30) return '20';
+    if (minuteNumber < 40) return '30';
+    if (minuteNumber < 50) return '40';
+    if (minuteNumber < 60) return '50';
     return '00';
 };
 export const dayLength = 86400000;

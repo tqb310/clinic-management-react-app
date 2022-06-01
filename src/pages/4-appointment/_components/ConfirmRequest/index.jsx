@@ -1,5 +1,4 @@
 import React, {useState} from 'react';
-// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     Dialog,
     DialogActions,
@@ -32,13 +31,9 @@ import {
 } from '@mui/icons-material';
 import {gender, cardType} from '_constants/general';
 import {useLocation} from '_contexts/LocationContext';
-import getInitialDataFormat from '_helpers/getInitialDataFormat';
-import {formatDate} from '_helpers/handleDate';
-import {
-    hourSelect,
-    minuteSelect,
-    handleMinute,
-} from '_constants/date';
+import {getInitialAppointmentDataFormat} from '_helpers/getInitialDataFormat';
+import {hourSelect, minuteSelect} from '_constants/date';
+// import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import handlePriceFormat from "_helpers/handlePriceFormat.js";
 // import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -88,13 +83,9 @@ function ConfirmRequest({
             <Formik
                 enableReinitialize
                 initialValues={{
-                    ...getInitialDataFormat(data),
-                    DATE: formatDate(data?.date),
-                    HOUR: data?.time.split(':')[0],
-                    MINUTE: handleMinute(
-                        data?.time.split(':')[1],
+                    ...getInitialAppointmentDataFormat(
+                        data,
                     ),
-                    STATUS: data?.status,
                 }}
                 onSubmit={handleSubmit}
                 onChange={() => {
@@ -123,8 +114,8 @@ function ConfirmRequest({
                                 >
                                     <Grid item xs={5}>
                                         <FastField
-                                            name="PATIENT_NAME"
-                                            id="PATIENT_NAME"
+                                            name="patient.patient_name"
+                                            id="patient.patient_name"
                                             component={
                                                 Input
                                             }
@@ -135,8 +126,8 @@ function ConfirmRequest({
                                     </Grid>
                                     <Grid item xs={4}>
                                         <FastField
-                                            name="PATIENT_PHONE"
-                                            id="PATIENT_PHONE"
+                                            name="patient.phone"
+                                            id="patient.phone"
                                             component={
                                                 Input
                                             }
@@ -150,8 +141,8 @@ function ConfirmRequest({
                                     </Grid>
                                     <Grid item xs={3}>
                                         <FastField
-                                            name="IDENTITY_NUMBER"
-                                            id="IDENTITY_NUMBER"
+                                            name="patient.identity_number"
+                                            id="patient.identity_number"
                                             component={
                                                 Input
                                             }
@@ -164,8 +155,8 @@ function ConfirmRequest({
                                     </Grid>
                                     <Grid item xs={5}>
                                         <FastField
-                                            name="OCCUPATION"
-                                            id="OCCUPATION"
+                                            name="patient.occupation"
+                                            id="patient.occupation"
                                             component={
                                                 Input
                                             }
@@ -176,8 +167,8 @@ function ConfirmRequest({
                                     </Grid>
                                     <Grid item xs={4}>
                                         <FastField
-                                            name="DATE_OF_BIRTH"
-                                            id="DATE_OF_BIRTH"
+                                            name="patient.dob"
+                                            id="patient.dob"
                                             component={
                                                 DatePickerField
                                             }
@@ -187,8 +178,8 @@ function ConfirmRequest({
                                     </Grid>
                                     <Grid item xs={3}>
                                         <FastField
-                                            name="PATIENT_GENDER"
-                                            id="PATIENT_GENDER"
+                                            name="patient.gender"
+                                            id="patient.gender"
                                             component={
                                                 Select
                                             }
@@ -199,8 +190,8 @@ function ConfirmRequest({
                                     </Grid>
                                     <Grid item xs={4}>
                                         <FastField
-                                            name="HEIGHT"
-                                            id="HEIGHT"
+                                            name="patient.height"
+                                            id="patient.height"
                                             component={
                                                 Input
                                             }
@@ -211,8 +202,8 @@ function ConfirmRequest({
                                     </Grid>
                                     <Grid item xs={4}>
                                         <FastField
-                                            name="WEIGHT"
-                                            id="WEIGHT"
+                                            name="patient.weight"
+                                            id="patient.weight"
                                             component={
                                                 Input
                                             }
@@ -223,8 +214,8 @@ function ConfirmRequest({
                                     </Grid>
                                     <Grid item xs={4}>
                                         <FastField
-                                            name="PATIENT_TYPE"
-                                            id="PATIENT_TYPE"
+                                            name="appointment.type"
+                                            id="appointment.type"
                                             component={
                                                 Select
                                             }
@@ -235,8 +226,8 @@ function ConfirmRequest({
                                     </Grid>
                                     <Grid item xs={4}>
                                         <FastField
-                                            name="DATE"
-                                            id="DATE"
+                                            name="appointment.date"
+                                            id="appointment.date"
                                             component={
                                                 DatePickerField
                                             }
@@ -246,8 +237,8 @@ function ConfirmRequest({
                                     </Grid>
                                     <Grid item xs={4}>
                                         <FastField
-                                            name="HOUR"
-                                            id="HOUR"
+                                            name="appointment.hour"
+                                            id="appointment.hour"
                                             component={
                                                 Select
                                             }
@@ -260,8 +251,8 @@ function ConfirmRequest({
                                     </Grid>
                                     <Grid item xs={4}>
                                         <FastField
-                                            name="MINUTE"
-                                            id="MINUTE"
+                                            name="appointment.minute"
+                                            id="appointment.minute"
                                             component={
                                                 Select
                                             }
@@ -269,17 +260,6 @@ function ConfirmRequest({
                                             items={
                                                 minuteSelect
                                             }
-                                            required
-                                        />
-                                    </Grid>
-                                    <Grid item xs={4}>
-                                        <FastField
-                                            name="STATUS"
-                                            id="STATUS"
-                                            component={
-                                                Input
-                                            }
-                                            label="Trạng thái"
                                             required
                                         />
                                     </Grid>
@@ -300,7 +280,6 @@ function ConfirmRequest({
                                             >
                                                 Địa chỉ
                                             </Typography>
-
                                             <FormControlLabel
                                                 sx={{
                                                     mr: 0,
@@ -332,8 +311,8 @@ function ConfirmRequest({
                                                 xs={4}
                                             >
                                                 <Field
-                                                    name="ADDRESS.province"
-                                                    id="ADDRESS.province"
+                                                    name="patient.address.province"
+                                                    id="patient.address.province"
                                                     component={
                                                         Select
                                                     }
@@ -352,8 +331,8 @@ function ConfirmRequest({
                                                 xs={4}
                                             >
                                                 <Field
-                                                    name="ADDRESS.district"
-                                                    id="ADDRESS.district"
+                                                    name="patient.address.district"
+                                                    id="patient.address.district"
                                                     component={
                                                         Select
                                                     }
@@ -372,8 +351,8 @@ function ConfirmRequest({
                                                 xs={4}
                                             >
                                                 <Field
-                                                    name="ADDRESS.ward"
-                                                    id="ADDRESS.ward"
+                                                    name="patient.address.ward"
+                                                    id="patient.address.ward"
                                                     component={
                                                         Select
                                                     }
@@ -392,8 +371,8 @@ function ConfirmRequest({
                                                 xs={12}
                                             >
                                                 <FastField
-                                                    name="ADDRESS.detail"
-                                                    id="ADDRESS.detail"
+                                                    name="patient.address.details"
+                                                    id="patient.address.details"
                                                     component={
                                                         TextArea
                                                     }
@@ -415,6 +394,10 @@ function ConfirmRequest({
                                                 fullWidth
                                                 size="small"
                                                 value={
+                                                    (data.ward
+                                                        ? data.ward +
+                                                          ' - '
+                                                        : '') +
                                                     data.district +
                                                     ' - ' +
                                                     data.province
@@ -429,8 +412,8 @@ function ConfirmRequest({
                                     )}
                                     <Grid item xs={12}>
                                         <FastField
-                                            name="NOTE"
-                                            id="NOTE"
+                                            name="patient.note"
+                                            id="patient.note"
                                             component={
                                                 TextArea
                                             }

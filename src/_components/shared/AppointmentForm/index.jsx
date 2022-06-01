@@ -1,24 +1,14 @@
 import React, {useState} from 'react';
 import {Formik, Form} from 'formik';
 import {
-    Dialog,
-    DialogTitle,
-    DialogContent,
     Button,
     Stepper,
     Step,
     StepLabel,
-    IconButton,
 } from '@mui/material';
-// import { Date } from "_components/shared/FormikField/DateTime";
-import {
-    district,
-    province,
-    ward,
-} from '_constants/FakeData/Select';
-import {Close} from '@mui/icons-material';
-import General from './General';
-import DateTimeChoice from './DateTime';
+// import {Date} from '_components/shared/FormikField/DateTime';
+import General from './_components/General';
+import DateTimeChoice from './_components/DateTime';
 import './index.scss';
 
 function FormikStep({children}) {
@@ -147,104 +137,47 @@ function FormikStepper({children, onSubmit, ...rest}) {
     );
 }
 
-function AppointmentForm({
-    open,
-    handleClose,
-    handleSubmit,
-}) {
+function AppointmentForm({handleSubmit}) {
     // const [oldCustomer, setOldCustomer] = useState(false);
-    const handleSubmitForm = value => {
-        const p = province.find(
-            item =>
-                item.value ==
-                value.patient.address.province,
-        ).key;
-        const d = district.find(
-            item =>
-                item.value ==
-                value.patient.address.district,
-        ).key;
-        const w = ward.find(
-            item =>
-                item.value == value.patient.address.ward,
-        ).key;
-        const det = value.patient.address.details;
-        const handledValue = {
-            ...value,
-            patient: {
-                ...value.patient,
-                ADDRESS: `${
-                    det ? det + ', ' : ''
-                }${w}, ${d}, ${p}`,
-            },
-        };
-        handleSubmit(handledValue);
+    const handleSubmitForm = async (values, actions) => {
+        await handleSubmit(values, actions);
     };
+
     return (
-        <Dialog
-            modal={true}
-            open={open}
-            onClose={handleClose}
+        <FormikStepper
+            initialValues={{
+                patient: {
+                    patient_name: '',
+                    phone: '',
+                    gender: '',
+                    dob: null,
+                    occupation: '',
+                    identity_number: '',
+                    note: '',
+                    height: '',
+                    weight: '',
+                    type: '',
+                    address: {
+                        province: '',
+                        district: '',
+                        ward: '',
+                        details: '',
+                    },
+                },
+                appointment: {
+                    date: '',
+                    time: '',
+                },
+            }}
+            onSubmit={handleSubmitForm}
         >
-            <DialogTitle
-                sx={{
-                    position: 'relative',
-                    padding: '.8rem 1.5rem .8rem 1.5rem',
-                    fontSize: '15px',
-                    fontWeight: 600,
-                }}
-            >
-                Tạo cuộc hẹn
-                <IconButton
-                    sx={{
-                        position: 'absolute',
-                        top: 3,
-                        right: 15,
-                    }}
-                    onClick={handleClose}
-                >
-                    <Close />
-                </IconButton>
-            </DialogTitle>
-            <DialogContent
-                dividers
-                sx={{boxSizing: 'border-box', width: 600}}
-            >
-                <FormikStepper
-                    initialValues={{
-                        patient: {
-                            patient_name: '',
-                            phone: '',
-                            gender: '',
-                            date_of_birth: null,
-                            occupation: '',
-                            identity_number: '',
-                            note: '',
-                            address: {
-                                province: '',
-                                district: '',
-                                ward: '',
-                                details: '',
-                            },
-                        },
-                        appointment: {
-                            time: {
-                                date: null,
-                                time: '',
-                            },
-                        },
-                    }}
-                    onSubmit={handleSubmitForm}
-                >
-                    <FormikStep label="Điền thông tin bệnh nhân">
-                        <General />
-                    </FormikStep>
-                    <FormikStep label="Chọn ngày và giờ">
-                        <DateTimeChoice />
-                    </FormikStep>
-                </FormikStepper>
-            </DialogContent>
-        </Dialog>
+            <FormikStep label="Điền thông tin bệnh nhân">
+                <General />
+            </FormikStep>
+            <FormikStep label="Chọn ngày và giờ">
+                <DateTimeChoice />
+            </FormikStep>
+        </FormikStepper>
     );
 }
 

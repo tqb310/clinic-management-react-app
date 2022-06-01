@@ -29,7 +29,7 @@ function DateTimeChoice(props) {
             <div className="col-1-7">
                 <FastField
                     id="date"
-                    name="appointment.time.date"
+                    name="appointment.date"
                     component={DatePickerField}
                     label="Ngày hẹn khám"
                     required
@@ -58,7 +58,7 @@ function DateTimeChoice(props) {
                         >
                             <FastField
                                 id="time"
-                                name="appointment.time.time"
+                                name="appointment.time"
                             >
                                 {({form, field}) => {
                                     return (

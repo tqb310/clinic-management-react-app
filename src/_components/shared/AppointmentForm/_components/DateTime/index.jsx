@@ -43,22 +43,32 @@ function TimelineItemComp({h, hour}) {
                     <CustomRadio
                         id={h + ':00'}
                         value={h + ':00'}
-                        label="00 - 15"
+                        label="00 - 10"
                     />
                     <CustomRadio
-                        id={h + ':15'}
-                        value={h + ':15'}
-                        label="15 - 30"
+                        id={h + ':10'}
+                        value={h + ':10'}
+                        label="10 - 20"
+                    />
+                    <CustomRadio
+                        id={h + ':20'}
+                        value={h + ':20'}
+                        label="20 - 30"
                     />
                     <CustomRadio
                         id={h + ':30'}
                         value={h + ':30'}
-                        label="30 - 45"
+                        label="30 - 40"
                     />
                     <CustomRadio
-                        id={h + ':45'}
-                        value={h + ':45'}
-                        label="45 - 00"
+                        id={h + ':40'}
+                        value={h + ':40'}
+                        label="40 - 50"
+                    />
+                    <CustomRadio
+                        id={h + ':50'}
+                        value={h + ':50'}
+                        label="50 - 00"
                     />
                 </TimelineOppositeContent>
             )}
@@ -110,11 +120,12 @@ function DateTimeChoice(props) {
             <div className="col-4-10">
                 <FastField
                     id="date"
-                    name="appointment.time.date"
+                    name="appointment.date"
                     component={DatePickerField}
                     label="Ngày hẹn khám"
                     required
                     fullWidth
+                    minDate={new Date()}
                 />
             </div>
             <div className="col-1-13">
@@ -127,7 +138,7 @@ function DateTimeChoice(props) {
                         >
                             <FastField
                                 id="time"
-                                name="appointment.time.time"
+                                name="appointment.time"
                             >
                                 {({form, field}) => {
                                     return (

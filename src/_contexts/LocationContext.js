@@ -3,9 +3,9 @@ import React, {
     useReducer,
     useContext,
 } from 'react';
-import ProvinceJson from '_data/tinh_tp.json';
-import DistrictJson from '_data/quan_huyen.json';
-import WardJson from '_data/require.context';
+import ProvinceJson from '_location-data/tinh_tp.json';
+import DistrictJson from '_location-data/quan_huyen.json';
+import WardJson from '_location-data/require.context';
 
 export const LocationContext = createContext();
 
@@ -26,7 +26,12 @@ export function getLocationName(level, code) {
                 district => district.code === code,
             ).name;
         case 'ward':
-            return Object.values(WardJson)[code].name;
+            let name = '';
+            Object.values(WardJson).forEach(district => {
+                if (district[code])
+                    name = district[code].name;
+            });
+            return name;
         default:
             return;
     }
@@ -94,15 +99,24 @@ function LocationProvider({children}) {
     );
     const {provinces, districts, wards} = state;
     const onChange = e => {
-        switch (e.target.name) {
-            case 'ADDRESS.province':
-                dispatch(updateDistrict(e.target.value));
-                break;
-            case 'ADDRESS.district':
-                dispatch(updateWard(e.target.value));
-                break;
-            default:
-                break;
+        //switch (e.target.name) {
+        // case 'ADDRESS.province':
+        //     dispatch(updateDistrict(e.target.value));
+        //     break;
+        // case 'ADDRESS.district':
+        //     dispatch(updateWard(e.target.value));
+        //     break;
+        // default:
+        //     break;
+        //}
+        if (e.target?.name?.indexOf('province') !== -1) {
+            dispatch(updateDistrict(e.target.value));
+        } else if (
+            e.target?.name?.indexOf('district') !== -1
+        ) {
+            dispatch(updateWard(e.target.value));
+        } else {
+            return;
         }
     };
     return (

@@ -6,6 +6,7 @@ import {
     setDoc,
     query,
     where,
+    addDoc,
 } from 'firebase/firestore';
 import patientService from './patient.service';
 import {db} from './app';
@@ -95,6 +96,7 @@ const appointmentServices = {
                     id: doc.id,
                 });
             });
+            console.log(date);
             const results = appointments.map(
                 async (appointment, index) => {
                     if (patients && patients.length) {
@@ -122,6 +124,41 @@ const appointmentServices = {
                 },
             );
             return Promise.all(results);
+        } catch (error) {
+            throw error;
+        }
+    },
+    /**
+     * @async
+     * @param {*} aid
+     * @param {*} pid
+     * @param {*} data
+     * @returns
+     */
+    async addAppointment(data) {
+        try {
+            const patientList =
+                await patientService.getDocsAll();
+            const selectedPatient = patientList.find(
+                patient =>
+                    patient.phone === data.patient.phone,
+            );
+            if (!selectedPatient) {
+                let patientSnap =
+                    await patientService.addPatient(
+                        data.patient,
+                    );
+                data.appointment.patient_id =
+                    patientSnap.id;
+            } else {
+                data.appointment.patient_id =
+                    selectedPatient.id;
+            }
+            const appointmentRes = await addDoc(
+                appointmentRef,
+                data.appointment,
+            );
+            return appointmentRes;
         } catch (error) {
             throw error;
         }

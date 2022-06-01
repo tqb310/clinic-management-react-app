@@ -7,8 +7,7 @@ import {
     InputBase,
 } from '@mui/material';
 import {CustomPaper} from '_components/shared/StyledComponent';
-import {formatDate} from '_helpers/handleDate';
-import Form from '../AppointmentForm';
+import AddAppointmentForm from '../AddAppointmentForm';
 import NoResultDate from './_assets/no-date-result.png';
 import Calendar from './_components/Calendar';
 import TableContent from './_components/TableContent';
@@ -20,53 +19,41 @@ import {
 import LocationProvider from '_contexts/LocationContext';
 import appointmentService from '_services/firebase/appointment.service';
 import ConfirmRequest from '../ConfirmRequest';
+import {appointmentModel, patientModel} from '_models';
 import './index.scss';
 
 function AppointmentTable({data = {}}) {
     const dispatch = useDispatch();
-    const handleCreateSubmit = value => {
-        console.log(value);
+
+    const handleCreateSubmit = async (values, actions) => {
+        try {
+            const payload = {
+                patient: patientModel(values.patient),
+                appointment: appointmentModel(
+                    values.appointment,
+                ),
+            };
+            console.log(payload);
+            await appointmentService.addAppointment(
+                payload,
+            );
+            handleClose();
+        } catch (error) {
+            console.log(error);
+        }
     };
+
     const handleUpdateSubmit = async value => {
-        const {
-            PATIENT_NAME,
-            PATIENT_PHONE,
-            HEIGHT,
-            WEIGHT,
-            DATE_OF_BIRTH,
-            IDENTITY_NUMBER,
-            OCCUPATION,
-            PATIENT_GENDER,
-            DATE,
-            HOUR,
-            MINUTE,
-            NOTE,
-            PATIENT_TYPE,
-            STATUS,
-        } = value;
-        const tempName = PATIENT_NAME.split(' ');
         const payload = {
-            patient: {
-                first_name: tempName[tempName.length - 1],
-                last_name: tempName
-                    .slice(0, tempName.length - 1)
-                    .join(' '),
-                phone: PATIENT_PHONE,
-                height: HEIGHT,
-                weight: WEIGHT,
-                dob: formatDate(DATE_OF_BIRTH, '', 'm/d/y'),
-                identity_number: IDENTITY_NUMBER,
-                occupation: OCCUPATION,
-                gender: PATIENT_GENDER,
-            },
-            appointment: {
-                date: formatDate(DATE, '', 'm/d/y'),
-                time: HOUR + ':' + MINUTE,
-                note: NOTE || '',
-                type: PATIENT_TYPE,
-                status: STATUS,
-            },
+            patient: patientModel(value.patient),
+            appointment: appointmentModel(
+                value.appointment,
+            ),
         };
+        //Overriding status property "status"
+        payload.appointment.status =
+            data.selectedAppointment.status;
+
         try {
             await appointmentService.update(
                 data.selectedAppointment.id.toString(),
@@ -111,7 +98,8 @@ function AppointmentTable({data = {}}) {
                 >
                     Tạo
                 </Button>
-                <Form
+                <AddAppointmentForm
+                    title="Tạo lịch hẹn"
                     open={data.isOpenForm}
                     handleClose={handleClose}
                     handleSubmit={handleCreateSubmit}

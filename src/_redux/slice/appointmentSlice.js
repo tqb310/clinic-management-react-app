@@ -45,7 +45,12 @@ export const setDataByDateAsync = createAsyncThunk(
             ),
             patients,
         );
-        return data;
+        return data.sort((item1, item2) =>
+            getDateTimeComparator(
+                formatDate(item1.date, item1.time),
+                formatDate(item2.date, item2.time),
+            ),
+        );
     },
 );
 
@@ -74,8 +79,8 @@ const appointmentSlice = createSlice({
                 tempData &&
                 tempData.sort((item1, item2) =>
                     getDateTimeComparator(
-                        formatDate(item1.date),
-                        formatDate(item2.date),
+                        formatDate(item1.date, item1.time),
+                        formatDate(item2.date, item2.time),
                     ),
                 );
         },
@@ -127,5 +132,6 @@ export const {
     setOpenForm,
     openAppointmentDetail,
     setSelectedAppointment,
+    setSelectedPatient,
 } = actions;
 export default reducer;

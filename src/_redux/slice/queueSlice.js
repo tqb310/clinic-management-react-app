@@ -22,6 +22,7 @@ const initialState = {
         waiting: 0,
         missed: 0,
     },
+    error: '',
 };
 
 export const setDataAsync = createAsyncThunk(
@@ -111,6 +112,13 @@ const queueSlice = createSlice({
             state.data = action.payload;
             state.isLoading = false;
         },
+        [setDataByStatusAsync.rejected]: (
+            state,
+            action,
+        ) => {
+            state.isLoading = false;
+            state.error = action.error;
+        },
         [setNumberEachStatusAsync.pending]: state => {
             state.isLoading = true;
         },
@@ -120,6 +128,13 @@ const queueSlice = createSlice({
         ) => {
             state.numberEachStatus = action.payload;
             state.isLoading = false;
+        },
+        [setNumberEachStatusAsync.rejected]: (
+            state,
+            action,
+        ) => {
+            state.isLoading = false;
+            state.error = action.error;
         },
         [setPatientHint.fulfilled]: (state, action) => {
             state.patientHint =

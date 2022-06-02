@@ -61,18 +61,6 @@ function RequestItem({
             </div>
             <div className="appointment-demand__item-actions">
                 <Button
-                    color="error"
-                    sx={{
-                        textTransform: 'capitalize',
-                        borderRadius: '20px',
-                        mr: 8,
-                        minWidth: '100px',
-                    }}
-                >
-                    Hủy
-                </Button>
-                <Button
-                    // color="info"
                     variant="outlined"
                     sx={{
                         textTransform: 'capitalize',
@@ -81,6 +69,17 @@ function RequestItem({
                     }}
                 >
                     Chi tiết
+                </Button>
+                <Button
+                    color="error"
+                    variant="contained"
+                    sx={{
+                        textTransform: 'capitalize',
+                        borderRadius: '20px',
+                        minWidth: '100px',
+                    }}
+                >
+                    Hủy
                 </Button>
             </div>
         </div>

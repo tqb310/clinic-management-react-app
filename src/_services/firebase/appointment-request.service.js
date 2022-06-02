@@ -3,6 +3,7 @@ import {
     getDoc,
     collection,
     getDocs,
+    addDoc,
 } from 'firebase/firestore';
 import {db} from './app';
 
@@ -40,6 +41,16 @@ const appointmentRequestServices = {
             const docRef = doc(appointmentRequestRef, id);
             const result = await getDoc(docRef);
             return {...result.data(), id: result.id};
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    async addAppointmentRequest(data) {
+        try {
+            await addDoc(appointmentRequestRef, {
+                ...data,
+            });
         } catch (error) {
             throw error;
         }

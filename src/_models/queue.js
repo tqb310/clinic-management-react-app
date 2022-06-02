@@ -1,6 +1,6 @@
 import {formatDate} from '_helpers/handleDate';
 
-export default function getPatientModel(values) {
+export default function getQueueModel(values) {
     return {
         date: formatDate(
             new Date().toLocaleDateString(),

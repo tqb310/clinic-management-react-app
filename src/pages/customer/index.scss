@@ -1,6 +1,5 @@
-@import "_assets/style/_mixins.scss";
+@import '_assets/style/_mixins.scss';
 
-.AppointmentForm__actions {
-  display: flex;
-  justify-content: flex-end;
+.appointment-request {
+    margin: 20px 30% 0;
 }

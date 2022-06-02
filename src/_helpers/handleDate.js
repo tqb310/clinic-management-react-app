@@ -80,34 +80,46 @@ export const toNewDate = (date, monthInc) => {
 
 export const getCreatedTime = (time1, time2) => {
     if (!time1 || !time2) return;
+
     let result = {
-            text: '',
-            ms: 0,
-            difference: 0,
+        ms: 0,
+        difference: 0,
+        unit: ' giây',
+        toString: function () {
+            return (
+                Math.floor(this.difference) +
+                this.unit +
+                ' trước'
+            );
         },
-        unit = ' giây';
+    };
 
     const difference = time2.getTime() - time1.getTime();
     result.ms = difference;
     result.difference = difference / 1000;
+
     if (result.difference >= 60) {
         result.difference /= 60;
-        unit = ' phút';
+        result.unit = ' phút';
+    } else {
+        return result;
     }
     if (result.difference >= 60) {
         result.difference /= 60;
-        unit = ' giờ';
+        result.unit = ' giờ';
+    } else {
+        return result;
     }
     if (result.difference >= 24) {
         result.difference /= 24;
-        unit = ' ngày';
+        result.unit = ' ngày';
+    } else {
+        return result;
     }
     if (result.difference >= 30) {
         result.difference /= 30;
-        unit = ' tháng';
+        result.unit = ' tháng';
     }
-    result.text =
-        Math.floor(result.difference) + unit + ' trước';
 
     return result;
 };

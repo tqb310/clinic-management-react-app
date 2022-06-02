@@ -38,7 +38,6 @@ function Dashboard(props) {
     const firestoreRealtime = useFirestoreRealtime({
         collectionName: 'appointments',
         eventHandler: () => {
-            console.log('realtime db');
             dispatch(setDataByDateAsync());
         },
     });

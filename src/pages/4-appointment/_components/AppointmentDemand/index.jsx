@@ -10,6 +10,9 @@ import {
 } from '_helpers/handleDate';
 import {dayLength} from '_constants/date';
 import PaperImage from '_assets/images/paper.png';
+import {useFirestoreRealtime} from '_hooks';
+import ConfirmRequest from '../ConfirmRequest';
+import LocationProvider from '_contexts/LocationContext';
 // import ConfirmRequest from '../ConfirmRequest';
 import './index.scss';
 
@@ -18,6 +21,7 @@ const tabsName = [
         id: 0,
         title: 'Mới',
         status: 0,
+        min: 0,
         thresholdTime: dayLength,
         tag: 'Lastest',
     },
@@ -25,6 +29,7 @@ const tabsName = [
         id: 1,
         title: 'Vừa duyệt',
         status: 1,
+        min: 0,
         thresholdTime: dayLength,
         tag: 'JustApproved',
     },
@@ -32,16 +37,11 @@ const tabsName = [
         id: 2,
         title: 'Chưa duyệt',
         status: 0,
+        min: dayLength,
         thresholdTime: Number.POSITIVE_INFINITY,
         tag: 'NotApproved',
     },
 ];
-
-const numberOfRequestList = {
-    Lastest: 0,
-    JustApproved: 0,
-    NotApproved: 0,
-};
 
 function AppointmentDemand() {
     // const [data, setData] = useState([]);
@@ -53,34 +53,49 @@ function AppointmentDemand() {
 
     const [tabIndex, setTabIndex] = useState(0);
     const [requestList, setRequestList] = useState([]);
-    const [numberState, setNumberState] = useState(
-        numberOfRequestList,
-    );
+    const [numberState, setNumberState] = useState({});
 
     const requestState = useSelector(
         state => state.appointmentRequests,
     );
+
+    const firestoreRealtime = useFirestoreRealtime({
+        collectionName: 'appointment-requests',
+        eventHandler: () => {
+            dispatch(setDataAsync());
+        },
+    });
+
+    const handleSubmit = () => {};
+    const closeModal = () => {};
+
     useEffect(() => {
-        dispatch(setDataAsync());
+        // dispatch(setDataAsync());
+        const unsub = firestoreRealtime();
+        return unsub;
     }, []);
 
     useEffect(() => {
         //To compute the request list for each state
         const filteredRequestList =
-            requestState.data.filter(
-                item =>
+            requestState.data.filter(item => {
+                const difference = getCreatedTime(
+                    new Date(
+                        formatDate(
+                            item.create_at_date,
+                            item.create_at_time,
+                        ),
+                    ),
+                    new Date(),
+                ).ms;
+                return (
                     item.status ===
                         tabsName[tabIndex].status &&
-                    getCreatedTime(
-                        new Date(
-                            formatDate(
-                                item.create_at_date,
-                                item.create_at_time,
-                            ),
-                        ),
-                        new Date(),
-                    ).ms < tabsName[tabIndex].thresholdTime,
-            );
+                    difference <
+                        tabsName[tabIndex]?.thresholdTime &&
+                    difference > tabsName[tabIndex]?.min
+                );
+            });
         setRequestList(filteredRequestList);
     }, [requestState.data, tabIndex]);
 
@@ -109,7 +124,11 @@ function AppointmentDemand() {
 
                 return result;
             },
-            numberState,
+            {
+                Lastest: 0,
+                JustApproved: 0,
+                NotApproved: 0,
+            },
         );
         setNumberState(tempNumberState);
     }, [requestState.data]);
@@ -154,17 +173,15 @@ function AppointmentDemand() {
                                 item.first_name
                             }
                             phone={item.phone}
-                            timeStamp={
-                                getCreatedTime(
-                                    new Date(
-                                        formatDate(
-                                            item.create_at_date,
-                                            item.create_at_time,
-                                        ),
+                            timeStamp={getCreatedTime(
+                                new Date(
+                                    formatDate(
+                                        item.create_at_date,
+                                        item.create_at_time,
                                     ),
-                                    new Date(Date.now()),
-                                ).text
-                            }
+                                ),
+                                new Date(Date.now()),
+                            ).toString()}
                             gender={item.gender}
                             date={item.date}
                             time={item.time}
@@ -182,6 +199,17 @@ function AppointmentDemand() {
                     />
                 )}
             </Scrollbars>
+            <LocationProvider>
+                <ConfirmRequest
+                    title="Chi tiết lịch hẹn"
+                    open={
+                        requestState.isOpenAppointmentDetail
+                    }
+                    handleClose={closeModal}
+                    data={requestState.selectedRequest}
+                    handleSubmit={handleSubmit}
+                />
+            </LocationProvider>
         </div>
     );
 }

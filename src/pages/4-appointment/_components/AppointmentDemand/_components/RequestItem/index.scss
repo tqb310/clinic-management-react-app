@@ -35,4 +35,9 @@
     &-time {
         margin-left: 30px;
     }
+    &-actions {
+        display: flex;
+        justify-content: space-between;
+        padding: 0 2rem;
+    }
 }

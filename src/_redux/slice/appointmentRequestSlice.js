@@ -9,7 +9,8 @@ const initialState = {
     data: [],
     selected: [],
     isLoading: false,
-    selectedPatient: null,
+    selectedRequest: null,
+    err: '',
 };
 
 export const setDataAsync = createAsyncThunk(
@@ -35,8 +36,8 @@ const appointmentRequestSlice = createSlice({
             state.selected = [];
             state.data = action.payload;
         },
-        setSelectedPatient: (state, action) => {
-            state.selectedPatient = state.data.find(
+        setSelectedRequest: (state, action) => {
+            state.selectedRequest = state.data.find(
                 appointmentRequest =>
                     appointmentRequest.id ===
                     action.payload,
@@ -59,6 +60,6 @@ export const {
     deleteData,
     select,
     setData,
-    setSelectedPatient,
+    setSelectedRequest,
 } = actions;
 export default reducer;

@@ -82,7 +82,7 @@ function Queue(props) {
             throw error;
         }
     };
-    dispatch(setDataAsync());
+
     return (
         <>
             <CustomPaper className="queue-container">

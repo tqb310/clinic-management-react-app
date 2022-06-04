@@ -1,4 +1,4 @@
-import React, {useState, memo} from 'react';
+import React, {useState, memo, useEffect} from 'react';
 import {RightBar} from '_components/shared/StyledComponent';
 import {Button, Typography, Box} from '@mui/material';
 import {SwapVert, Alarm} from '@mui/icons-material';
@@ -8,14 +8,14 @@ import './index.scss';
 // import PropTypes from 'prop-types'
 
 const QueueItem = ({
-    avatar,
-    pname,
-    pnum,
-    cid,
-    state,
-    current = false,
-    start,
+    name,
+    gender,
+    dob,
+    date,
+    time,
+    numericalOrder,
     className = '',
+    status,
 }) => {
     return (
         <Box
@@ -29,19 +29,17 @@ const QueueItem = ({
                     textAlign: 'center',
                 }}
             >
-                # 26
+                # {numericalOrder}
             </Typography>
             <Box className="queue-list-doctor__item-info">
-                <Typography variant="h6">
-                    Truong Thi Lan
-                </Typography>
+                <Typography variant="h6">{name}</Typography>
                 <Typography color="#888" fontWeight={400}>
-                    Nữ <Dot />{' '}
+                    {gender ? 'Nam' : 'Nữ'} <Dot />{' '}
                     <Typography
                         component="span"
                         fontWeight={400}
                     >
-                        23/12/1999
+                        {dob}
                     </Typography>
                 </Typography>
                 <Typography color="#888" fontWeight={400}>
@@ -50,10 +48,10 @@ const QueueItem = ({
                         component="span"
                         fontWeight={400}
                     >
-                        7:45 <Dot /> 30/03/2022
+                        {time} <Dot /> {date}
                     </Typography>
                 </Typography>
-                {current && (
+                {status === 2 && (
                     <Box
                         sx={{
                             display: 'flex',
@@ -77,7 +75,7 @@ const QueueItem = ({
                                     verticalAlign: 'top',
                                 }}
                             >
-                                15:00
+                                10:00
                             </Typography>
                         </Typography>
                         <Button
@@ -96,20 +94,26 @@ const QueueItem = ({
     );
 };
 
-function RightBarContent({
-    queue,
-    continuous,
-    handleContinuous,
-    start,
-}) {
+function RightBarContent({queue, numberEachStatus}) {
     const [selected, setSelected] = useState(1);
-    // console.log(queue);
-    const createAvatar = name => {
-        return name
-            .split(' ')
-            .map(data => data[0])
-            .join('');
-    };
+    const [filterdQueue, setFilterdQueue] = useState([]);
+    const [activePatient, setActivePatient] =
+        useState(null);
+
+    useEffect(() => {
+        const tempQueue = queue.filter(
+            item => item.status === selected,
+        );
+        setFilterdQueue(tempQueue);
+    }, [selected, queue]);
+
+    useEffect(() => {
+        const temQueue = queue.find(
+            item => item.status === 2,
+        );
+        setActivePatient(temQueue);
+    }, [queue]);
+
     return (
         <RightBar className="RBDoctorHome" pt={2}>
             <Typography
@@ -119,17 +123,29 @@ function RightBarContent({
             >
                 Hàng đợi
             </Typography>
-            <QueueItem
-                avatar={createAvatar('Truong Bao')}
-                pname="Truong Quoc Bao"
-                cid={12345}
-                pnum={12345}
-                current
-                start={() => {}}
-            />
-
+            {activePatient ? (
+                <QueueItem
+                    name={activePatient.name}
+                    gender={activePatient.gender}
+                    dob={activePatient.dob}
+                    date={activePatient.date}
+                    time={activePatient.time}
+                    numericalOrder={
+                        activePatient.numericalOrder
+                    }
+                    className=""
+                    status={activePatient.status}
+                />
+            ) : (
+                <Typography
+                    variant="h6"
+                    fontWeight={700}
+                    gutterBottom
+                >
+                    Chưa có bệnh nhân
+                </Typography>
+            )}
             <Button
-                onClick={() => handleContinuous(true)}
                 variant="outlined"
                 startIcon={<SwapVert />}
                 sx={{my: 2}}
@@ -141,24 +157,45 @@ function RightBarContent({
                     className={`RBDoctorHome__queueTab-item
                         ${selected === 1 ? 'active' : ''}
                     `}
+                    onClick={setSelected.bind(null, 1)}
                 >
-                    Đang chờ <span>(20)</span>
+                    Đang chờ{' '}
+                    <span>
+                        ({numberEachStatus.waiting})
+                    </span>
                 </div>
                 <div
                     className={`RBDoctorHome__queueTab-item
-                    ${selected === 2 ? 'active' : ''}
-                `}
+                    ${selected === 0 ? 'active' : ''}
+                    `}
+                    onClick={setSelected.bind(null, 0)}
                 >
-                    Qua lượt <span>(20)</span>
+                    Qua lượt{' '}
+                    <span>({numberEachStatus.missed})</span>
                 </div>
             </div>
             <div className="RBDoctorHome__queueList">
-                <QueueItem
-                    avatar={createAvatar('Truong Bao')}
-                    pname="Truong Yen Lan"
-                    cid={1234}
-                    pnum={12}
-                />
+                {filterdQueue &&
+                    filterdQueue.length > 0 &&
+                    filterdQueue.map(item => (
+                        <QueueItem
+                            key={item.id}
+                            name={
+                                item.last_name +
+                                ' ' +
+                                item.first_name
+                            }
+                            gender={
+                                item.gender ? 'Nam' : 'Nữ'
+                            }
+                            dob={item.dob}
+                            time={item.time}
+                            date={item.date}
+                            numericalOrder={
+                                item.numerical_order
+                            }
+                        />
+                    ))}
             </div>
         </RightBar>
     );

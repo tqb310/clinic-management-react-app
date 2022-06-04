@@ -7,7 +7,7 @@ import appointmentRequestServices from '_services/firebase/appointment-request.s
 
 const initialState = {
     data: [],
-    selected: [],
+    isOpenConfirmForm: false,
     isLoading: false,
     selectedRequest: null,
     err: '',
@@ -29,28 +29,34 @@ const appointmentRequestSlice = createSlice({
         setData: (state, action) => {
             state.data = action.payload;
         },
-        select: (state, action) => {
-            state.selected = action.payload;
-        },
         deleteData: (state, action) => {
             state.selected = [];
             state.data = action.payload;
         },
         setSelectedRequest: (state, action) => {
-            state.selectedRequest = state.data.find(
-                appointmentRequest =>
-                    appointmentRequest.id ===
-                    action.payload,
-            );
+            if (action.payload) {
+                state.isOpenConfirmForm = true;
+                state.selectedRequest = state.data.find(
+                    appointmentRequest =>
+                        appointmentRequest.id ===
+                        action.payload,
+                );
+            } else {
+                state.isOpenConfirmForm = false;
+            }
         },
     },
     extraReducers: {
-        [setDataAsync.isLoading]: state => {
+        [setDataAsync.pending]: state => {
             state.isLoading = true;
         },
         [setDataAsync.fulfilled]: (state, action) => {
             state.data = action.payload;
             state.isLoading = false;
+        },
+        [setDataAsync.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.error = action.error;
         },
     },
 });

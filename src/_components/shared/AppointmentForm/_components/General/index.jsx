@@ -117,8 +117,8 @@ function General() {
             </div>
             <div className="col-9-13">
                 <FastField
-                    name="patient.type"
-                    id="patient.type"
+                    name="appointment.type"
+                    id="appointment.type"
                     component={Select}
                     label="Loại"
                     items={cardType}

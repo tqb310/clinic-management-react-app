@@ -5,7 +5,7 @@ export default function getPatientModel(values) {
     const result = {};
 
     for (let key in values) {
-        if (!values[key]) continue;
+        if (!values[key] && values[key] !== 0) continue;
         if (key === 'patient_name') {
             /* */
             const tempName =

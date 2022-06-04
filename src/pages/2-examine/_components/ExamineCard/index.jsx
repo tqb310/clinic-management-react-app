@@ -5,18 +5,14 @@ import {
     CheckCircle,
 } from '@mui/icons-material';
 import {CustomPaper} from '_components/shared/StyledComponent';
-import PatientInfo from '../PatientInfo';
-import ServiceInfo from '../ServiceInfo';
-import ExaminingInfo from '../ExaminingInfo';
-import PrescriptionForm from './Prescription';
+import PatientInfo from './_components/PatientInfo';
+import ServiceInfo from './_components/ServiceInfo';
+import ExaminingInfo from './_components/ExaminingInfo';
+import PrescriptionForm from './_components/Prescription';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
-function ExamineCard({
-    data,
-    continuous,
-    handleSubmitFinal,
-}) {
+function ExamineCard({selectedCard, handleSubmit}) {
     // console.log(data);
     const [open, setOpen] = useState(false);
     // const [isValidForm, setValidForm] = useState(true);
@@ -48,8 +44,9 @@ function ExamineCard({
             ...examiningData,
             PRESCRIPTION: prescriptionData,
         };
-        handleSubmitFinal(result);
+        handleSubmit(result);
     };
+
     return (
         <CustomPaper className="DTExamineCard">
             <div className="DTExamineCard__header">
@@ -57,9 +54,9 @@ function ExamineCard({
                     Phiếu khám bệnh
                 </Typography>
                 <p>
-                    <span>
-                        #{data.diagnostic.DIAGNOSTIC_ID}
-                    </span>
+                    {selectedCard && (
+                        <span>#{selectedCard.id}</span>
+                    )}
                 </p>
             </div>
             <div className="DTExamineCard__cardInfo">
@@ -81,15 +78,27 @@ function ExamineCard({
             <div className="DTExamineCard__content">
                 <div className="DTExamineCard__patientInfo">
                     <PatientInfo
-                        data={data.diagnostic.PATIENT}
+                        first_name={
+                            selectedCard?.first_name
+                        }
+                        last_name={selectedCard?.last_name}
+                        dob={selectedCard?.dob}
+                        phone={selectedCard?.phone}
+                        identity_number={
+                            selectedCard?.identity_number
+                        }
+                        occupation={
+                            selectedCard?.occupation
+                        }
+                        ward={selectedCard?.ward}
+                        district={selectedCard?.district}
+                        province={selectedCard?.province}
+                        note={selectedCard?.note}
                     />
                 </div>
                 <div className="DTExamineCard__service">
                     <ServiceInfo
-                        data={
-                            data.diagnostic
-                                .SERVICE_ID_SERVICEs
-                        }
+                        data={selectedCard?.services}
                     />
                 </div>
                 <div className="DTExamineCard__examineInfo">

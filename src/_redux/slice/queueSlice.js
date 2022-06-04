@@ -3,6 +3,7 @@ import {
     createAsyncThunk,
 } from '@reduxjs/toolkit';
 import queueServices from '_services/firebase/queue.service';
+import invoiceServices from '_services/firebase/invoice.service';
 import getDateTimeComparator from '../../_helpers/getDateTimeComparator';
 import {formatDate} from '_helpers/handleDate';
 
@@ -22,6 +23,7 @@ const initialState = {
         waiting: 0,
         missed: 0,
     },
+    selectedCard: null,
     error: '',
 };
 
@@ -29,6 +31,14 @@ export const setDataAsync = createAsyncThunk(
     'queues/setDataAsync',
     async () => {
         const data = await queueServices.getDocsAll();
+        return data;
+    },
+);
+
+export const setCardDataAsync = createAsyncThunk(
+    'queues/setCardDataAsync',
+    async id => {
+        const data = await invoiceServices.getDocById(id);
         return data;
     },
 );
@@ -140,6 +150,17 @@ const queueSlice = createSlice({
             state.patientHint =
                 action.payload.filteredPatient;
             state.isOpenHint = action.payload.isOpenHint;
+        },
+        [setCardDataAsync.pending]: state => {
+            state.isLoading = true;
+        },
+        [setCardDataAsync.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.error = action.error;
+        },
+        [setCardDataAsync.fulfilled]: (state, action) => {
+            state.isLoading = false;
+            state.selectedCard = action.payload;
         },
     },
 });

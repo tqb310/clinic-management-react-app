@@ -10,12 +10,15 @@ import './index.scss';
 // import PropTypes from 'prop-types'
 
 function RequestItem({
+    id,
     patientName,
     phone,
     timeStamp,
     gender,
     date,
     time,
+    approvalAction,
+    cancelAction,
 }) {
     return (
         <div className="appointment-demand__item">
@@ -67,6 +70,7 @@ function RequestItem({
                         borderRadius: '20px',
                         minWidth: '100px',
                     }}
+                    onClick={approvalAction(id)}
                 >
                     Chi tiết
                 </Button>
@@ -78,6 +82,7 @@ function RequestItem({
                         borderRadius: '20px',
                         minWidth: '100px',
                     }}
+                    onClick={cancelAction(id)}
                 >
                     Hủy
                 </Button>

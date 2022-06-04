@@ -6,6 +6,7 @@ import {
     query,
     where,
     addDoc,
+    setDoc,
 } from 'firebase/firestore';
 import patientServices from './patient.service';
 import invoiceServices from './invoice.service';
@@ -30,6 +31,7 @@ const queueServices = {
             snapshot.forEach(async (doc, index) => {
                 queue.push({...doc.data(), id: doc.id});
             });
+
             const result = queue.map(async item => {
                 const {first_name, last_name, dob, gender} =
                     await patientServices.getDocById(
@@ -39,6 +41,7 @@ const queueServices = {
                     await invoiceServices.getDocById(
                         item.invoice_id,
                     );
+                console.log(invoiceData);
                 const {status, ...rest} = invoiceData;
                 return {
                     ...item,
@@ -86,6 +89,7 @@ const queueServices = {
             snapshot.forEach(async (doc, index) => {
                 queue.push({...doc.data(), id: doc.id});
             });
+
             const result = queue.map(async item => {
                 const {first_name, last_name, dob, gender} =
                     await patientServices.getDocById(
@@ -119,6 +123,7 @@ const queueServices = {
                 missed: 0,
             };
             const queue = await this.getDocsAll();
+
             if (queue && queue.length) {
                 const data = queue.reduce(
                     (result, item) => {
@@ -218,6 +223,23 @@ const queueServices = {
                 invoice_id: invoiceRes.id,
                 ...queueModel(),
             });
+        } catch (error) {
+            throw error;
+        }
+    },
+    /**
+     *
+     * @param {*} id
+     * @param {*} data
+     */
+    async updateQueue(id, data) {
+        try {
+            //Update an invoice
+            await setDoc(
+                doc(queueRef, id.toString()),
+                data,
+                {merge: true},
+            );
         } catch (error) {
             throw error;
         }

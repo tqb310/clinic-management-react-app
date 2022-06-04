@@ -14,7 +14,7 @@ export function getInitialPatientDataFormat(data) {
                 height: data.height,
                 weight: data.weight,
                 gender: data.gender,
-                note: data.note,
+                note: data.note || '',
                 address: {
                     province: '',
                     district: '',

@@ -3,52 +3,41 @@ import {Typography} from '@mui/material';
 import RequestItem from './_components/RequestItem';
 import {Scrollbars} from 'react-custom-scrollbars-2';
 import {useDispatch, useSelector} from 'react-redux';
-import {setDataAsync} from '_redux/slice/appointmentRequestSlice';
+import {
+    setDataAsync,
+    setSelectedRequest,
+} from '_redux/slice/appointmentRequestSlice';
 import {
     formatDate,
     getCreatedTime,
 } from '_helpers/handleDate';
-import {dayLength} from '_constants/date';
+// import {dayLength} from '_constants/date';
 import PaperImage from '_assets/images/paper.png';
 import {useFirestoreRealtime} from '_hooks';
 import ConfirmRequest from '../ConfirmRequest';
 import LocationProvider from '_contexts/LocationContext';
-// import ConfirmRequest from '../ConfirmRequest';
+import {appointmentModel, patientModel} from '_models';
+import appointmentService from '_services/firebase/appointment.service';
+import appointmentRequestService from '_services/firebase/appointment-request.service';
+import getDateTimeComparator from '_helpers/getDateTimeComparator';
 import './index.scss';
 
 const tabsName = [
     {
         id: 0,
-        title: 'Mới',
+        title: 'Chưa duyệt',
         status: 0,
-        min: 0,
-        thresholdTime: dayLength,
-        tag: 'Lastest',
+        tag: 'NotApproved',
     },
     {
         id: 1,
         title: 'Vừa duyệt',
         status: 1,
-        min: 0,
-        thresholdTime: dayLength,
         tag: 'JustApproved',
-    },
-    {
-        id: 2,
-        title: 'Chưa duyệt',
-        status: 0,
-        min: dayLength,
-        thresholdTime: Number.POSITIVE_INFINITY,
-        tag: 'NotApproved',
     },
 ];
 
 function AppointmentDemand() {
-    // const [data, setData] = useState([]);
-    // const [open, setOpen] = useState(false);
-    // const handleClose = () => {
-    //     setOpen(false);
-    // };
     const dispatch = useDispatch();
 
     const [tabIndex, setTabIndex] = useState(0);
@@ -66,9 +55,54 @@ function AppointmentDemand() {
         },
     });
 
-    const handleSubmit = () => {};
-    const closeModal = () => {};
-
+    const handleSubmit = async (values, actions) => {
+        try {
+            //
+            values.patient.province =
+                requestState.selectedRequest.province || '';
+            values.patient.district =
+                requestState.selectedRequest.district || '';
+            values.patient.ward =
+                requestState.selectedRequest.ward || '';
+            const payload = {
+                patient: patientModel(values.patient),
+                appointment: appointmentModel(
+                    values.appointment,
+                ),
+            };
+            payload.appointment.create_at = formatDate(
+                new Date().toLocaleDateString(),
+                '',
+                'm/d/y',
+                true,
+            );
+            await appointmentService.addAppointment(
+                payload,
+            );
+            await appointmentRequestService.updateAppointmentRequest(
+                requestState.selectedRequest.id,
+                {status: 1},
+            );
+            closeModal();
+        } catch (error) {
+            console.log(error);
+        }
+    };
+    const closeModal = () => {
+        dispatch(setSelectedRequest());
+    };
+    const approvalAction = id => e => {
+        dispatch(setSelectedRequest(id));
+    };
+    const cancelAction = id => e => {
+        try {
+            appointmentRequestService.deleteAppointmentRequest(
+                id,
+            );
+        } catch (error) {
+            console.log(error);
+        }
+    };
     useEffect(() => {
         // dispatch(setDataAsync());
         const unsub = firestoreRealtime();
@@ -79,53 +113,39 @@ function AppointmentDemand() {
         //To compute the request list for each state
         const filteredRequestList =
             requestState.data.filter(item => {
-                const difference = getCreatedTime(
-                    new Date(
-                        formatDate(
-                            item.create_at_date,
-                            item.create_at_time,
-                        ),
-                    ),
-                    new Date(),
-                ).ms;
                 return (
                     item.status ===
-                        tabsName[tabIndex].status &&
-                    difference <
-                        tabsName[tabIndex]?.thresholdTime &&
-                    difference > tabsName[tabIndex]?.min
+                    tabsName[tabIndex].status
                 );
             });
-        setRequestList(filteredRequestList);
+        const sortedRequestList = filteredRequestList.sort(
+            (item1, item2) =>
+                -getDateTimeComparator(
+                    formatDate(
+                        item1.create_at_date,
+                        item1.create_at_time,
+                    ),
+                    formatDate(
+                        item2.create_at_date,
+                        item2.create_at_time,
+                    ),
+                ),
+        );
+        setRequestList(sortedRequestList);
     }, [requestState.data, tabIndex]);
 
     useEffect(() => {
         //To compute the number of requests for each state
         const tempNumberState = requestState.data.reduce(
             (result, item) => {
-                const difference = getCreatedTime(
-                    new Date(
-                        formatDate(
-                            item.create_at_date,
-                            item.create_at_time,
-                        ),
-                    ),
-                    new Date(),
-                ).ms;
-
-                if (item.status === 0) {
-                    if (difference < dayLength)
-                        result.Lastest++;
-                    else result.NotApproved++;
+                if (!item.status) {
+                    result.NotApproved++;
                 } else {
-                    if (difference < dayLength)
-                        result.JustApproved++;
+                    result.JustApproved++;
                 }
-
                 return result;
             },
             {
-                Lastest: 0,
                 JustApproved: 0,
                 NotApproved: 0,
             },
@@ -167,6 +187,7 @@ function AppointmentDemand() {
                     requestList.map(item => (
                         <RequestItem
                             key={item.id}
+                            id={item.id}
                             patientName={
                                 item.last_name +
                                 ' ' +
@@ -185,6 +206,8 @@ function AppointmentDemand() {
                             gender={item.gender}
                             date={item.date}
                             time={item.time}
+                            approvalAction={approvalAction}
+                            cancelAction={cancelAction}
                         />
                     ))
                 ) : (
@@ -201,13 +224,12 @@ function AppointmentDemand() {
             </Scrollbars>
             <LocationProvider>
                 <ConfirmRequest
-                    title="Chi tiết lịch hẹn"
-                    open={
-                        requestState.isOpenAppointmentDetail
-                    }
+                    title="Duyệt yêu cầu đặt lịch hẹn"
+                    open={requestState.isOpenConfirmForm}
                     handleClose={closeModal}
                     data={requestState.selectedRequest}
                     handleSubmit={handleSubmit}
+                    submitLabel="Duyệt"
                 />
             </LocationProvider>
         </div>

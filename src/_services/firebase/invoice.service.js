@@ -57,11 +57,25 @@ const invoiceServices = {
      * @param {*} id
      * @returns
      */
-    async getDocById(id) {
+    async getDocById(invoice_id) {
         try {
-            const docRef = doc(invoiceRef, id);
-            const result = await getDoc(docRef);
-            return {...result.data(), id: result.id};
+            const docRef = doc(
+                invoiceRef,
+                invoice_id.toString(),
+            );
+            const invoiceResult = await getDoc(docRef);
+            const patientResult =
+                await patientService.getDocById(
+                    invoiceResult
+                        .data()
+                        ?.patient_id?.toString(),
+                );
+            const {id, ...rest} = patientResult;
+            return {
+                ...invoiceResult.data(),
+                ...rest,
+                id: invoiceResult.id,
+            };
         } catch (error) {
             throw error;
         }

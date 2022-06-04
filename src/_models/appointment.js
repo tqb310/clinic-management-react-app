@@ -1,14 +1,17 @@
 import {formatDate} from '_helpers/handleDate';
 
 export default function getAppointmentModel(values) {
-    const result = {};
+    const result = {
+        time:
+            values.hour && values.minute
+                ? values.hour + ':' + values.minute
+                : '',
+        status: 1,
+    };
+
     for (let key in values) {
-        if (key === 'create_at') {
-            result[key] = formatDate(
-                new Date().toLocaleDateString(),
-                '',
-                'm/d/y',
-            );
+        if (key === 'hour' || key === 'minute') {
+            continue;
         } else if (key === 'date') {
             result[key] =
                 typeof values.date === 'string'
@@ -28,6 +31,5 @@ export default function getAppointmentModel(values) {
             result[key] = values[key];
         }
     }
-    result['status'] = 1;
     return result;
 }

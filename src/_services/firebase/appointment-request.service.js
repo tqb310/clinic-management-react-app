@@ -4,6 +4,8 @@ import {
     collection,
     getDocs,
     addDoc,
+    setDoc,
+    deleteDoc,
 } from 'firebase/firestore';
 import {db} from './app';
 
@@ -51,6 +53,28 @@ const appointmentRequestServices = {
             await addDoc(appointmentRequestRef, {
                 ...data,
             });
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    async updateAppointmentRequest(id, data) {
+        try {
+            await setDoc(
+                doc(appointmentRequestRef, id.toString()),
+                data,
+                {merge: true},
+            );
+        } catch (error) {
+            throw error;
+        }
+    },
+
+    async deleteAppointmentRequest(id) {
+        try {
+            await deleteDoc(
+                doc(appointmentRequestRef, id.toString()),
+            );
         } catch (error) {
             throw error;
         }

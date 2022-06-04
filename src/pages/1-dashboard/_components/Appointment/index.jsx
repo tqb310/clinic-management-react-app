@@ -47,7 +47,7 @@ function Appointment({todayAppointments}) {
             // if (rolePath)
             //     history.push(rolePath + '/hang-doi');
         } catch (err) {
-            throw err;
+            console.log(err.message);
         }
     };
     return (

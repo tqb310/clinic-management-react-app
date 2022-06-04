@@ -20,6 +20,7 @@ import LocationProvider from '_contexts/LocationContext';
 import appointmentService from '_services/firebase/appointment.service';
 import ConfirmRequest from '../ConfirmRequest';
 import {appointmentModel, patientModel} from '_models';
+import {formatDate} from '_helpers/handleDate';
 import './index.scss';
 
 function AppointmentTable({data = {}}) {
@@ -33,7 +34,12 @@ function AppointmentTable({data = {}}) {
                     values.appointment,
                 ),
             };
-            console.log(payload);
+            payload.appointment.create_at = formatDate(
+                new Date().toLocaleDateString(),
+                '',
+                'm/d/y',
+                true,
+            );
             await appointmentService.addAppointment(
                 payload,
             );
@@ -53,7 +59,7 @@ function AppointmentTable({data = {}}) {
         //Overriding status property "status"
         payload.appointment.status =
             data.selectedAppointment.status;
-
+        console.log(payload);
         try {
             await appointmentService.update(
                 data.selectedAppointment.id.toString(),
@@ -128,6 +134,7 @@ function AppointmentTable({data = {}}) {
                                 handleSubmit={
                                     handleUpdateSubmit
                                 }
+                                submitLabel="Sửa"
                             />
                         </LocationProvider>
                     </Fragment>

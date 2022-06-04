@@ -156,7 +156,6 @@ function AppointmentForm({handleSubmit}) {
                     note: '',
                     height: '',
                     weight: '',
-                    type: '',
                     address: {
                         province: '',
                         district: '',
@@ -167,6 +166,7 @@ function AppointmentForm({handleSubmit}) {
                 appointment: {
                     date: '',
                     time: '',
+                    type: '',
                 },
             }}
             onSubmit={handleSubmitForm}

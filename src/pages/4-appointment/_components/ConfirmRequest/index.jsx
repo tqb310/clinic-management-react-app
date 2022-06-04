@@ -45,6 +45,7 @@ function ConfirmRequest({
     handleClose,
     data,
     handleSubmit,
+    submitLabel,
 }) {
     const [switchEdit, setSwitchEdit] = useState(false);
     const {
@@ -55,11 +56,7 @@ function ConfirmRequest({
     } = useLocation();
 
     return (
-        <Dialog
-            modal={true}
-            open={open}
-            onClose={handleClose}
-        >
+        <Dialog open={open} onClose={handleClose}>
             <DialogTitle
                 sx={{
                     position: 'relative',
@@ -441,7 +438,7 @@ function ConfirmRequest({
                                         form.submitForm
                                     }
                                 >
-                                    SỬA
+                                    {submitLabel}
                                 </Button>
                             </DialogActions>
                         </Form>

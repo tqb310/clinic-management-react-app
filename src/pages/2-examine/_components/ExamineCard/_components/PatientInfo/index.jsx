@@ -15,7 +15,18 @@ const textFieldStyle = {
     },
     width: '100%',
 };
-function PatientInfo({data, data1}) {
+function PatientInfo({
+    first_name,
+    last_name,
+    dob,
+    phone,
+    identity_number,
+    occupation,
+    ward,
+    district,
+    province,
+    note,
+}) {
     // console.log(data);
     return (
         <div className="ECPatientInfo">
@@ -23,7 +34,11 @@ function PatientInfo({data, data1}) {
                 <TextField
                     variant="filled"
                     label="Tên bệnh nhân"
-                    value={data && data.PATIENT_NAME}
+                    value={
+                        last_name && first_name
+                            ? `${last_name} ${first_name}`
+                            : ''
+                    }
                     size="small"
                     sx={textFieldStyle}
                 />
@@ -32,7 +47,7 @@ function PatientInfo({data, data1}) {
                 <TextField
                     variant="filled"
                     label="Ngày sinh"
-                    value={data && data.DATE_OF_BIRTH}
+                    value={dob || ''}
                     size="small"
                     sx={textFieldStyle}
                 />
@@ -50,7 +65,7 @@ function PatientInfo({data, data1}) {
                 <TextField
                     variant="filled"
                     label="Giới tính"
-                    value={gender[data && data.GENDER]}
+                    value={gender ? 'Nam' : 'Nữ'}
                     size="small"
                     sx={textFieldStyle}
                 />
@@ -59,7 +74,7 @@ function PatientInfo({data, data1}) {
                 <TextField
                     variant="filled"
                     label="Điện thoại"
-                    value={data && data.PHONE}
+                    value={phone || ''}
                     size="small"
                     sx={textFieldStyle}
                 />
@@ -68,7 +83,7 @@ function PatientInfo({data, data1}) {
                 <TextField
                     variant="filled"
                     label="CMND/CCCD"
-                    value={data && data.IDENTITY_NUMBER}
+                    value={identity_number || ''}
                     size="small"
                     sx={textFieldStyle}
                 />
@@ -77,7 +92,7 @@ function PatientInfo({data, data1}) {
                 <TextField
                     variant="filled"
                     label="Nghề nghiệp"
-                    value={data && data.OCCUPATION}
+                    value={occupation || ''}
                     size="small"
                     sx={textFieldStyle}
                 />
@@ -88,7 +103,11 @@ function PatientInfo({data, data1}) {
                     rows={2}
                     variant="filled"
                     label="Địa chỉ"
-                    value={data && data.ADDRESS}
+                    value={
+                        province && district
+                            ? `${ward} - ${district} - ${province}`
+                            : ''
+                    }
                     size="small"
                     sx={textFieldStyle}
                 />
@@ -99,7 +118,7 @@ function PatientInfo({data, data1}) {
                     rows={2}
                     variant="filled"
                     label="Ghi chú"
-                    value="ABC"
+                    value={note || ''}
                     size="small"
                     sx={textFieldStyle}
                 />

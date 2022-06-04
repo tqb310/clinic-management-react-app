@@ -3,7 +3,7 @@ import {useParams, useHistory} from 'react-router-dom';
 import {TextField, Button} from '@mui/material';
 import {CustomPaper} from '_components/shared/StyledComponent';
 import {ArrowBack} from '@mui/icons-material';
-import PatientInfo from 'pages/2-examine/_components/PatientInfo';
+import PatientInfo from 'pages/2-examine/_components/ExamineCard/_components/PatientInfo';
 import ExaminingInfo from './_components/ExaminingInfo';
 import ServiceInfo from './_components/ServiceInfo';
 import PrescriptionInfo from './_components/PrescriptionInfo';

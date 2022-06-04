@@ -1,4 +1,4 @@
-import {formatDate} from './handleDate';
+// import {formatDate} from './handleDate';
 
 const getDateTimeComparator = (time1, time2) => {
     const timeMs1 = new Date(time1).getTime();

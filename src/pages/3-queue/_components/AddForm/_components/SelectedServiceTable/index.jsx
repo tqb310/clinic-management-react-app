@@ -3,12 +3,12 @@ import {IconButton} from '@mui/material';
 import {Delete} from '@mui/icons-material';
 import {HeadCell} from '../../_constants';
 import handlePrice from '_helpers/handlePriceFormat';
+import serviceData from '_constants/services';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
 function SelectedServiceTable({
     selectedServiceId,
-    serviceData,
     setFieldValue,
 }) {
     const SelectedServiceData = useMemo(() => {
@@ -20,7 +20,7 @@ function SelectedServiceTable({
                 ),
             )
         );
-    }, [selectedServiceId, serviceData]);
+    }, [selectedServiceId]);
     const handleDelete = id => _ => {
         const newSelected = [...selectedServiceId];
         newSelected.splice(

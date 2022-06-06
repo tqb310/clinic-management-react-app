@@ -1,6 +1,5 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {TextField} from '@mui/material';
-import {gender} from '_constants/general';
 import './index.scss';
 // import {dateParse} from '_constants/date';
 // import {CustomPaper} from '_components/shared/StyledComponent';
@@ -26,6 +25,7 @@ function PatientInfo({
     district,
     province,
     note,
+    gender,
 }) {
     // console.log(data);
     return (
@@ -56,7 +56,12 @@ function PatientInfo({
                 <TextField
                     variant="filled"
                     label="Tuổi"
-                    value="21"
+                    value={
+                        dob
+                            ? new Date().getFullYear() -
+                              dob.split('/').slice(-1)
+                            : ''
+                    }
                     size="small"
                     sx={textFieldStyle}
                 />
@@ -65,7 +70,7 @@ function PatientInfo({
                 <TextField
                     variant="filled"
                     label="Giới tính"
-                    value={gender ? 'Nam' : 'Nữ'}
+                    value={gender || ''}
                     size="small"
                     sx={textFieldStyle}
                 />
@@ -129,4 +134,4 @@ function PatientInfo({
 
 PatientInfo.propTypes = {};
 
-export default PatientInfo;
+export default memo(PatientInfo);

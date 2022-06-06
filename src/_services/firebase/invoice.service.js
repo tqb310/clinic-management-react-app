@@ -4,6 +4,7 @@ import {
     collection,
     getDocs,
     addDoc,
+    setDoc,
 } from 'firebase/firestore';
 import patientService from './patient.service';
 import {db} from './app';
@@ -88,6 +89,24 @@ const invoiceServices = {
     async addInvoice(data) {
         try {
             const res = await addDoc(invoiceRef, data);
+            return res;
+        } catch (error) {
+            throw error;
+        }
+    },
+    /**
+     *
+     * @param {*} id
+     * @param {*} data
+     * @returns
+     */
+    async updateInvoice(id, data) {
+        try {
+            const res = await setDoc(
+                doc(invoiceRef, id.toString()),
+                data,
+                {merge: true},
+            );
             return res;
         } catch (error) {
             throw error;

@@ -37,8 +37,33 @@ export const setDataAsync = createAsyncThunk(
 
 export const setCardDataAsync = createAsyncThunk(
     'queues/setCardDataAsync',
-    async id => {
-        const data = await invoiceServices.getDocById(id);
+    async (_, thunkAPI) => {
+        const {queues} = thunkAPI.getState();
+
+        const pendingQueue = queues.data?.filter(
+            item => item.status === 1,
+        );
+        const currentCardIndex = pendingQueue.findIndex(
+            item => item.id === queues.selectedCard?.id,
+        );
+
+        let data;
+        if (currentCardIndex === -1) {
+            await queueServices.updateQueue(
+                pendingQueue[0].id,
+                {status: 2},
+            );
+            data = {...pendingQueue[0], status: 2};
+        } else {
+            await queueServices.updateQueue(
+                pendingQueue[currentCardIndex + 1].id,
+                {status: 2},
+            );
+            data = {
+                ...pendingQueue[currentCardIndex + 1],
+                status: 2,
+            };
+        }
         return data;
     },
 );
@@ -50,12 +75,12 @@ export const setDataByStatusAsync = createAsyncThunk(
             status,
         );
 
-        return data.sort((item1, item2) =>
-            getDateTimeComparator(
-                formatDate(item1.date, item1.time),
-                formatDate(item2.date, item2.time),
-            ),
-        );
+        return data.sort((item1, item2) => {
+            return (
+                item1.numerical_order -
+                item2.numerical_order
+            );
+        });
     },
 );
 
@@ -75,6 +100,7 @@ export const setPatientHint = createAsyncThunk(
             const filteredPatient = patients.filter(value =>
                 value.phone.startsWith(phone),
             );
+
             return {filteredPatient, isOpenHint: true};
         }
         return {filteredPatient: [], isOpenHint: false};
@@ -110,6 +136,11 @@ const queueSlice = createSlice({
         },
         [setDataAsync.fulfilled]: (state, action) => {
             state.data = action.payload;
+            const activePatient = action.payload.find(
+                item => item.status === 2,
+            );
+            if (activePatient)
+                state.selectedCard = activePatient;
             state.isLoading = false;
         },
         [setDataByStatusAsync.pending]: state => {
@@ -150,6 +181,9 @@ const queueSlice = createSlice({
             state.patientHint =
                 action.payload.filteredPatient;
             state.isOpenHint = action.payload.isOpenHint;
+        },
+        [setPatientHint.rejected]: (state, action) => {
+            state.error = action.error;
         },
         [setCardDataAsync.pending]: state => {
             state.isLoading = true;

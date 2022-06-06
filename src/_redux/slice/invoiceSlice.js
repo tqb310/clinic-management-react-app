@@ -4,6 +4,8 @@ import {
 } from '@reduxjs/toolkit';
 // import InvoiceData from '_constants/FakeData/invoice.json';
 import invoiceServices from '_services/firebase/invoice.service';
+import getDateTimeComparator from '../../_helpers/getDateTimeComparator';
+import {formatDate} from '_helpers/handleDate';
 
 const initialState = {
     data: [],
@@ -20,7 +22,13 @@ export const setDataAsync = createAsyncThunk(
         const data = await invoiceServices.getDocsAll(
             patients.data,
         );
-        return data;
+        return data.sort(
+            (item1, item2) =>
+                -getDateTimeComparator(
+                    formatDate(item1.create_at),
+                    formatDate(item2.create_at),
+                ),
+        );
     },
 );
 

@@ -1,13 +1,13 @@
 import React, {useState, useEffect} from 'react';
 import ExamineCard from './_components/ExamineCard';
 import RightBarContent from './_components/RightBar';
-import {data as fakeData} from '_constants/FakeData/Diagnostic';
 import {useSelector, useDispatch} from 'react-redux';
 import {
     setDataAsync,
     setNumberEachStatusAsync,
 } from '_redux/slice/queueSlice';
 import {useFirestoreRealtime} from '_hooks';
+import invoiceServices from '_services/firebase/invoice.service';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
@@ -21,7 +21,7 @@ function Dashboard(props) {
         state => state.queues.numberEachStatus,
     );
     const selectedCard = useSelector(
-        state => state.queues.selectCard,
+        state => state.queues.selectedCard,
     );
 
     const firestoreReadltime = useFirestoreRealtime({
@@ -32,14 +32,31 @@ function Dashboard(props) {
         },
     });
 
+    const handleSubmit = async values => {
+        try {
+            if (
+                values.follow_up_time.hour &&
+                values.follow_up_time.minute
+            ) {
+                values.follow_up_time =
+                    values.follow_up_time.hour +
+                    ':' +
+                    values.follow_up_time.minute;
+            }
+            await invoiceServices.updateInvoice(
+                selectedCard.invoice_id,
+                values,
+            );
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     useEffect(() => {
         const unsub = firestoreReadltime();
         return unsub;
     }, []);
 
-    const handleSubmit = async values => {
-        console.log(values);
-    };
     return (
         <div className="DoctorDashboard">
             <ExamineCard
@@ -49,6 +66,7 @@ function Dashboard(props) {
             <RightBarContent
                 queue={queueData}
                 numberEachStatus={numberEachStatus}
+                selectedCard={selectedCard}
             />
         </div>
     );

@@ -6,7 +6,7 @@ import Doctor from '_assets/images/doctor2.png';
 import {RightBar} from '_components/shared/StyledComponent';
 import LocationProvider from '_contexts/LocationContext';
 import {useDispatch, useSelector} from 'react-redux';
-import {setDataAsync} from '_redux/slice/patientSlice';
+import {setDataAsync as setPatientDataAsync} from '_redux/slice/patientSlice';
 import patientServices from '_services/firebase/patient.service';
 import invoiceServices from '_services/firebase/invoice.service';
 import queueServices from '_services/firebase/queue.service';
@@ -36,6 +36,7 @@ function Queue(props) {
         const fetchData = async () => {
             await dispatch(setDataByStatusAsync(2));
             await dispatch(setNumberEachStatusAsync());
+            await dispatch(setPatientDataAsync());
         };
         fetchData();
     }, []);

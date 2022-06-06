@@ -7,13 +7,13 @@ import {
     ListItem,
 } from '@mui/material';
 import {Close} from '@mui/icons-material';
+import serviceData from '_constants/services';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
 function ServiceDialog({
     open,
     onClose,
-    serviceData,
     selectedServiceId,
     setFieldValue,
 }) {

@@ -3,7 +3,8 @@ import {RightBar} from '_components/shared/StyledComponent';
 import {Button, Typography, Box} from '@mui/material';
 import {SwapVert, Alarm} from '@mui/icons-material';
 import {Dot} from '_components/shared/StyledComponent';
-// import socket from '_services/socket.io';
+import {setCardDataAsync} from '_redux/slice/queueSlice';
+import {useDispatch} from 'react-redux';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
@@ -15,7 +16,6 @@ const QueueItem = ({
     time,
     numericalOrder,
     className = '',
-    status,
 }) => {
     return (
         <Box
@@ -51,54 +51,19 @@ const QueueItem = ({
                         {time} <Dot /> {date}
                     </Typography>
                 </Typography>
-                {status === 2 && (
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center',
-                            mt: 1,
-                        }}
-                    >
-                        <Typography>
-                            <Alarm
-                                sx={{
-                                    fontSize: '1.8rem',
-                                    mr: 1,
-                                    verticalAlign: 'middle',
-                                }}
-                            />
-                            <Typography
-                                variant="h5"
-                                component="span"
-                                sx={{
-                                    verticalAlign: 'top',
-                                }}
-                            >
-                                10:00
-                            </Typography>
-                        </Typography>
-                        <Button
-                            sx={{
-                                textTransform: 'capitalize',
-                                py: 0.25,
-                            }}
-                            variant="outlined"
-                        >
-                            Bắt đầu
-                        </Button>
-                    </Box>
-                )}
             </Box>
         </Box>
     );
 };
 
-function RightBarContent({queue, numberEachStatus}) {
+function RightBarContent({
+    queue,
+    numberEachStatus,
+    selectedCard,
+}) {
+    const dispatch = useDispatch();
     const [selected, setSelected] = useState(1);
     const [filterdQueue, setFilterdQueue] = useState([]);
-    const [activePatient, setActivePatient] =
-        useState(null);
 
     useEffect(() => {
         const tempQueue = queue.filter(
@@ -107,12 +72,9 @@ function RightBarContent({queue, numberEachStatus}) {
         setFilterdQueue(tempQueue);
     }, [selected, queue]);
 
-    useEffect(() => {
-        const temQueue = queue.find(
-            item => item.status === 2,
-        );
-        setActivePatient(temQueue);
-    }, [queue]);
+    const goToNextPatient = () => {
+        dispatch(setCardDataAsync());
+    };
 
     return (
         <RightBar className="RBDoctorHome" pt={2}>
@@ -123,32 +85,37 @@ function RightBarContent({queue, numberEachStatus}) {
             >
                 Hàng đợi
             </Typography>
-            {activePatient ? (
+            {selectedCard ? (
                 <QueueItem
-                    name={activePatient.name}
-                    gender={activePatient.gender}
-                    dob={activePatient.dob}
-                    date={activePatient.date}
-                    time={activePatient.time}
+                    name={`${selectedCard.last_name} ${selectedCard.first_name}`}
+                    gender={selectedCard.gender}
+                    dob={selectedCard.dob}
+                    date={selectedCard.date}
+                    time={selectedCard.time}
                     numericalOrder={
-                        activePatient.numericalOrder
+                        selectedCard.numerical_order
                     }
                     className=""
-                    status={activePatient.status}
+                    status={selectedCard.status}
                 />
             ) : (
                 <Typography
                     variant="h6"
-                    fontWeight={700}
+                    sx={{fontWeight: 700, py: 2}}
                     gutterBottom
                 >
-                    Chưa có bệnh nhân
+                    Không có bệnh nhân đang khám
                 </Typography>
             )}
             <Button
                 variant="outlined"
                 startIcon={<SwapVert />}
                 sx={{my: 2}}
+                onClick={goToNextPatient}
+                disabled={
+                    !queue.filter(item => item.status === 1)
+                        .length
+                }
             >
                 Tiếp tục
             </Button>
@@ -185,9 +152,7 @@ function RightBarContent({queue, numberEachStatus}) {
                                 ' ' +
                                 item.first_name
                             }
-                            gender={
-                                item.gender ? 'Nam' : 'Nữ'
-                            }
+                            gender={item.gender}
                             dob={item.dob}
                             time={item.time}
                             date={item.date}

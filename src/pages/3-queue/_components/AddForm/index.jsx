@@ -26,7 +26,7 @@ import {
     TextArea,
 } from '_components/shared/FormikField';
 import {gender, cardType} from '_constants/general';
-import {initialValue, services} from './_constants';
+import {initialValue} from './_constants';
 import {
     ServiceDialog,
     SelectedServiceTable,
@@ -460,9 +460,6 @@ function AddForm({handleSubmit}) {
                                                 ?.invoice
                                                 ?.services
                                         }
-                                        serviceData={
-                                            services
-                                        }
                                         setFieldValue={
                                             form.setFieldValue
                                         }
@@ -477,9 +474,6 @@ function AddForm({handleSubmit}) {
                                             form.values
                                                 ?.invoice
                                                 ?.services
-                                        }
-                                        serviceData={
-                                            services
                                         }
                                         setFieldValue={
                                             form.setFieldValue

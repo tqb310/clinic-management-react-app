@@ -1,11 +1,10 @@
+// @import "_assets/style/_mixins.scss";
 
-@import "_assets/style/_mixins.scss";
+// .RCExaminingInfo {
+//   display: grid;
+//   grid-template-columns: repeat(12, 1fr);
+//   grid-column-gap: 5rem;
+//   grid-row-gap: 1.5rem;
+//   @include gridDivide();
 
-.RCExaminingInfo {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-column-gap: 5rem;
-  grid-row-gap: 1.5rem;
-  @include gridDivide();
- 
-}
+// }

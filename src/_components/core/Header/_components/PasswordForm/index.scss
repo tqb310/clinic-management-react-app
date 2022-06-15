@@ -1,8 +1,2 @@
-@import '_assets/style/_mixins.scss';
-
-.PasswordForm {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    grid-column-gap: .5rem;
-    @include gridDivide();
-}
+// .PasswordForm {
+// }

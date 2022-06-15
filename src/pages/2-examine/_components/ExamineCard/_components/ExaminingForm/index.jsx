@@ -9,7 +9,8 @@ import {
 import {
     FormControlLabel,
     Switch,
-    Button,
+    // Button,
+    Grid,
 } from '@mui/material';
 import {hourSelect, minuteSelect} from '_constants/date';
 import './index.scss';
@@ -18,8 +19,16 @@ function ExaminingForm() {
     const [isSetAppointment, setAppointment] =
         useState(false);
     return (
-        <div className="ExaminingForm">
-            <div className="ExaminingForm__symptom col-1-4">
+        <Grid
+            container
+            columnSpacing={2}
+            className="ExaminingForm"
+        >
+            <Grid
+                item
+                xs={3}
+                className="ExaminingForm__symptom"
+            >
                 <FastField
                     name="heart_rate"
                     id="heart_rate"
@@ -28,8 +37,12 @@ function ExaminingForm() {
                     label="Nhịp tim"
                     required
                 />
-            </div>
-            <div className="ExaminingForm__symptom col-4-7">
+            </Grid>
+            <Grid
+                item
+                xs={3}
+                className="ExaminingForm__symptom"
+            >
                 <FastField
                     name="blood_pressure"
                     id="blood_pressure"
@@ -38,8 +51,12 @@ function ExaminingForm() {
                     label="Huyết áp"
                     required
                 />
-            </div>
-            <div className="ExaminingForm__symptom col-7-10">
+            </Grid>
+            <Grid
+                item
+                xs={3}
+                className="ExaminingForm__symptom"
+            >
                 <FastField
                     name="temperature"
                     id="temperature"
@@ -48,8 +65,12 @@ function ExaminingForm() {
                     label="Nhiệt độ"
                     required
                 />
-            </div>
-            <div className="ExaminingForm__symptom col-10-13">
+            </Grid>
+            <Grid
+                item
+                xs={3}
+                className="ExaminingForm__symptom"
+            >
                 <FastField
                     name="breathing_rate"
                     id="breathing_rate"
@@ -58,8 +79,12 @@ function ExaminingForm() {
                     label="Nhịp thở"
                     required
                 />
-            </div>
-            <div className="ExaminingForm__symptom col-1-13">
+            </Grid>
+            <Grid
+                item
+                xs={12}
+                className="ExaminingForm__symptom"
+            >
                 <FastField
                     name="symptom"
                     id="symptom"
@@ -68,8 +93,12 @@ function ExaminingForm() {
                     rows="2"
                     required
                 />
-            </div>
-            <div className="ExaminingForm__symptom col-1-13">
+            </Grid>
+            <Grid
+                item
+                xs={12}
+                className="ExaminingForm__symptom"
+            >
                 <FastField
                     name="diagnosis"
                     id="diagnosis"
@@ -78,8 +107,8 @@ function ExaminingForm() {
                     rows="2"
                     required
                 />
-            </div>
-            <div className="col-1-4">
+            </Grid>
+            <Grid item xs={3}>
                 <FormControlLabel
                     control={
                         <Switch
@@ -100,10 +129,10 @@ function ExaminingForm() {
                         marginTop: '.7rem',
                     }}
                 />
-            </div>
+            </Grid>
             {isSetAppointment && (
                 <>
-                    <div className="col-4-7">
+                    <Grid item xs={3}>
                         <FastField
                             name="follow_up_date"
                             id="follow_up_date"
@@ -112,8 +141,8 @@ function ExaminingForm() {
                             minDate={new Date()}
                             required
                         />
-                    </div>
-                    <div className="col-7-10">
+                    </Grid>
+                    <Grid item xs={3}>
                         <FastField
                             name="follow_up_time.hour"
                             id="follow_up_time.hour"
@@ -122,8 +151,8 @@ function ExaminingForm() {
                             items={hourSelect}
                             required
                         />
-                    </div>
-                    <div className="col-10-13">
+                    </Grid>
+                    <Grid item xs={3}>
                         <FastField
                             name="follow_up_time.minute"
                             id="follow_up_time.minute"
@@ -132,10 +161,10 @@ function ExaminingForm() {
                             items={minuteSelect}
                             required
                         />
-                    </div>
+                    </Grid>
                 </>
             )}
-        </div>
+        </Grid>
     );
 }
 

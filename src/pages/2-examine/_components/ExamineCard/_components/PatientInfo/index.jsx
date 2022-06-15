@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import {TextField} from '@mui/material';
+import {TextField, Grid} from '@mui/material';
 import './index.scss';
 // import {dateParse} from '_constants/date';
 // import {CustomPaper} from '_components/shared/StyledComponent';
@@ -29,8 +29,16 @@ function PatientInfo({
 }) {
     // console.log(data);
     return (
-        <div className="ECPatientInfo">
-            <div className="ECPatientInfo__name col-1-5">
+        <Grid
+            container
+            spacing={2}
+            className="ECPatientInfo"
+        >
+            <Grid
+                item
+                xs={4}
+                className="ECPatientInfo__name"
+            >
                 <TextField
                     variant="filled"
                     label="Tên bệnh nhân"
@@ -42,8 +50,12 @@ function PatientInfo({
                     size="small"
                     sx={textFieldStyle}
                 />
-            </div>
-            <div className="ECPatientInfo__birthdate col-5-8">
+            </Grid>
+            <Grid
+                item
+                xs={3}
+                className="ECPatientInfo__birthdate"
+            >
                 <TextField
                     variant="filled"
                     label="Ngày sinh"
@@ -51,8 +63,12 @@ function PatientInfo({
                     size="small"
                     sx={textFieldStyle}
                 />
-            </div>
-            <div className="ECPatientInfo__age col-8-10">
+            </Grid>
+            <Grid
+                item
+                xs={2}
+                className="ECPatientInfo__age"
+            >
                 <TextField
                     variant="filled"
                     label="Tuổi"
@@ -65,8 +81,12 @@ function PatientInfo({
                     size="small"
                     sx={textFieldStyle}
                 />
-            </div>
-            <div className="ECPatientInfo__gender col-10-13">
+            </Grid>
+            <Grid
+                item
+                xs={3}
+                className="ECPatientInfo__gender"
+            >
                 <TextField
                     variant="filled"
                     label="Giới tính"
@@ -74,8 +94,12 @@ function PatientInfo({
                     size="small"
                     sx={textFieldStyle}
                 />
-            </div>
-            <div className="ECPatientInfo__phone col-1-5">
+            </Grid>
+            <Grid
+                item
+                xs={4}
+                className="ECPatientInfo__phone"
+            >
                 <TextField
                     variant="filled"
                     label="Điện thoại"
@@ -83,8 +107,12 @@ function PatientInfo({
                     size="small"
                     sx={textFieldStyle}
                 />
-            </div>
-            <div className="ECPatientInfo__idcard col-5-8">
+            </Grid>
+            <Grid
+                item
+                xs={3}
+                className="ECPatientInfo__idcard"
+            >
                 <TextField
                     variant="filled"
                     label="CMND/CCCD"
@@ -92,8 +120,12 @@ function PatientInfo({
                     size="small"
                     sx={textFieldStyle}
                 />
-            </div>
-            <div className="ECPatientInfo__job col-8-13">
+            </Grid>
+            <Grid
+                item
+                xs={5}
+                className="ECPatientInfo__job"
+            >
                 <TextField
                     variant="filled"
                     label="Nghề nghiệp"
@@ -101,8 +133,12 @@ function PatientInfo({
                     size="small"
                     sx={textFieldStyle}
                 />
-            </div>
-            <div className="ECPatientInfo__address col-1-13">
+            </Grid>
+            <Grid
+                item
+                xs={12}
+                className="ECPatientInfo__address"
+            >
                 <TextField
                     multiline
                     rows={2}
@@ -116,8 +152,12 @@ function PatientInfo({
                     size="small"
                     sx={textFieldStyle}
                 />
-            </div>
-            <div className="ECPatientInfo__note col-1-13">
+            </Grid>
+            <Grid
+                item
+                xs={12}
+                className="ECPatientInfo__note"
+            >
                 <TextField
                     multiline
                     rows={2}
@@ -127,8 +167,8 @@ function PatientInfo({
                     size="small"
                     sx={textFieldStyle}
                 />
-            </div>
-        </div>
+            </Grid>
+        </Grid>
     );
 }
 

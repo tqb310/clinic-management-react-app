@@ -64,6 +64,10 @@ const theme = {
             fontSize: '1.4rem',
             fontWeight: 500,
         },
+        caption1: {
+            fontSize: '1.2rem',
+            fontWeight: 400,
+        },
     },
 };
 export default theme;

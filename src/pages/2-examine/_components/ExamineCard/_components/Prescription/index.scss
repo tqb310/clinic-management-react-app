@@ -1,10 +1,5 @@
-@import '_assets/style/_mixins.scss';
-
-.PrescriptionForm {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    @include gridDivide();
-}
+// .PrescriptionForm {
+// }
 
 .PrescriptionItem {
     display: flex;

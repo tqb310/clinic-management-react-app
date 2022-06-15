@@ -1,8 +1,2 @@
-@import "_assets/style/_mixins.scss";
-
-.AppointmentForm__general {
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);  
-  margin-top: .5rem;
-  @include gridDivide();
-}
+// .AppointmentForm__general {
+// }

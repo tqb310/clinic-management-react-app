@@ -1,17 +1,17 @@
-@import '_assets/style/_mixins.scss';
+// @import '_assets/style/_mixins.scss';
 
-.PrescriptionForm {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    @include gridDivide();
-}
+// .PrescriptionForm {
+//     display: grid;
+//     grid-template-columns: repeat(12, 1fr);
+//     @include gridDivide();
+// }
 
 .PrescriptionItem {
     display: flex;
     align-items: center;
     margin: 1rem 0;
-    border-bottom: 1px dotted #AAA;
-    padding: .5rem 0;
+    border-bottom: 1px dotted #aaa;
+    padding: 0.5rem 0;
     cursor: pointer;
     user-select: none;
     &:hover {
@@ -29,6 +29,6 @@
         }
     }
     &__instruction {
-        padding: .5rem 0
+        padding: 0.5rem 0;
     }
 }

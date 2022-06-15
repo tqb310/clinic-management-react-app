@@ -91,10 +91,10 @@ const queueServices = {
             });
 
             const result = queue.map(async item => {
-                // const {first_name, last_name, dob, gender} =
-                //     await patientServices.getDocById(
-                //         item.patient_id,
-                //     );
+                const {first_name, last_name, dob, gender} =
+                    await patientServices.getDocById(
+                        item.patient_id,
+                    );
                 const invoiceData =
                     await invoiceServices.getDocById(
                         item.invoice_id,
@@ -104,10 +104,10 @@ const queueServices = {
                 return {
                     ...item,
                     ...rest,
-                    // first_name,
-                    // last_name,
-                    // dob,
-                    // gender,
+                    first_name,
+                    last_name,
+                    dob,
+                    gender,
                 };
             });
             return Promise.all(result);

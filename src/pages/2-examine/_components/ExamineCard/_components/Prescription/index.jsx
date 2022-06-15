@@ -6,15 +6,16 @@ import {
     DialogTitle,
     IconButton,
     Button,
+    Grid,
 } from '@mui/material';
 import {FieldArray, Field} from 'formik';
 import {Close, Clear} from '@mui/icons-material';
 import Input from '_components/shared/FormikField/Input';
 import './index.scss';
 
-const handleDoseString = (label, data) => {
-    return data ? `${label}: ${data} viên` : '';
-};
+// const handleDoseString = (label, data) => {
+//     return data ? `${label}: ${data} viên` : '';
+// };
 
 const PrescriptionItem = ({
     id,
@@ -151,8 +152,12 @@ function PrescriptionForm({open, handleClose}) {
                     render={arrayHelpers => {
                         return (
                             <div>
-                                <div className="PrescriptionForm">
-                                    <div className="col-1-8">
+                                <Grid
+                                    container
+                                    columnSpacing={2}
+                                    className="PrescriptionForm"
+                                >
+                                    <Grid item xs={7}>
                                         <Field
                                             id={`prescription.${indexPres}.name`}
                                             name={`prescription.${indexPres}.name`}
@@ -164,8 +169,8 @@ function PrescriptionForm({open, handleClose}) {
                                             variant="filled"
                                             required
                                         />
-                                    </div>
-                                    <div className="col-9-12">
+                                    </Grid>
+                                    <Grid item xs={4}>
                                         <Field
                                             id={`prescription.${indexPres}.number`}
                                             name={`prescription.${indexPres}.number`}
@@ -178,9 +183,10 @@ function PrescriptionForm({open, handleClose}) {
                                             left="-12px"
                                             required
                                         />
-                                    </div>
-                                    <span
-                                        className="col-12-13"
+                                    </Grid>
+                                    <Grid
+                                        item
+                                        xs={1}
                                         style={{
                                             transform:
                                                 'translateY(10px)',
@@ -189,9 +195,10 @@ function PrescriptionForm({open, handleClose}) {
                                         }}
                                     >
                                         Viên
-                                    </span>
-                                    <div
-                                        className="col-1-13"
+                                    </Grid>
+                                    <Grid
+                                        item
+                                        xs={12}
                                         style={{
                                             display: 'flex',
                                             justifyContent:
@@ -323,8 +330,8 @@ function PrescriptionForm({open, handleClose}) {
                                                 Viên
                                             </span>
                                         </div>
-                                    </div>
-                                    <div className="col-1-13">
+                                    </Grid>
+                                    <Grid item xs={12}>
                                         <Field
                                             id={`prescription.${indexPres}.advice`}
                                             name={`prescription.${indexPres}.advice`}
@@ -336,8 +343,8 @@ function PrescriptionForm({open, handleClose}) {
                                             left="-12px"
                                             required
                                         />
-                                    </div>
-                                </div>
+                                    </Grid>
+                                </Grid>
                                 {arrayHelpers.form.values.prescription.map(
                                     (
                                         prescription,

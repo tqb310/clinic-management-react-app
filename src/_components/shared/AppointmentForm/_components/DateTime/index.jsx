@@ -117,7 +117,7 @@ function TimelineItemComp({h, hour}) {
 function DateTimeChoice(props) {
     return (
         <div className="AppointmentForm__datetime">
-            <div className="col-4-10">
+            <div>
                 <FastField
                     id="date"
                     name="appointment.date"
@@ -128,7 +128,7 @@ function DateTimeChoice(props) {
                     minDate={new Date()}
                 />
             </div>
-            <div className="col-1-13">
+            <div>
                 <FormControl fullWidth>
                     <FormLabel>Chọn khung giờ</FormLabel>
                     <Scrollbars style={{height: '323.5px'}}>

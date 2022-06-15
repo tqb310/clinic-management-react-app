@@ -39,15 +39,11 @@ export const DatePickerField = ({
                     return (
                         <TextField
                             sx={{
-                                // '& label+.MuiInputBase-root':
-                                //     {mt: '6px'},
-                                // '& label': {
-                                //     top: '6px',
-                                // },
                                 '& .MuiFormLabel-asterisk':
                                     {color: 'red'},
                             }}
                             size="small"
+                            fullWidth
                             variant="outlined"
                             required={required}
                             helperText={

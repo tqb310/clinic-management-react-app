@@ -67,7 +67,7 @@ function PasswordForm({open, handleClose}) {
                         width: 300,
                     }}
                 >
-                    <div className="col-1-13">
+                    <div>
                         <TextField
                             name="oldPass"
                             type="password"
@@ -87,7 +87,7 @@ function PasswordForm({open, handleClose}) {
                             required
                         />
                     </div>
-                    <div className="col-1-13">
+                    <div>
                         <TextField
                             name="newPass"
                             type="password"
@@ -107,7 +107,7 @@ function PasswordForm({open, handleClose}) {
                             required
                         />
                     </div>
-                    <div className="col-1-13">
+                    <div>
                         <TextField
                             type="password"
                             style={{

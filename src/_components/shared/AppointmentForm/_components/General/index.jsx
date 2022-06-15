@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
 import {FastField, Field} from 'formik';
-import {FormControl, FormLabel} from '@mui/material';
+import {FormControl, FormLabel, Grid} from '@mui/material';
 import Input from '_components/shared/FormikField/Input';
 import Select from '_components/shared/FormikField/Select';
 import TextArea from '_components/shared/FormikField/TextArea';
@@ -26,8 +26,12 @@ function General() {
         wards,
     } = useLocation();
     return (
-        <div className="AppointmentForm__general">
-            <div className="col-1-8">
+        <Grid
+            container
+            columnSpacing={2}
+            className="AppointmentForm__general"
+        >
+            <Grid item xs={7}>
                 <FastField
                     id="patient_name"
                     name="patient.patient_name"
@@ -37,8 +41,8 @@ function General() {
                     left="-4.5%"
                     required
                 />
-            </div>
-            <div className="col-9-13">
+            </Grid>
+            <Grid item xs={5}>
                 <FastField
                     id="gender"
                     name="patient.gender"
@@ -47,9 +51,10 @@ function General() {
                     items={gender}
                     required
                 />
-            </div>
-            <div
-                className="col-1-8"
+            </Grid>
+            <Grid
+                item
+                xs={7}
                 style={{
                     position: 'relative',
                 }}
@@ -63,8 +68,8 @@ function General() {
                     icon={PhoneEnabled}
                     required
                 />
-            </div>
-            <div className="col-9-13">
+            </Grid>
+            <Grid item xs={5}>
                 <FastField
                     id="patient.dob"
                     name="patient.dob"
@@ -72,8 +77,8 @@ function General() {
                     label="Ngày sinh"
                     required
                 />
-            </div>
-            <div className="col-1-8">
+            </Grid>
+            <Grid item xs={7}>
                 <FastField
                     id="identity_number"
                     name="patient.identity_number"
@@ -83,8 +88,8 @@ function General() {
                     icon={BrandingWatermark}
                     required
                 />
-            </div>
-            <div className="col-9-13">
+            </Grid>
+            <Grid item xs={5}>
                 <FastField
                     id="occupation"
                     name="patient.occupation"
@@ -94,8 +99,8 @@ function General() {
                     icon={Work}
                     required
                 />
-            </div>
-            <div className="col-1-4">
+            </Grid>
+            <Grid item xs={4}>
                 <FastField
                     name="patient.height"
                     id="patient.height"
@@ -104,8 +109,8 @@ function General() {
                     icon="cm"
                     required
                 />
-            </div>
-            <div className="col-5-8">
+            </Grid>
+            <Grid item xs={4}>
                 <FastField
                     name="patient.weight"
                     id="patient.weight"
@@ -114,8 +119,8 @@ function General() {
                     icon="kg"
                     required
                 />
-            </div>
-            <div className="col-9-13">
+            </Grid>
+            <Grid item xs={4}>
                 <FastField
                     name="appointment.type"
                     id="appointment.type"
@@ -124,8 +129,8 @@ function General() {
                     items={cardType}
                     required
                 />
-            </div>
-            <div className="col-1-13">
+            </Grid>
+            <Grid item xs={12}>
                 <FormControl
                     fullWidth
                     sx={{marginBottom: '.5rem'}}
@@ -191,8 +196,8 @@ function General() {
                         rows={2}
                     />
                 </FormControl>
-            </div>
-            <div className="col-1-13">
+            </Grid>
+            <Grid item xs={12}>
                 <FastField
                     name="patient.note"
                     id="NOTE"
@@ -202,8 +207,8 @@ function General() {
                     multiline
                     rows={2}
                 />
-            </div>
-        </div>
+            </Grid>
+        </Grid>
     );
 }
 

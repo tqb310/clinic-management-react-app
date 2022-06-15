@@ -1,13 +1,21 @@
 import React, {memo} from 'react';
-import {TextField} from '@mui/material';
+import {TextField, Grid} from '@mui/material';
 // import {CustomPaper} from '_components/shared/StyledComponent';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
 function ExaminingInfo(props) {
     return (
-        <div className="RCExaminingInfo">
-            <div className="RCExaminingInfo__name col-1-5">
+        <Grid
+            container
+            columnSpacing={2}
+            className="RCExaminingInfo"
+        >
+            <Grid
+                item
+                xs={4}
+                className="RCExaminingInfo__name"
+            >
                 <TextField
                     variant="filled"
                     label="Mạch"
@@ -18,8 +26,12 @@ function ExaminingInfo(props) {
                         width: '100%',
                     }}
                 />
-            </div>
-            <div className="RCExaminingInfo__birthdate col-5-9">
+            </Grid>
+            <Grid
+                item
+                xs={4}
+                className="RCExaminingInfo__birthdate"
+            >
                 <TextField
                     variant="filled"
                     label="Huyết áp"
@@ -30,8 +42,12 @@ function ExaminingInfo(props) {
                         width: '100%',
                     }}
                 />
-            </div>
-            <div className="RCExaminingInfo__age col-9-13">
+            </Grid>
+            <Grid
+                item
+                xs={4}
+                className="RCExaminingInfo__age"
+            >
                 <TextField
                     variant="filled"
                     label="Nhiệt độ"
@@ -42,8 +58,12 @@ function ExaminingInfo(props) {
                         width: '100%',
                     }}
                 />
-            </div>
-            <div className="RCExaminingInfo__gender col-1-13">
+            </Grid>
+            <Grid
+                item
+                xs={12}
+                className="RCExaminingInfo__gender"
+            >
                 <TextField
                     variant="filled"
                     label="Triệu chứng"
@@ -54,8 +74,12 @@ function ExaminingInfo(props) {
                         width: '100%',
                     }}
                 />
-            </div>
-            <div className="RCExaminingInfo__phone col-1-13">
+            </Grid>
+            <Grid
+                item
+                xs={12}
+                className="RCExaminingInfo__phone"
+            >
                 <TextField
                     variant="filled"
                     label="Chẩn đoán"
@@ -66,8 +90,8 @@ function ExaminingInfo(props) {
                         width: '100%',
                     }}
                 />
-            </div>
-        </div>
+            </Grid>
+        </Grid>
     );
 }
 

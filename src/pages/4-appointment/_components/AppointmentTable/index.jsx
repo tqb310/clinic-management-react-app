@@ -59,7 +59,7 @@ function AppointmentTable({data = {}}) {
         //Overriding status property "status"
         payload.appointment.status =
             data.selectedAppointment.status;
-        console.log(payload);
+        // console.log(payload);
         try {
             await appointmentService.update(
                 data.selectedAppointment.id.toString(),
@@ -117,7 +117,6 @@ function AppointmentTable({data = {}}) {
                     <Fragment>
                         <TableContent
                             tableData={data.dataByDate}
-                            selected={data.selected}
                         />
                         <LocationProvider>
                             <ConfirmRequest

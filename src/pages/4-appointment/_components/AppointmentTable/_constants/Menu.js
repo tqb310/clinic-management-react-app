@@ -25,11 +25,13 @@ const menu = [
                 await queueService.addToQueueWithAppointment(
                     {
                         patientId: payload.patient_id,
+                        appointmentId:
+                            payload.appointment_id,
                         type: payload.type,
                     },
                 );
             } catch (err) {
-                throw err;
+                console.log(err);
             }
         },
     },

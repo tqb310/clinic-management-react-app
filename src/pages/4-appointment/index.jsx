@@ -64,7 +64,6 @@ function Appointment(props) {
     const firestoreRealtime = useFirestoreRealtime({
         collectionName: 'appointments',
         eventHandler: () => {
-            console.log('realtime db');
             dispatch(setDataAsync());
         },
     });

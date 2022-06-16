@@ -221,23 +221,21 @@ function TableContent({tableData = []}) {
                                 icon: Icon = null,
                                 label = '',
                                 style = {},
-                                onClick = null,
+                                onClick = _ => {},
                             }) => (
                                 <MenuItem
                                     key={id}
-                                    onClick={
-                                        onClick
-                                            ? onClick(
-                                                  dispatch,
-                                                  closeMenu,
-                                                  {
-                                                      patient_id:
-                                                          row.patient_id,
-                                                      type: row.type,
-                                                  },
-                                              )
-                                            : null
-                                    }
+                                    onClick={onClick(
+                                        dispatch,
+                                        closeMenu,
+                                        {
+                                            patient_id:
+                                                row.patient_id,
+                                            appointment_id:
+                                                row.id,
+                                            type: row.type,
+                                        },
+                                    )}
                                 >
                                     {Icon && (
                                         <ListItemIcon>

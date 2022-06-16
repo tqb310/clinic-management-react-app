@@ -11,5 +11,5 @@ export const cardType = [
 export const statusText = [
     {text: 'Đã hủy', style: 'disabled'},
     {text: 'Chưa khám', style: 'primary'},
-    {text: 'Đã khám', style: 'success'},
+    {text: 'Đã đến khám', style: 'success'},
 ];

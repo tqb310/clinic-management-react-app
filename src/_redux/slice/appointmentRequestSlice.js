@@ -2,7 +2,6 @@ import {
     createSlice,
     createAsyncThunk,
 } from '@reduxjs/toolkit';
-// import PatientData from '_constants/FakeData/appointmentRequest.json';
 import appointmentRequestServices from '_services/firebase/appointment-request.service';
 
 const initialState = {

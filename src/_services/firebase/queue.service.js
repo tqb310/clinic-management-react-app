@@ -218,11 +218,19 @@ const queueServices = {
                     status: 0,
                 });
             //Add to queue
-            this.addToQueue({
+            await this.addToQueue({
                 patient_id: data.patientId?.toString(),
                 invoice_id: invoiceRes.id,
                 ...queueModel(),
             });
+            console.log('APPOINTMENT DATA', data);
+            await appointmentServices.update(
+                data.appointmentId,
+                '',
+                {
+                    appointment: {status: 2},
+                },
+            );
         } catch (error) {
             throw error;
         }

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import ExamineCard from './_components/ExamineCard';
 import RightBarContent from './_components/RightBar';
 import {useSelector, useDispatch} from 'react-redux';
@@ -32,6 +32,11 @@ function Dashboard(props) {
         },
     });
 
+    useEffect(() => {
+        const unsub = firestoreReadltime();
+        return unsub;
+    }, []);
+
     const handleSubmit = async values => {
         try {
             if (
@@ -51,12 +56,6 @@ function Dashboard(props) {
             console.log(error);
         }
     };
-
-    useEffect(() => {
-        const unsub = firestoreReadltime();
-        return unsub;
-    }, []);
-
     return (
         <div className="DoctorDashboard">
             <ExamineCard

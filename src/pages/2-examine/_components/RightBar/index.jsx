@@ -1,7 +1,7 @@
 import React, {useState, memo, useEffect} from 'react';
 import {RightBar} from '_components/shared/StyledComponent';
 import {Button, Typography, Box} from '@mui/material';
-import {SwapVert, Alarm} from '@mui/icons-material';
+import {SwapVert} from '@mui/icons-material';
 import {Dot} from '_components/shared/StyledComponent';
 import {setCardDataAsync} from '_redux/slice/queueSlice';
 import {useDispatch} from 'react-redux';

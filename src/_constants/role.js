@@ -1,9 +1,3 @@
-// const role = {
-//     manager: 'Manager',
-//     receptionist: 'Receptionist',
-//     doctor: 'Doctor'
-// };
-
 const role = new Map([
     [
         1,

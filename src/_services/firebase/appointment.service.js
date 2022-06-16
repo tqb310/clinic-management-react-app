@@ -96,7 +96,7 @@ const appointmentServices = {
                     id: doc.id,
                 });
             });
-            console.log(date);
+            // console.log(date);
             const results = appointments.map(
                 async (appointment, index) => {
                     if (patients && patients.length) {
@@ -173,10 +173,13 @@ const appointmentServices = {
     async update(aid, pid, data) {
         try {
             const docRef = doc(appointmentRef, aid);
-            const patientRes = await patientService.update(
-                pid,
-                data.patient,
-            );
+            if (pid) {
+                var patientRes =
+                    await patientService.update(
+                        pid,
+                        data.patient,
+                    );
+            }
             const appointmentRes = await setDoc(
                 docRef,
                 data.appointment,

@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
-import {Button, Typography} from '@mui/material';
-import {KeyboardArrowDown} from '@mui/icons-material';
+import {Typography} from '@mui/material';
+// import {KeyboardArrowDown} from '@mui/icons-material';
 import {CustomPaper} from '_components/shared/StyledComponent';
 import './index.scss';
 // import PropTypes from 'prop-types'

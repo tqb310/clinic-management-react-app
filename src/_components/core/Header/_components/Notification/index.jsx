@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {
     Badge,
     IconButton,
@@ -14,21 +14,45 @@ import {
     Notifications,
     FiberManualRecord,
 } from '@mui/icons-material';
+import {
+    getCreatedTime,
+    formatDate,
+} from '_helpers/handleDate';
+import {setDataAsync} from '_redux/slice/notificationSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {useFirestoreRealtime} from '_hooks';
+// import {useHistory} from 'react-router-dom';
+// import {
+//     setSelectedPaidInvoice,
+//     switchDrawer,
+// } from '_redux/slice/invoiceSlice';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
 function Notification(props) {
     const [isOpen, setOpen] = React.useState(false);
-
+    const dispatch = useDispatch();
     const handleStopPropagation = e => {
         e.stopPropagation();
     };
+    const notiData = useSelector(
+        state => state.notification.data,
+    );
+    const firestoreRealtime = useFirestoreRealtime({
+        collectionName: 'notification',
+        eventHandler: () => {
+            dispatch(setDataAsync());
+        },
+    });
     React.useEffect(() => {
         const handleCloseNotify = e => {
             setOpen(false);
         };
+        const db = firestoreRealtime();
+
         window.addEventListener('click', handleCloseNotify);
         return () => {
+            db();
             window.removeEventListener(
                 'click',
                 handleCloseNotify,
@@ -58,7 +82,12 @@ function Notification(props) {
                     (isOpen ? '' : 'hide')
                 }
             >
-                <Box>
+                <Box
+                    sx={{
+                        maxHeight: '300px',
+                        overflowY: 'auto',
+                    }}
+                >
                     <Typography
                         variant="h6"
                         sx={{py: 1, px: 2}}
@@ -66,76 +95,74 @@ function Notification(props) {
                         Thanh toán
                     </Typography>
                     <List sx={{p: 0}}>
-                        <ListItem sx={{p: 0}}>
-                            <ListItemButton>
-                                <ListItemIcon
-                                    sx={{minWidth: '28px'}}
+                        {notiData && notiData.length ? (
+                            notiData.map(item => (
+                                <ListItem
+                                    sx={{p: 0}}
+                                    key={item.id}
                                 >
-                                    <FiberManualRecord
-                                        sx={{
-                                            fontSize:
-                                                '1rem',
-                                            color: 'darkblue',
-                                        }}
-                                    />
-                                </ListItemIcon>
-                                <ListItemText>
-                                    <Typography variant="body1">
-                                        Phiếu khám{' '}
-                                        <span
-                                            style={{
-                                                color: 'red',
-                                                fontWeight: 700,
+                                    <ListItemButton>
+                                        <ListItemIcon
+                                            sx={{
+                                                minWidth:
+                                                    '28px',
                                             }}
                                         >
-                                            0012
-                                        </span>{' '}
-                                        cần được thanh toán
-                                    </Typography>
-                                    <Typography
-                                        variant="caption1"
-                                        sx={{opacity: 0.8}}
-                                    >
-                                        1 giây trước
-                                    </Typography>
-                                </ListItemText>
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem sx={{p: 0}}>
-                            <ListItemButton>
-                                <ListItemIcon
-                                    sx={{minWidth: '28px'}}
-                                >
-                                    <FiberManualRecord
-                                        sx={{
-                                            fontSize:
-                                                '1rem',
-                                            color: 'darkblue',
-                                        }}
-                                    />
-                                </ListItemIcon>
-                                <ListItemText>
-                                    <Typography variant="body1">
-                                        Phiếu khám{' '}
-                                        <span
-                                            style={{
-                                                color: 'red',
-                                                fontWeight: 700,
-                                            }}
-                                        >
-                                            0012
-                                        </span>{' '}
-                                        cần được thanh toán
-                                    </Typography>
-                                    <Typography
-                                        variant="caption1"
-                                        sx={{opacity: 0.8}}
-                                    >
-                                        1 giây trước
-                                    </Typography>
-                                </ListItemText>
-                            </ListItemButton>
-                        </ListItem>
+                                            <FiberManualRecord
+                                                sx={{
+                                                    fontSize:
+                                                        '1rem',
+                                                    color: 'darkblue',
+                                                }}
+                                            />
+                                        </ListItemIcon>
+                                        <ListItemText>
+                                            <Typography variant="body1">
+                                                Phiếu khám{' '}
+                                                <span
+                                                    style={{
+                                                        color: 'red',
+                                                        fontWeight: 700,
+                                                    }}
+                                                >
+                                                    {
+                                                        item.invoice_id
+                                                    }
+                                                </span>{' '}
+                                                cần được
+                                                thanh toán
+                                            </Typography>
+                                            <Typography
+                                                variant="caption1"
+                                                sx={{
+                                                    opacity: 0.8,
+                                                }}
+                                            >
+                                                {getCreatedTime(
+                                                    new Date(
+                                                        formatDate(
+                                                            item.create_at_date,
+                                                            item.create_at_time,
+                                                        ),
+                                                    ),
+                                                    new Date(),
+                                                ).toString()}
+                                            </Typography>
+                                        </ListItemText>
+                                    </ListItemButton>
+                                </ListItem>
+                            ))
+                        ) : (
+                            <Typography
+                                variant="h6"
+                                sx={{
+                                    textAlign: 'center',
+                                    py: 2,
+                                }}
+                            >
+                                Không có thông báo mới
+                            </Typography>
+                        )}
                     </List>
                 </Box>
             </Box>
@@ -143,6 +170,5 @@ function Notification(props) {
     );
 }
 
-Notification.propTypes = {};
-
-export default Notification;
+// Notification.propTypes = {};
+export default memo(Notification);

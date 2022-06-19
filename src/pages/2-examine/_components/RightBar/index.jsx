@@ -5,6 +5,7 @@ import {SwapVert} from '@mui/icons-material';
 import {Dot} from '_components/shared/StyledComponent';
 import {setCardDataAsync} from '_redux/slice/queueSlice';
 import {useDispatch} from 'react-redux';
+import PaperImage from '_assets/images/paper.png';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
@@ -142,8 +143,7 @@ function RightBarContent({
                 </div>
             </div>
             <div className="RBDoctorHome__queueList">
-                {filterdQueue &&
-                    filterdQueue.length > 0 &&
+                {filterdQueue && filterdQueue.length > 0 ? (
                     filterdQueue.map(item => (
                         <QueueItem
                             key={item.id}
@@ -160,7 +160,18 @@ function RightBarContent({
                                 item.numerical_order
                             }
                         />
-                    ))}
+                    ))
+                ) : (
+                    <img
+                        src={PaperImage}
+                        alt="No data"
+                        width="256px"
+                        style={{
+                            opacity: 0.5,
+                            marginTop: '50px',
+                        }}
+                    />
+                )}
             </div>
         </RightBar>
     );

@@ -7,6 +7,7 @@ import {
     where,
     addDoc,
     setDoc,
+    deleteDoc,
 } from 'firebase/firestore';
 import patientServices from './patient.service';
 import invoiceServices from './invoice.service';
@@ -248,6 +249,19 @@ const queueServices = {
                 data,
                 {merge: true},
             );
+        } catch (error) {
+            throw error;
+        }
+    },
+    /**
+     *
+     * @param {*} id
+     */
+    async deleteQueue(id) {
+        try {
+            if (id) {
+                await deleteDoc(doc(queueRef, id));
+            }
         } catch (error) {
             throw error;
         }

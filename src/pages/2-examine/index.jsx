@@ -8,12 +8,12 @@ import {
 } from '_redux/slice/queueSlice';
 import {useFirestoreRealtime} from '_hooks';
 import invoiceServices from '_services/firebase/invoice.service';
+import queueServices from '_services/firebase/queue.service';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
-function Dashboard(props) {
+function Examine(props) {
     const dispatch = useDispatch();
-
     const queueData = useSelector(
         state => state.queues.data,
     );
@@ -52,6 +52,9 @@ function Dashboard(props) {
                 selectedCard.invoice_id,
                 values,
             );
+            await queueServices.deleteQueue(
+                selectedCard.id,
+            );
         } catch (error) {
             console.log(error);
         }
@@ -71,6 +74,6 @@ function Dashboard(props) {
     );
 }
 
-Dashboard.propTypes = {};
+// Examine.propTypes = {};
 
-export default Dashboard;
+export default Examine;

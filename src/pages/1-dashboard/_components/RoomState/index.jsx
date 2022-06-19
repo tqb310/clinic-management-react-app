@@ -1,5 +1,5 @@
 import React, {memo} from 'react';
-import {Typography, Stack, Box} from '@mui/material';
+import {Typography, Box} from '@mui/material';
 import {CustomPaper} from '_components/shared/StyledComponent';
 import {Dot} from '_components/shared/StyledComponent';
 import {StatusPaper} from '_components/shared/StyledComponent';

@@ -106,7 +106,10 @@ function Main(props) {
                             onClose={closeDrawer}
                         >
                             <DrawerContent
-                                data={selectedPaidInvoice}
+                                data={
+                                    selectedPaidInvoice ||
+                                    {}
+                                }
                             />
                         </Drawer>
                     </Box>

@@ -11,7 +11,7 @@ const initialState = {
     data: [],
     selected: [],
     isOpenDrawer: false,
-    selectedPaidInvoice: '',
+    selectedPaidInvoice: null,
     isLoading: false,
 };
 

@@ -55,7 +55,7 @@ const patientServices = {
         }
     },
 
-    async addPatient(data) {
+    async add(data) {
         try {
             const res = await addDoc(notificationRef, data);
             return res;

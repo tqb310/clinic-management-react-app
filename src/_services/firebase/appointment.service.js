@@ -87,6 +87,7 @@ const appointmentServices = {
             const q = query(
                 appointmentRef,
                 where('date', '==', date),
+                where('status', '!=', 0),
             );
             const snapshot = await getDocs(q);
             const appointments = [];

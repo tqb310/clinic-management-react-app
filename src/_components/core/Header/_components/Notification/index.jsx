@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React, {memo, useMemo, useEffect} from 'react';
 import {
     Badge,
     IconButton,
@@ -21,22 +21,28 @@ import {
 import {setDataAsync} from '_redux/slice/notificationSlice';
 import {useDispatch, useSelector} from 'react-redux';
 import {useFirestoreRealtime} from '_hooks';
-// import {useHistory} from 'react-router-dom';
-// import {
-//     setSelectedPaidInvoice,
-//     switchDrawer,
-// } from '_redux/slice/invoiceSlice';
+import {useHistory} from 'react-router-dom';
+import {
+    setSelectedPaidInvoiceAsync,
+    switchDrawer,
+} from '_redux/slice/invoiceSlice';
+import notificationService from '_services/firebase/notification.service';
+import role from '_constants/role';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
 function Notification(props) {
     const [isOpen, setOpen] = React.useState(false);
     const dispatch = useDispatch();
+    const history = useHistory();
     const handleStopPropagation = e => {
         e.stopPropagation();
     };
     const notiData = useSelector(
         state => state.notification.data,
+    );
+    const userRole = useSelector(
+        state => state.user.current.role,
     );
     const firestoreRealtime = useFirestoreRealtime({
         collectionName: 'notification',
@@ -44,7 +50,12 @@ function Notification(props) {
             dispatch(setDataAsync());
         },
     });
-    React.useEffect(() => {
+
+    const notReadNotiData = useMemo(() => {
+        return notiData.filter(item => !item.is_read);
+    }, [notiData]);
+
+    useEffect(() => {
         const handleCloseNotify = e => {
             setOpen(false);
         };
@@ -59,7 +70,21 @@ function Notification(props) {
             );
         };
     }, []);
-
+    const handleClickItem =
+        (invoiceId, notiId) => async e => {
+            setOpen(false);
+            dispatch(
+                setSelectedPaidInvoiceAsync(invoiceId),
+            );
+            dispatch(switchDrawer(true));
+            if (userRole)
+                history.push(
+                    `${role.get(userRole).url}/phieu-kham`,
+                );
+            await notificationService.update(notiId, {
+                is_read: true,
+            });
+        };
     return (
         <div
             className="notification"
@@ -69,7 +94,11 @@ function Notification(props) {
                 sx={{marginRight: 2}}
                 onClick={setOpen.bind(null, true)}
             >
-                <Badge variant="dot" color="warning">
+                <Badge
+                    badgeContent={notReadNotiData.length}
+                    invisible={notReadNotiData.length === 0}
+                    color="warning"
+                >
                     <Notifications
                         fontSize="2"
                         className="notification__icon"
@@ -100,6 +129,10 @@ function Notification(props) {
                                 <ListItem
                                     sx={{p: 0}}
                                     key={item.id}
+                                    onClick={handleClickItem(
+                                        item.invoice_id,
+                                        item.id,
+                                    )}
                                 >
                                     <ListItemButton>
                                         <ListItemIcon
@@ -108,13 +141,15 @@ function Notification(props) {
                                                     '28px',
                                             }}
                                         >
-                                            <FiberManualRecord
-                                                sx={{
-                                                    fontSize:
-                                                        '1rem',
-                                                    color: 'darkblue',
-                                                }}
-                                            />
+                                            {!item.is_read && (
+                                                <FiberManualRecord
+                                                    sx={{
+                                                        fontSize:
+                                                            '1rem',
+                                                        color: 'darkblue',
+                                                    }}
+                                                />
+                                            )}
                                         </ListItemIcon>
                                         <ListItemText>
                                             <Typography variant="body1">

@@ -29,10 +29,10 @@ const tabNames = [
 function Main(props) {
     const dispatch = useDispatch();
     const {
-        data = [],
-        selected = [],
-        isOpenDrawer = false,
-        selectedPaidInvoice = {},
+        data,
+        selected,
+        isOpenDrawer,
+        selectedPaidInvoice,
     } = useSelector(state => state.invoices);
     // const history = useHistory();
     // const {path} = useRouteMatch();

@@ -18,7 +18,7 @@ const initialState = {
 export const setDataAsync = createAsyncThunk(
     'invoices/setDataAsync',
     async (_, thunkAPI) => {
-        const {patients = {}} = thunkAPI.getState();
+        const {patients} = thunkAPI.getState();
         const data = await invoiceServices.getDocsAll(
             patients.data,
         );
@@ -29,6 +29,23 @@ export const setDataAsync = createAsyncThunk(
                     formatDate(item2.create_at),
                 ),
         );
+    },
+);
+
+export const setSelectedPaidInvoiceAsync = createAsyncThunk(
+    'invoices/setSelectedPaidInvoiceAsync',
+    async (id, thunkAPI) => {
+        const {invoices} = thunkAPI.getState();
+        let result;
+        if (invoices.data.length) {
+            result = invoices.data.find(
+                item => item.id === id,
+            );
+        } else {
+            result = await invoiceServices.getDocById(id);
+        }
+
+        return result;
     },
 );
 
@@ -49,12 +66,6 @@ const appointmentSlice = createSlice({
         switchDrawer: (state, action) => {
             state.isOpenDrawer = action.payload;
         },
-        setSelectedPaidInvoice: (state, action) => {
-            state.selectedPaidInvoice =
-                state.data.find(
-                    item => item.id === action.payload,
-                ) || null;
-        },
     },
     extraReducers: {
         [setDataAsync.pending]: state => {
@@ -63,6 +74,12 @@ const appointmentSlice = createSlice({
         [setDataAsync.fulfilled]: (state, action) => {
             state.data = action.payload;
             state.isLoading = false;
+        },
+        [setSelectedPaidInvoiceAsync.fulfilled]: (
+            state,
+            action,
+        ) => {
+            state.selectedPaidInvoice = action.payload;
         },
     },
 });

@@ -9,6 +9,8 @@ import {
 import {useFirestoreRealtime} from '_hooks';
 import invoiceServices from '_services/firebase/invoice.service';
 import queueServices from '_services/firebase/queue.service';
+import getNotificationModel from '_models/notification';
+import notificationService from '_services/firebase/notification.service';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
@@ -54,6 +56,11 @@ function Examine(props) {
             );
             await queueServices.deleteQueue(
                 selectedCard.id,
+            );
+            await notificationService.add(
+                getNotificationModel(
+                    selectedCard.invoice_id,
+                ),
             );
         } catch (error) {
             console.log(error);

@@ -141,6 +141,7 @@ const queueSlice = createSlice({
             );
             if (activePatient)
                 state.selectedCard = activePatient;
+            else state.selectedCard = null;
             state.isLoading = false;
         },
         [setDataByStatusAsync.pending]: state => {

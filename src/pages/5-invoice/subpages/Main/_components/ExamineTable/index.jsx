@@ -22,7 +22,7 @@ import MenuPopup from '_components/shared/Menu';
 import {MoreHoriz} from '@mui/icons-material';
 import {
     selectData,
-    setSelectedPaidInvoice,
+    setSelectedPaidInvoiceAsync,
     switchDrawer,
 } from '_redux/slice/invoiceSlice';
 import {styled} from '@mui/material/styles';
@@ -61,7 +61,7 @@ function InvoiceTable({tableData, selected}) {
     };
     const openMenu = id => e => {
         setAnchor(e.currentTarget);
-        dispatch(setSelectedPaidInvoice(id));
+        dispatch(setSelectedPaidInvoiceAsync(id));
     };
     const closeMenu = _ => {
         setAnchor(null);

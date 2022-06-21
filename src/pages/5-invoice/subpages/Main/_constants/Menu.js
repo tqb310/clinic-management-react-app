@@ -1,6 +1,6 @@
 import {Payments, EditOutlined} from '@mui/icons-material';
 
-export default [
+const menuItems = [
     {
         id: 0,
         label: 'Thanh toán',
@@ -15,3 +15,4 @@ export default [
         style: {fontSize: '2rem'},
     },
 ];
+export default menuItems;

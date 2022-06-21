@@ -87,7 +87,6 @@ const appointmentServices = {
             const q = query(
                 appointmentRef,
                 where('date', '==', date),
-                where('status', '!=', 0),
             );
             const snapshot = await getDocs(q);
             const appointments = [];
@@ -98,8 +97,11 @@ const appointmentServices = {
                 });
             });
             // console.log(date);
-            const results = appointments.map(
-                async (appointment, index) => {
+            const results = appointments
+                .filter(
+                    appointment => appointment.status !== 0,
+                )
+                .map(async (appointment, index) => {
                     if (patients && patients.length) {
                         let tempData = patients.find(
                             patient =>
@@ -122,8 +124,7 @@ const appointmentServices = {
                     //Get rid of patient_id
                     const {id, ...rest} = dataFromDB;
                     return Object.assign(appointment, rest);
-                },
-            );
+                });
             return Promise.all(results);
         } catch (error) {
             throw error;

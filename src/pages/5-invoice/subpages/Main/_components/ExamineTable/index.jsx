@@ -209,13 +209,14 @@ function InvoiceTable({tableData, selected}) {
                         <StatusPaper
                             fontSize="1.4rem"
                             status={
-                                row.total_fee
+                                row.paying_customer
                                     ? 'success'
                                     : 'error'
                             }
                         >
-                            {row.total_fee ||
-                                'Chưa thanh toán'}
+                            {row.paying_customer
+                                ? row.total_fee
+                                : 'Chưa thanh toán'}
                         </StatusPaper>
                     </BodyCell>
                     <BodyCell

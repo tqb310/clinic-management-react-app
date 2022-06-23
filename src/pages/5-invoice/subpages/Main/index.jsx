@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import TabTableWrapper from '_components/shared/TabTableWrapper';
 // import {useRouteMatch, useHistory} from 'react-router-dom';
@@ -17,6 +17,7 @@ import {
 } from '_redux/slice/invoiceSlice';
 import Drawer from '_components/shared/Drawer';
 import DrawerContent from './_components/DrawerContent';
+import invoiceServices from '_services/firebase/invoice.service';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
@@ -53,6 +54,17 @@ function Main(props) {
     //Invoking when click on next page
     const closeDrawer = _ => {
         dispatch(switchDrawer(false));
+    };
+
+    const handlePaying = async (paid, change) => {
+        try {
+            await invoiceServices.updateInvoice(
+                selectedPaidInvoice.id,
+                {paying_customer: paid, change},
+            );
+        } catch (error) {
+            console.log(error);
+        }
     };
     return (
         <TabTableWrapper tabNameArr={tabNames}>
@@ -110,6 +122,7 @@ function Main(props) {
                                     selectedPaidInvoice ||
                                     {}
                                 }
+                                handlePaying={handlePaying}
                             />
                         </Drawer>
                     </Box>
@@ -119,6 +132,6 @@ function Main(props) {
     );
 }
 
-Main.propTypes = {};
+// Main.propTypes = {};
 
-export default Main;
+export default memo(Main);

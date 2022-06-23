@@ -11,6 +11,7 @@ import invoiceServices from '_services/firebase/invoice.service';
 import queueServices from '_services/firebase/queue.service';
 import getNotificationModel from '_models/notification';
 import notificationService from '_services/firebase/notification.service';
+import computeServiceTotalFee from '_helpers/computeServiceTotalFee';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
@@ -41,6 +42,7 @@ function Examine(props) {
 
     const handleSubmit = async values => {
         try {
+            //In case of scheduling a follow-up appointment
             if (
                 values.follow_up_time.hour &&
                 values.follow_up_time.minute
@@ -50,6 +52,13 @@ function Examine(props) {
                     ':' +
                     values.follow_up_time.minute;
             }
+
+            //Setting total fee
+            values.total_fee = computeServiceTotalFee(
+                values.services,
+            );
+
+            //Submit data
             await invoiceServices.updateInvoice(
                 selectedCard.invoice_id,
                 values,

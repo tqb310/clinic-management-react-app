@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React, {memo, useState} from 'react';
 import {
     Box,
     Typography,
@@ -7,38 +7,42 @@ import {
     TextField,
     InputAdornment,
 } from '@mui/material';
-// import {
-//     Table,
-//     TableRow,
-//     TableCell,
-// } from '_components/shared/Table2';
-// import {serviceHeadCells} from '../../_constants/HeadCells';
 import Paid from '_assets/images/paid.jpg';
 import services from '_constants/services';
 import handlePriceFormat from '_helpers/handlePriceFormat';
 import './index.scss';
 // import PropTypes from 'prop-types'
-// const serviceList = [
-//     {
-//         id: 1,
-//         itemName: 'Khám thường',
-//         itemQuantity: 1,
-//         itemUnitPrice: '50,000đ',
-//         itemAmount: '50,000đ',
-//     },
-//     {
-//         id: 2,
-//         itemName: 'Khám thường',
-//         itemQuantity: 1,
-//         itemUnitPrice: '50,000đ',
-//         itemAmount: '50,000đ',
-//     },
-// ];
 
-function DrawerContent({data = {}}) {
+function DrawerContent({data = {}, handlePaying}) {
+    const [paid, setPaid] = useState('');
+    const [change, setChange] = useState('');
+    const [paidError, setPaidError] = useState(false);
+
+    const handlePaymentForm = e => {
+        handlePaying(paid, change);
+    };
+    const handleReset = e => {
+        setPaid(pre => '');
+        setChange(pre => '');
+    };
+    const handleChangePaid = e => {
+        if (e.target.value) setPaidError(pre => false);
+        setPaid(pre => e.target.value);
+        if (parseInt(e.target.value) >= data.total_fee)
+            setChange(
+                pre =>
+                    parseInt(e.target.value) -
+                    data.total_fee,
+            );
+        else setChange(pre => 0);
+    };
+    const handleBlurPaid = e => {
+        if (!e.target.value) setPaidError(true);
+    };
+
     return (
         <Box className="drawer-content">
-            {data.total_fee && (
+            {data.paying_customer && (
                 <img src={Paid} alt="paid" width={128} />
             )}
             <Typography variant="h6" gutterBottom>
@@ -127,9 +131,14 @@ function DrawerContent({data = {}}) {
                 <TextField
                     size="small"
                     fullWidth
-                    value={handlePriceFormat(
-                        data.paying_customer,
-                    )}
+                    required
+                    error={paidError}
+                    disabled={Boolean(data.paying_customer)}
+                    value={
+                        handlePriceFormat(
+                            data.paying_customer,
+                        ) || paid
+                    }
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
@@ -137,6 +146,13 @@ function DrawerContent({data = {}}) {
                             </InputAdornment>
                         ),
                     }}
+                    onChange={handleChangePaid}
+                    onBlur={handleBlurPaid}
+                    helperText={
+                        paidError
+                            ? 'Chưa nhập số tiền khách trả'
+                            : ''
+                    }
                 />
             </Box>
             <Box className="drawer-content__info-group">
@@ -144,7 +160,11 @@ function DrawerContent({data = {}}) {
                 <TextField
                     size="small"
                     fullWidth
-                    value={handlePriceFormat(data.change)}
+                    disabled
+                    value={
+                        handlePriceFormat(data.change) ||
+                        change
+                    }
                     InputProps={{
                         endAdornment: (
                             <InputAdornment position="end">
@@ -170,13 +190,15 @@ function DrawerContent({data = {}}) {
                     variant="outlined"
                     color="error"
                     sx={{ml: 'auto !important', mr: 2}}
-                    disabled={data.total_fee}
+                    disabled={data.paying_customer}
+                    onClick={handleReset}
                 >
                     Hủy
                 </Button>
                 <Button
                     variant="contained"
-                    disabled={data.total_fee}
+                    disabled={data.paying_customer}
+                    onClick={handlePaymentForm}
                 >
                     Xác nhận
                 </Button>

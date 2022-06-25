@@ -8,6 +8,12 @@ export const cardType = [
     {key: 'Tái Khám', value: 1, id: 2},
 ];
 
+export const role = [
+    {key: 'Tiếp tân', value: 1, id: 1},
+    {key: 'Bác sĩ', value: 2, id: 2},
+    {key: 'Quản Lý', value: 3, id: 3},
+];
+
 export const statusText = [
     {text: 'Đã hủy', style: 'disabled'},
     {text: 'Chưa khám', style: 'primary'},

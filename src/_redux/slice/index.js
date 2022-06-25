@@ -5,6 +5,7 @@ import invoiceReducer from './invoiceSlice';
 import currentUserReducer from './currentUserSlice';
 import queueReducer from './queueSlice';
 import notificationReducer from './notificationSlice';
+import employeeReducer from './employeeSlice';
 
 const rootReducer = {
     patients: patientReducer,
@@ -14,6 +15,7 @@ const rootReducer = {
     appointmentRequests: appointmentRequestReducer,
     queues: queueReducer,
     notification: notificationReducer,
+    employees: employeeReducer,
 };
 
 export default rootReducer;

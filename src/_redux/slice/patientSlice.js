@@ -2,7 +2,6 @@ import {
     createSlice,
     createAsyncThunk,
 } from '@reduxjs/toolkit';
-// import PatientData from '_constants/FakeData/patient.json';
 import patientServices from '_services/firebase/patient.service';
 import {
     compare2Days,

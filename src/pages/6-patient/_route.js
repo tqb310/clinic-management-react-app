@@ -1,5 +1,5 @@
 import {lazy} from 'react';
-import {Sick} from '@mui/icons-material';
+import {Accessible} from '@mui/icons-material';
 
 const route = {
     id: Math.random().toString(32).substr(2, 10),
@@ -8,7 +8,7 @@ const route = {
     isPublic: false,
     exact: true,
     component: lazy(() => import('./index')),
-    icon: Sick,
+    icon: Accessible,
     roles: [1, 2, 3],
 };
 export default route;

@@ -110,6 +110,10 @@ const appointmentSlice = createSlice({
             state.data = action.payload;
             state.isLoading = false;
         },
+        [setDataAsync.rejected]: (state, action) => {
+            state.err = action.error;
+            state.isLoading = false;
+        },
         [setDataByDateAsync.pending]: state => {
             state.isLoading = true;
         },

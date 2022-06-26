@@ -9,6 +9,9 @@ import {formatDate} from '_helpers/handleDate';
 
 const initialState = {
     data: [],
+    filteredData: [],
+    numberNotPaid: 0,
+    numberPaid: 0,
     selected: [],
     isOpenDrawer: false,
     selectedPaidInvoice: null,
@@ -38,7 +41,10 @@ export const setSelectedPaidInvoiceAsync = createAsyncThunk(
     async (id, thunkAPI) => {
         const {invoices} = thunkAPI.getState();
         let result;
-        if (invoices.data.length) {
+        let invoiceIndex = invoices.data.findIndex(
+            invoice => invoice.id === id,
+        );
+        if (invoiceIndex !== -1) {
             result = invoices.data.find(
                 item => item.id === id,
             );
@@ -67,6 +73,24 @@ const appointmentSlice = createSlice({
         switchDrawer: (state, action) => {
             state.isOpenDrawer = action.payload;
         },
+        filterData: (state, action) => {
+            if (action.payload === 0)
+                state.filteredData = state.data;
+            else {
+                let flag = 0;
+                if (action.payload === 2) flag = 1;
+
+                state.filteredData = state.data.filter(
+                    invoice => {
+                        return (
+                            Boolean(
+                                invoice.paying_customer,
+                            ) === Boolean(flag)
+                        );
+                    },
+                );
+            }
+        },
     },
     extraReducers: {
         [setDataAsync.pending]: state => {
@@ -74,6 +98,13 @@ const appointmentSlice = createSlice({
         },
         [setDataAsync.fulfilled]: (state, action) => {
             state.data = action.payload;
+            state.filteredData = action.payload;
+            state.numberNotPaid = action.payload?.filter(
+                invoice => !invoice.paying_customer,
+            ).length;
+            state.numberPaid = action.payload?.filter(
+                invoice => invoice.paying_customer,
+            ).length;
             state.isLoading = false;
         },
         [setDataAsync.rejected]: (state, action) => {
@@ -96,5 +127,6 @@ export const {
     setData,
     switchDrawer,
     setSelectedPaidInvoice,
+    filterData,
 } = actions;
 export default reducer;

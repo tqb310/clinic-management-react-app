@@ -36,9 +36,11 @@ const invoiceServices = {
                                 patient.id ===
                                 invoice.patient_id,
                         );
-                        //Get rid of patient_id
-                        const {id, ...rest} = tempData;
-                        return Object.assign(invoice, rest);
+
+                        return {
+                            ...tempData,
+                            ...invoice,
+                        };
                     }
                     //In case of not fetched patient data yet
                     const dataFromDB =

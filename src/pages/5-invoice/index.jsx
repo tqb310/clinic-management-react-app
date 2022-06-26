@@ -1,4 +1,4 @@
-import React, {lazy, Suspense, useEffect} from 'react';
+import React, {lazy, Suspense} from 'react';
 import {
     Route,
     Switch,
@@ -7,8 +7,6 @@ import {
 } from 'react-router-dom';
 import {RightBar} from '_components/shared/StyledComponent';
 import IncomeStat from './_components/IncomeStat';
-import {setDataAsync} from '_redux/slice/invoiceSlice';
-import {useDispatch} from 'react-redux';
 // import PropTypes from 'prop-types';
 
 const MainLazy = lazy(() => import('./subpages/Main'));
@@ -18,10 +16,7 @@ const DetailCard = lazy(() =>
 
 function Invoice(props) {
     const {path} = useRouteMatch();
-    const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(setDataAsync());
-    }, []);
+
     return (
         <Suspense fallback={<div>Loading ...</div>}>
             <Switch>

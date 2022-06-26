@@ -5,10 +5,16 @@ import {Box} from '@mui/material';
 import {CustomPaper} from '_components/shared/StyledComponent';
 import './index.scss';
 
-function TabTableWrapper({tabNameArr, children, ...rest}) {
+function TabTableWrapper({
+    tabNameArr,
+    children,
+    onSwitchTab,
+    ...rest
+}) {
     const [selectedItem, setSelectedItem] = useState(0);
-    const onClickItem = index => {
-        return () => setSelectedItem(index);
+    const onClickItem = index => e => {
+        setSelectedItem(index);
+        onSwitchTab(index);
     };
     return (
         <CustomPaper className="TabTableWrapper" {...rest}>
@@ -24,16 +30,14 @@ function TabTableWrapper({tabNameArr, children, ...rest}) {
                         onClick={onClickItem(index)}
                     >
                         <span>{item.title}</span>
-                        {item.number && (
-                            <span className="TabTableWrapper__tabItemBadge">
-                                {item.number}
-                            </span>
-                        )}
+                        <span className="TabTableWrapper__tabItemBadge">
+                            {item.number}
+                        </span>
                     </Box>
                 ))}
             </Box>
             <Box className="TabTableWrapper__table">
-                {children && children(selectedItem)}
+                {children}
             </Box>
         </CustomPaper>
     );

@@ -39,12 +39,11 @@ const appointmentServices = {
                                 patient.id ===
                                 appointment.patient_id,
                         );
-                        //Get rid of patient_id
-                        const {id, ...rest} = tempData;
-                        return Object.assign(
-                            appointment,
-                            rest,
-                        );
+
+                        return {
+                            ...tempData,
+                            ...appointment,
+                        };
                     }
                     //In case of not fetched patient data yet
                     const dataFromDB =

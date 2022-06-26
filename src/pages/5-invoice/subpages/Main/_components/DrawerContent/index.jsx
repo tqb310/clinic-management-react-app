@@ -50,7 +50,7 @@ function DrawerContent({data = {}, handlePaying}) {
             </Typography>
             <Box className="drawer-content__title">
                 <Typography variant="h5" gutterBottom>
-                    #{data.id}
+                    {`${data.id ? '#' + data.id : ''}`}
                 </Typography>
             </Box>
             <Box className="drawer-content__info-group">
@@ -58,7 +58,11 @@ function DrawerContent({data = {}, handlePaying}) {
                     Bệnh nhân
                 </Typography>
                 <Typography variant="h6">
-                    {data.last_name + ' ' + data.first_name}
+                    {data.last_name
+                        ? data.last_name +
+                          ' ' +
+                          data.first_name
+                        : ''}
                 </Typography>
             </Box>
             <Box className="drawer-content__info-group">
@@ -66,7 +70,7 @@ function DrawerContent({data = {}, handlePaying}) {
                     Ngày thanh toán
                 </Typography>
                 <Typography variant="h6">
-                    {data.create_at}
+                    {data.create_at || ''}
                 </Typography>
             </Box>
             <Divider

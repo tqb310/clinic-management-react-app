@@ -3,10 +3,8 @@ import {
     createAsyncThunk,
 } from '@reduxjs/toolkit';
 import notificationServices from '_services/firebase/notification.service';
-// import {
-//     compare2Days,
-//     formatDate,
-// } from '_helpers/handleDate';
+import {formatDate} from '_helpers/handleDate';
+import getDateTimeComparator from '_helpers/getDateTimeComparator';
 
 const initialState = {
     data: [],
@@ -20,7 +18,19 @@ export const setDataAsync = createAsyncThunk(
     async () => {
         const data =
             await notificationServices.getDocsAll();
-        return data;
+        return data.sort(
+            (item1, item2) =>
+                -getDateTimeComparator(
+                    formatDate(
+                        item1.create_at_date,
+                        item1.create_at_time,
+                    ),
+                    formatDate(
+                        item2.create_at_date,
+                        item2.create_at_time,
+                    ),
+                ),
+        );
     },
 );
 

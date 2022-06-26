@@ -23,6 +23,7 @@ function EmployeeTable({
     tableData,
     selectedEmployee,
     handleSelectEmployee,
+    setOpenToast,
 }) {
     return (
         <Table
@@ -153,7 +154,10 @@ function EmployeeTable({
                         }}
                     >
                         <IconButton
-                            onClick={() => {}}
+                            onClick={setOpenToast.bind(
+                                null,
+                                true,
+                            )}
                             sx={{
                                 opacity: 0.2,
                                 transition: 'opacity .3s',

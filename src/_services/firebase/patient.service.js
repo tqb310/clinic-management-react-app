@@ -50,11 +50,11 @@ const patientServices = {
      * @returns
      */
     async getAllInvoicesOfAPatient(id) {
-        const q = query(
-            invoiceRef,
-            where('patient_id', '==', id),
-        );
         try {
+            const q = query(
+                invoiceRef,
+                where('patient_id', '==', id),
+            );
             const snapshot = await getDocs(q);
             let result = [];
             snapshot.forEach((doc, index) => {

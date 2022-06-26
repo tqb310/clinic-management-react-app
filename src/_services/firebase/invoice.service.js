@@ -5,8 +5,11 @@ import {
     getDocs,
     addDoc,
     setDoc,
+    query,
+    where,
 } from 'firebase/firestore';
 import patientService from './patient.service';
+import {formatDate} from '_helpers/handleDate';
 import {db} from './app';
 
 const invoiceRef = collection(db, 'invoices');
@@ -77,6 +80,32 @@ const invoiceServices = {
                 ...rest,
                 id: invoiceResult.id,
             };
+        } catch (error) {
+            throw error;
+        }
+    },
+    /**
+     * @async
+     * @param {*} id
+     * @returns
+     */
+    async getNumberOfTodayDocs() {
+        try {
+            const q = query(
+                invoiceRef,
+                where(
+                    'create_at',
+                    '==',
+                    formatDate(
+                        new Date().toLocaleDateString(),
+                        '',
+                        'm/d/y',
+                        true,
+                    ),
+                ),
+            );
+            const snapshot = await getDocs(q);
+            return snapshot.size;
         } catch (error) {
             throw error;
         }

@@ -3,11 +3,11 @@ import {styled} from '@mui/material/styles';
 
 const statusColors = {
     success: {
-        color: theme => theme.palette.success.main,
+        color: _ => '#fff',
         bgColor: theme => theme.palette.success.light,
     },
     error: {
-        color: theme => theme.palette.error.main,
+        color: _ => '#fff',
         bgColor: theme => theme.palette.error.light,
     },
     disabled: {
@@ -15,7 +15,7 @@ const statusColors = {
         bgColor: _ => '#eee',
     },
     primary: {
-        color: theme => theme.palette.blue.main,
+        color: _ => '#fff',
         bgColor: theme => theme.palette.blue.light,
     },
 };

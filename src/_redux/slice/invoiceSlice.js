@@ -13,6 +13,7 @@ const initialState = {
     isOpenDrawer: false,
     selectedPaidInvoice: null,
     isLoading: false,
+    error: '',
 };
 
 export const setDataAsync = createAsyncThunk(
@@ -73,6 +74,10 @@ const appointmentSlice = createSlice({
         },
         [setDataAsync.fulfilled]: (state, action) => {
             state.data = action.payload;
+            state.isLoading = false;
+        },
+        [setDataAsync.rejected]: (state, action) => {
+            state.error = action.error;
             state.isLoading = false;
         },
         [setSelectedPaidInvoiceAsync.fulfilled]: (

@@ -1,4 +1,4 @@
-import React, {useLayoutEffect, useState} from 'react';
+import React, {useLayoutEffect} from 'react';
 import PatientTable from './_components/PatientTable';
 import {RightBar} from '_components/shared/StyledComponent';
 import RightBarContent from './_components/RightBar';
@@ -10,7 +10,6 @@ import MaleIcon from '_assets/images/male.png';
 import FemaleIcon from '_assets/images/female.png';
 import PatientIcon from '_assets/images/dentistry.png';
 import TodayPatientIcon from '_assets/images/today-patient.png';
-import queryData from '_helpers/queryData';
 import './index.scss';
 // import PropTypes from 'prop-types';
 
@@ -33,42 +32,13 @@ const PatientStat = ({title, number, img}) => (
     </div>
 );
 function Patient(props) {
-    // const [queue, setQueue] = useState([]);
-    // const [selectIndex, setSelectIndex] = useState(0);
-    // const handleSelectIndex = index => {
-    //     setSelectIndex(index);
-    // };
-    const [maleNumber, setMaleNumber] = useState(0);
-    const [femaleNumber, setFemaleNumber] = useState(0);
     const patientState = useSelector(
         state => state.patients,
     );
     const dispatch = useDispatch();
     useLayoutEffect(() => {
-        const fetchData = async () => {
-            const result = await dispatch(
-                setDataAsync(),
-            ).unwrap();
-            setMaleNumber(
-                queryData(result, data => data.gender === 1)
-                    .length,
-            );
-            setFemaleNumber(
-                queryData(result, data => data.gender === 0)
-                    .length,
-            );
-        };
-        fetchData();
+        dispatch(setDataAsync());
     }, []);
-
-    // maleNumber = queryData(
-    //     patientState.data,
-    //     data => data.gender === 1,
-    // ).length;
-    // femaleNumber = queryData(
-    //     patientState.data,
-    //     data => data.gender === 0,
-    // ).length;
 
     return (
         <>
@@ -81,17 +51,17 @@ function Patient(props) {
                 <PatientStat
                     img={TodayPatientIcon}
                     title="Số bệnh nhân hôm nay"
-                    number={54}
+                    number={patientState.todayPatient}
                 />
                 <PatientStat
                     img={MaleIcon}
                     title="Bệnh nhân nam"
-                    number={maleNumber}
+                    number={patientState.malePatient}
                 />
                 <PatientStat
                     img={FemaleIcon}
                     title="Bệnh nhân nữ"
-                    number={femaleNumber}
+                    number={patientState.femalePatient}
                 />
             </CustomPaper>
             <CustomPaper className="patient-table-container">

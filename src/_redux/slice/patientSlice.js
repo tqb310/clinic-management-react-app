@@ -3,6 +3,7 @@ import {
     createAsyncThunk,
 } from '@reduxjs/toolkit';
 import patientServices from '_services/firebase/patient.service';
+import invoiceServices from '_services/firebase/invoice.service';
 import {
     compare2Days,
     formatDate,
@@ -13,42 +14,54 @@ const initialState = {
     selected: [],
     isLoading: false,
     selectedPatient: null,
+    malePatient: 0,
+    femalePatient: 0,
+    todayPatient: 0,
+    error: '',
 };
 
 export const setDataAsync = createAsyncThunk(
     'patients/setDataAsync',
     async () => {
         const data = await patientServices.getDocsAll();
-        return data;
+        const numberTodayPatient =
+            await invoiceServices.getNumberOfTodayDocs();
+        return {
+            data,
+            numberTodayPatient,
+        };
     },
 );
 
 export const setLatestInvoiceAsync = createAsyncThunk(
     'patients/setLatestInvoiceAsync',
     async id => {
-        const data =
-            await patientServices.getAllInvoicesOfAPatient(
-                id,
-            );
-        const result = data.reduce((item1, item2) => {
-            if (
-                compare2Days(
-                    new Date(formatDate(item1.create_at)),
-                    new Date(formatDate(item2.create_at)),
-                ) === 1
-            )
-                return item1;
-            return item2;
-        });
-        return {
-            create_at: result.create_at,
-            follow_up_date: result.follow_up_date,
-            follow_up_time: result.follow_up_time,
-            blood_pressure: result.blood_pressure,
-            breathing_rate: result.breathing_rate,
-            heart_rate: result.heart_rate,
-            temperature: result.temperature,
-        };
+        try {
+            const data =
+                await patientServices.getAllInvoicesOfAPatient(
+                    id,
+                );
+            let result = {};
+            if (data && data.length) {
+                result = data.reduce((item1, item2) => {
+                    if (
+                        compare2Days(
+                            new Date(
+                                formatDate(item1.create_at),
+                            ),
+                            new Date(
+                                formatDate(item2.create_at),
+                            ),
+                        ) === 1
+                    )
+                        return item1;
+                    return item2;
+                });
+            }
+            return result;
+        } catch (error) {
+            throw error;
+        }
     },
 );
 
@@ -82,17 +95,33 @@ const patientSlice = createSlice({
             state.isLoading = true;
         },
         [setDataAsync.fulfilled]: (state, action) => {
-            state.data = action.payload;
+            state.data = action.payload?.data || [];
+            state.malePatient =
+                action.payload?.data?.filter(
+                    patient => patient.gender === 1,
+                ).length || 0;
+            state.femalePatient =
+                action.payload?.data?.filter(
+                    patient => patient.gender === 0,
+                ).length || 0;
+            state.todayPatient =
+                action.payload?.numberTodayPatient || 0;
             state.isLoading = false;
+        },
+        [setLatestInvoiceAsync.rejected]: (
+            state,
+            action,
+        ) => {
+            state.error = action.error;
         },
         [setLatestInvoiceAsync.fulfilled]: (
             state,
             action,
         ) => {
-            Object.assign(
-                state.selectedPatient,
-                action.payload,
-            );
+            state.selectedPatient = {
+                ...action.payload,
+                ...state.selectedPatient,
+            };
         },
     },
 });

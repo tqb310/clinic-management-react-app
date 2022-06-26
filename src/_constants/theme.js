@@ -8,15 +8,15 @@ const theme = {
         },
         success: {
             main: '#03b575',
-            light: '#f7fdfb',
+            // light: '#f7fdfb',
         },
         error: {
             main: '#e74f48',
-            light: '#fdf5f4',
+            // light: '#fdf5f4',
         },
         blue: {
             main: '#1f58e7',
-            light: '#ebf0ff',
+            // light: '#ebf0ff',
         },
     },
     typography: {

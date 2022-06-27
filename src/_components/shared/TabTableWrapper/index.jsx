@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, memo} from 'react';
 // import PropTypes from 'prop-types'
 import {Box} from '@mui/material';
 // import {Search, FilterAlt} from '@mui/icons-material';
@@ -12,10 +12,13 @@ function TabTableWrapper({
     ...rest
 }) {
     const [selectedItem, setSelectedItem] = useState(0);
+    const childrenArray = React.Children.toArray(children);
+
     const onClickItem = index => e => {
         setSelectedItem(index);
-        onSwitchTab(index);
+        if (onSwitchTab) onSwitchTab(index);
     };
+
     return (
         <CustomPaper className="TabTableWrapper" {...rest}>
             <Box className="TabTableWrapper__tablabel">
@@ -37,7 +40,9 @@ function TabTableWrapper({
                 ))}
             </Box>
             <Box className="TabTableWrapper__table">
-                {children}
+                {childrenArray && childrenArray.length === 1
+                    ? childrenArray[0]
+                    : childrenArray[selectedItem]}
             </Box>
         </CustomPaper>
     );
@@ -45,4 +50,4 @@ function TabTableWrapper({
 
 TabTableWrapper.propTypes = {};
 
-export default TabTableWrapper;
+export default memo(TabTableWrapper);

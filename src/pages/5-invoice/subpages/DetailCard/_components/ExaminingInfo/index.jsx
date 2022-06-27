@@ -4,22 +4,18 @@ import {TextField, Grid} from '@mui/material';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
-function ExaminingInfo(props) {
+function ExaminingInfo({data}) {
     return (
         <Grid
             container
-            columnSpacing={2}
+            spacing={2}
             className="RCExaminingInfo"
         >
-            <Grid
-                item
-                xs={4}
-                className="RCExaminingInfo__name"
-            >
+            <Grid item xs={3}>
                 <TextField
                     variant="filled"
-                    label="Mạch"
-                    value="80"
+                    label="Nhịp thở"
+                    value={data.breathing_rate || ''}
                     size="small"
                     sx={{
                         '& .MuiInputBase-input': {},
@@ -27,15 +23,23 @@ function ExaminingInfo(props) {
                     }}
                 />
             </Grid>
-            <Grid
-                item
-                xs={4}
-                className="RCExaminingInfo__birthdate"
-            >
+            <Grid item xs={3}>
+                <TextField
+                    variant="filled"
+                    label="Nhịp tim"
+                    value={data.heart_rate || ''}
+                    size="small"
+                    sx={{
+                        '& .MuiInputBase-input': {},
+                        width: '100%',
+                    }}
+                />
+            </Grid>
+            <Grid item xs={3}>
                 <TextField
                     variant="filled"
                     label="Huyết áp"
-                    value="110"
+                    value={data.blood_pressure || ''}
                     size="small"
                     sx={{
                         '& .MuiInputBase-input': {},
@@ -43,15 +47,11 @@ function ExaminingInfo(props) {
                     }}
                 />
             </Grid>
-            <Grid
-                item
-                xs={4}
-                className="RCExaminingInfo__age"
-            >
+            <Grid item xs={3}>
                 <TextField
                     variant="filled"
                     label="Nhiệt độ"
-                    value="37.5"
+                    value={data.temperature || ''}
                     size="small"
                     sx={{
                         '& .MuiInputBase-input': {},
@@ -59,15 +59,11 @@ function ExaminingInfo(props) {
                     }}
                 />
             </Grid>
-            <Grid
-                item
-                xs={12}
-                className="RCExaminingInfo__gender"
-            >
+            <Grid item xs={12}>
                 <TextField
                     variant="filled"
                     label="Triệu chứng"
-                    value="Đau bụng dữ dội"
+                    value={data.symptom || ''}
                     size="small"
                     sx={{
                         '& .MuiInputBase-input': {},
@@ -75,15 +71,11 @@ function ExaminingInfo(props) {
                     }}
                 />
             </Grid>
-            <Grid
-                item
-                xs={12}
-                className="RCExaminingInfo__phone"
-            >
+            <Grid item xs={12}>
                 <TextField
                     variant="filled"
                     label="Chẩn đoán"
-                    value="Viêm bao tử"
+                    value={data.diagnosis || ''}
                     size="small"
                     sx={{
                         '& .MuiInputBase-input': {},

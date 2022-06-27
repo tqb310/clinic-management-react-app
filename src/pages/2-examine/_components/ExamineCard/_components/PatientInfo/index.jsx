@@ -145,8 +145,10 @@ function PatientInfo({
                     variant="filled"
                     label="Địa chỉ"
                     value={
-                        province && district
+                        ward
                             ? `${ward} - ${district} - ${province}`
+                            : district
+                            ? `${district} - ${province}`
                             : ''
                     }
                     size="small"

@@ -4,32 +4,12 @@ import React, {memo} from 'react';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
-const data = [
-    {
-        name: 'panadol',
-        instruction:
-            'Sáng: 1 viên, Trưa: 1 viên, Chiều: 1 viên, Tối: 1 viên',
-        number: 10,
-    },
-    {
-        name: 'panadol',
-        instruction:
-            'Sáng: 1 viên, Trưa: 1 viên, Chiều: 1 viên, Tối: 1 viên',
-        number: 10,
-    },
-    {
-        name: 'panadol',
-        instruction:
-            'Sáng: 1 viên, Trưa: 1 viên, Chiều: 1 viên, Tối: 1 viên',
-        number: 10,
-    },
-];
-
 const PrescriptionItem = ({
     id,
     name,
-    instruction,
+    advice,
     number,
+    dosage = {},
 }) => {
     return (
         <div className="PrescriptionItem">
@@ -52,29 +32,63 @@ const PrescriptionItem = ({
                         </span>{' '}
                         {number} viên
                     </div>
+
+                    <div
+                        className="PrescriptionItem__dosage"
+                        style={{
+                            display: 'flex',
+                            marginTop: '.5rem',
+                        }}
+                    >
+                        <div>
+                            <span>Sáng: </span>
+                            <span>
+                                {dosage?.morning || 0}
+                            </span>
+                        </div>
+                        <div style={{marginLeft: '1rem'}}>
+                            <span>Trưa: </span>
+                            <span>{dosage?.noon || 0}</span>
+                        </div>
+                        <div style={{marginLeft: '1rem'}}>
+                            <span>Chiều: </span>
+                            <span>
+                                {dosage?.afternoon || 0}
+                            </span>
+                        </div>
+                        <div style={{marginLeft: '1rem'}}>
+                            <span>Tối: </span>
+                            <span>
+                                {dosage?.evening || 0}
+                            </span>
+                        </div>
+                    </div>
                 </div>
-                <div className="PrescriptionItem__instruction">
-                    {instruction}
+                <div className="PrescriptionItem__advice">
+                    {advice}
                 </div>
             </div>
         </div>
     );
 };
 
-function PrescriptionInfo(props) {
+function PrescriptionInfo({data}) {
     return (
         <div className="RCPrescriptionInfo">
-            {data.map((item, index) => {
-                return (
-                    <PrescriptionItem
-                        key={index}
-                        id={index + 1}
-                        name={item.name}
-                        instruction={item.instruction}
-                        number={item.number}
-                    />
-                );
-            })}
+            {data.prescription &&
+                data.prescription.length &&
+                data.prescription.map((item, index) => {
+                    return (
+                        <PrescriptionItem
+                            key={index}
+                            id={index + 1}
+                            name={item.name}
+                            advice={item.advice}
+                            number={item.number}
+                            dosage={item.dosage}
+                        />
+                    );
+                })}
         </div>
     );
 }

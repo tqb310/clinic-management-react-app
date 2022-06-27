@@ -1,12 +1,10 @@
-import React, {useState, useEffect, memo} from 'react';
+import React, {useEffect, memo, lazy} from 'react';
 import {useParams, useHistory} from 'react-router-dom';
-import {TextField, Button} from '@mui/material';
+import {TextField, Button, Box} from '@mui/material';
 import {CustomPaper} from '_components/shared/StyledComponent';
 import {ArrowBack} from '@mui/icons-material';
-import PatientInfo from 'pages/2-examine/_components/ExamineCard/_components/PatientInfo';
-import ExaminingInfo from './_components/ExaminingInfo';
-import ServiceInfo from './_components/ServiceInfo';
-import PrescriptionInfo from './_components/PrescriptionInfo';
+import {useDispatch, useSelector} from 'react-redux';
+import {setSelectedPaidInvoiceAsync} from '_redux/slice/invoiceSlice';
 // import { rows } from "_constants/FakeData/ExamineList.js";
 import TabTableWrapper from '_components/shared/TabTableWrapper';
 import './index.scss';
@@ -18,43 +16,35 @@ const tab = [
     {title: 'Toa thuốc'},
 ];
 
-const componentArr = [
-    PatientInfo,
-    ExaminingInfo,
-    ServiceInfo,
-    PrescriptionInfo,
-];
+const PatientInfoComp = lazy(() =>
+    import(
+        'pages/2-examine/_components/ExamineCard/_components/PatientInfo'
+    ),
+);
+const ExaminingInfoComp = lazy(() =>
+    import('./_components/ExaminingInfo'),
+);
+const ServiceInfoComp = lazy(() =>
+    import('./_components/ServiceInfo'),
+);
+const PrescriptionInfoComp = lazy(() =>
+    import('./_components/PrescriptionInfo'),
+);
 
 function DetailCard() {
     const {id} = useParams();
     const history = useHistory();
-    const [data, setData] = useState({});
-    //   const data = rows.find((row) => row.id === id);
+    const dispatch = useDispatch();
+
+    const data =
+        useSelector(
+            state => state.invoices.selectedPaidInvoice,
+        ) || {};
+
     useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const dataApi = await null;
-                // console.log(dataApi);
-                switch (dataApi) {
-                    case null:
-                        alert(
-                            'Lỗi server, vui lòng thử lại',
-                        );
-                        break;
-                    case undefined:
-                        alert(
-                            'Bạn không có quyền truy cập vào tính năng này!',
-                        );
-                        break;
-                    default:
-                        setData(dataApi);
-                }
-            } catch (error) {
-                // console.log(error);
-            }
-        };
-        fetchData();
+        dispatch(setSelectedPaidInvoiceAsync(id));
     }, []);
+
     return (
         <div className="DetailCard">
             <div className="DetailCard__title">
@@ -76,8 +66,8 @@ function DetailCard() {
                 </CustomPaper>
             </div>
             <CustomPaper className="DetailCard__content">
-                <div className="DetailCard__cardInfo">
-                    <p>
+                <Box className="DetailCard__cardInfo">
+                    <Box>
                         <span>Mã phiếu</span>
                         <TextField
                             variant="filled"
@@ -90,14 +80,12 @@ function DetailCard() {
                                 width: 175,
                             }}
                         />
-                    </p>
-                    <p>
+                    </Box>
+                    <Box>
                         <span>Ngày lập</span>
                         <TextField
                             variant="filled"
-                            value={new Date(
-                                data.CREATE_AT,
-                            ).toLocaleDateString()}
+                            value={data.create_at || ''}
                             size="small"
                             sx={{
                                 '& .MuiInputBase-input': {
@@ -106,44 +94,26 @@ function DetailCard() {
                                 width: 150,
                             }}
                         />
-                    </p>
-                    <p>
-                        <span>Tiếp nhận</span>
-                        <TextField
-                            variant="filled"
-                            value="Đặng Ngọc Liêm"
-                            size="small"
-                            sx={{
-                                '& .MuiInputBase-input': {
-                                    paddingTop: 0,
-                                },
-                                width: 200,
-                            }}
-                        />
-                    </p>
-                    <p>
-                        <span>Bác sĩ</span>
-                        <TextField
-                            variant="filled"
-                            value="Đặng Ngọc Liêm"
-                            size="small"
-                            sx={{
-                                '& .MuiInputBase-input': {
-                                    paddingTop: 0,
-                                },
-                                width: 200,
-                            }}
-                        />
-                    </p>
-                    <p>
+                    </Box>
+                    <Box>
                         <span>Loại</span>
-                        <Button>Tái khám - vdf1515</Button>
-                    </p>
-                    <p style={{flex: 1}}>
+                        <Button>
+                            {data.type
+                                ? 'Tái khám'
+                                : 'Khám mới'}
+                        </Button>
+                    </Box>
+                    <Box sx={{flex: 1}}>
                         <span>Ngày tái khám</span>
                         <TextField
                             variant="filled"
-                            value="31/12/2021"
+                            value={
+                                data.follow_up_date
+                                    ? data.follow_up_date +
+                                      ' - ' +
+                                      data.follow_up_time
+                                    : ''
+                            }
                             size="small"
                             sx={{
                                 '& .MuiInputBase-input': {
@@ -152,29 +122,27 @@ function DetailCard() {
                                 width: 200,
                             }}
                         />
-                    </p>
-                </div>
+                    </Box>
+                </Box>
                 <TabTableWrapper
                     tabNameArr={tab}
                     style={{
                         marginTop: 15,
                         marginRight: 0,
-                        height: '61%',
                     }}
                 >
-                    {id => {
-                        const Component = componentArr[id];
-                        return (
-                            <div
-                                style={{
-                                    padding: '1rem',
-                                    height: '100%',
-                                }}
-                            >
-                                <Component data1={data} />
-                            </div>
-                        );
-                    }}
+                    <Box>
+                        <PatientInfoComp {...data} />
+                    </Box>
+                    <Box>
+                        <ExaminingInfoComp data={data} />
+                    </Box>
+                    <Box>
+                        <ServiceInfoComp data={data} />
+                    </Box>
+                    <Box>
+                        <PrescriptionInfoComp data={data} />
+                    </Box>
                 </TabTableWrapper>
             </CustomPaper>
         </div>

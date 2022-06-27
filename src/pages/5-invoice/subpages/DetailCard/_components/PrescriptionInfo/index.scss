@@ -1,11 +1,5 @@
 // @import '_assets/style/_mixins.scss';
 
-// .PrescriptionForm {
-//     display: grid;
-//     grid-template-columns: repeat(12, 1fr);
-//     @include gridDivide();
-// }
-
 .PrescriptionItem {
     display: flex;
     align-items: center;
@@ -28,7 +22,7 @@
             font-weight: 500;
         }
     }
-    &__instruction {
+    &__advice {
         padding: 0.5rem 0;
     }
 }

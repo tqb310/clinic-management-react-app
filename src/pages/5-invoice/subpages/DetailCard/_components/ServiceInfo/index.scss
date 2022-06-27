@@ -1,12 +1,18 @@
-
-@import "_assets/style/_mixins.scss";
-
-
-.RCServiceInfo {   
-    &__table {
-        width: 100%;
+.RCServiceInfo__table {
+    margin-bottom: 10px;
+    &-head {
+        display: flex;
     }
-    td {
-      text-align: center;
+    &-head {
+        color: #777;
+        font-size: 1.5rem;
+    }
+    &-body {
+        height: 190px;
+        overflow-y: auto;
+        &-row {
+            padding: 1rem 0;
+            display: flex;
+        }
     }
 }

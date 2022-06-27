@@ -2,7 +2,7 @@
 
 .TabTableWrapper {
     background-color: white;
-    min-height: 100%;
+    // min-height: 100%;
     position: relative;
     &__tablabel {
         display: flex;
@@ -44,5 +44,8 @@
                 background-color: var(--primary-color);
             }
         }
+    }
+    &__table {
+        padding: 0.9rem 2rem;
     }
 }

@@ -1,7 +1,7 @@
 .table-container {
     &__toolbars {
         display: flex;
-        // justify-content: space-between;
+        margin-bottom: 10px;
         .table-container__search {
             display: flex;
             flex-basis: 300px;

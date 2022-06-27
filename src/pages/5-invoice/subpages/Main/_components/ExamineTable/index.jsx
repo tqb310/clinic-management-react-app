@@ -23,8 +23,8 @@ import {MoreHoriz} from '@mui/icons-material';
 import {
     selectData,
     setSelectedPaidInvoiceAsync,
-    switchDrawer,
 } from '_redux/slice/invoiceSlice';
+import {useHistory} from 'react-router-dom';
 import {styled} from '@mui/material/styles';
 // import PropTypes from 'prop-types'
 
@@ -34,8 +34,13 @@ const BodyCell = styled(TableCell)`
     font-size: 1.5rem;
 `;
 
-function InvoiceTable({tableData, selected}) {
+function InvoiceTable({
+    tableData,
+    selected,
+    selectedInvoiceId,
+}) {
     const dispatch = useDispatch();
+    const history = useHistory();
     const [anchor, setAnchor] = useState(null);
     //Handle when check a row
     const handleSelect = id => e => {
@@ -66,10 +71,7 @@ function InvoiceTable({tableData, selected}) {
     const closeMenu = _ => {
         setAnchor(null);
     };
-    const openDrawer = _ => {
-        dispatch(switchDrawer(true));
-        setAnchor(null);
-    };
+
     return (
         <Table
             sx={{
@@ -246,10 +248,18 @@ function InvoiceTable({tableData, selected}) {
                                 icon: Icon = null,
                                 label = '',
                                 style = {},
+                                onClick,
                             }) => (
                                 <MenuItem
                                     key={id}
-                                    onClick={openDrawer}
+                                    onClick={onClick(
+                                        dispatch,
+                                        setAnchor,
+                                        history,
+                                        {
+                                            id: selectedInvoiceId,
+                                        },
+                                    )}
                                 >
                                     {Icon && (
                                         <ListItemIcon>

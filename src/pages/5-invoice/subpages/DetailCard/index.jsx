@@ -1,12 +1,17 @@
 import React, {useEffect, memo, lazy} from 'react';
 import {useParams, useHistory} from 'react-router-dom';
-import {TextField, Button, Box} from '@mui/material';
+import {
+    TextField,
+    Button,
+    Box,
+    Typography,
+} from '@mui/material';
 import {CustomPaper} from '_components/shared/StyledComponent';
 import {ArrowBack} from '@mui/icons-material';
 import {useDispatch, useSelector} from 'react-redux';
 import {setSelectedPaidInvoiceAsync} from '_redux/slice/invoiceSlice';
-// import { rows } from "_constants/FakeData/ExamineList.js";
 import TabTableWrapper from '_components/shared/TabTableWrapper';
+import {styled} from '@mui/material/styles';
 import './index.scss';
 
 const tab = [
@@ -30,6 +35,10 @@ const ServiceInfoComp = lazy(() =>
 const PrescriptionInfoComp = lazy(() =>
     import('./_components/PrescriptionInfo'),
 );
+
+const TabItemContainer = styled(Box)`
+    padding: 1rem 0;
+`;
 
 function DetailCard() {
     const {id} = useParams();
@@ -66,8 +75,18 @@ function DetailCard() {
                 </CustomPaper>
             </div>
             <CustomPaper className="DetailCard__content">
-                <Box className="DetailCard__cardInfo">
-                    <Box>
+                <Typography variant="h6">
+                    Thông tin phiếu khám
+                </Typography>
+                <Box
+                    sx={{
+                        display: 'flex',
+                        mx: '-6px',
+                        mt: 2,
+                        justifyContent: 'space-between',
+                    }}
+                >
+                    <Box sx={{px: '6px'}}>
                         <span>Mã phiếu</span>
                         <TextField
                             variant="filled"
@@ -77,11 +96,11 @@ function DetailCard() {
                                 '& .MuiInputBase-input': {
                                     paddingTop: 0,
                                 },
-                                width: 175,
+                                ml: '7px',
                             }}
                         />
                     </Box>
-                    <Box>
+                    <Box sx={{px: '6px'}}>
                         <span>Ngày lập</span>
                         <TextField
                             variant="filled"
@@ -91,19 +110,29 @@ function DetailCard() {
                                 '& .MuiInputBase-input': {
                                     paddingTop: 0,
                                 },
-                                width: 150,
+                                ml: '7px',
                             }}
                         />
                     </Box>
-                    <Box>
+                    <Box sx={{px: '6px'}}>
                         <span>Loại</span>
-                        <Button>
-                            {data.type
-                                ? 'Tái khám'
-                                : 'Khám mới'}
-                        </Button>
+                        <TextField
+                            variant="filled"
+                            value={
+                                data.type
+                                    ? 'Tái khám'
+                                    : 'Khám mới'
+                            }
+                            size="small"
+                            sx={{
+                                '& .MuiInputBase-input': {
+                                    paddingTop: 0,
+                                },
+                                ml: '7px',
+                            }}
+                        />
                     </Box>
-                    <Box sx={{flex: 1}}>
+                    <Box sx={{px: '6px'}}>
                         <span>Ngày tái khám</span>
                         <TextField
                             variant="filled"
@@ -119,32 +148,35 @@ function DetailCard() {
                                 '& .MuiInputBase-input': {
                                     paddingTop: 0,
                                 },
-                                width: 200,
+                                ml: '7px',
                             }}
                         />
                     </Box>
                 </Box>
-                <TabTableWrapper
-                    tabNameArr={tab}
-                    style={{
-                        marginTop: 15,
-                        marginRight: 0,
-                    }}
-                >
-                    <Box>
-                        <PatientInfoComp {...data} />
-                    </Box>
-                    <Box>
-                        <ExaminingInfoComp data={data} />
-                    </Box>
-                    <Box>
-                        <ServiceInfoComp data={data} />
-                    </Box>
-                    <Box>
-                        <PrescriptionInfoComp data={data} />
-                    </Box>
-                </TabTableWrapper>
             </CustomPaper>
+            <TabTableWrapper
+                tabNameArr={tab}
+                style={{
+                    marginTop: 15,
+                    marginRight: 0,
+                }}
+            >
+                <TabItemContainer>
+                    <PatientInfoComp
+                        {...data}
+                        gender={data.gender ? 'Nam' : 'Nữ'}
+                    />
+                </TabItemContainer>
+                <TabItemContainer>
+                    <ExaminingInfoComp data={data} />
+                </TabItemContainer>
+                <TabItemContainer>
+                    <ServiceInfoComp data={data} />
+                </TabItemContainer>
+                <TabItemContainer>
+                    <PrescriptionInfoComp data={data} />
+                </TabItemContainer>
+            </TabTableWrapper>
         </div>
     );
 }

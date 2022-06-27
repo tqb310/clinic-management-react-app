@@ -13,73 +13,107 @@ function ExaminingInfo({data}) {
         >
             <Grid item xs={3}>
                 <TextField
+                    fullWidth
                     variant="filled"
                     label="Nhịp thở"
                     value={data.breathing_rate || ''}
                     size="small"
                     sx={{
-                        '& .MuiInputBase-input': {},
-                        width: '100%',
+                        '& .MuiInputLabel-root': {
+                            fontSize: '1.6rem',
+                        },
+                        '& .MuiInputBase-input': {
+                            fontSize: '1.6rem',
+                        },
                     }}
                 />
             </Grid>
             <Grid item xs={3}>
                 <TextField
+                    fullWidth
                     variant="filled"
                     label="Nhịp tim"
                     value={data.heart_rate || ''}
                     size="small"
                     sx={{
-                        '& .MuiInputBase-input': {},
-                        width: '100%',
+                        '& .MuiInputLabel-root': {
+                            fontSize: '1.6rem',
+                        },
+                        '& .MuiInputBase-input': {
+                            fontSize: '1.6rem',
+                        },
                     }}
                 />
             </Grid>
             <Grid item xs={3}>
                 <TextField
+                    fullWidth
                     variant="filled"
                     label="Huyết áp"
                     value={data.blood_pressure || ''}
                     size="small"
                     sx={{
-                        '& .MuiInputBase-input': {},
-                        width: '100%',
+                        '& .MuiInputLabel-root': {
+                            fontSize: '1.6rem',
+                        },
+                        '& .MuiInputBase-input': {
+                            fontSize: '1.6rem',
+                        },
                     }}
                 />
             </Grid>
             <Grid item xs={3}>
                 <TextField
+                    fullWidth
                     variant="filled"
                     label="Nhiệt độ"
                     value={data.temperature || ''}
                     size="small"
                     sx={{
-                        '& .MuiInputBase-input': {},
-                        width: '100%',
+                        '& .MuiInputLabel-root': {
+                            fontSize: '1.6rem',
+                        },
+                        '& .MuiInputBase-input': {
+                            fontSize: '1.6rem',
+                        },
                     }}
                 />
             </Grid>
             <Grid item xs={12}>
                 <TextField
+                    fullWidth
                     variant="filled"
                     label="Triệu chứng"
                     value={data.symptom || ''}
                     size="small"
+                    multiline
+                    rows={3}
                     sx={{
-                        '& .MuiInputBase-input': {},
-                        width: '100%',
+                        '& .MuiInputLabel-root': {
+                            fontSize: '1.6rem',
+                        },
+                        '& .MuiInputBase-input': {
+                            fontSize: '1.6rem',
+                        },
                     }}
                 />
             </Grid>
             <Grid item xs={12}>
                 <TextField
+                    fullWidth
                     variant="filled"
                     label="Chẩn đoán"
                     value={data.diagnosis || ''}
                     size="small"
+                    multiline
+                    rows={3}
                     sx={{
-                        '& .MuiInputBase-input': {},
-                        width: '100%',
+                        '& .MuiInputLabel-root': {
+                            fontSize: '1.6rem',
+                        },
+                        '& .MuiInputBase-input': {
+                            fontSize: '1.6rem',
+                        },
                     }}
                 />
             </Grid>

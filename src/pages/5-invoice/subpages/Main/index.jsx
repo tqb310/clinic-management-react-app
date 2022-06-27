@@ -129,6 +129,9 @@ function Main(props) {
                 <ExamineTable
                     tableData={filteredData}
                     selected={selected}
+                    selectedInvoiceId={
+                        selectedPaidInvoice.id
+                    }
                 />
                 <Drawer
                     anchor="right"

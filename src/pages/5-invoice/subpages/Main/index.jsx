@@ -130,7 +130,7 @@ function Main(props) {
                     tableData={filteredData}
                     selected={selected}
                     selectedInvoiceId={
-                        selectedPaidInvoice.id
+                        selectedPaidInvoice?.id
                     }
                 />
                 <Drawer

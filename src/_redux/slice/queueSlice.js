@@ -31,7 +31,12 @@ export const setDataAsync = createAsyncThunk(
     'queues/setDataAsync',
     async () => {
         const data = await queueServices.getDocsAll();
-        return data;
+        return data.sort((item1, item2) => {
+            return (
+                item1.numerical_order -
+                item2.numerical_order
+            );
+        });
     },
 );
 

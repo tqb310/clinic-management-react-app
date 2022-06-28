@@ -2,15 +2,18 @@ import React, {memo, useEffect} from 'react';
 import Infomation from './_components/Infomation';
 import AppointmentTable from './_components/AppointmentTable';
 import AppointmentDemand from './_components/AppointmentDemand';
-import BarChart from '_components/shared/BarChart';
 import {Grid, Typography} from '@mui/material';
 import {CustomPaper} from '_components/shared/StyledComponent';
-import {Pie} from 'react-chartjs-2';
+import {Pie, Bar} from 'react-chartjs-2';
 import {
     Chart as ChartJS,
     ArcElement,
     Tooltip,
     Legend,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
 } from 'chart.js';
 import {RightBar} from '_components/shared/StyledComponent';
 // import appointmentData from '_constants/FakeData/AppointmentList';
@@ -19,17 +22,43 @@ import {setDataAsync} from '_redux/slice/appointmentSlice';
 import {useFirestoreRealtime} from '_hooks';
 import './index.scss';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
-const data = [
-        {key: 'Hai', value: 9},
-        {key: 'Ba', value: 12},
-        {key: 'Tư', value: 4},
-        {key: 'Năm', value: 7},
-        {key: 'Sáu', value: 11},
-        {key: 'Bảy', value: 21},
-        {key: 'CN', value: 17},
+ChartJS.register(
+    ArcElement,
+    Tooltip,
+    Legend,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+);
+
+const options = {
+    responsive: true,
+    plugins: {},
+};
+
+const barLabels = [
+        'Hai',
+        'Ba',
+        'Tư',
+        'Năm',
+        'Sáu',
+        'Bảy',
+        'CN',
     ],
-    data2 = {
+    barData = {
+        labels: barLabels,
+        datasets: [
+            {
+                label: 'Số lượng lịch hẹn trong tuần',
+                data: barLabels.map(label =>
+                    Math.trunc(100 - Math.random() * 90),
+                ),
+                backgroundColor: '#6b9eff',
+            },
+        ],
+    },
+    pieData = {
         labels: [
             '7h-9h',
             '9h15-11h',
@@ -79,20 +108,21 @@ function Appointment(props) {
         >
             <Grid item lg={5}>
                 <Infomation />
-                <BarChart
-                    title="Số lượng lịch hẹn trong tuần"
-                    height={250}
-                    yAxis={[0, 5, 10, 15, 20]}
-                    data={data}
-                    widthItem={33}
-                    marginBottom="20px"
-                />
+                <CustomPaper sx={{p: 1, mb: 3}}>
+                    <Typography
+                        variant="h5"
+                        sx={{px: 1, mb: 1}}
+                    >
+                        Số lượng lịch hẹn trong tuần
+                    </Typography>
+                    <Bar data={barData} options={options} />
+                </CustomPaper>
                 <CustomPaper sx={{padding: '1rem 2rem'}}>
                     <Typography variant="h5" gutterBottom>
                         Tỉ lệ số lượng cuộc hẹn mỗi khung
                         giờ
                     </Typography>
-                    <Pie data={data2} />
+                    <Pie data={pieData} options={options} />
                 </CustomPaper>
             </Grid>
             <Grid item lg={7}>

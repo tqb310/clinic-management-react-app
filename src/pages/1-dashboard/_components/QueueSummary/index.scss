@@ -1,0 +1,11 @@
+.queue-summary {
+    height: 100%;
+    padding: 1rem 2rem;
+    position: relative;
+    &__more {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+}

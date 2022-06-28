@@ -1,51 +1,102 @@
 import React, {memo, useEffect} from 'react';
 import CardContainer from './_components/CardContainer';
-import BarChart from '_components/shared/BarChart';
-import RoomState from './_components/RoomState';
+import QueueSummary from './_components/QueueSummary';
 import Appointment from './_components/Appointment';
 import {RightBar} from '_components/shared/StyledComponent';
 import {Grid, Typography} from '@mui/material';
 import Doctor from '_assets/images/doctor2.png';
 import {useSelector, useDispatch} from 'react-redux';
-import {setDataByDateAsync} from '_redux/slice/appointmentSlice';
+import {setDataByDateAsync as setAppointmentData} from '_redux/slice/appointmentSlice';
+import {setDataAsync as setQueueData} from '_redux/slice/queueSlice';
+import {CustomPaper} from '_components/shared/StyledComponent';
 import {useFirestoreRealtime} from '_hooks';
+import {Bar} from 'react-chartjs-2';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+} from 'chart.js';
 import './index.scss';
 
-const data = [
-    {key: 'Thg 1', value: 50},
-    {key: 'Thg 2', value: 70},
-    {key: 'Thg 3', value: 82},
-    {key: 'Thg 4', value: 90},
-    {key: 'Thg 5', value: 35},
-    {key: 'Thg 6', value: 40},
-    {key: 'Thg 7', value: 150},
-    {key: 'Thg 8', value: 200},
-    {key: 'Thg 9', value: 250},
-    {key: 'Thg 10', value: 420},
-    {key: 'Thg 11', value: 111},
-    {key: 'Thg 12', value: 99},
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    BarElement,
+    Title,
+    Tooltip,
+    Legend,
+);
+
+const barLabels = [
+    'Thg 1',
+    'Thg 2',
+    'Thg 3',
+    'Thg 4',
+    'Thg 5',
+    'Thg 6',
+    'Thg 7',
+    'Thg 8',
+    'Thg 9',
+    'Thg 10',
+    'Thg 11',
+    'Thg 12',
 ];
+
+const options = {
+    responsive: true,
+    plugins: {},
+};
+const barData = {
+    labels: barLabels,
+    datasets: [
+        {
+            label: 'Số lượt khám trong năm nay',
+            data: barLabels.map(label =>
+                Math.trunc(100 - Math.random() * 90),
+            ),
+            backgroundColor: '#6b9eff',
+        },
+    ],
+};
 
 function Dashboard(props) {
     // console.log(props);
     const dispatch = useDispatch();
+
     const name = useSelector(
         state => state.user.current.name,
     );
     const todayAppointments = useSelector(
         state => state.appointments.data,
     );
-    const firestoreRealtime = useFirestoreRealtime({
-        collectionName: 'appointments',
+    const queue = useSelector(state => state.queues.data);
+
+    const appointmentFirestoreRealtime =
+        useFirestoreRealtime({
+            collectionName: 'appointments',
+            eventHandler: () => {
+                dispatch(setAppointmentData());
+            },
+        });
+    const queueFirestoreRealtime = useFirestoreRealtime({
+        collectionName: 'queue',
         eventHandler: () => {
-            dispatch(setDataByDateAsync());
+            dispatch(setQueueData());
         },
     });
     useEffect(() => {
         // dispatch(setPatients());
         // dispatch(setInvoices());
-        const unsub = firestoreRealtime();
-        return unsub;
+        const unsub1 = appointmentFirestoreRealtime();
+        const unsub2 = queueFirestoreRealtime();
+        return () => {
+            unsub1();
+            unsub2();
+        };
     }, []);
     return (
         <div className="dashboard">
@@ -73,16 +124,24 @@ function Dashboard(props) {
                 className="dashboard-section"
             >
                 <Grid item lg={8}>
-                    <BarChart
-                        title="Số lượt khám trong năm nay"
-                        height={250}
-                        yAxis={[0, 50, 100, 150, 200, 250]}
-                        data={data}
-                        widthItem={38}
-                    />
+                    <CustomPaper sx={{p: 1}}>
+                        <Typography
+                            variant="h5"
+                            sx={{px: 1, mb: 1}}
+                        >
+                            Biểu đồ biểu diễn số lượt khám
+                            trong năm nay
+                        </Typography>
+                        <Bar
+                            options={options}
+                            data={barData}
+                        />
+                    </CustomPaper>
                 </Grid>
                 <Grid item lg={4}>
-                    <RoomState />
+                    <QueueSummary
+                        data={queue.slice(0, 5)}
+                    />
                 </Grid>
             </Grid>
             <div>

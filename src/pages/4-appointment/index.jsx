@@ -1,4 +1,4 @@
-import React, {memo, useEffect} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import Infomation from './_components/Infomation';
 import AppointmentTable from './_components/AppointmentTable';
 import AppointmentDemand from './_components/AppointmentDemand';
@@ -16,10 +16,15 @@ import {
     Title,
 } from 'chart.js';
 import {RightBar} from '_components/shared/StyledComponent';
-// import appointmentData from '_constants/FakeData/AppointmentList';
 import {useDispatch, useSelector} from 'react-redux';
 import {setDataAsync} from '_redux/slice/appointmentSlice';
 import {useFirestoreRealtime} from '_hooks';
+import {dayLength} from '_constants/date';
+import {
+    compare2Days,
+    formatDate,
+} from '_helpers/handleDate';
+import {setAnchorDay} from '_redux/slice/appointmentSlice';
 import './index.scss';
 
 ChartJS.register(
@@ -38,13 +43,13 @@ const options = {
 };
 
 const barLabels = [
+        'CN',
         'Hai',
         'Ba',
         'Tư',
         'Năm',
         'Sáu',
         'Bảy',
-        'CN',
     ],
     barData = {
         labels: barLabels,
@@ -68,7 +73,7 @@ const barLabels = [
         datasets: [
             {
                 label: 'Quoc Bao',
-                data: [12, 19, 3, 5],
+                data: [0, 0, 0, 0],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
@@ -85,21 +90,90 @@ const barLabels = [
             },
         ],
     };
+
 function Appointment(props) {
     const dispatch = useDispatch();
-    const appointmentState = useSelector(
-        state => state.appointments,
+
+    const [barActualData, setBarActualData] =
+        useState(barData);
+
+    const appointmentData = useSelector(
+        state => state.appointments.data,
     );
+    const appointmentNumber = useSelector(
+        state => state.appointments.number,
+    );
+    const cancelledNumber = useSelector(
+        state => state.appointments.cancelledNumber,
+    );
+    const notVisitedNumber = useSelector(
+        state => state.appointments.notVisitedNumber,
+    );
+    const visitedNumber = useSelector(
+        state => state.appointments.visitedNumber,
+    );
+    const selectedAppointment = useSelector(
+        state => state.appointments.selectedAppointment,
+    );
+    const isOpenForm = useSelector(
+        state => state.appointments.isOpenForm,
+    );
+    const dataByDate = useSelector(
+        state => state.appointments.dataByDate,
+    );
+    const isOpenAppointmentDetail = useSelector(
+        state => state.appointments.isOpenAppointmentDetail,
+    );
+    const anchorDay = useSelector(
+        state => state.appointments.anchorDay,
+    );
+
     const firestoreRealtime = useFirestoreRealtime({
         collectionName: 'appointments',
         eventHandler: () => {
             dispatch(setDataAsync());
         },
     });
+
     useEffect(() => {
         const unsub = firestoreRealtime();
-        return unsub;
+        return () => {
+            unsub();
+            dispatch(setAnchorDay(new Date()));
+        };
     }, []);
+
+    useEffect(() => {
+        const current7Days = Array.from(
+            new Array(7),
+            (_, i) =>
+                new Date(
+                    anchorDay.getTime() +
+                        (i - anchorDay.getDay()) *
+                            dayLength,
+                ),
+        );
+        const data = current7Days.map(date => {
+            let count = 0;
+            for (const appointment of appointmentData) {
+                if (
+                    !compare2Days(
+                        new Date(
+                            formatDate(appointment.date),
+                        ),
+                        date,
+                    )
+                )
+                    count++;
+            }
+            return count;
+        });
+        setBarActualData(pre => ({
+            ...pre,
+            datasets: [{...pre.datasets[0], data}],
+        }));
+    }, [anchorDay, appointmentData]);
+
     return (
         <Grid
             container
@@ -107,7 +181,12 @@ function Appointment(props) {
             className="appointment-container"
         >
             <Grid item lg={5}>
-                <Infomation />
+                <Infomation
+                    appointmentNumber={appointmentNumber}
+                    cancelledNumber={cancelledNumber}
+                    notVisitedNumber={notVisitedNumber}
+                    visitedNumber={visitedNumber}
+                />
                 <CustomPaper sx={{p: 1, mb: 3}}>
                     <Typography
                         variant="h5"
@@ -115,18 +194,24 @@ function Appointment(props) {
                     >
                         Số lượng lịch hẹn trong tuần
                     </Typography>
-                    <Bar data={barData} options={options} />
-                </CustomPaper>
-                <CustomPaper sx={{padding: '1rem 2rem'}}>
-                    <Typography variant="h5" gutterBottom>
-                        Tỉ lệ số lượng cuộc hẹn mỗi khung
-                        giờ
-                    </Typography>
-                    <Pie data={pieData} options={options} />
+                    <Bar
+                        data={barActualData}
+                        options={options}
+                    />
                 </CustomPaper>
             </Grid>
             <Grid item lg={7}>
-                <AppointmentTable data={appointmentState} />
+                <AppointmentTable
+                    data={appointmentData}
+                    selectedAppointment={
+                        selectedAppointment
+                    }
+                    isOpenForm={isOpenForm}
+                    dataByDate={dataByDate}
+                    isOpenAppointmentDetail={
+                        isOpenAppointmentDetail
+                    }
+                />
             </Grid>
             <RightBar>
                 <AppointmentDemand />

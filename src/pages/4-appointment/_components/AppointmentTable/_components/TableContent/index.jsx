@@ -68,7 +68,7 @@ function TableContent({tableData = []}) {
             }}
             data={tableData}
             pagination
-            rowsPerPage={7}
+            rowsPerPage={5}
             header={() => {
                 return (
                     <>

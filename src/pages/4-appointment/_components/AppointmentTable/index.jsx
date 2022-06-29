@@ -23,7 +23,13 @@ import {appointmentModel, patientModel} from '_models';
 import {formatDate} from '_helpers/handleDate';
 import './index.scss';
 
-function AppointmentTable({data = {}}) {
+function AppointmentTable({
+    data = [],
+    selectedAppointment = {},
+    isOpenForm,
+    dataByDate,
+    isOpenAppointmentDetail,
+}) {
     const dispatch = useDispatch();
 
     const handleCreateSubmit = async (values, actions) => {
@@ -58,12 +64,12 @@ function AppointmentTable({data = {}}) {
         };
         //Overriding status property "status"
         payload.appointment.status =
-            data.selectedAppointment.status;
+            selectedAppointment.status;
         // console.log(payload);
         try {
             await appointmentService.update(
-                data.selectedAppointment.id.toString(),
-                data.selectedAppointment.patient_id.toString(),
+                selectedAppointment.id.toString(),
+                selectedAppointment.patient_id.toString(),
                 payload,
             );
         } catch (error) {
@@ -87,7 +93,7 @@ function AppointmentTable({data = {}}) {
                     Lịch hẹn
                 </Typography>
             </Box>
-            <Calendar data={data.data} />
+            <Calendar data={data} />
             <Box className="appointment__actions">
                 <Box className="table-container__search">
                     <Search className="icon" />
@@ -106,30 +112,27 @@ function AppointmentTable({data = {}}) {
                 </Button>
                 <AddAppointmentForm
                     title="Tạo lịch hẹn"
-                    open={data.isOpenForm}
+                    open={isOpenForm}
                     handleClose={handleClose}
                     handleSubmit={handleCreateSubmit}
                 />
             </Box>
             <Box className="appointment-wrapper">
-                {data.dataByDate &&
-                data.dataByDate.length ? (
+                {dataByDate && dataByDate.length ? (
                     <Fragment>
                         <TableContent
-                            tableData={data.dataByDate}
+                            tableData={dataByDate}
                         />
                         <LocationProvider>
                             <ConfirmRequest
                                 title="Chi tiết lịch hẹn"
                                 open={
-                                    data.isOpenAppointmentDetail
+                                    isOpenAppointmentDetail
                                 }
                                 handleClose={
                                     handleCloseAppointmentDetail
                                 }
-                                data={
-                                    data.selectedAppointment
-                                }
+                                data={selectedAppointment}
                                 handleSubmit={
                                     handleUpdateSubmit
                                 }

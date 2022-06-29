@@ -11,6 +11,7 @@ import {
 
 const initialState = {
     data: [],
+    number: 0,
     selected: [],
     isLoading: false,
     selectedPatient: null,
@@ -65,6 +66,13 @@ export const setLatestInvoiceAsync = createAsyncThunk(
     },
 );
 
+export const setDataNumberAsync = createAsyncThunk(
+    'patients/setDataNumberAsync',
+    async () => {
+        const number = await patientServices.getDataSize();
+        return number;
+    },
+);
 const patientSlice = createSlice({
     name: 'patients',
     initialState,
@@ -96,6 +104,7 @@ const patientSlice = createSlice({
         },
         [setDataAsync.fulfilled]: (state, action) => {
             state.data = action.payload?.data || [];
+            state.number = action.payload?.data?.length;
             state.malePatient =
                 action.payload?.data?.filter(
                     patient => patient.gender === 1,
@@ -122,6 +131,9 @@ const patientSlice = createSlice({
                 ...action.payload,
                 ...state.selectedPatient,
             };
+        },
+        [setDataNumberAsync.fulfilled]: (state, action) => {
+            state.number = action.payload;
         },
     },
 });

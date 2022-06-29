@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React, {memo, useMemo} from 'react';
 import {Grid} from '@mui/material';
 // import {KeyboardArrowDown} from "@mui/icons-material";
 // import { CustomPaper } from "_components/shared/StyledComponent";
@@ -12,7 +12,7 @@ const cardInfo = [
     {
         title: 'Bệnh nhân',
         icon: 'user-injured',
-        pdata: 103,
+        pdata: 0,
         cdata: 2.1,
         color: '#975ca8',
         bgColor: '#f9f2ff',
@@ -22,7 +22,7 @@ const cardInfo = [
     {
         title: 'Doanh thu',
         icon: 'money-bill-wave',
-        pdata: handlePriceFormat(97500000),
+        pdata: 0,
         cdata: 1.2,
         color: '#ffbc6e',
         bgColor: '#fff8ef',
@@ -51,7 +51,18 @@ const cardInfo = [
     },
 ];
 
-function CardContainer() {
+function CardContainer({
+    patientNumber,
+    appointmentNumber,
+    revenueData,
+}) {
+    const cardData = useMemo(() => {
+        cardInfo[0].pdata = patientNumber;
+        cardInfo[1].pdata =
+            handlePriceFormat(revenueData) + ' đ';
+        cardInfo[2].pdata = appointmentNumber;
+        return cardInfo;
+    }, [appointmentNumber, patientNumber, revenueData]);
     return (
         <div className="dashboardCard">
             <Grid
@@ -59,7 +70,7 @@ function CardContainer() {
                 columnSpacing={4}
                 className="dashboardCard__content"
             >
-                {cardInfo.map((card, index) => (
+                {cardData.map((card, index) => (
                     <Grid item lg="3" key={index}>
                         <Card
                             ptitle={card.title}

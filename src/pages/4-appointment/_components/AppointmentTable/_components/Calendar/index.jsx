@@ -13,18 +13,23 @@ import {
     ArrowForwardIos,
     MyLocation,
 } from '@mui/icons-material';
-import {useDispatch} from 'react-redux';
-import {selectDate} from '_redux/slice/appointmentSlice';
+import {useDispatch, useSelector} from 'react-redux';
+import {
+    selectDate,
+    setAnchorDay,
+} from '_redux/slice/appointmentSlice';
 import {formatDate} from '_helpers/handleDate';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
 function Calendar({data = []}) {
     const dispatch = useDispatch();
-    const [rendereDate, setRenderedDate] = useState(
-        new Date(Date.now()),
+
+    const anchorDay = useSelector(
+        state => state.appointments.anchorDay,
     );
-    const [anchorDay, setAnChorDay] = useState(
+
+    const [rendereDate, setRenderedDate] = useState(
         new Date(Date.now()),
     );
     const [dayActive, setDayActive] = useState(
@@ -32,7 +37,7 @@ function Calendar({data = []}) {
     );
     const handleChangeMonth = monthInc => () => {
         const newDate = toNewDate(anchorDay, monthInc);
-        setAnChorDay(newDate);
+        dispatch(setAnchorDay(newDate));
         setRenderedDate(newDate);
     };
     const dayActiveChange = date => {
@@ -43,11 +48,11 @@ function Calendar({data = []}) {
         const newDate = new Date(
             anchorDay.getTime() + weekOffset * dayLength,
         );
-        setAnChorDay(newDate);
+        dispatch(setAnchorDay(newDate));
         setRenderedDate(newDate);
     };
     const goCurrentDay = date => () => {
-        setAnChorDay(date);
+        dispatch(setAnchorDay(date));
         dayActiveChange(date);
     };
 

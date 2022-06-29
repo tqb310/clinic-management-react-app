@@ -114,6 +114,43 @@ const invoiceServices = {
     },
     /**
      * @async
+     */
+    async getRevenue() {
+        try {
+            const snapshot = await getDocs(invoiceRef);
+            let revenue = 0;
+            if (snapshot.size) {
+                snapshot.forEach(doc => {
+                    revenue += doc.data().total_fee;
+                });
+            }
+            return revenue;
+        } catch (error) {
+            throw error;
+        }
+    },
+    /**
+     * @async
+     */
+    async getVisitsEachMonth() {
+        try {
+            const snapshot = await getDocs(invoiceRef);
+            let data = new Array(12).fill(0);
+            if (snapshot.size) {
+                snapshot.forEach(doc => {
+                    let createAt = new Date(
+                        formatDate(doc.data().create_at),
+                    );
+                    data[createAt.getMonth()]++;
+                });
+            }
+            return data;
+        } catch (error) {
+            throw error;
+        }
+    },
+    /**
+     * @async
      * @param {*} data
      * @returns
      */

@@ -92,7 +92,7 @@ function QueueSummary({data}) {
                     <img
                         src={PaperImg}
                         alt="empty logo"
-                        width={136}
+                        width={200}
                         style={{
                             margin: '60px auto 0',
                             display: 'block',
@@ -101,11 +101,22 @@ function QueueSummary({data}) {
                     />
                 )}
             </Box>
-            <Box className="queue-summary__more">
-                <IconButton>
-                    <ArrowDownward />
-                </IconButton>
-            </Box>
+            {Boolean(data.length) && (
+                <Box className="queue-summary__more">
+                    <IconButton
+                        sx={{
+                            opacity: 0.4,
+                            transition: 'opacity 0.3s',
+                            backgroundColor: '#f8f8f8',
+                            '&:hover': {
+                                opacity: 1,
+                            },
+                        }}
+                    >
+                        <ArrowDownward />
+                    </IconButton>
+                </Box>
+            )}
         </CustomPaper>
     );
 }

@@ -4,11 +4,11 @@ import {styled} from '@mui/material/styles';
 const statusColors = {
     success: {
         color: _ => '#fff',
-        bgColor: theme => theme.palette.success.light,
+        bgColor: theme => theme.palette.success.main,
     },
     error: {
         color: _ => '#fff',
-        bgColor: theme => theme.palette.error.light,
+        bgColor: theme => theme.palette.error.main,
     },
     disabled: {
         color: _ => '#555',
@@ -16,7 +16,7 @@ const statusColors = {
     },
     primary: {
         color: _ => '#fff',
-        bgColor: theme => theme.palette.blue.light,
+        bgColor: theme => theme.palette.blue.main,
     },
 };
 
@@ -27,7 +27,7 @@ export const CustomPaper = styled(Paper)`
 `;
 
 export const StatusPaper = styled('div')(
-    ({theme, status, ...rest}) => {
+    ({theme, status}) => {
         return {
             minWidth: 70,
             backgroundColor:
@@ -39,7 +39,6 @@ export const StatusPaper = styled('div')(
             fontWeight: '500',
             display: 'inline-block',
             textAlign: 'center',
-            ...rest,
         };
     },
 );

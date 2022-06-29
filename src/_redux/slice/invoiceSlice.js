@@ -9,6 +9,7 @@ import {formatDate} from '_helpers/handleDate';
 
 const initialState = {
     data: [],
+    revenue: 0,
     filteredData: [],
     numberNotPaid: 0,
     numberPaid: 0,
@@ -16,6 +17,7 @@ const initialState = {
     isOpenDrawer: false,
     selectedPaidInvoice: null,
     isLoading: false,
+    visitsEachMonth: [],
     error: '',
 };
 
@@ -52,6 +54,23 @@ export const setSelectedPaidInvoiceAsync = createAsyncThunk(
             result = await invoiceServices.getDocById(id);
         }
 
+        return result;
+    },
+);
+
+export const setRevenueDataAsync = createAsyncThunk(
+    'invoices/setRevenueDataAsync',
+    async () => {
+        const result = await invoiceServices.getRevenue();
+        return result;
+    },
+);
+
+export const setVisitsEachMonthAsync = createAsyncThunk(
+    'invoices/setVisitsEachMonthAsync',
+    async () => {
+        const result =
+            await invoiceServices.getVisitsEachMonth();
         return result;
     },
 );
@@ -116,6 +135,18 @@ const appointmentSlice = createSlice({
             action,
         ) => {
             state.selectedPaidInvoice = action.payload;
+        },
+        [setRevenueDataAsync.fulfilled]: (
+            state,
+            action,
+        ) => {
+            state.revenue = action.payload;
+        },
+        [setVisitsEachMonthAsync.fulfilled]: (
+            state,
+            action,
+        ) => {
+            state.visitsEachMonth = action.payload;
         },
     },
 });

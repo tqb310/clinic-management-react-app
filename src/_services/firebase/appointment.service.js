@@ -131,6 +131,17 @@ const appointmentServices = {
     },
     /**
      * @async
+     */
+    async getDataSize() {
+        try {
+            const snapshot = await getDocs(appointmentRef);
+            return snapshot.size;
+        } catch (error) {
+            throw error;
+        }
+    },
+    /**
+     * @async
      * @param {*} aid
      * @param {*} pid
      * @param {*} data

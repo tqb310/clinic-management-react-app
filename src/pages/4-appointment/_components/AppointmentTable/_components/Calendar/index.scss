@@ -76,7 +76,7 @@
                 border-radius: 27px;
                 user-select: none;
                 cursor: pointer;
-                transition: background-color 0.2s;
+                transition: background-color 0.4s;
                 will-change: background-color;
                 p:first-child {
                     color: #deb887;
@@ -89,11 +89,13 @@
                 }
                 &:hover {
                     background-color: #f6f6f6;
+                    opacity: 1 !important;
                 }
             }
             .date--active {
                 @extend .date;
                 background-color: #fac032 !important;
+                opacity: 1 !important;
                 p {
                     color: #fff !important;
                 }

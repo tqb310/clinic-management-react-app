@@ -67,6 +67,17 @@ const patientServices = {
     },
     /**
      * @async
+     */
+    async getDataSize() {
+        try {
+            const snapshot = await getDocs(patientRef);
+            return snapshot.size;
+        } catch (error) {
+            throw error;
+        }
+    },
+    /**
+     * @async
      * @param {*} id
      * @param {*} data
      */

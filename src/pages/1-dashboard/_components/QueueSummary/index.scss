@@ -6,6 +6,18 @@
         position: absolute;
         bottom: 10px;
         left: 50%;
-        transform: translateX(-50%);
+        animation: slideUpDown 3s ease-in-out infinite;
+    }
+}
+
+@keyframes slideUpDown {
+    0% {
+        transform: translate(-50%, 0px);
+    }
+    50% {
+        transform: translate(-50%, 5px);
+    }
+    100% {
+        transform: translate(-50%, 0px);
     }
 }

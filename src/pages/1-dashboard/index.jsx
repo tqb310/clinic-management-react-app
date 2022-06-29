@@ -1,4 +1,4 @@
-import React, {memo, useEffect} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import CardContainer from './_components/CardContainer';
 import QueueSummary from './_components/QueueSummary';
 import Appointment from './_components/Appointment';
@@ -6,8 +6,16 @@ import {RightBar} from '_components/shared/StyledComponent';
 import {Grid, Typography} from '@mui/material';
 import Doctor from '_assets/images/doctor2.png';
 import {useSelector, useDispatch} from 'react-redux';
-import {setDataByDateAsync as setAppointmentData} from '_redux/slice/appointmentSlice';
+import {
+    setDataByDateAsync as setAppointmentData,
+    setDataNumberAsync as setAppointmentNumber,
+} from '_redux/slice/appointmentSlice';
+import {setDataNumberAsync as setPatientNumber} from '_redux/slice/patientSlice';
 import {setDataAsync as setQueueData} from '_redux/slice/queueSlice';
+import {
+    setRevenueDataAsync,
+    setVisitsEachMonthAsync,
+} from '_redux/slice/invoiceSlice';
 import {CustomPaper} from '_components/shared/StyledComponent';
 import {useFirestoreRealtime} from '_hooks';
 import {Bar} from 'react-chartjs-2';
@@ -55,9 +63,6 @@ const barData = {
     datasets: [
         {
             label: 'Số lượt khám trong năm nay',
-            data: barLabels.map(label =>
-                Math.trunc(100 - Math.random() * 90),
-            ),
             backgroundColor: '#6b9eff',
         },
     ],
@@ -65,13 +70,26 @@ const barData = {
 
 function Dashboard(props) {
     // console.log(props);
+    const [barActualData, setBarActualData] =
+        useState(barData);
     const dispatch = useDispatch();
-
     const name = useSelector(
         state => state.user.current.name,
     );
     const todayAppointments = useSelector(
         state => state.appointments.data,
+    );
+    const appointmentNumber = useSelector(
+        state => state.appointments.number,
+    );
+    const patientNumber = useSelector(
+        state => state.patients.number,
+    );
+    const revenueData = useSelector(
+        state => state.invoices.revenue,
+    );
+    const visitsEachMonth = useSelector(
+        state => state.invoices.visitsEachMonth,
     );
     const queue = useSelector(state => state.queues.data);
 
@@ -88,16 +106,35 @@ function Dashboard(props) {
             dispatch(setQueueData());
         },
     });
+    const invoiceFirestoreRealtime = useFirestoreRealtime({
+        collectionName: 'invoices',
+        eventHandler: () => {
+            dispatch(setVisitsEachMonthAsync());
+        },
+    });
     useEffect(() => {
-        // dispatch(setPatients());
-        // dispatch(setInvoices());
+        dispatch(setRevenueDataAsync());
+        dispatch(setPatientNumber());
+        dispatch(setAppointmentNumber());
         const unsub1 = appointmentFirestoreRealtime();
         const unsub2 = queueFirestoreRealtime();
+        const unsub3 = invoiceFirestoreRealtime();
         return () => {
             unsub1();
             unsub2();
+            unsub3();
         };
     }, []);
+
+    useEffect(() => {
+        setBarActualData(pre => ({
+            ...pre,
+            datasets: [
+                {...pre.datasets[0], data: visitsEachMonth},
+            ],
+        }));
+    }, [visitsEachMonth]);
+
     return (
         <div className="dashboard">
             <Typography
@@ -116,7 +153,11 @@ function Dashboard(props) {
                 </Typography>
             </Typography>
             <div className="dashboard-section">
-                <CardContainer />
+                <CardContainer
+                    patientNumber={patientNumber}
+                    appointmentNumber={appointmentNumber}
+                    revenueData={revenueData}
+                />
             </div>
             <Grid
                 container
@@ -134,7 +175,7 @@ function Dashboard(props) {
                         </Typography>
                         <Bar
                             options={options}
-                            data={barData}
+                            data={barActualData}
                         />
                     </CustomPaper>
                 </Grid>

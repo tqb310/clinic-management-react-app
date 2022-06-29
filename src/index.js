@@ -17,13 +17,13 @@ import {fab} from '@fortawesome/free-brands-svg-icons';
 library.add(fas, far, fab);
 const theme = createTheme(ThemeObject);
 ReactDOM.render(
-    <React.StrictMode>
-        <Provider store={store}>
-            <ThemeProvider theme={theme}>
-                <App />
-            </ThemeProvider>
-        </Provider>
-    </React.StrictMode>,
+    // <React.StrictMode>
+    <Provider store={store}>
+        <ThemeProvider theme={theme}>
+            <App />
+        </ThemeProvider>
+    </Provider>,
+    // </React.StrictMode>
     document.getElementById('root'),
 );
 

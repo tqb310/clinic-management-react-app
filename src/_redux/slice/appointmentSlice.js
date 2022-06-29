@@ -12,6 +12,11 @@ import getDateTimeComparator from '../../_helpers/getDateTimeComparator';
 
 const initialState = {
     data: [],
+    number: 0,
+    cancelledNumber: 0,
+    visitedNumber: 0,
+    notVisitedNumber: 0,
+    anchorDay: new Date(),
     selectedDate: new Date(),
     isOpenForm: false,
     isLoading: false,
@@ -54,6 +59,15 @@ export const setDataByDateAsync = createAsyncThunk(
     },
 );
 
+export const setDataNumberAsync = createAsyncThunk(
+    'appointments/setDataNumberAsync',
+    async () => {
+        const number =
+            await appointmentServices.getDataSize();
+
+        return number;
+    },
+);
 const appointmentSlice = createSlice({
     name: 'appointments',
     initialState,
@@ -101,6 +115,9 @@ const appointmentSlice = createSlice({
         openAppointmentDetail: (state, action) => {
             state.isOpenAppointmentDetail = action.payload;
         },
+        setAnchorDay: (state, action) => {
+            state.anchorDay = action.payload;
+        },
     },
     extraReducers: {
         [setDataAsync.pending]: state => {
@@ -108,6 +125,23 @@ const appointmentSlice = createSlice({
         },
         [setDataAsync.fulfilled]: (state, action) => {
             state.data = action.payload;
+            state.number = action.payload.length;
+            const tempData = {
+                notVisited: 0,
+                visited: 0,
+                cancelled: 0,
+            };
+            action.payload?.forEach(appointment => {
+                if (appointment.status === 2)
+                    tempData['visited']++;
+                else if (appointment.status === 1)
+                    tempData['notVisited']++;
+                else tempData['cancelled']++;
+            });
+
+            state.cancelledNumber = tempData.cancelled;
+            state.notVisitedNumber = tempData.notVisited;
+            state.visitedNumber = tempData.visited;
             state.isLoading = false;
         },
         [setDataAsync.rejected]: (state, action) => {
@@ -125,6 +159,9 @@ const appointmentSlice = createSlice({
             state.isLoading = false;
             state.data = action.payload;
         },
+        [setDataNumberAsync.fulfilled]: (state, action) => {
+            state.number = action.payload;
+        },
     },
 });
 
@@ -136,6 +173,6 @@ export const {
     setOpenForm,
     openAppointmentDetail,
     setSelectedAppointment,
-    setSelectedPatient,
+    setAnchorDay,
 } = actions;
 export default reducer;

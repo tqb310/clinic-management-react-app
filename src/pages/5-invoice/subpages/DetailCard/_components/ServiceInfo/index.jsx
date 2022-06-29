@@ -1,5 +1,10 @@
 import React, {memo} from 'react';
-import {Box} from '@mui/material';
+import {
+    Box,
+    List,
+    ListItem,
+    Typography,
+} from '@mui/material';
 import services from '_constants/services';
 import handlePriceFormat from '_helpers/handlePriceFormat';
 import './index.scss';
@@ -46,6 +51,67 @@ function ServiceInfo({data}) {
                         </Box>
                     </Box>
                 ))}
+            </Box>
+            <Box
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'flex-end',
+                }}
+            >
+                <List>
+                    <ListItem>
+                        <Typography
+                            variant="subtitle1"
+                            sx={{
+                                textAlign: 'right',
+                                minWidth: '150px',
+                                mr: 5,
+                            }}
+                        >
+                            Tổng phí
+                        </Typography>
+                        <Typography variant="h5">
+                            {handlePriceFormat(
+                                data.total_fee,
+                            )}{' '}
+                            đ
+                        </Typography>
+                    </ListItem>
+                    <ListItem>
+                        <Typography
+                            variant="subtitle1"
+                            sx={{
+                                textAlign: 'right',
+                                minWidth: '150px',
+                                mr: 5,
+                            }}
+                        >
+                            Khách trả
+                        </Typography>
+                        <Typography variant="h5">
+                            {handlePriceFormat(
+                                data.paying_customer,
+                            )}{' '}
+                            đ
+                        </Typography>
+                    </ListItem>
+                    <ListItem>
+                        <Typography
+                            variant="subtitle1"
+                            sx={{
+                                textAlign: 'right',
+                                minWidth: '150px',
+                                mr: 5,
+                            }}
+                        >
+                            Tổng phí Tiền thừa
+                        </Typography>
+                        <Typography variant="h5">
+                            {handlePriceFormat(data.change)}{' '}
+                            đ
+                        </Typography>
+                    </ListItem>
+                </List>
             </Box>
         </Box>
     );

@@ -26,6 +26,7 @@ function PatientInfo({
     province,
     note,
     gender,
+    isEditable,
 }) {
     // console.log(data);
     return (

@@ -13,6 +13,8 @@ import {
     // useHistory,
 } from 'react-router-dom';
 import authentication from '_services/firebase/authentication.service';
+import {useSelector} from 'react-redux';
+import RoleMap from '_constants/role';
 // import {removeMe} from '_redux/slice/currentUserSlice';
 // import {useDispatch} from 'react-redux';
 import './index.scss';
@@ -20,6 +22,11 @@ import './index.scss';
 function LoggedInApp({filteredRoutes}) {
     const {path} = useRouteMatch();
     // const dispatch = useDispatch();
+
+    const role = useSelector(
+        state => state.user.current?.role,
+    );
+
     const onLogOut = async () => {
         try {
             // dispatch(removeMe());
@@ -28,6 +35,7 @@ function LoggedInApp({filteredRoutes}) {
             return;
         }
     };
+
     return (
         <Box className="pagewrapper">
             <Box className="pagewrapper__left">
@@ -83,24 +91,29 @@ function LoggedInApp({filteredRoutes}) {
                 </Box>
             </Box>
             <Box className="pagewrapper__right"></Box>
-            <Link to="/">
-                <div className="pagewrapper__createCard">
-                    <Add
-                        sx={{
-                            fontSize: 32,
-                            color: 'white',
-                            transition: 'all .3s',
-                            '&:hover': {
-                                transform: 'scale(1.2,1.2)',
-                            },
-                            '&:active': {
-                                transform:
-                                    'scale(0.9, 0.9)',
-                            },
-                        }}
-                    />
-                </div>
-            </Link>
+            {role !== 2 && (
+                <Link
+                    to={`${RoleMap.get(role).url}/hang-doi`}
+                >
+                    <div className="pagewrapper__createCard">
+                        <Add
+                            sx={{
+                                fontSize: 32,
+                                color: 'white',
+                                transition: 'all .3s',
+                                '&:hover': {
+                                    transform:
+                                        'scale(1.2,1.2)',
+                                },
+                                '&:active': {
+                                    transform:
+                                        'scale(0.9, 0.9)',
+                                },
+                            }}
+                        />
+                    </div>
+                </Link>
+            )}
         </Box>
     );
 }

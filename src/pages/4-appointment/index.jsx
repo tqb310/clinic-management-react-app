@@ -4,7 +4,7 @@ import AppointmentTable from './_components/AppointmentTable';
 import AppointmentDemand from './_components/AppointmentDemand';
 import {Grid, Typography} from '@mui/material';
 import {CustomPaper} from '_components/shared/StyledComponent';
-import {Pie, Bar} from 'react-chartjs-2';
+import {Bar} from 'react-chartjs-2';
 import {
     Chart as ChartJS,
     ArcElement,
@@ -60,33 +60,6 @@ const barLabels = [
                     Math.trunc(100 - Math.random() * 90),
                 ),
                 backgroundColor: '#6b9eff',
-            },
-        ],
-    },
-    pieData = {
-        labels: [
-            '7h-9h',
-            '9h15-11h',
-            '13h-15h',
-            '15h15-17h',
-        ],
-        datasets: [
-            {
-                label: 'Quoc Bao',
-                data: [0, 0, 0, 0],
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                ],
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                ],
-                borderWidth: 2,
             },
         ],
     };

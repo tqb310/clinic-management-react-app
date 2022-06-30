@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 import {useSelector} from 'react-redux';
 import Routes from 'pages/_routes';
 
-//Fake user data storage
-//const currentUser = {name: 'Bao', role: '1', jwt: '1234'};
 const Unauthorized = () => (
     <div>
         Tài khoản của bạn không có quyền truy cập trang này

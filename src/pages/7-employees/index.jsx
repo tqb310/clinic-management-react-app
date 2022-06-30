@@ -14,6 +14,7 @@ import {
     setSelectedEmployee,
     setDataAsync,
 } from '_redux/slice/employeeSlice';
+import employeeServices from '_services/firebase/employee.service';
 import {RightBar} from '_components/shared/StyledComponent';
 import RightBarContent from './components/RightBarContent';
 import './index.scss';
@@ -38,6 +39,17 @@ function Employee(props) {
         }
 
         setOpen(false);
+    };
+
+    const onSubmit = async values => {
+        try {
+            await employeeServices.update(
+                selectedEmployee.id,
+                values,
+            );
+        } catch (error) {
+            console.log(error);
+        }
     };
     useEffect(() => {
         dispatch(setDataAsync());
@@ -93,6 +105,7 @@ function Employee(props) {
             <RightBar>
                 <RightBarContent
                     selectedEmployee={selectedEmployee}
+                    onSubmit={onSubmit}
                 />
             </RightBar>
         </>

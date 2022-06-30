@@ -1,27 +1,34 @@
 import React, {useState, useEffect} from 'react';
 import {useHistory} from 'react-router-dom';
 import role from '_constants/role';
-import doctorImage from './assets/doctor.png';
+import doctorImage from '_assets/images/banner.gif';
 import clinic from '_assets/images/clinic.png';
-import {ToastContainer, toast} from 'react-toastify';
 import authentication from '_services/firebase/authentication.service';
 import {useSelector} from 'react-redux';
-import 'react-toastify/dist/ReactToastify.css';
 // import {useSelector} from 'react-redux';
 import {
     CardMedia,
     Typography,
-    Button,
+    // Button,
     IconButton,
     InputAdornment,
+    Alert,
 } from '@mui/material';
 import {
     Visibility,
     VisibilityOff,
 } from '@mui/icons-material';
 import TextField from './TextField';
+import {LoadingButton} from '@mui/lab';
 import './index.scss';
 //import PropTypes from 'prop-types';
+
+const authCode = {
+    'auth/wrong-password':
+        'Sai mật khẩu. Vui lòng nhập lại!',
+    'auth/user-not-found': 'Tài khoản không tồn tại',
+    'auth/invalid-email': 'Email không hợp lệ',
+};
 
 function Login(props) {
     const history = useHistory();
@@ -37,15 +44,16 @@ function Login(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPass, setShowPass] = useState(false);
-
+    const [authError, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const login = async () => {
-        toast.success('Đang đăng nhập', {
-            position: toast.POSITION.TOP_CENTER,
-        });
         try {
+            setLoading(true);
             await authentication.logIn(email, password);
         } catch (error) {
-            console.dir(error);
+            setError(authCode[error.code]);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -59,8 +67,8 @@ function Login(props) {
                     component="img"
                     src={doctorImage}
                     style={{
-                        width: 300,
-                        height: 300,
+                        width: '100%',
+                        height: '100%',
                     }}
                 ></CardMedia>
             </div>
@@ -93,7 +101,7 @@ function Login(props) {
                                 fontWeight: '700',
                             }}
                         >
-                            MINH ANH
+                            QUỐC BẢO
                         </Typography>
                     </div>
                 </div>
@@ -109,6 +117,14 @@ function Login(props) {
                     >
                         ĐĂNG NHẬP
                     </Typography>
+                    {authError && (
+                        <Alert
+                            severity="error"
+                            sx={{width: '70%', mb: 3}}
+                        >
+                            {authError}
+                        </Alert>
+                    )}
                     <div className="login-textfield">
                         <TextField
                             style={{
@@ -147,7 +163,6 @@ function Login(props) {
                                             onClick={
                                                 toggleShowPass
                                             }
-                                            // onMouseDown={handleMouseDownPassword}
                                             edge="end"
                                         >
                                             {showPass ? (
@@ -161,17 +176,16 @@ function Login(props) {
                             }}
                         />
                     </div>
-                    <Button
-                        variant="contained"
-                        color="primary"
+                    <LoadingButton
                         onClick={login}
-                        style={{width: '70%'}}
+                        loading={loading}
+                        variant="contained"
+                        sx={{width: '70%'}}
                     >
                         Đăng Nhập
-                    </Button>
+                    </LoadingButton>
                 </div>
             </div>
-            <ToastContainer />
         </div>
     );
 }

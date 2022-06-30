@@ -3,21 +3,21 @@ const role = new Map([
         1,
         {
             url: '/tiep-tan',
-            name: 'Receptionist',
+            name: 'Tiếp tân',
         },
     ],
     [
         3,
         {
             url: '/quan-ly',
-            name: 'Manager',
+            name: 'Quản lý',
         },
     ],
     [
         2,
         {
             url: '/bac-si',
-            name: 'Doctor',
+            name: 'Bác sĩ',
         },
     ],
 ]);

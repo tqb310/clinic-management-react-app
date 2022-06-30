@@ -11,7 +11,7 @@ import {
     role as roleItems,
 } from '_constants/general';
 import {Grid, Button} from '@mui/material';
-function EmployeeForm({selectedEmployee}) {
+function EmployeeForm({selectedEmployee, onSubmit}) {
     const {
         name,
         dob,
@@ -35,6 +35,7 @@ function EmployeeForm({selectedEmployee}) {
                 gender,
                 role,
             }}
+            onSubmit={onSubmit}
         >
             {() => {
                 return (

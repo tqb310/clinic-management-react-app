@@ -4,7 +4,7 @@ import {Edit} from '@mui/icons-material';
 import {Typography, Box} from '@mui/material';
 import EmployeeForm from '../EmployeeForm';
 
-function RightBarContent({selectedEmployee}) {
+function RightBarContent({selectedEmployee, onSubmit}) {
     return (
         <Box sx={{p: 2}}>
             {' '}
@@ -15,6 +15,7 @@ function RightBarContent({selectedEmployee}) {
                     </Typography>
                     <EmployeeForm
                         selectedEmployee={selectedEmployee}
+                        onSubmit={onSubmit}
                     />
                 </>
             ) : (

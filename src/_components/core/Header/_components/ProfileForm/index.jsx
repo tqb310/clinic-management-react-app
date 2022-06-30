@@ -11,9 +11,10 @@ import {
 } from '@mui/material';
 import {Close} from '@mui/icons-material';
 import handlePriceFormat from '_helpers/handlePriceFormat.js';
+import role from '_constants/role';
 import './index.scss';
 
-function ProfileForm({open, handleClose}) {
+function ProfileForm({open, handleClose, data}) {
     return (
         <Dialog
             modal={true}
@@ -54,7 +55,7 @@ function ProfileForm({open, handleClose}) {
                             }}
                             label="Mã nhân viên"
                             size="small"
-                            value="18520501"
+                            value={data.id}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -65,7 +66,7 @@ function ProfileForm({open, handleClose}) {
                             }}
                             label="Tên nhân viên"
                             size="small"
-                            value="Đặng Ngọc Liêm"
+                            value={data.name}
                         />
                     </Grid>
                     <Grid item xs={6}>
@@ -87,7 +88,7 @@ function ProfileForm({open, handleClose}) {
                             }}
                             label="Điện thoại"
                             size="small"
-                            value="0123456789"
+                            value={data.phone}
                         />
                     </Grid>
                     <Grid item xs={4}>
@@ -98,7 +99,7 @@ function ProfileForm({open, handleClose}) {
                             }}
                             label="Ngày sinh"
                             size="small"
-                            value="01/02/1998"
+                            value={data.dob}
                         />
                     </Grid>
                     <Grid item xs={2}>
@@ -109,7 +110,9 @@ function ProfileForm({open, handleClose}) {
                             }}
                             label="Giới tính"
                             size="small"
-                            value="Nam"
+                            value={
+                                data.gender ? 'Nam' : 'Nữ'
+                            }
                         />
                     </Grid>
                     <Grid item xs={2}>
@@ -120,7 +123,7 @@ function ProfileForm({open, handleClose}) {
                             }}
                             label="Bộ phận"
                             size="small"
-                            value="Tiếp tân"
+                            value={role.get(data.role).name}
                         />
                     </Grid>
                     <Grid item xs={4}>
@@ -129,21 +132,10 @@ function ProfileForm({open, handleClose}) {
                                 width: '100%',
                                 margin: '1rem 0',
                             }}
-                            label="Ngày vào làm"
-                            size="small"
-                            value="01/01/2018"
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <TextField
-                            style={{
-                                width: '100%',
-                                margin: '1rem 0',
-                            }}
                             label="Lương"
                             size="small"
                             value={handlePriceFormat(
-                                10000000,
+                                data.salary,
                             )}
                         />
                     </Grid>
@@ -155,7 +147,9 @@ function ProfileForm({open, handleClose}) {
                             }}
                             label="Địa chỉ"
                             size="small"
-                            value="Quận 9 - TP.HCM"
+                            value={data.address}
+                            multiline
+                            rows={3}
                         />
                     </Grid>
                 </Grid>

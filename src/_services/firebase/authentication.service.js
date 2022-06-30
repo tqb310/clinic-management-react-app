@@ -29,7 +29,6 @@ const authentication = {
     async logOut() {
         try {
             await signOut(auth);
-            window.location.reload();
         } catch (error) {
             throw error;
         }
@@ -43,7 +42,7 @@ const authentication = {
         try {
             const docRef = doc(db, 'users', uid);
             const userDoc = await getDoc(docRef);
-            return userDoc.data();
+            return {...userDoc.data(), id: userDoc.id};
         } catch (error) {
             throw error;
         }

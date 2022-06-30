@@ -1,60 +1,72 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {
     Box,
     IconButton,
-    Menu,
-    MenuItem,
+    // Menu,
+    // MenuItem,
+    Button,
 } from '@mui/material';
 import {KeyboardArrowDown} from '@mui/icons-material';
-// import {CustomPaper} from '_components/shared/StyledComponent/Paper.js';
 import ProfileForm from '../ProfileForm';
-import PasswordForm from '../PasswordForm';
 import {useSelector} from 'react-redux';
 import './index.scss';
+// import PasswordForm from '../PasswordForm';
+// import {CustomPaper} from '_components/shared/StyledComponent/Paper.js';
 // import PropTypes from 'prop-types'
 // const {CustomPaper} = cs;
 
 function Profile(props) {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    // const [anchorEl, setAnchorEl] = React.useState(null);
     const [openProfile, setOpenProfile] =
         React.useState(false);
-    const [openPass, setOpenPass] = React.useState(false);
+    // const [openPass, setOpenPass] = React.useState(false);
     const handleClick = event => {
-        setAnchorEl(event.currentTarget);
+        // setAnchorEl(event.currentTarget);
+        setOpenProfile(true);
     };
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
+    // const handleClose = () => {
+    //     setAnchorEl(null);
+    // };
     const handleCloseForm = () => {
-        setOpenPass(false);
+        // setOpenPass(false);
         setOpenProfile(false);
     };
-    const handleMenuItemClick = num => {
-        handleClose();
-        if (num) setOpenPass(true);
-        else setOpenProfile(true);
-    };
-    const name = useSelector(
-        state => state.user.current.name,
+    // const handleMenuItemClick = num => {
+    //     handleClose();
+    //     if (num) setOpenPass(true);
+    //     else setOpenProfile(true);
+    // };
+    const profileData = useSelector(
+        state => state.user.current,
     );
     // console.dir(anchorEl);
     return (
-        <Box className="profile">
-            <Box className="profile__avatar">
-                {name?.split(' ')[0][0] +
-                    name?.split(' ').slice(-1)[0][0]}
-            </Box>
-            <Box>
-                <IconButton
-                    sx={{width: 20, height: 20}}
-                    onClick={handleClick}
-                >
-                    <KeyboardArrowDown
-                        style={{color: '#2E3192'}}
-                    />
-                </IconButton>
-            </Box>
-            <Menu
+        <>
+            <Button
+                className="profile"
+                onClick={handleClick}
+            >
+                <Box className="profile__avatar">
+                    {profileData.name
+                        ? profileData.name?.split(
+                              ' ',
+                          )[0][0] +
+                          profileData.name
+                              ?.split(' ')
+                              .slice(-1)[0][0]
+                        : ''}
+                </Box>
+                <Box>
+                    <IconButton
+                        sx={{width: 20, height: 20}}
+                    >
+                        <KeyboardArrowDown
+                            style={{color: '#2E3192'}}
+                        />
+                    </IconButton>
+                </Box>
+            </Button>
+            {/* <Menu
                 id="basic-menu"
                 anchorEl={anchorEl}
                 open={Boolean(anchorEl)}
@@ -77,19 +89,20 @@ function Profile(props) {
                 >
                     Cập nhật mật khẩu
                 </MenuItem>
-            </Menu>
+            </Menu> */}
             <ProfileForm
                 open={openProfile}
                 handleClose={handleCloseForm}
+                data={profileData}
             />
-            <PasswordForm
+            {/* <PasswordForm
                 open={openPass}
                 handleClose={handleCloseForm}
-            />
-        </Box>
+            /> */}
+        </>
     );
 }
 
 Profile.propTypes = {};
 
-export default Profile;
+export default memo(Profile);

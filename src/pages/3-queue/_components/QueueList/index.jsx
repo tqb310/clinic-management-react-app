@@ -1,6 +1,6 @@
 import React, {memo, useState, useEffect} from 'react';
-import {Box, Button, Typography} from '@mui/material';
-import {Add, Search} from '@mui/icons-material';
+import {Box, Typography} from '@mui/material';
+// import {Add, Search} from '@mui/icons-material';
 import {Dot} from '_components/shared/StyledComponent';
 import {useDispatch} from 'react-redux';
 import {
@@ -9,6 +9,7 @@ import {
 } from '_redux/slice/queueSlice';
 import {onSnapshot, collection} from 'firebase/firestore';
 import {db} from '_services/firebase/app';
+import PaperImg from '_assets/images/paper.png';
 import './index.scss';
 // import PropTypes from 'prop-types';
 
@@ -113,7 +114,7 @@ function QueueList({queueData, numberEachStatus}) {
                 ))}
             </Box>
             <Box className="queue-list__actions">
-                <Button
+                {/* <Button
                     startIcon={<Search />}
                     variant="contained"
                     sx={{
@@ -134,10 +135,10 @@ function QueueList({queueData, numberEachStatus}) {
                     }}
                 >
                     Thêm mới
-                </Button>
+                </Button> */}
             </Box>
             <Box className="queue-list__content">
-                {queueData &&
+                {queueData && queueData.length ? (
                     queueData.map(item => (
                         <QueueListItem
                             key={item.id}
@@ -156,7 +157,20 @@ function QueueList({queueData, numberEachStatus}) {
                                 item.numerical_order
                             }
                         />
-                    ))}
+                    ))
+                ) : (
+                    <img
+                        src={PaperImg}
+                        alt="Khong co du lieu"
+                        width={128}
+                        style={{
+                            display: 'block',
+                            margin: 'auto',
+                            opacity: 0.2,
+                            paddingBottom: '2rem',
+                        }}
+                    />
+                )}
             </Box>
         </Box>
     );

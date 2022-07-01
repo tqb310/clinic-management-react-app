@@ -42,6 +42,9 @@ import ListItem from '_components/shared/ListItem';
 import MalePatient from '_assets/images/male-patient.png';
 import FemalePatient from '_assets/images/female-patient.png';
 import {getInitialPatientDataFormat} from '_helpers/getInitialDataFormat';
+import queueSchema from '_validations/queueSchema';
+import {Prompt} from 'react-router-dom';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 import './index.scss';
 
 function AddForm({handleSubmit}) {
@@ -106,9 +109,10 @@ function AddForm({handleSubmit}) {
     };
     //Submit Form
     const handleSubmitFormik = async (values, actions) => {
-        const isExistedPatient =
-            selectedPatient && selectedPatient.id;
         try {
+            actions.setSubmitting(true);
+            const isExistedPatient =
+                selectedPatient && selectedPatient.id;
             await handleSubmit(
                 values,
                 actions,
@@ -117,6 +121,8 @@ function AddForm({handleSubmit}) {
             handleReset();
         } catch (error) {
             console.log(error);
+        } finally {
+            actions.setSubmitting(false);
         }
     };
 
@@ -140,16 +146,18 @@ function AddForm({handleSubmit}) {
                 enableReinitialize
                 initialValues={initialValueState}
                 onSubmit={handleSubmitFormik}
-                onChange={() => {
-                    console.log(
-                        'All Form State is changed',
-                    );
-                }}
+                validationSchema={queueSchema}
             >
                 {form => {
-                    // console.log(form);
                     return (
                         <Form>
+                            <Prompt
+                                when={
+                                    form.dirty ||
+                                    Boolean(selectedPatient)
+                                }
+                                message="Bạn có thực sự muốn rời khỏi trang này?"
+                            />
                             <Grid
                                 container
                                 mt={2}
@@ -162,7 +170,6 @@ function AddForm({handleSubmit}) {
                                         id="patient.patient_name"
                                         component={Input}
                                         label="Tên bệnh nhân"
-                                        required
                                         icon={Person}
                                     />
                                 </Grid>
@@ -179,7 +186,6 @@ function AddForm({handleSubmit}) {
                                         id="patient.phone"
                                         component={Input}
                                         label="Số điện thoại"
-                                        required
                                         icon={PhoneEnabled}
                                         autoComplete="off"
                                         setPatientHint={
@@ -229,7 +235,6 @@ function AddForm({handleSubmit}) {
                                         icon={
                                             BrandingWatermark
                                         }
-                                        required
                                     />
                                 </Grid>
                                 <Grid item xs={5}>
@@ -239,7 +244,6 @@ function AddForm({handleSubmit}) {
                                         component={Input}
                                         label="Nghề nghiệp"
                                         icon={Work}
-                                        required
                                     />
                                 </Grid>
                                 <Grid item xs={4}>
@@ -250,7 +254,6 @@ function AddForm({handleSubmit}) {
                                             DatePickerField
                                         }
                                         label="Ngày sinh"
-                                        required
                                     />
                                 </Grid>
                                 <Grid item xs={3}>
@@ -260,7 +263,6 @@ function AddForm({handleSubmit}) {
                                         component={Select}
                                         label="Giới tính"
                                         items={gender}
-                                        required
                                     />
                                 </Grid>
                                 <Grid item xs={4}>
@@ -270,7 +272,6 @@ function AddForm({handleSubmit}) {
                                         component={Input}
                                         label="Chiều cao"
                                         icon="cm"
-                                        required
                                     />
                                 </Grid>
                                 <Grid item xs={4}>
@@ -280,7 +281,6 @@ function AddForm({handleSubmit}) {
                                         component={Input}
                                         label="Cân nặng"
                                         icon="kg"
-                                        required
                                     />
                                 </Grid>
                                 <Grid item xs={4}>
@@ -290,7 +290,6 @@ function AddForm({handleSubmit}) {
                                         component={Select}
                                         label="Loại"
                                         items={cardType}
-                                        required
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
@@ -352,7 +351,6 @@ function AddForm({handleSubmit}) {
                                                 onChangeLocation={
                                                     onChangeLocation
                                                 }
-                                                required
                                             />
                                         </Grid>
                                         <Grid item xs={4}>
@@ -369,7 +367,6 @@ function AddForm({handleSubmit}) {
                                                 onChangeLocation={
                                                     onChangeLocation
                                                 }
-                                                required
                                             />
                                         </Grid>
                                         <Grid item xs={4}>
@@ -386,7 +383,6 @@ function AddForm({handleSubmit}) {
                                                 onChangeLocation={
                                                     onChangeLocation
                                                 }
-                                                required
                                             />
                                         </Grid>
                                         <Grid item xs={12}>
@@ -478,6 +474,11 @@ function AddForm({handleSubmit}) {
                                         setFieldValue={
                                             form.setFieldValue
                                         }
+                                        errorMsg={
+                                            form.errors
+                                                ?.invoice
+                                                ?.services
+                                        }
                                     />
                                 </Grid>
                                 <Grid
@@ -489,16 +490,27 @@ function AddForm({handleSubmit}) {
                                     }}
                                 >
                                     <Button
-                                        // onClick={
-                                        //     form.submitForm
-                                        // }
                                         type="submit"
-                                        variant="contained"
+                                        disabled={
+                                            !form.dirty &&
+                                            !selectedPatient
+                                        }
+                                        variant="outlined"
                                         sx={{
                                             width: '100%',
                                         }}
                                     >
                                         Đưa vào hàng đợi
+                                        {form.isSubmitting && (
+                                            <FontAwesomeIcon
+                                                icon="spinner"
+                                                spin
+                                                style={{
+                                                    marginLeft:
+                                                        '10px',
+                                                }}
+                                            />
+                                        )}
                                     </Button>
                                 </Grid>
                                 <Grid
@@ -514,12 +526,14 @@ function AddForm({handleSubmit}) {
                                             handleReset
                                         }
                                         type="reset"
-                                        variant="outlined"
+                                        variant="contained"
+                                        disabled={
+                                            !form.dirty &&
+                                            !selectedPatient
+                                        }
                                         color="error"
                                         sx={{
                                             width: '100%',
-                                            backgroundColor:
-                                                'white',
                                         }}
                                     >
                                         Hủy

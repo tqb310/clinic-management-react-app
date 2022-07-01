@@ -17,6 +17,7 @@ import PrescriptionForm from './_components/Prescription';
 import ServiceDialog from 'pages/3-queue/_components/AddForm/_components/ServiceDialog';
 import ExaminingForm from './_components/ExaminingForm';
 import {Formik, Form, Field} from 'formik';
+import invoiceSchema from '_validations/invoiceSchema';
 import './index.scss';
 // import PropTypes from 'prop-types'
 const gender = ['Nữ', 'Nam'];
@@ -55,6 +56,7 @@ function ExamineCard({selectedCard, handleSubmit}) {
                     prescription: [],
                 }}
                 onSubmit={handleSubmit}
+                validationSchema={invoiceSchema}
             >
                 {form => {
                     console.log(form.values);

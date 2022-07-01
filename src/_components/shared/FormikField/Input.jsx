@@ -8,7 +8,6 @@ import {
     OutlinedInput,
 } from '@mui/material';
 import {useDispatch} from 'react-redux';
-// import { ErrorMessage } from "formik";
 // import PropTypes from 'prop-types'
 
 function InputField({
@@ -24,7 +23,24 @@ function InputField({
     ...rest
 }) {
     const dispatch = useDispatch();
-    const isError = form.errors[field.name];
+
+    const keyArr = field.name.split('.');
+    let error = form.errors[keyArr[0]];
+    for (const key of keyArr.slice(-keyArr.length + 1)) {
+        if (error && error[key]) error = error[key];
+        else {
+            error = '';
+            break;
+        }
+    }
+    let touched = form.touched[keyArr[0]];
+    for (const key of keyArr.slice(-keyArr.length + 1)) {
+        if (touched && touched[key]) touched = touched[key];
+        else {
+            touched = false;
+            break;
+        }
+    }
     const handleChange = e => {
         field.onChange(e);
         if (
@@ -49,7 +65,7 @@ function InputField({
         <FormControl
             size="small"
             fullWidth
-            error={isError}
+            error={error && touched}
             required={required}
             sx={{
                 '& label+.MuiInputBase-root': {
@@ -93,9 +109,9 @@ function InputField({
                     )
                 }
             />
-            {isError ? (
+            {error && touched ? (
                 <FormHelperText sx={{marginTop: 0}}>
-                    {form.errors[field.name]}
+                    {error}
                 </FormHelperText>
             ) : (
                 <div>&nbsp;</div>

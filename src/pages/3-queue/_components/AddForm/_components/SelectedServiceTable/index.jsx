@@ -1,5 +1,5 @@
 import React, {memo, useMemo} from 'react';
-import {IconButton} from '@mui/material';
+import {IconButton, Box, Alert} from '@mui/material';
 import {Delete} from '@mui/icons-material';
 import {HeadCell} from '../../_constants';
 import handlePrice from '_helpers/handlePriceFormat';
@@ -10,6 +10,7 @@ import './index.scss';
 function SelectedServiceTable({
     selectedServiceId,
     setFieldValue,
+    errorMsg,
 }) {
     const SelectedServiceData = useMemo(() => {
         return (
@@ -30,46 +31,53 @@ function SelectedServiceTable({
         setFieldValue('invoice.services', newSelected);
     };
     return (
-        <table className="add-form__service-table">
-            <thead>
-                <tr>
-                    {HeadCell &&
-                        HeadCell.map(th => (
-                            <th
-                                style={th.style}
-                                key={th.id}
-                            >
-                                {th.label}
-                            </th>
-                        ))}
-                </tr>
-            </thead>
-            <tbody>
-                {SelectedServiceData &&
-                    SelectedServiceData.map(
-                        (row, index) => (
-                            <tr key={row.id}>
-                                <td>{index + 1}</td>
-                                <td>{row.serviceName}</td>
-                                <td>
-                                    {handlePrice(
-                                        row.serviceFee,
-                                    )}
-                                </td>
-                                <td>
-                                    <IconButton
-                                        onClick={handleDelete(
-                                            row.id,
+        <Box>
+            {errorMsg && (
+                <Alert severity="error">{errorMsg}</Alert>
+            )}
+            <table className="add-form__service-table">
+                <thead>
+                    <tr>
+                        {HeadCell &&
+                            HeadCell.map(th => (
+                                <th
+                                    style={th.style}
+                                    key={th.id}
+                                >
+                                    {th.label}
+                                </th>
+                            ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {SelectedServiceData &&
+                        SelectedServiceData.map(
+                            (row, index) => (
+                                <tr key={row.id}>
+                                    <td>{index + 1}</td>
+                                    <td>
+                                        {row.serviceName}
+                                    </td>
+                                    <td>
+                                        {handlePrice(
+                                            row.serviceFee,
                                         )}
-                                    >
-                                        <Delete color="error" />
-                                    </IconButton>
-                                </td>
-                            </tr>
-                        ),
-                    )}
-            </tbody>
-        </table>
+                                    </td>
+                                    <td>
+                                        <IconButton
+                                            onClick={handleDelete(
+                                                row.id,
+                                            )}
+                                        >
+                                            <Delete color="error" />
+                                        </IconButton>
+                                    </td>
+                                </tr>
+                            ),
+                        )}
+                </tbody>
+            </table>
+        </Box>
     );
 }
 

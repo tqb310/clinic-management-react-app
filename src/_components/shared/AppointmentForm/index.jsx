@@ -9,6 +9,7 @@ import {
 // import {Date} from '_components/shared/FormikField/DateTime';
 import General from './_components/General';
 import DateTimeChoice from './_components/DateTime';
+import appointmentSchema from '_validations/appointmentSchema';
 import './index.scss';
 
 function FormikStep({children}) {
@@ -170,6 +171,7 @@ function AppointmentForm({handleSubmit}) {
                 },
             }}
             onSubmit={handleSubmitForm}
+            validationSchema={appointmentSchema}
         >
             <FormikStep label="Điền thông tin bệnh nhân">
                 <General />

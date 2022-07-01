@@ -16,9 +16,9 @@ export function getInitialPatientDataFormat(data) {
                 gender: data.gender,
                 note: data.note || '',
                 address: {
-                    province: '',
-                    district: '',
-                    ward: '',
+                    province: 0,
+                    district: 0,
+                    ward: 0,
                     details: '',
                 },
             },

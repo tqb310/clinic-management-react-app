@@ -18,13 +18,29 @@ function TextArea({
     ...rest
 }) {
     // console.log(field);
-    const isError = form.errors[field.name];
+    const keyArr = field.name.split('.');
+    let error = form.errors[keyArr[0]];
+    for (const key of keyArr.slice(-keyArr.length + 1)) {
+        if (error && error[key]) error = error[key];
+        else {
+            error = '';
+            break;
+        }
+    }
+    let touched = form.touched[keyArr[0]];
+    for (const key of keyArr.slice(-keyArr.length + 1)) {
+        if (touched && touched[key]) touched = touched[key];
+        else {
+            touched = false;
+            break;
+        }
+    }
     return (
         <FormControl
             // style={{ margin: "0.1rem 0" }}
             size="small"
             fullWidth
-            error={isError}
+            error={error && touched}
             required={required}
             sx={{
                 '& label+.MuiInputBase-root': {
@@ -57,9 +73,9 @@ function TextArea({
                     )
                 }
             />
-            {isError ? (
+            {error && touched ? (
                 <FormHelperText sx={{marginTop: 0}}>
-                    {form.errors[field.name]}
+                    {error}
                 </FormHelperText>
             ) : (
                 <div>&nbsp;</div>

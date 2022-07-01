@@ -47,7 +47,7 @@ function Queue(props) {
         isExistedPatient,
     ) => {
         if (!values) return;
-        console.log(values);
+
         try {
             const payload = {
                 patient: patientModel(values.patient),

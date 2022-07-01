@@ -11,8 +11,6 @@ export const DatePickerField = ({
     minDate,
     ...rest
 }) => {
-    const isError = form.errors[field.name];
-
     const handleDateChange = newValue => {
         const event = {
             target: {
@@ -22,6 +20,24 @@ export const DatePickerField = ({
         };
         field.onChange(event);
     };
+
+    const keyArr = field.name.split('.');
+    let error = form.errors[keyArr[0]];
+    for (const key of keyArr.slice(-keyArr.length + 1)) {
+        if (error && error[key]) error = error[key];
+        else {
+            error = '';
+            break;
+        }
+    }
+    let touched = form.touched[keyArr[0]];
+    for (const key of keyArr.slice(-keyArr.length + 1)) {
+        if (touched && touched[key]) touched = touched[key];
+        else {
+            touched = false;
+            break;
+        }
+    }
 
     return (
         <LocalizationProvider dateAdapter={AdapterDateFns}>
@@ -35,7 +51,7 @@ export const DatePickerField = ({
                 minDate={minDate || null}
                 renderInput={params => {
                     // console.log(params);
-                    params.error = isError;
+                    params.error = error && touched;
                     return (
                         <TextField
                             sx={{
@@ -47,15 +63,18 @@ export const DatePickerField = ({
                             variant="outlined"
                             required={required}
                             helperText={
-                                isError ? 'Chua nhap' : ''
+                                params.error
+                                    ? 'Chưa nhập ngày sinh!'
+                                    : ''
                             }
+                            {...field}
                             {...params}
                             {...rest}
                         />
                     );
                 }}
             />
-            {!isError && <div>&nbsp;</div>}
+            {!error && <div>&nbsp;</div>}
         </LocalizationProvider>
     );
 };

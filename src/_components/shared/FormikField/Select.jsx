@@ -9,10 +9,10 @@ import {
 } from '@mui/material';
 // import {useLocation} from '_contexts/LocationContext';
 
-export const province = [
-    {id: 1, key: 'Bình Thuận', value: 1},
-    {id: 2, key: 'TP.HCM', value: 2},
-];
+// export const province = [
+//     {id: 1, key: 'Bình Thuận', value: 1},
+//     {id: 2, key: 'TP.HCM', value: 2},
+// ];
 export default function SelectField({
     form,
     field,
@@ -24,7 +24,7 @@ export default function SelectField({
     ...rest
 }) {
     // const {onChange} = useLocation();
-    const isError = form.errors[field.name];
+
     const handleChange = e => {
         field.onChange(e);
         if (onChangeLocation) onChangeLocation(e);
@@ -42,6 +42,25 @@ export default function SelectField({
         }
         // console.log(e.target.name);
     };
+
+    const keyArr = field.name.split('.');
+    let error = form.errors[keyArr[0]];
+    for (const key of keyArr.slice(-keyArr.length + 1)) {
+        if (error && error[key]) error = error[key];
+        else {
+            error = '';
+            break;
+        }
+    }
+    let touched = form.touched[keyArr[0]];
+    for (const key of keyArr.slice(-keyArr.length + 1)) {
+        if (touched && touched[key]) touched = touched[key];
+        else {
+            touched = false;
+            break;
+        }
+    }
+
     return (
         <FormControl
             sx={
@@ -53,6 +72,7 @@ export default function SelectField({
             }
             fullWidth
             required={required}
+            error={error && touched}
             size="small"
         >
             <InputLabel
@@ -87,9 +107,9 @@ export default function SelectField({
                         );
                     })}
             </Select>
-            {isError ? (
+            {error && touched ? (
                 <FormHelperText sx={{marginTop: 0}}>
-                    {form.errors[field.name]}
+                    {error}
                 </FormHelperText>
             ) : (
                 <div>&nbsp;</div>

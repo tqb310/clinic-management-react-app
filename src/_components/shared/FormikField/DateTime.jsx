@@ -50,7 +50,7 @@ export const DatePickerField = ({
                 format="DD-MM-YYYY"
                 minDate={minDate || null}
                 renderInput={params => {
-                    // console.log(params);
+                    console.log(params);
                     params.error = error && touched;
                     return (
                         <TextField
@@ -63,9 +63,7 @@ export const DatePickerField = ({
                             variant="outlined"
                             required={required}
                             helperText={
-                                params.error
-                                    ? 'Chưa nhập ngày sinh!'
-                                    : ''
+                                params.error ? error : ''
                             }
                             {...field}
                             {...params}

@@ -1,6 +1,6 @@
 import React, {useState, memo} from 'react';
 import {FastField} from 'formik';
-import {FormControl, FormLabel} from '@mui/material';
+import {FormControl, FormLabel, Alert} from '@mui/material';
 import {
     CustomRadioGroup,
     CustomRadio,
@@ -123,7 +123,6 @@ function DateTimeChoice(props) {
                     name="appointment.date"
                     component={DatePickerField}
                     label="Ngày hẹn khám"
-                    required
                     fullWidth
                     minDate={new Date()}
                 />
@@ -145,6 +144,18 @@ function DateTimeChoice(props) {
                                         <CustomRadioGroup
                                             {...field}
                                         >
+                                            {form.errors
+                                                ?.appointment
+                                                ?.time && (
+                                                <Alert severity="error">
+                                                    {
+                                                        form
+                                                            .errors
+                                                            ?.appointment
+                                                            ?.time
+                                                    }
+                                                </Alert>
+                                            )}
                                             {hours.map(
                                                 (
                                                     hour,

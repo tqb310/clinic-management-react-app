@@ -21,6 +21,7 @@ import appointmentService from '_services/firebase/appointment.service';
 import ConfirmRequest from '../ConfirmRequest';
 import {appointmentModel, patientModel} from '_models';
 import {formatDate} from '_helpers/handleDate';
+import Toast from '_components/shared/Toast';
 import './index.scss';
 
 function AppointmentTable({
@@ -31,6 +32,7 @@ function AppointmentTable({
     isOpenAppointmentDetail,
 }) {
     const dispatch = useDispatch();
+    const [openToast, setOpenToast] = React.useState(false);
 
     const handleCreateSubmit = async (values, actions) => {
         try {
@@ -50,8 +52,9 @@ function AppointmentTable({
                 payload,
             );
             handleClose();
+            setOpenToast(true);
         } catch (error) {
-            console.log(error);
+            throw error;
         }
     };
 
@@ -86,6 +89,13 @@ function AppointmentTable({
     const handleCloseAppointmentDetail = e => {
         dispatch(openAppointmentDetail(false));
     };
+    const handleCloseToast = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpenToast(false);
+    };
     return (
         <CustomPaper className="content-container">
             <Box className="content-header">
@@ -116,6 +126,14 @@ function AppointmentTable({
                     handleClose={handleClose}
                     handleSubmit={handleCreateSubmit}
                 />
+                <Toast
+                    open={openToast}
+                    handleClose={handleCloseToast}
+                    vertical="bottom"
+                    horizontal="left"
+                >
+                    Tạo lịch hẹn thành công
+                </Toast>
             </Box>
             <Box className="appointment-wrapper">
                 {dataByDate && dataByDate.length ? (

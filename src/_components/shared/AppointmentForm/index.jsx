@@ -6,10 +6,10 @@ import {
     Step,
     StepLabel,
 } from '@mui/material';
-// import {Date} from '_components/shared/FormikField/DateTime';
 import General from './_components/General';
 import DateTimeChoice from './_components/DateTime';
 import appointmentSchema from '_validations/appointmentSchema';
+import {LoadingButton} from '@mui/lab';
 import './index.scss';
 
 function FormikStep({children}) {
@@ -24,19 +24,29 @@ function FormikStepper({children, onSubmit, ...rest}) {
     return (
         <Formik
             {...rest}
-            onSubmit={(value, helpers) => {
-                if (
-                    currentTab ===
-                    childrenArray.length - 1
-                ) {
-                    onSubmit(value, helpers);
-                } else {
-                    setCurrentTab(currentTab + 1);
+            onSubmit={async (values, helpers) => {
+                try {
+                    if (
+                        currentTab ===
+                        childrenArray.length - 1
+                    ) {
+                        helpers.setSubmitting(true);
+                        await onSubmit(values, helpers);
+                    } else {
+                        setCurrentTab(currentTab + 1);
+                    }
+                } catch (error) {
+                    throw error;
+                } finally {
+                    helpers.setSubmitting(false);
                 }
             }}
+            validationSchema={
+                currentChild.props.validationSchema
+            }
         >
-            {({values}) => {
-                // console.log(values);
+            {form => {
+                // console.log(form);
                 return (
                     <Form>
                         <Stepper
@@ -96,6 +106,7 @@ function FormikStepper({children, onSubmit, ...rest}) {
                         <div className="AppointmentForm__actions">
                             {currentTab > 0 && (
                                 <Button
+                                    disabled={!form.dirty}
                                     onClick={() =>
                                         setCurrentTab(
                                             currentTab - 1,
@@ -103,7 +114,8 @@ function FormikStepper({children, onSubmit, ...rest}) {
                                     }
                                     sx={{
                                         color: '#2E3192',
-                                        marginRight: '1rem',
+                                        mr: '1rem',
+                                        width: 160,
                                         '&:hover': {
                                             backgroundColor:
                                                 '#e8e8fc',
@@ -113,12 +125,15 @@ function FormikStepper({children, onSubmit, ...rest}) {
                                     Trở lại
                                 </Button>
                             )}
-                            <Button
+                            <LoadingButton
                                 type="submit"
+                                loading={form.isSubmitting}
+                                disabled={!form.dirty}
                                 variant="contained"
                                 sx={{
                                     backgroundColor:
                                         '#2E3192',
+                                    width: 160,
                                     '&:hover': {
                                         backgroundColor:
                                             '#111589',
@@ -129,7 +144,7 @@ function FormikStepper({children, onSubmit, ...rest}) {
                                 childrenArray.length - 1
                                     ? 'Tạo'
                                     : 'Tiếp tục'}
-                            </Button>
+                            </LoadingButton>
                         </div>
                     </Form>
                 );
@@ -165,18 +180,25 @@ function AppointmentForm({handleSubmit}) {
                     },
                 },
                 appointment: {
-                    date: '',
+                    date: null,
                     time: '',
                     type: '',
                 },
             }}
             onSubmit={handleSubmitForm}
-            validationSchema={appointmentSchema}
         >
-            <FormikStep label="Điền thông tin bệnh nhân">
+            <FormikStep
+                label="Điền thông tin bệnh nhân"
+                validationSchema={appointmentSchema.patient}
+            >
                 <General />
             </FormikStep>
-            <FormikStep label="Chọn ngày và giờ">
+            <FormikStep
+                label="Chọn ngày và giờ"
+                validationSchema={
+                    appointmentSchema.appointment
+                }
+            >
                 <DateTimeChoice />
             </FormikStep>
         </FormikStepper>

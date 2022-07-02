@@ -3,7 +3,7 @@ const initialValue = {
         patient_name: '',
         phone: '',
         dob: null,
-        gender: 0,
+        gender: '',
         occupation: '',
         identity_number: '',
         address: {

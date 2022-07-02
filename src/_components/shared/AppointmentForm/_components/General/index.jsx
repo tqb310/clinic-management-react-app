@@ -39,7 +39,6 @@ function General() {
                     label="Tên bệnh nhân"
                     icon={Person}
                     left="-4.5%"
-                    required
                 />
             </Grid>
             <Grid item xs={5}>
@@ -49,7 +48,6 @@ function General() {
                     component={Select}
                     label="Giới tính"
                     items={gender}
-                    required
                 />
             </Grid>
             <Grid
@@ -66,7 +64,6 @@ function General() {
                     label="Điện thoại"
                     left="-4.5%"
                     icon={PhoneEnabled}
-                    required
                 />
             </Grid>
             <Grid item xs={5}>
@@ -75,7 +72,6 @@ function General() {
                     name="patient.dob"
                     component={DatePickerField}
                     label="Ngày sinh"
-                    required
                 />
             </Grid>
             <Grid item xs={7}>
@@ -86,7 +82,6 @@ function General() {
                     label="CMND/CCCD"
                     left="-4.5%"
                     icon={BrandingWatermark}
-                    required
                 />
             </Grid>
             <Grid item xs={5}>
@@ -97,7 +92,6 @@ function General() {
                     label="Nghề nghiệp"
                     left="-6.5%"
                     icon={Work}
-                    required
                 />
             </Grid>
             <Grid item xs={4}>
@@ -107,7 +101,6 @@ function General() {
                     component={Input}
                     label="Chiều cao"
                     icon="cm"
-                    required
                 />
             </Grid>
             <Grid item xs={4}>
@@ -117,7 +110,6 @@ function General() {
                     component={Input}
                     label="Cân nặng"
                     icon="kg"
-                    required
                 />
             </Grid>
             <Grid item xs={4}>
@@ -127,7 +119,6 @@ function General() {
                     component={Select}
                     label="Loại"
                     items={cardType}
-                    required
                 />
             </Grid>
             <Grid item xs={12}>
@@ -161,7 +152,6 @@ function General() {
                             onChangeLocation={
                                 onChangeLocation
                             }
-                            required
                         />
                         <Field
                             name="patient.address.district"
@@ -172,7 +162,6 @@ function General() {
                             onChangeLocation={
                                 onChangeLocation
                             }
-                            required
                         />
                         <Field
                             name="patient.address.ward"
@@ -183,7 +172,6 @@ function General() {
                             onChangeLocation={
                                 onChangeLocation
                             }
-                            required
                         />
                     </div>
                     <FastField

@@ -40,6 +40,13 @@ ChartJS.register(
 const options = {
     responsive: true,
     plugins: {},
+    scales: {
+        yAxes: {
+            ticks: {
+                precision: 0,
+            },
+        },
+    },
 };
 
 const barLabels = [

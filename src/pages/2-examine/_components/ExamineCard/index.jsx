@@ -18,6 +18,8 @@ import ServiceDialog from 'pages/3-queue/_components/AddForm/_components/Service
 import ExaminingForm from './_components/ExaminingForm';
 import {Formik, Form, Field} from 'formik';
 import invoiceSchema from '_validations/invoiceSchema';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {Prompt} from 'react-router-dom';
 import './index.scss';
 // import PropTypes from 'prop-types'
 const gender = ['Nữ', 'Nam'];
@@ -47,7 +49,7 @@ function ExamineCard({selectedCard, handleSubmit}) {
                     temperature: '',
                     symptom: '',
                     diagnosis: '',
-                    follow_up_date: '',
+                    follow_up_date: null,
                     follow_up_time: {
                         hour: '',
                         minute: '',
@@ -59,9 +61,15 @@ function ExamineCard({selectedCard, handleSubmit}) {
                 validationSchema={invoiceSchema}
             >
                 {form => {
-                    console.log(form.values);
                     return (
                         <Form>
+                            <Prompt
+                                when={
+                                    form.dirty ||
+                                    Boolean(selectedCard)
+                                }
+                                message="Bạn có thực sự muốn rời khỏi trang này?"
+                            />
                             <div className="DTExamineCard__header">
                                 <Typography
                                     variant="h5"
@@ -172,6 +180,11 @@ function ExamineCard({selectedCard, handleSubmit}) {
                                                         setFieldValue={
                                                             setServiceValue
                                                         }
+                                                        errorMsg={
+                                                            form
+                                                                .errors
+                                                                .services
+                                                        }
                                                     />
                                                     <Box
                                                         sx={{
@@ -221,9 +234,14 @@ function ExamineCard({selectedCard, handleSubmit}) {
                                     <Button
                                         variant="outlined"
                                         color={
-                                            form.values
-                                                ?.prescription
-                                                .length > 0
+                                            form.errors
+                                                .prescription
+                                                ? 'error'
+                                                : form
+                                                      .values
+                                                      ?.prescription
+                                                      .length >
+                                                  0
                                                 ? 'success'
                                                 : 'warning'
                                         }
@@ -256,23 +274,38 @@ function ExamineCard({selectedCard, handleSubmit}) {
                                     <Button
                                         variant="outlined"
                                         sx={{
-                                            width: 110,
+                                            width: 160,
                                             marginRight: 2,
                                         }}
                                         type="submit"
                                         disabled={
                                             !Boolean(
                                                 selectedCard,
-                                            )
+                                            ) && !form.dirty
                                         }
                                     >
                                         Hoàn tất
+                                        {form.isSubmitting && (
+                                            <FontAwesomeIcon
+                                                icon="spinner"
+                                                spin
+                                                style={{
+                                                    marginLeft:
+                                                        '10px',
+                                                }}
+                                            />
+                                        )}
                                     </Button>
                                     <Button
                                         variant="contained"
                                         color="error"
-                                        sx={{width: 110}}
+                                        sx={{width: 160}}
                                         type="reset"
+                                        disabled={
+                                            !Boolean(
+                                                selectedCard,
+                                            ) && !form.dirty
+                                        }
                                     >
                                         Hủy
                                     </Button>

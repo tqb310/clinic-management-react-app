@@ -1,12 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {CustomPaper} from '_components/shared/StyledComponent';
-import {
-    Typography,
-    Button,
-    Box,
-    Alert,
-    Snackbar,
-} from '@mui/material';
+import {Typography, Button, Box} from '@mui/material';
 import {Add} from '@mui/icons-material';
 import {useDispatch, useSelector} from 'react-redux';
 import EmployeeTable from './components/EmployeeTable';
@@ -17,6 +11,7 @@ import {
 import employeeServices from '_services/firebase/employee.service';
 import {RightBar} from '_components/shared/StyledComponent';
 import RightBarContent from './components/RightBarContent';
+import Toast from '_components/shared/Toast';
 import './index.scss';
 // import PropTypes from 'prop-types';
 
@@ -58,23 +53,13 @@ function Employee(props) {
     return (
         <>
             <CustomPaper sx={{px: 3, py: 2}}>
-                <Snackbar
+                <Toast
                     open={open}
-                    autoHideDuration={3000}
-                    onClose={handleClose}
-                    anchorOrigin={{
-                        vertical: 'top',
-                        horizontal: 'center',
-                    }}
+                    handleClose={handleClose}
+                    status="info"
                 >
-                    <Alert
-                        onClose={handleClose}
-                        severity="info"
-                        sx={{width: '100%'}}
-                    >
-                        TÍNH NĂNG ĐANG PHÁT TRIỂN
-                    </Alert>
-                </Snackbar>
+                    TÍNH NĂNG ĐANG PHÁT TRIỂN
+                </Toast>
                 <Box
                     sx={{
                         display: 'flex',

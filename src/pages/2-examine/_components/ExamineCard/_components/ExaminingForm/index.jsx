@@ -35,7 +35,6 @@ function ExaminingForm() {
                     component={Input}
                     type="number"
                     label="Nhịp tim"
-                    required
                 />
             </Grid>
             <Grid
@@ -49,7 +48,6 @@ function ExaminingForm() {
                     component={Input}
                     type="number"
                     label="Huyết áp"
-                    required
                 />
             </Grid>
             <Grid
@@ -63,7 +61,6 @@ function ExaminingForm() {
                     component={Input}
                     type="number"
                     label="Nhiệt độ"
-                    required
                 />
             </Grid>
             <Grid
@@ -77,7 +74,6 @@ function ExaminingForm() {
                     component={Input}
                     type="number"
                     label="Nhịp thở"
-                    required
                 />
             </Grid>
             <Grid
@@ -91,7 +87,6 @@ function ExaminingForm() {
                     component={TextArea}
                     label="Triệu chứng"
                     rows="2"
-                    required
                 />
             </Grid>
             <Grid
@@ -105,7 +100,6 @@ function ExaminingForm() {
                     component={TextArea}
                     label="Chẩn đoán"
                     rows="2"
-                    required
                 />
             </Grid>
             <Grid item xs={3}>
@@ -139,7 +133,6 @@ function ExaminingForm() {
                             label="Ngày tái khám"
                             component={DatePickerField}
                             minDate={new Date()}
-                            required
                         />
                     </Grid>
                     <Grid item xs={3}>
@@ -149,7 +142,6 @@ function ExaminingForm() {
                             component={Select}
                             label="Giờ"
                             items={hourSelect}
-                            required
                         />
                     </Grid>
                     <Grid item xs={3}>
@@ -159,7 +151,6 @@ function ExaminingForm() {
                             component={Select}
                             label="Phút"
                             items={minuteSelect}
-                            required
                         />
                     </Grid>
                 </>

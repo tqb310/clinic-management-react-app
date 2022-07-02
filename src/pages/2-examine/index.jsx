@@ -1,4 +1,8 @@
-import React, {useEffect} from 'react';
+import React, {
+    useEffect,
+    useState,
+    useCallback,
+} from 'react';
 import ExamineCard from './_components/ExamineCard';
 import RightBarContent from './_components/RightBar';
 import {useSelector, useDispatch} from 'react-redux';
@@ -12,11 +16,14 @@ import queueServices from '_services/firebase/queue.service';
 import getNotificationModel from '_models/notification';
 import notificationService from '_services/firebase/notification.service';
 import computeServiceTotalFee from '_helpers/computeServiceTotalFee';
+import Toast from '_components/shared/Toast';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
 function Examine(props) {
     const dispatch = useDispatch();
+    const [openToast, setOpenToast] = useState(false);
+
     const queueData = useSelector(
         state => state.queues.data,
     );
@@ -35,13 +42,25 @@ function Examine(props) {
         },
     });
 
+    const handleCloseToast = useCallback(
+        (event, reason) => {
+            if (reason === 'clickaway') {
+                return;
+            }
+
+            setOpenToast(false);
+        },
+        [],
+    );
+
     useEffect(() => {
         const unsub = firestoreReadltime();
         return unsub;
     }, []);
 
-    const handleSubmit = async values => {
+    const handleSubmit = async (values, actions) => {
         try {
+            actions.setSubmitting(true);
             //In case of scheduling a follow-up appointment
             if (
                 values.follow_up_time.hour &&
@@ -71,8 +90,11 @@ function Examine(props) {
                     selectedCard.invoice_id,
                 ),
             );
+            setOpenToast(true);
         } catch (error) {
             console.log(error);
+        } finally {
+            actions.setSubmitting(false);
         }
     };
     return (
@@ -86,6 +108,14 @@ function Examine(props) {
                 numberEachStatus={numberEachStatus}
                 selectedCard={selectedCard}
             />
+            <Toast
+                open={openToast}
+                handleClose={handleCloseToast}
+                vertical="bottom"
+                horizontal="left"
+            >
+                Thao tác thành công
+            </Toast>
         </div>
     );
 }

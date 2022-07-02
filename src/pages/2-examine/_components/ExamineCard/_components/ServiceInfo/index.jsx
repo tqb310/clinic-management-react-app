@@ -3,12 +3,13 @@ import ServiceTable from 'pages/3-queue/_components/AddForm/_components/Selected
 import './index.scss';
 // import PropTypes from 'prop-types'
 
-function ServiceInfo({data, setFieldValue}) {
+function ServiceInfo({data, setFieldValue, errorMsg}) {
     return (
         <div className="ECServiceInfo">
             <ServiceTable
                 selectedServiceId={data}
                 setFieldValue={setFieldValue}
+                errorMsg={errorMsg}
             />
         </div>
     );

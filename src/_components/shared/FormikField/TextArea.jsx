@@ -19,21 +19,32 @@ function TextArea({
 }) {
     // console.log(field);
     const keyArr = field.name.split('.');
-    let error = form.errors[keyArr[0]];
-    for (const key of keyArr.slice(-keyArr.length + 1)) {
-        if (error && error[key]) error = error[key];
-        else {
-            error = '';
-            break;
+    let error, touched;
+    if (keyArr.length > 1) {
+        error = form.errors[keyArr[0]];
+        for (const key of keyArr.slice(
+            -keyArr.length + 1,
+        )) {
+            if (error && error[key]) error = error[key];
+            else {
+                error = '';
+                break;
+            }
         }
-    }
-    let touched = form.touched[keyArr[0]];
-    for (const key of keyArr.slice(-keyArr.length + 1)) {
-        if (touched && touched[key]) touched = touched[key];
-        else {
-            touched = false;
-            break;
+        touched = form.touched[keyArr[0]];
+        for (const key of keyArr.slice(
+            -keyArr.length + 1,
+        )) {
+            if (touched && touched[key])
+                touched = touched[key];
+            else {
+                touched = false;
+                break;
+            }
         }
+    } else {
+        error = form.errors[field.name];
+        touched = form.touched[field.name];
     }
     return (
         <FormControl

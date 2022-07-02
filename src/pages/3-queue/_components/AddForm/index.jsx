@@ -1,4 +1,9 @@
-import React, {memo, useState, useEffect} from 'react';
+import React, {
+    memo,
+    useState,
+    useEffect,
+    useCallback,
+} from 'react';
 import {
     Box,
     Button,
@@ -45,6 +50,7 @@ import {getInitialPatientDataFormat} from '_helpers/getInitialDataFormat';
 import queueSchema from '_validations/queueSchema';
 import {Prompt} from 'react-router-dom';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import Toast from '_components/shared/Toast';
 import './index.scss';
 
 function AddForm({handleSubmit}) {
@@ -55,6 +61,7 @@ function AddForm({handleSubmit}) {
     const [switchEdit, setSwitchEdit] = useState(false);
     //Service modal
     const [open, setOpen] = useState(false);
+    const [openToast, setOpenToast] = useState(false);
 
     //Open hint list
     const isOpenHint = useSelector(
@@ -85,6 +92,16 @@ function AddForm({handleSubmit}) {
     const handleClose = () => {
         setOpen(false);
     };
+    const handleCloseToast = useCallback(
+        (event, reason) => {
+            if (reason === 'clickaway') {
+                return;
+            }
+
+            setOpenToast(false);
+        },
+        [],
+    );
     // Open service modal
     const handleOpen = () => {
         setOpen(true);
@@ -119,8 +136,9 @@ function AddForm({handleSubmit}) {
                 isExistedPatient,
             );
             handleReset();
+            setOpenToast(_ => true);
         } catch (error) {
-            console.log(error);
+            throw error;
         } finally {
             actions.setSubmitting(false);
         }
@@ -544,6 +562,14 @@ function AddForm({handleSubmit}) {
                     );
                 }}
             </Formik>
+            <Toast
+                open={openToast}
+                handleClose={handleCloseToast}
+                vertical="bottom"
+                horizontal="left"
+            >
+                ĐÃ THÊM VÀO HÀNG ĐỢI
+            </Toast>
         </Box>
     );
 }

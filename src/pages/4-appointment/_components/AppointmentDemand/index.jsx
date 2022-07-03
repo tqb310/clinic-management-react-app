@@ -208,6 +208,10 @@ function AppointmentDemand() {
                             time={item.time}
                             approvalAction={approvalAction}
                             cancelAction={cancelAction}
+                            isApproved={
+                                tabsName[tabIndex]
+                                    .status === 1
+                            }
                         />
                     ))
                 ) : (

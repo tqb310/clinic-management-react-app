@@ -71,8 +71,9 @@ function QueueSummary({data}) {
             </Typography>
             <Box sx={{mt: 1}}>
                 {data.length ? (
-                    data.map(item => (
+                    data.map((item, index) => (
                         <QueueListItem
+                            key={index}
                             orderNumber={
                                 item.numerical_order
                             }

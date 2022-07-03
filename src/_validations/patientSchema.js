@@ -5,14 +5,15 @@ const patientSchema = yup.object().shape({
     phone: yup
         .string()
         .matches(
-            new RegExp(/\d+/),
+            new RegExp(/^\d+$/),
             'Số điện thoại không hợp lệ',
         )
         .required('Chưa nhập số điện thoại!'),
     dob: yup
         .date()
         .required('Chưa nhập ngày sinh!')
-        .nullable(),
+        .nullable()
+        .typeError('Ngày tháng không hợp lệ!'),
     gender: yup
         .mixed()
         .oneOf([0, 1])

@@ -7,6 +7,7 @@ import {
     setDoc,
     query,
     where,
+    deleteDoc,
 } from 'firebase/firestore';
 import patientService from './patient.service';
 import {formatDate} from '_helpers/handleDate';
@@ -121,7 +122,9 @@ const invoiceServices = {
             let revenue = 0;
             if (snapshot.size) {
                 snapshot.forEach(doc => {
-                    revenue += doc.data().total_fee;
+                    if (doc.data().total_fee) {
+                        revenue += doc.data().total_fee;
+                    }
                 });
             }
             return revenue;
@@ -176,6 +179,22 @@ const invoiceServices = {
                 {merge: true},
             );
             return res;
+        } catch (error) {
+            throw error;
+        }
+    },
+    async deleteInvoice(id) {
+        try {
+            await deleteDoc(doc(invoiceRef, id.toString()));
+        } catch (error) {
+            throw error;
+        }
+    },
+    async deleteInvoiceBatch(idList) {
+        try {
+            idList.forEach(async id => {
+                await this.deleteInvoice(id);
+            });
         } catch (error) {
             throw error;
         }

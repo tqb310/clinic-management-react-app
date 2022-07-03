@@ -35,21 +35,20 @@ const BodyCell = styled(TableCell)`
 function Appointment({todayAppointments}) {
     // const dispatch = useDispatch();
     // const history = useHistory();
-    const addToQueue = (patientId, type) => async e => {
-        try {
-            await queueService.addToQueueWithAppointment({
-                patientId,
-                type,
-            });
-            // const rolePath = role.get(
-            //     parseInt(localStorage.getItem('role')),
-            // ).url;
-            // if (rolePath)
-            //     history.push(rolePath + '/hang-doi');
-        } catch (err) {
-            console.log(err.message);
-        }
-    };
+    const addToQueue =
+        (patientId, appointmentId, type) => async e => {
+            try {
+                await queueService.addToQueueWithAppointment(
+                    {
+                        patientId,
+                        appointmentId,
+                        type,
+                    },
+                );
+            } catch (err) {
+                throw err;
+            }
+        };
     return (
         <CustomPaper className="Appointment">
             <div className="Appointment__title">
@@ -188,6 +187,7 @@ function Appointment({todayAppointments}) {
                                     <IconButton
                                         onClick={addToQueue(
                                             row.patient_id,
+                                            row.id,
                                             row.type,
                                         )}
                                     >

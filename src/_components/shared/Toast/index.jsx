@@ -9,6 +9,7 @@ function Toast({
     status = 'success',
     vertical = 'top',
     horizontal = 'center',
+    sx = {},
 }) {
     return (
         <Snackbar
@@ -23,7 +24,7 @@ function Toast({
             <Alert
                 onClose={handleClose}
                 severity={status}
-                sx={{width: '100%', px: 3, py: 1}}
+                sx={{width: '100%', px: 3, py: 1, ...sx}}
             >
                 {children}
             </Alert>

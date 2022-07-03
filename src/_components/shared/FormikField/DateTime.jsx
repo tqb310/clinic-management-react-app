@@ -50,7 +50,6 @@ export const DatePickerField = ({
                 format="DD-MM-YYYY"
                 minDate={minDate || null}
                 renderInput={params => {
-                    console.log(params);
                     params.error = error && touched;
                     return (
                         <TextField

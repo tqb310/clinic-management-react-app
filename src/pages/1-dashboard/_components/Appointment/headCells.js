@@ -39,7 +39,7 @@ export const headCells = [
     //     style: {},
     // },
     {
-        id: 5,
+        id: 6,
         label: '',
         style: {width: '50px'},
     },

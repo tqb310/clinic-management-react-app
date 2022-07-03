@@ -30,7 +30,7 @@ export const headCells = [
         id: 4,
         label: 'Trạng thái',
         property: 'status',
-        style: {width: '80px'},
+        style: {width: '90px'},
     },
     // {
     //     id: 6,
@@ -39,7 +39,7 @@ export const headCells = [
     //     style: {},
     // },
     {
-        id: 5,
+        id: 6,
         label: '',
     },
 ];

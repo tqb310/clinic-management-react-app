@@ -19,6 +19,7 @@ function RequestItem({
     time,
     approvalAction,
     cancelAction,
+    isApproved,
 }) {
     return (
         <div className="appointment-demand__item">
@@ -62,31 +63,33 @@ function RequestItem({
                     <span>{time}</span>
                 </div>
             </div>
-            <div className="appointment-demand__item-actions">
-                <Button
-                    variant="outlined"
-                    sx={{
-                        textTransform: 'capitalize',
-                        borderRadius: '20px',
-                        minWidth: '100px',
-                    }}
-                    onClick={approvalAction(id)}
-                >
-                    Chi tiết
-                </Button>
-                <Button
-                    color="error"
-                    variant="contained"
-                    sx={{
-                        textTransform: 'capitalize',
-                        borderRadius: '20px',
-                        minWidth: '100px',
-                    }}
-                    onClick={cancelAction(id)}
-                >
-                    Hủy
-                </Button>
-            </div>
+            {!isApproved && (
+                <div className="appointment-demand__item-actions">
+                    <Button
+                        variant="outlined"
+                        sx={{
+                            textTransform: 'capitalize',
+                            borderRadius: '20px',
+                            minWidth: '100px',
+                        }}
+                        onClick={approvalAction(id)}
+                    >
+                        Chi tiết
+                    </Button>
+                    <Button
+                        color="error"
+                        variant="contained"
+                        sx={{
+                            textTransform: 'capitalize',
+                            borderRadius: '20px',
+                            minWidth: '100px',
+                        }}
+                        onClick={cancelAction(id)}
+                    >
+                        Hủy
+                    </Button>
+                </div>
+            )}
         </div>
     );
 }

@@ -17,14 +17,16 @@ import {
 } from 'chart.js';
 import {RightBar} from '_components/shared/StyledComponent';
 import {useDispatch, useSelector} from 'react-redux';
-import {setDataAsync} from '_redux/slice/appointmentSlice';
+import {
+    setDataAsync as setAppointmentDataAsync,
+    setAnchorDay,
+} from '_redux/slice/appointmentSlice';
 import {useFirestoreRealtime} from '_hooks';
 import {dayLength} from '_constants/date';
 import {
     compare2Days,
     formatDate,
 } from '_helpers/handleDate';
-import {setAnchorDay} from '_redux/slice/appointmentSlice';
 import './index.scss';
 
 ChartJS.register(
@@ -108,17 +110,27 @@ function Appointment(props) {
         state => state.appointments.anchorDay,
     );
 
-    const firestoreRealtime = useFirestoreRealtime({
-        collectionName: 'appointments',
-        eventHandler: () => {
-            dispatch(setDataAsync());
+    const appointmentFirestoreRealtime =
+        useFirestoreRealtime({
+            collectionName: 'appointments',
+            eventHandler: async () => {
+                await dispatch(setAppointmentDataAsync());
+            },
+        });
+
+    const patientFirestoreRealtime = useFirestoreRealtime({
+        collectionName: 'patients',
+        eventHandler: async () => {
+            await dispatch(setAppointmentDataAsync());
         },
     });
 
     useEffect(() => {
-        const unsub = firestoreRealtime();
+        const unsub1 = appointmentFirestoreRealtime();
+        const unsub2 = patientFirestoreRealtime();
         return () => {
-            unsub();
+            unsub1();
+            unsub2();
             dispatch(setAnchorDay(new Date()));
         };
     }, []);

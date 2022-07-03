@@ -1,4 +1,9 @@
-import React, {memo, useMemo, useEffect} from 'react';
+import React, {
+    memo,
+    useMemo,
+    useEffect,
+    useState,
+} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import TabTableWrapper from '_components/shared/TabTableWrapper';
 // import {useRouteMatch, useHistory} from 'react-router-dom';
@@ -11,14 +16,16 @@ import {
 } from '@mui/icons-material';
 import ExamineTable from './_components/ExamineTable';
 import {
-    deleteData,
     filterData,
     switchDrawer,
     setDataAsync,
+    deleteInvoiceBatch,
 } from '_redux/slice/invoiceSlice';
 import Drawer from '_components/shared/Drawer';
 import DrawerContent from './_components/DrawerContent';
 import invoiceServices from '_services/firebase/invoice.service';
+import AlertDialog from '_components/shared/AlertDialog';
+import Toast from '_components/shared/Toast';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
@@ -29,6 +36,9 @@ let tabNames = [
 ];
 
 function Main(props) {
+    const [openAlertDialog, setOpenAlertDialog] =
+        useState(false);
+    const [openToast, setOpenToast] = useState(false);
     const dispatch = useDispatch();
     const {
         data,
@@ -39,27 +49,25 @@ function Main(props) {
         numberNotPaid,
         numberPaid,
     } = useSelector(state => state.invoices);
-    // const history = useHistory();
-    // const {path} = useRouteMatch();
-    // const onClickItem = id => {
-    //     history.push(`${path}${id}`);
-    // };
 
     //Invoking when delete all selected items
     const handleDeleteItem = _ => {
-        dispatch(
-            deleteData(
-                data.filter(
-                    item => !selected.includes(item.id),
-                ) || [],
-            ),
-        );
+        setOpenAlertDialog(true);
     };
+
     //Invoking when click on next page
     const closeDrawer = _ => {
         dispatch(switchDrawer(false));
     };
-
+    const handleCloseAlertDialog = _ => {
+        setOpenAlertDialog(false);
+    };
+    const closeToast = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+        setOpenToast(false);
+    };
     const handlePaying = async (paid, change) => {
         try {
             await invoiceServices.updateInvoice(
@@ -67,7 +75,14 @@ function Main(props) {
                 {paying_customer: paid, change},
             );
         } catch (error) {
-            console.log(error);
+            throw error;
+        }
+    };
+    const handleWhenOK = async () => {
+        try {
+            await dispatch(deleteInvoiceBatch()).unwrap();
+        } catch (error) {
+            throw error;
         }
     };
     const onSwitchTab = tabIndex => {
@@ -91,6 +106,28 @@ function Main(props) {
             onSwitchTab={onSwitchTab}
         >
             <Box className="table-container">
+                <AlertDialog
+                    open={openAlertDialog}
+                    handleClose={handleCloseAlertDialog}
+                    handleWhenOk={handleWhenOK}
+                    msg="Bạn có thực sự muốn xóa không?"
+                    actionLabel={{
+                        ok: 'Xóa',
+                        refuse: 'Không',
+                    }}
+                    onSuccess={setOpenToast.bind(
+                        null,
+                        true,
+                    )}
+                />
+                <Toast
+                    open={openToast}
+                    handleClose={closeToast}
+                    vertical="bottom"
+                    horizontal="left"
+                >
+                    Đã xóa thành công
+                </Toast>
                 <Box className="table-container__toolbars">
                     <Box className="table-container__search">
                         <Search className="icon" />
@@ -99,15 +136,6 @@ function Main(props) {
                             placeholder="Số thứ tự, tên, số điện thoại ..."
                         />
                     </Box>
-
-                    {/* <Button
-                                variant="outlined"
-                                startIcon={<FilterList />}
-                                sx={{ml: 2}}
-                                onClick={null}
-                            >
-                                Lọc
-                            </Button> */}
                     <Button
                         startIcon={<Add />}
                         variant="outlined"

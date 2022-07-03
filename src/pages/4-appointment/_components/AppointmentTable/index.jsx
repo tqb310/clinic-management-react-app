@@ -75,8 +75,9 @@ function AppointmentTable({
                 selectedAppointment.patient_id.toString(),
                 payload,
             );
+            handleCloseAppointmentDetail();
         } catch (error) {
-            console.log(error.message);
+            throw error;
         }
     };
 

@@ -33,10 +33,11 @@ import {gender, cardType} from '_constants/general';
 import {useLocation} from '_contexts/LocationContext';
 import {getInitialAppointmentDataFormat} from '_helpers/getInitialDataFormat';
 import {hourSelect, minuteSelect} from '_constants/date';
+import {LoadingButton} from '@mui/lab';
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import handlePriceFormat from "_helpers/handlePriceFormat.js";
-// import {ToastContainer, toast} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import * as yup from 'yup';
+import appointmentSchema from '_validations/appointmentSchema';
 import './index.scss';
 
 function ConfirmRequest({
@@ -84,12 +85,17 @@ function ConfirmRequest({
                         data,
                     ),
                 }}
-                onSubmit={handleSubmit}
-                onChange={() => {
-                    console.log(
-                        'All Form State is changed',
-                    );
+                onSubmit={async (values, actions) => {
+                    try {
+                        actions.setSubmitting(true);
+                        await handleSubmit(values);
+                    } catch (error) {
+                        throw error;
+                    } finally {
+                        actions.setSubmitting(false);
+                    }
                 }}
+                // validationSchema={appointmentSchema.both}
             >
                 {form => {
                     // console.log(form);
@@ -424,22 +430,26 @@ function ConfirmRequest({
                             </DialogContent>
                             <DialogActions>
                                 <Button
-                                    type="button"
-                                    onClick={
-                                        form.handleReset
-                                    }
+                                    type="reset"
+                                    variant="contained"
                                     color="secondary"
-                                    sx={{mr: 2}}
+                                    sx={{mr: 2, width: 160}}
                                 >
                                     TÁI THIẾT
                                 </Button>
-                                <Button
-                                    onClick={
-                                        form.submitForm
+                                <LoadingButton
+                                    loading={
+                                        form.isSubmitting
                                     }
+                                    type="submit"
+                                    variant="outlined"
+                                    sx={{mr: 1, width: 160}}
+                                    // onClick={
+                                    //     form.submitForm
+                                    // }
                                 >
                                     {submitLabel}
-                                </Button>
+                                </LoadingButton>
                             </DialogActions>
                         </Form>
                     );

@@ -34,7 +34,7 @@ function Examine(props) {
         state => state.queues.selectedCard,
     );
 
-    const firestoreReadltime = useFirestoreRealtime({
+    const firestoreRealtime = useFirestoreRealtime({
         collectionName: 'queue',
         eventHandler: async () => {
             await dispatch(setDataAsync());
@@ -54,7 +54,7 @@ function Examine(props) {
     );
 
     useEffect(() => {
-        const unsub = firestoreReadltime();
+        const unsub = firestoreRealtime();
         return unsub;
     }, []);
 

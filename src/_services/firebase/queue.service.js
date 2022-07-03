@@ -224,7 +224,7 @@ const queueServices = {
                 invoice_id: invoiceRes.id,
                 ...queueModel(),
             });
-            console.log('APPOINTMENT DATA', data);
+            // console.log('APPOINTMENT DATA', data);
             await appointmentServices.update(
                 data.appointmentId,
                 '',

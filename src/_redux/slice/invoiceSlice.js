@@ -75,6 +75,17 @@ export const setVisitsEachMonthAsync = createAsyncThunk(
     },
 );
 
+export const deleteInvoiceBatch = createAsyncThunk(
+    'invoices/deleteInvoiceBatch',
+    async (_, thunkAPI) => {
+        const {invoices} = thunkAPI.getState();
+        const result =
+            await invoiceServices.deleteInvoiceBatch(
+                invoices.selected,
+            );
+        return result;
+    },
+);
 const appointmentSlice = createSlice({
     name: 'invoices',
     initialState,
@@ -147,6 +158,28 @@ const appointmentSlice = createSlice({
             action,
         ) => {
             state.visitsEachMonth = action.payload;
+        },
+        [deleteInvoiceBatch.rejected]: (state, action) => {
+            state.error = action.error;
+        },
+        [deleteInvoiceBatch.fulfilled]: (state, action) => {
+            state.numberNotPaid = state.data.filter(
+                invoice =>
+                    !invoice.paying_customer &&
+                    !state.selected.includes(invoice.id),
+            ).length;
+            state.numberPaid = action.payload?.filter(
+                invoice =>
+                    invoice.paying_customer &&
+                    !state.selected.includes(invoice.id),
+            ).length;
+            state.data = state.data.filter(
+                item => !state.selected.includes(item.id),
+            );
+            state.filteredData = state.filteredData.filter(
+                item => !state.selected.includes(item.id),
+            );
+            state.selected = [];
         },
     },
 });

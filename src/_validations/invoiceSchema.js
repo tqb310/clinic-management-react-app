@@ -23,7 +23,11 @@ const invoiceSchema = yup.object().shape({
     diagnosis: yup
         .string()
         .required('Bạn chưa nhập chẩn đoán!'),
-    follow_up_date: yup.date().notRequired().nullable(),
+    follow_up_date: yup
+        .date()
+        .notRequired()
+        .nullable()
+        .typeError('Ngày tháng không hợp lệ!'),
     follow_up_time: yup.object().shape({
         hour: yup.string().notRequired(),
         minute: yup.string().notRequired(),

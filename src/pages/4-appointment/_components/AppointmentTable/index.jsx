@@ -32,7 +32,10 @@ function AppointmentTable({
     isOpenAppointmentDetail,
 }) {
     const dispatch = useDispatch();
-    const [openToast, setOpenToast] = React.useState(false);
+    const [openToast, setOpenToast] = React.useState({
+        isOpen: false,
+        msg: '',
+    });
 
     const handleCreateSubmit = async (values, actions) => {
         try {
@@ -52,7 +55,10 @@ function AppointmentTable({
                 payload,
             );
             handleClose();
-            setOpenToast(true);
+            setOpenToast({
+                isOpen: true,
+                msg: 'Tạo lịch hẹn thành công',
+            });
         } catch (error) {
             throw error;
         }
@@ -95,7 +101,7 @@ function AppointmentTable({
             return;
         }
 
-        setOpenToast(false);
+        setOpenToast({isOpen: false, msg: ''});
     };
     return (
         <CustomPaper className="content-container">
@@ -128,12 +134,12 @@ function AppointmentTable({
                     handleSubmit={handleCreateSubmit}
                 />
                 <Toast
-                    open={openToast}
+                    open={openToast.isOpen}
                     handleClose={handleCloseToast}
                     vertical="bottom"
                     horizontal="left"
                 >
-                    Tạo lịch hẹn thành công
+                    {openToast.msg}
                 </Toast>
             </Box>
             <Box className="appointment-wrapper">
@@ -141,6 +147,7 @@ function AppointmentTable({
                     <Fragment>
                         <TableContent
                             tableData={dataByDate}
+                            openToast={setOpenToast}
                         />
                         <LocationProvider>
                             <ConfirmRequest

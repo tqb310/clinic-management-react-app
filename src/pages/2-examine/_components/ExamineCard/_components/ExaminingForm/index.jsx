@@ -1,5 +1,5 @@
 import React, {useState, memo} from 'react';
-import {FastField} from 'formik';
+import {FastField, Field} from 'formik';
 import {
     TextArea,
     Input,
@@ -12,10 +12,14 @@ import {
     // Button,
     Grid,
 } from '@mui/material';
-import {hourSelect, minuteSelect} from '_constants/date';
+import {
+    hourSelect,
+    minuteSelect,
+    dayLength,
+} from '_constants/date';
 import './index.scss';
 
-function ExaminingForm() {
+function ExaminingForm({form}) {
     const [isSetAppointment, setAppointment] =
         useState(false);
     return (
@@ -132,25 +136,37 @@ function ExaminingForm() {
                             id="follow_up_date"
                             label="Ngày tái khám"
                             component={DatePickerField}
-                            minDate={new Date()}
+                            minDate={
+                                new Date(
+                                    Date.now() + dayLength,
+                                )
+                            }
                         />
                     </Grid>
                     <Grid item xs={3}>
-                        <FastField
+                        <Field
                             name="follow_up_time.hour"
                             id="follow_up_time.hour"
                             component={Select}
                             label="Giờ"
-                            items={hourSelect}
+                            items={
+                                form.values.follow_up_date
+                                    ? hourSelect
+                                    : []
+                            }
                         />
                     </Grid>
                     <Grid item xs={3}>
-                        <FastField
+                        <Field
                             name="follow_up_time.minute"
                             id="follow_up_time.minute"
                             component={Select}
                             label="Phút"
-                            items={minuteSelect}
+                            items={
+                                form.values.follow_up_date
+                                    ? minuteSelect
+                                    : []
+                            }
                         />
                     </Grid>
                 </>

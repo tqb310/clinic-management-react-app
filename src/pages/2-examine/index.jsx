@@ -16,8 +16,10 @@ import queueServices from '_services/firebase/queue.service';
 import getNotificationModel from '_models/notification';
 import notificationService from '_services/firebase/notification.service';
 import computeServiceTotalFee from '_helpers/computeServiceTotalFee';
+import appointmentServices from '_services/firebase/appointment.service';
 import Toast from '_components/shared/Toast';
 import './index.scss';
+import {formatDate} from '_helpers/handleDate';
 // import PropTypes from 'prop-types'
 
 function Examine(props) {
@@ -78,6 +80,33 @@ function Examine(props) {
             );
 
             //Submit data
+            if (
+                values.follow_up_date &&
+                values.follow_up_time
+            ) {
+                await appointmentServices.addAppointment({
+                    patient: {
+                        phone: selectedCard.phone, //Using for checking if there's already an existing patient with this phone
+                    },
+                    appointment: {
+                        date: formatDate(
+                            values.follow_up_date?.toLocaleDateString(),
+                            '',
+                            'm/d/y',
+                            true,
+                        ),
+                        time: values.follow_up_time,
+                        status: 1,
+                        type: 1,
+                        create_at: formatDate(
+                            new Date().toLocaleDateString(),
+                            '',
+                            'm/d/y',
+                            true,
+                        ),
+                    },
+                });
+            }
             await invoiceServices.updateInvoice(
                 selectedCard.invoice_id,
                 values,

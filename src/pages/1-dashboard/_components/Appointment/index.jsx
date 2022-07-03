@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React, {memo, useState} from 'react';
 import {
     CustomPaper,
     StatusPaper,
@@ -18,11 +18,9 @@ import {styled} from '@mui/material/styles';
 import {tableHeadCellStyles} from '_constants/TableHeaderStyles';
 import {statusText} from '_constants/general';
 import NoData from 'pages/4-appointment/_components/AppointmentTable/_assets/no-date-result.png';
-// import {useDispatch} from 'react-redux';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import queueService from '_services/firebase/queue.service';
-// import {useHistory} from 'react-router-dom';
-// import role from '_constants/role';
+import Toast from '_components/shared/Toast';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
@@ -33,8 +31,8 @@ const BodyCell = styled(TableCell)`
 `;
 
 function Appointment({todayAppointments}) {
-    // const dispatch = useDispatch();
-    // const history = useHistory();
+    const [openToast, setOpenToast] = useState(false);
+
     const addToQueue =
         (patientId, appointmentId, type) => async e => {
             try {
@@ -45,12 +43,29 @@ function Appointment({todayAppointments}) {
                         type,
                     },
                 );
+                setOpenToast(true);
             } catch (err) {
                 throw err;
             }
         };
+
+    const closeToast = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpenToast(false);
+    };
     return (
         <CustomPaper className="Appointment">
+            <Toast
+                open={openToast}
+                handleClose={closeToast}
+                vertical="bottom"
+                horizontal="left"
+            >
+                Đưa vào hàng đợi thành công
+            </Toast>
             <div className="Appointment__title">
                 <Typography variant="h5" sx={{mb: 2}}>
                     Lịch hẹn hôm nay
@@ -180,25 +195,27 @@ function Appointment({todayAppointments}) {
                                     },
                                 }}
                             >
-                                <Tooltip
-                                    title="Đưa vào hàng đợi"
-                                    followCursor
-                                >
-                                    <IconButton
-                                        onClick={addToQueue(
-                                            row.patient_id,
-                                            row.id,
-                                            row.type,
-                                        )}
+                                {row.status === 1 && (
+                                    <Tooltip
+                                        title="Đưa vào hàng đợi"
+                                        followCursor
                                     >
-                                        <AddCircleIcon
-                                            sx={{
-                                                fontSize:
-                                                    '1.8rem',
-                                            }}
-                                        />
-                                    </IconButton>
-                                </Tooltip>
+                                        <IconButton
+                                            onClick={addToQueue(
+                                                row.patient_id,
+                                                row.id,
+                                                row.type,
+                                            )}
+                                        >
+                                            <AddCircleIcon
+                                                sx={{
+                                                    fontSize:
+                                                        '1.8rem',
+                                                }}
+                                            />
+                                        </IconButton>
+                                    </Tooltip>
+                                )}
                             </BodyCell>
                         </>
                     )}

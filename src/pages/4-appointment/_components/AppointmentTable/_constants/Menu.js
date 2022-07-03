@@ -19,21 +19,27 @@ const menu = [
         label: 'Đưa vào hàng đợi',
         icon: AddCircleIcon,
         style: {fontSize: '2rem'},
-        onClick: (_, closeMenu, payload) => async e => {
-            try {
-                closeMenu();
-                await queueService.addToQueueWithAppointment(
-                    {
-                        patientId: payload.patient_id,
-                        appointmentId:
-                            payload.appointment_id,
-                        type: payload.type,
-                    },
-                );
-            } catch (err) {
-                console.log(err);
-            }
-        },
+        onClick:
+            (_, closeMenu, payload, openToast) =>
+            async e => {
+                try {
+                    closeMenu();
+                    await queueService.addToQueueWithAppointment(
+                        {
+                            patientId: payload.patient_id,
+                            appointmentId:
+                                payload.appointment_id,
+                            type: payload.type,
+                        },
+                    );
+                    openToast({
+                        isOpen: true,
+                        msg: 'Đưa vào hàng đợi thành công',
+                    });
+                } catch (err) {
+                    console.log(err);
+                }
+            },
     },
     {
         id: 2,

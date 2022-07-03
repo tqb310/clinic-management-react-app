@@ -44,7 +44,7 @@ const getCancelledStyle = status =>
               },
           };
 
-function TableContent({tableData = []}) {
+function TableContent({tableData = [], openToast}) {
     const dispatch = useDispatch();
     const [anchor, setAnchor] = useState(null);
     const openMenu = id => e => {
@@ -54,6 +54,7 @@ function TableContent({tableData = []}) {
     const closeMenu = e => {
         setAnchor(null);
     };
+
     // const handleOpenAppointmentDetail = e => {
     //     dispatch(openAppointmentDetail(true));
     // };
@@ -235,6 +236,7 @@ function TableContent({tableData = []}) {
                                                 row.id,
                                             type: row.type,
                                         },
+                                        openToast,
                                     )}
                                 >
                                     {Icon && (

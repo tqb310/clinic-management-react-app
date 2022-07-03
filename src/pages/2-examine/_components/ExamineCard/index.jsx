@@ -226,7 +226,9 @@ function ExamineCard({selectedCard, handleSubmit}) {
                                     </Field>
                                 </div>
                                 <div className="DTExamineCard__examineInfo">
-                                    <ExaminingForm />
+                                    <ExaminingForm
+                                        form={form}
+                                    />
                                 </div>
                             </div>
                             <div className="DTExamineCard__footer">

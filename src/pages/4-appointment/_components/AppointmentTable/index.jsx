@@ -22,6 +22,7 @@ import ConfirmRequest from '../ConfirmRequest';
 import {appointmentModel, patientModel} from '_models';
 import {formatDate} from '_helpers/handleDate';
 import Toast from '_components/shared/Toast';
+import AlertDialog from '_components/shared/AlertDialog';
 import './index.scss';
 
 function AppointmentTable({
@@ -36,6 +37,8 @@ function AppointmentTable({
         isOpen: false,
         msg: '',
     });
+    const [openAlertDialog, setOpenAlertDialog] =
+        React.useState(false);
 
     const handleCreateSubmit = async (values, actions) => {
         try {
@@ -103,8 +106,48 @@ function AppointmentTable({
 
         setOpenToast({isOpen: false, msg: ''});
     };
+    const handleCancelAppointment = async () => {
+        try {
+            await appointmentService.update(
+                selectedAppointment.id,
+                '',
+                {
+                    appointment: {
+                        status: 0,
+                    },
+                },
+            );
+        } catch (err) {
+            throw err;
+        }
+    };
     return (
         <CustomPaper className="content-container">
+            <Toast
+                open={openToast.isOpen}
+                handleClose={handleCloseToast}
+                vertical="bottom"
+                horizontal="left"
+            >
+                {openToast.msg}
+            </Toast>
+            <AlertDialog
+                open={openAlertDialog}
+                handleClose={setOpenAlertDialog.bind(
+                    null,
+                    false,
+                )}
+                handleWhenOk={handleCancelAppointment}
+                msg="Bạn có thực sự muốn hủy không?"
+                actionLabel={{
+                    ok: 'Hủy',
+                    refuse: 'Không',
+                }}
+                onSuccess={setOpenToast.bind(null, {
+                    isOpen: true,
+                    msg: 'Hủy lịch hẹn thành công',
+                })}
+            />
             <Box className="content-header">
                 <Typography variant="h5">
                     Lịch hẹn
@@ -133,14 +176,6 @@ function AppointmentTable({
                     handleClose={handleClose}
                     handleSubmit={handleCreateSubmit}
                 />
-                <Toast
-                    open={openToast.isOpen}
-                    handleClose={handleCloseToast}
-                    vertical="bottom"
-                    horizontal="left"
-                >
-                    {openToast.msg}
-                </Toast>
             </Box>
             <Box className="appointment-wrapper">
                 {dataByDate && dataByDate.length ? (
@@ -148,6 +183,9 @@ function AppointmentTable({
                         <TableContent
                             tableData={dataByDate}
                             openToast={setOpenToast}
+                            openAlertDialog={
+                                setOpenAlertDialog
+                            }
                         />
                         <LocationProvider>
                             <ConfirmRequest

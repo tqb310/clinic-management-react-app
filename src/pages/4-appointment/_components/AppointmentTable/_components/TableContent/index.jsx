@@ -21,6 +21,10 @@ import {StatusPaper} from '_components/shared/StyledComponent';
 import {styled} from '@mui/material/styles';
 import {setSelectedAppointment} from '_redux/slice/appointmentSlice';
 import {useDispatch} from 'react-redux';
+import {
+    compare2Days,
+    formatDate,
+} from '_helpers/handleDate';
 // import PropTypes from 'prop-types'
 
 const BodyCell = styled(TableCell)`
@@ -44,7 +48,11 @@ const getCancelledStyle = status =>
               },
           };
 
-function TableContent({tableData = [], openToast}) {
+function TableContent({
+    tableData = [],
+    openToast,
+    openAlertDialog,
+}) {
     const dispatch = useDispatch();
     const [anchor, setAnchor] = useState(null);
     const openMenu = id => e => {
@@ -226,6 +234,22 @@ function TableContent({tableData = [], openToast}) {
                             }) => (
                                 <MenuItem
                                     key={id}
+                                    disabled={
+                                        (id === 1 &&
+                                            (row.status !==
+                                                1 ||
+                                                compare2Days(
+                                                    new Date(),
+                                                    new Date(
+                                                        formatDate(
+                                                            row.date,
+                                                        ),
+                                                    ),
+                                                ) !== 0)) ||
+                                        (id === 2 &&
+                                            row.status !==
+                                                1)
+                                    }
                                     onClick={onClick(
                                         dispatch,
                                         closeMenu,
@@ -236,7 +260,10 @@ function TableContent({tableData = [], openToast}) {
                                                 row.id,
                                             type: row.type,
                                         },
-                                        openToast,
+                                        {
+                                            openAlertDialog,
+                                            openToast,
+                                        },
                                     )}
                                 >
                                     {Icon && (

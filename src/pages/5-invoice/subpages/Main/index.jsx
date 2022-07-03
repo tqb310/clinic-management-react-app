@@ -20,12 +20,14 @@ import {
     switchDrawer,
     setDataAsync,
     deleteInvoiceBatch,
+    updateData,
 } from '_redux/slice/invoiceSlice';
 import Drawer from '_components/shared/Drawer';
 import DrawerContent from './_components/DrawerContent';
 import invoiceServices from '_services/firebase/invoice.service';
 import AlertDialog from '_components/shared/AlertDialog';
 import Toast from '_components/shared/Toast';
+import {useFirestoreRealtime} from '_hooks';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
@@ -74,6 +76,12 @@ function Main(props) {
                 selectedPaidInvoice.id,
                 {paying_customer: paid, change},
             );
+            dispatch(
+                updateData({
+                    id: selectedPaidInvoice.id,
+                    data: {paying_customer: paid, change},
+                }),
+            );
         } catch (error) {
             throw error;
         }
@@ -88,9 +96,15 @@ function Main(props) {
     const onSwitchTab = tabIndex => {
         dispatch(filterData(tabIndex));
     };
-
+    const firestoreRealtime = useFirestoreRealtime({
+        collectionName: 'invoices',
+        eventHandler: () => {
+            dispatch(setDataAsync());
+        },
+    });
     useEffect(() => {
-        dispatch(setDataAsync());
+        const unsub = firestoreRealtime();
+        return unsub;
     }, []);
 
     tabNames = useMemo(() => {

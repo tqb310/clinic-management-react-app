@@ -18,6 +18,7 @@ const initialState = {
     selectedPaidInvoice: null,
     isLoading: false,
     visitsEachMonth: [],
+    tabIndex: 0,
     error: '',
 };
 
@@ -93,6 +94,12 @@ const appointmentSlice = createSlice({
         setData: (state, action) => {
             state.data = action.payload;
         },
+        updateData: (state, action) => {
+            state.selectedPaidInvoice = {
+                ...state.selectedPaidInvoice,
+                ...action.payload.data,
+            };
+        },
         selectData: (state, action) => {
             state.selected = action.payload;
         },
@@ -104,6 +111,7 @@ const appointmentSlice = createSlice({
             state.isOpenDrawer = action.payload;
         },
         filterData: (state, action) => {
+            state.tabIndex = action.payload;
             if (action.payload === 0)
                 state.filteredData = state.data;
             else {
@@ -128,7 +136,22 @@ const appointmentSlice = createSlice({
         },
         [setDataAsync.fulfilled]: (state, action) => {
             state.data = action.payload;
-            state.filteredData = action.payload;
+            if (state.tabIndex === 0)
+                state.filteredData = action.payload;
+            else {
+                let flag = 0;
+                if (state.tabIndex === 2) flag = 1;
+                state.filteredData = action.payload.filter(
+                    invoice => {
+                        return (
+                            Boolean(
+                                invoice.paying_customer,
+                            ) === Boolean(flag)
+                        );
+                    },
+                );
+            }
+            // state.filteredData = action.payload;
             state.numberNotPaid = action.payload?.filter(
                 invoice => !invoice.paying_customer,
             ).length;
@@ -192,5 +215,6 @@ export const {
     switchDrawer,
     setSelectedPaidInvoice,
     filterData,
+    updateData,
 } = actions;
 export default reducer;

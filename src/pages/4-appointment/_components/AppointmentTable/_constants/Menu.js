@@ -3,6 +3,7 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
 import {openAppointmentDetail} from '_redux/slice/appointmentSlice';
 import queueService from '_services/firebase/queue.service';
+import appointmentService from '_services/firebase/appointment.service';
 const menu = [
     {
         id: 0,
@@ -20,8 +21,7 @@ const menu = [
         icon: AddCircleIcon,
         style: {fontSize: '2rem'},
         onClick:
-            (_, closeMenu, payload, openToast) =>
-            async e => {
+            (_, closeMenu, payload, actions) => async e => {
                 try {
                     closeMenu();
                     await queueService.addToQueueWithAppointment(
@@ -32,7 +32,7 @@ const menu = [
                             type: payload.type,
                         },
                     );
-                    openToast({
+                    actions.openToast({
                         isOpen: true,
                         msg: 'Đưa vào hàng đợi thành công',
                     });
@@ -49,6 +49,15 @@ const menu = [
             color: 'error.main',
             fontSize: '2rem',
         },
+        onClick:
+            (_, closeMenu, payload, actions) => async e => {
+                try {
+                    closeMenu();
+                    actions.openAlertDialog(true);
+                } catch (err) {
+                    console.log(err);
+                }
+            },
     },
 ];
 export default menu;

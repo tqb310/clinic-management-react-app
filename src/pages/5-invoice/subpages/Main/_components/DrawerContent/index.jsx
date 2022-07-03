@@ -1,4 +1,4 @@
-import React, {memo, useState} from 'react';
+import React, {memo, useState, useEffect} from 'react';
 import {
     Box,
     Typography,
@@ -10,23 +10,58 @@ import {
 import Paid from '_assets/images/paid.jpg';
 import services from '_constants/services';
 import handlePriceFormat from '_helpers/handlePriceFormat';
+import {LoadingButton} from '@mui/lab';
+import Toast from '_components/shared/Toast';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
 function DrawerContent({data = {}, handlePaying}) {
     const [paid, setPaid] = useState('');
     const [change, setChange] = useState('');
-    const [paidError, setPaidError] = useState(false);
+    const [paidError, setPaidError] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [openToast, setOpenToast] = useState(false);
 
-    const handlePaymentForm = e => {
-        handlePaying(paid, change);
+    const handlePaymentForm = async e => {
+        try {
+            setLoading(true);
+            if (!paidError) {
+                await handlePaying(paid, change);
+                setOpenToast(true);
+            }
+        } catch (error) {
+            throw error;
+        } finally {
+            setLoading(false);
+        }
     };
     const handleReset = e => {
         setPaid(pre => '');
         setChange(pre => '');
     };
+    const validatePaid = fieldData => {
+        if (!fieldData) {
+            setPaidError(
+                pre => 'Chưa nhập số tiền khách trả!',
+            );
+            return false;
+        }
+        if (!/^\d+$/.test(fieldData)) {
+            setPaidError(pre => 'Số tiền không hợp lệ!');
+            return false;
+        }
+        if (parseFloat(fieldData) < data.total_fee) {
+            setPaidError(
+                pre =>
+                    'Số tiền khách trả không được nhỏ hơn tổng phí!',
+            );
+            return false;
+        }
+        setPaidError(pre => '');
+        return true;
+    };
     const handleChangePaid = e => {
-        if (e.target.value) setPaidError(pre => false);
+        validatePaid(e.target.value);
         setPaid(pre => e.target.value);
         if (parseInt(e.target.value) >= data.total_fee)
             setChange(
@@ -39,12 +74,32 @@ function DrawerContent({data = {}, handlePaying}) {
     const handleBlurPaid = e => {
         if (!e.target.value) setPaidError(true);
     };
+    const handleCloseToast = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpenToast(false);
+    };
+
+    useEffect(() => {
+        setPaidError(false);
+    }, [data]);
 
     return (
         <Box className="drawer-content">
             {data.paying_customer && (
                 <img src={Paid} alt="paid" width={128} />
             )}
+            <Toast
+                open={openToast}
+                handleClose={handleCloseToast}
+                vertical="top"
+                horizontal="center"
+                sx={{width: '100%', px: 1}}
+            >
+                Thanh toán thành công
+            </Toast>
             <Typography variant="h6" gutterBottom>
                 Thanh toán
             </Typography>
@@ -135,8 +190,7 @@ function DrawerContent({data = {}, handlePaying}) {
                 <TextField
                     size="small"
                     fullWidth
-                    required
-                    error={paidError}
+                    error={Boolean(paidError)}
                     disabled={Boolean(data.paying_customer)}
                     value={
                         handlePriceFormat(
@@ -152,11 +206,7 @@ function DrawerContent({data = {}, handlePaying}) {
                     }}
                     onChange={handleChangePaid}
                     onBlur={handleBlurPaid}
-                    helperText={
-                        paidError
-                            ? 'Chưa nhập số tiền khách trả'
-                            : ''
-                    }
+                    helperText={paidError}
                 />
             </Box>
             <Box className="drawer-content__info-group">
@@ -189,23 +239,31 @@ function DrawerContent({data = {}, handlePaying}) {
                 />
             </Box>
             <Box className="drawer-content__actions">
-                <Button variant="outlined">In</Button>
+                <Button
+                    variant="outlined"
+                    disabled={data.paying_customer || !paid}
+                >
+                    In
+                </Button>
                 <Button
                     variant="outlined"
                     color="error"
                     sx={{ml: 'auto !important', mr: 2}}
-                    disabled={data.paying_customer}
+                    disabled={
+                        data.paying_customer || loading
+                    }
                     onClick={handleReset}
                 >
                     Hủy
                 </Button>
-                <Button
+                <LoadingButton
+                    loading={loading}
                     variant="contained"
                     disabled={data.paying_customer}
                     onClick={handlePaymentForm}
                 >
                     Xác nhận
-                </Button>
+                </LoadingButton>
             </Box>
         </Box>
     );

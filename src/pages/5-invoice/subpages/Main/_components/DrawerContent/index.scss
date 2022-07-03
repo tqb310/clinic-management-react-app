@@ -31,5 +31,7 @@
     &__actions {
         display: flex;
         margin-top: 35px;
+        position: sticky;
+        bottom: 0px;
     }
 }

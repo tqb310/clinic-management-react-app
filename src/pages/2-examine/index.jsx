@@ -73,7 +73,14 @@ function Examine(props) {
                     ':' +
                     values.follow_up_time.minute;
             }
-
+            if (values.follow_up_date) {
+                values.follow_up_date = formatDate(
+                    values.follow_up_date?.toLocaleDateString(),
+                    '',
+                    'm/d/y',
+                    true,
+                );
+            }
             //Setting total fee
             values.total_fee = computeServiceTotalFee(
                 values.services,
@@ -89,12 +96,7 @@ function Examine(props) {
                         phone: selectedCard.phone, //Using for checking if there's already an existing patient with this phone
                     },
                     appointment: {
-                        date: formatDate(
-                            values.follow_up_date?.toLocaleDateString(),
-                            '',
-                            'm/d/y',
-                            true,
-                        ),
+                        date: values.follow_up_date,
                         time: values.follow_up_time,
                         status: 1,
                         type: 1,

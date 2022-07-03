@@ -73,7 +73,7 @@ function Notification(props) {
     const handleClickItem =
         (invoiceId, notiId) => async e => {
             setOpen(false);
-            dispatch(
+            await dispatch(
                 setSelectedPaidInvoiceAsync(invoiceId),
             );
             dispatch(switchDrawer(true));

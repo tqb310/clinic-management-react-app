@@ -2,7 +2,7 @@ import React, {memo, useState, Fragment} from 'react';
 import {useDispatch} from 'react-redux';
 import {headCells} from '../../_constants/HeadCells';
 import {cardType} from '_constants/general';
-import {Table, TableCell} from '_components/shared/Table2';
+import {Table, TableCell} from '_components/shared/Table';
 import {
     Checkbox,
     Avatar,

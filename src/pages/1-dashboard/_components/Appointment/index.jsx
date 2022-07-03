@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import MalePatient from '_assets/images/male-patient.png';
 import FemalePatient from '_assets/images/female-patient.png';
-import {Table, TableCell} from '_components/shared/Table2';
+import {Table, TableCell} from '_components/shared/Table';
 import {headCells} from './headCells';
 import {styled} from '@mui/material/styles';
 import {tableHeadCellStyles} from '_constants/TableHeaderStyles';

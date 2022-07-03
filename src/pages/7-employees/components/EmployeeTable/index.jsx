@@ -1,6 +1,6 @@
 import React from 'react';
 import headCells from '../../constants/headCells';
-import {Table, TableCell} from '_components/shared/Table2';
+import {Table, TableCell} from '_components/shared/Table';
 import {tableHeadCellStyles} from '_constants/TableHeaderStyles';
 import {
     Typography,

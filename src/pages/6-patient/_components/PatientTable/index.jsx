@@ -1,7 +1,7 @@
 import React, {memo} from 'react';
 import {headCells} from '../../_constants/HeadCells';
 import {tableHeadCellStyles} from '_constants/TableHeaderStyles';
-import {Table, TableCell} from '_components/shared/Table2';
+import {Table, TableCell} from '_components/shared/Table';
 import {
     Checkbox,
     Avatar,

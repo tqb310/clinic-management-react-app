@@ -1,5 +1,5 @@
 import React, {memo, useState} from 'react';
-import {Table, TableCell} from '_components/shared/Table2';
+import {Table, TableCell} from '_components/shared/Table';
 import {headCells} from '../../_constants/HeadCells';
 import menuItems from '../../_constants/Menu';
 import {tableHeadCellStyles} from '_constants/TableHeaderStyles';

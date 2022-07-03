@@ -45,6 +45,7 @@ export const Table = memo(function ({
     const {data: localData, page} = tableState;
 
     useEffect(() => {
+        dispatchTable(resetTableAction(data));
         dispatchTable(setDataAction(data));
     }, [data]);
 

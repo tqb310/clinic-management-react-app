@@ -9,6 +9,7 @@ export const DatePickerField = ({
     label,
     required,
     minDate,
+    onChangeDate,
     ...rest
 }) => {
     const handleDateChange = newValue => {
@@ -19,6 +20,7 @@ export const DatePickerField = ({
             },
         };
         field.onChange(event);
+        if (onChangeDate) onChangeDate(newValue);
     };
 
     const keyArr = field.name.split('.');

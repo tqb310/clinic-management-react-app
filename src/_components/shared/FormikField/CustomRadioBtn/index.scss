@@ -21,4 +21,11 @@
         color: var(--primary-color);
         font-weight: 600;
     }
+
+    input[type='radio']:disabled + label {
+        font-weight: 600;
+        opacity: 0.6;
+        background-color: #ccc;
+        color: #fff;
+    }
 }

@@ -1,5 +1,5 @@
 import React, {useState, memo} from 'react';
-import {FastField} from 'formik';
+import {FastField, Field} from 'formik';
 import {FormControl, FormLabel, Alert} from '@mui/material';
 import {
     CustomRadioGroup,
@@ -20,6 +20,8 @@ import {
 import {RadioButtonChecked} from '@mui/icons-material';
 import {hours} from '_constants/date';
 import {Scrollbars} from 'react-custom-scrollbars-2';
+import appointmentService from '_services/firebase/appointment.service';
+import {formatDate} from '_helpers/handleDate';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
@@ -115,6 +117,26 @@ function TimelineItemComp({h, hour}) {
 }
 
 function DateTimeChoice(props) {
+    const [placedList, setPlacedList] = useState([]);
+    const onChangeDate = async date => {
+        try {
+            if (date) {
+                const todayAppointment =
+                    await appointmentService.getDocByDate(
+                        formatDate(
+                            date.toLocaleDateString(),
+                            '',
+                            'm/d/y',
+                            true,
+                        ),
+                    );
+                const prePlacedList = todayAppointment
+                    .filter(a => a.status === 1)
+                    .map(a => a.time);
+                setPlacedList(prePlacedList);
+            }
+        } catch (error) {}
+    };
     return (
         <div className="AppointmentForm__datetime">
             <div>
@@ -125,6 +147,7 @@ function DateTimeChoice(props) {
                     label="Ngày hẹn khám"
                     fullWidth
                     minDate={new Date()}
+                    onChangeDate={onChangeDate}
                 />
             </div>
             <div>
@@ -135,7 +158,7 @@ function DateTimeChoice(props) {
                             position="left"
                             sx={{margin: 0, padding: 0}}
                         >
-                            <FastField
+                            <Field
                                 id="time"
                                 name="appointment.time"
                             >
@@ -143,6 +166,12 @@ function DateTimeChoice(props) {
                                     return (
                                         <CustomRadioGroup
                                             {...field}
+                                            minTime={
+                                                new Date()
+                                            }
+                                            placedList={
+                                                placedList
+                                            }
                                         >
                                             {form.errors
                                                 ?.appointment
@@ -185,7 +214,7 @@ function DateTimeChoice(props) {
                                         </CustomRadioGroup>
                                     );
                                 }}
-                            </FastField>
+                            </Field>
                             <TimelineItem
                                 sx={{minHeight: 0}}
                             >

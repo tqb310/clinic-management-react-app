@@ -1,11 +1,13 @@
 import React, {useState, memo, useEffect} from 'react';
 import {RightBar} from '_components/shared/StyledComponent';
-import {Button, Typography, Box} from '@mui/material';
+import {Typography, Box} from '@mui/material';
 import {SwapVert} from '@mui/icons-material';
 import {Dot} from '_components/shared/StyledComponent';
 import {setCardDataAsync} from '_redux/slice/queueSlice';
 import {useDispatch} from 'react-redux';
 import PaperImage from '_assets/images/paper.png';
+import {LoadingButton} from '@mui/lab';
+import queueServices from '_services/firebase/queue.service';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
@@ -62,6 +64,7 @@ function RightBarContent({
     numberEachStatus,
     selectedCard,
 }) {
+    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     const [selected, setSelected] = useState(1);
     const [filterdQueue, setFilterdQueue] = useState([]);
@@ -73,8 +76,21 @@ function RightBarContent({
         setFilterdQueue(tempQueue);
     }, [selected, queue]);
 
-    const goToNextPatient = () => {
-        dispatch(setCardDataAsync());
+    const goToNextPatient = async () => {
+        try {
+            setLoading(true);
+            if (selectedCard) {
+                await queueServices.updateQueue(
+                    selectedCard.id,
+                    {status: 0},
+                );
+            }
+            await dispatch(setCardDataAsync());
+        } catch (error) {
+            throw error;
+        } finally {
+            setLoading(false);
+        }
     };
 
     return (
@@ -108,7 +124,7 @@ function RightBarContent({
                     Không có bệnh nhân đang khám
                 </Typography>
             )}
-            <Button
+            <LoadingButton
                 variant="outlined"
                 startIcon={<SwapVert />}
                 sx={{my: 2}}
@@ -117,9 +133,10 @@ function RightBarContent({
                     !queue.filter(item => item.status === 1)
                         .length
                 }
+                loading={loading}
             >
                 Tiếp tục
-            </Button>
+            </LoadingButton>
             <div className="RBDoctorHome__queueTab">
                 <div
                     className={`RBDoctorHome__queueTab-item

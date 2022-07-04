@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React from 'react';
 import {Menu} from '@mui/material';
 
 function MenuPopup({
@@ -31,4 +31,4 @@ function MenuPopup({
     );
 }
 
-export default memo(MenuPopup);
+export default MenuPopup;

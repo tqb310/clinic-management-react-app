@@ -5,6 +5,9 @@ import {Dot} from '_components/shared/StyledComponent';
 import {StatusPaper} from '_components/shared/StyledComponent';
 import PaperImg from '_assets/images/paper.png';
 import {ArrowDownward} from '@mui/icons-material';
+import {Link} from 'react-router-dom';
+import {useSelector} from 'react-redux';
+import RoleMap from '_constants/role';
 import './index.scss';
 // import PropTypes from 'prop-types'
 const statusArray = [
@@ -61,6 +64,11 @@ function QueueListItem({
     );
 }
 function QueueSummary({data}) {
+    // const dispatch = useDispatch();
+
+    const role = useSelector(
+        state => state.user.current?.role,
+    );
     return (
         <CustomPaper className="queue-summary">
             <Typography
@@ -103,20 +111,24 @@ function QueueSummary({data}) {
                 )}
             </Box>
             {Boolean(data.length) && (
-                <Box className="queue-summary__more">
-                    <IconButton
-                        sx={{
-                            opacity: 0.4,
-                            transition: 'opacity 0.3s',
-                            backgroundColor: '#f8f8f8',
-                            '&:hover': {
-                                opacity: 1,
-                            },
-                        }}
-                    >
-                        <ArrowDownward />
-                    </IconButton>
-                </Box>
+                <Link
+                    to={`${RoleMap.get(role).url}/hang-doi`}
+                >
+                    <Box className="queue-summary__more">
+                        <IconButton
+                            sx={{
+                                opacity: 0.4,
+                                transition: 'opacity 0.3s',
+                                backgroundColor: '#f8f8f8',
+                                '&:hover': {
+                                    opacity: 1,
+                                },
+                            }}
+                        >
+                            <ArrowDownward />
+                        </IconButton>
+                    </Box>
+                </Link>
             )}
         </CustomPaper>
     );

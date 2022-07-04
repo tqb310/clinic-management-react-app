@@ -139,6 +139,10 @@ const queueSlice = createSlice({
         [setDataAsync.pending]: state => {
             state.isLoading = true;
         },
+        [setDataAsync.rejected]: (state, action) => {
+            state.isLoading = false;
+            state.error = action.error;
+        },
         [setDataAsync.fulfilled]: (state, action) => {
             state.data = action.payload;
             const activePatient = action.payload.find(

@@ -13,6 +13,7 @@ import getDateTimeComparator from '../../_helpers/getDateTimeComparator';
 const initialState = {
     data: [],
     number: 0,
+    nextPatient: '',
     cancelledNumber: 0,
     visitedNumber: 0,
     notVisitedNumber: 0,
@@ -80,23 +81,34 @@ const appointmentSlice = createSlice({
                 action.payload || state.selectedDate;
             const tempData =
                 state.data &&
-                state.data.filter(appointment => {
-                    return !compare2Days(
-                        new Date(
-                            formatDate(appointment.date),
+                state.data
+                    .filter(appointment => {
+                        return !compare2Days(
+                            new Date(
+                                formatDate(
+                                    appointment.date,
+                                ),
+                            ),
+                            action.payload ||
+                                state.selectedDate,
+                        );
+                    })
+                    .sort((item1, item2) =>
+                        getDateTimeComparator(
+                            formatDate(
+                                item1.date,
+                                item1.time,
+                            ),
+                            formatDate(
+                                item2.date,
+                                item2.time,
+                            ),
                         ),
-                        action.payload ||
-                            state.selectedDate,
                     );
-                });
-            state.dataByDate =
-                tempData &&
-                tempData.sort((item1, item2) =>
-                    getDateTimeComparator(
-                        formatDate(item1.date, item1.time),
-                        formatDate(item2.date, item2.time),
-                    ),
-                );
+            state.dataByDate = tempData;
+            state.nextPatient =
+                tempData.find(a => a.status === 1)?.id ||
+                '';
         },
         deleteData: (state, action) => {
             state.selected = [];
@@ -158,6 +170,9 @@ const appointmentSlice = createSlice({
         [setDataByDateAsync.fulfilled]: (state, action) => {
             state.isLoading = false;
             state.data = action.payload;
+            state.nextPatient =
+                action.payload.find(a => a.status === 1)
+                    ?.id || '';
         },
         [setDataNumberAsync.fulfilled]: (state, action) => {
             state.number = action.payload;

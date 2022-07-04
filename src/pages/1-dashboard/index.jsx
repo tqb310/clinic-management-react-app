@@ -82,6 +82,9 @@ function Dashboard(props) {
     const appointmentNumber = useSelector(
         state => state.appointments.number,
     );
+    const nextPatient = useSelector(
+        state => state.appointments.nextPatient,
+    );
     const patientNumber = useSelector(
         state => state.patients.number,
     );
@@ -188,6 +191,7 @@ function Dashboard(props) {
             <div>
                 <Appointment
                     todayAppointments={todayAppointments}
+                    nextPatient={nextPatient}
                 />
             </div>
             <RightBar>

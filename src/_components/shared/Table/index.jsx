@@ -23,7 +23,7 @@ import './index.scss';
 
 export const TableContext = createContext();
 
-export const Table = memo(function ({
+export const Table = function ({
     data,
     renderDataRow,
     header: Header,
@@ -105,6 +105,7 @@ export const Table = memo(function ({
                                     >
                                         {renderDataRow(
                                             row,
+                                            index,
                                             tableState,
                                             dispatchTable,
                                         )}
@@ -156,7 +157,7 @@ export const Table = memo(function ({
             </Box>
         </TableContext.Provider>
     );
-});
+};
 
 export const TableHead = memo(function ({children}) {
     return <Box component="thead">{children}</Box>;

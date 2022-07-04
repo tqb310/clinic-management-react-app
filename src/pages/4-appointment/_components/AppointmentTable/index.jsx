@@ -31,6 +31,7 @@ function AppointmentTable({
     isOpenForm,
     dataByDate,
     isOpenAppointmentDetail,
+    nextPatient,
 }) {
     const dispatch = useDispatch();
     const [openToast, setOpenToast] = React.useState({
@@ -185,6 +186,10 @@ function AppointmentTable({
                             openToast={setOpenToast}
                             openAlertDialog={
                                 setOpenAlertDialog
+                            }
+                            nextPatient={nextPatient}
+                            selectedAppointment={
+                                selectedAppointment
                             }
                         />
                         <LocationProvider>

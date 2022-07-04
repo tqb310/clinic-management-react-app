@@ -30,7 +30,7 @@ const BodyCell = styled(TableCell)`
     font-size: 1.5rem;
 `;
 
-function Appointment({todayAppointments}) {
+function Appointment({todayAppointments, nextPatient}) {
     const [openToast, setOpenToast] = useState(false);
 
     const addToQueue =
@@ -43,7 +43,7 @@ function Appointment({todayAppointments}) {
                         type,
                     },
                 );
-                setOpenToast(true);
+                setOpenToast(_ => true);
             } catch (err) {
                 throw err;
             }
@@ -118,7 +118,7 @@ function Appointment({todayAppointments}) {
                             </>
                         );
                     }}
-                    renderDataRow={row => (
+                    renderDataRow={(row, index) => (
                         <>
                             <BodyCell
                                 type="td"
@@ -195,27 +195,29 @@ function Appointment({todayAppointments}) {
                                     },
                                 }}
                             >
-                                {row.status === 1 && (
-                                    <Tooltip
-                                        title="Đưa vào hàng đợi"
-                                        followCursor
-                                    >
-                                        <IconButton
-                                            onClick={addToQueue(
-                                                row.patient_id,
-                                                row.id,
-                                                row.type,
-                                            )}
+                                {row.status === 1 &&
+                                    row.id ===
+                                        nextPatient && (
+                                        <Tooltip
+                                            title="Đưa vào hàng đợi"
+                                            followCursor
                                         >
-                                            <AddCircleIcon
-                                                sx={{
-                                                    fontSize:
-                                                        '1.8rem',
-                                                }}
-                                            />
-                                        </IconButton>
-                                    </Tooltip>
-                                )}
+                                            <IconButton
+                                                onClick={addToQueue(
+                                                    row.patient_id,
+                                                    row.id,
+                                                    row.type,
+                                                )}
+                                            >
+                                                <AddCircleIcon
+                                                    sx={{
+                                                        fontSize:
+                                                            '1.8rem',
+                                                    }}
+                                                />
+                                            </IconButton>
+                                        </Tooltip>
+                                    )}
                             </BodyCell>
                         </>
                     )}

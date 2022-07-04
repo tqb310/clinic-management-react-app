@@ -109,6 +109,9 @@ function Appointment(props) {
     const anchorDay = useSelector(
         state => state.appointments.anchorDay,
     );
+    const nextPatient = useSelector(
+        state => state.appointments.nextPatient,
+    );
 
     const appointmentFirestoreRealtime =
         useFirestoreRealtime({
@@ -203,6 +206,7 @@ function Appointment(props) {
                     isOpenAppointmentDetail={
                         isOpenAppointmentDetail
                     }
+                    nextPatient={nextPatient}
                 />
             </Grid>
             <RightBar>

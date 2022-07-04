@@ -52,6 +52,8 @@ function TableContent({
     tableData = [],
     openToast,
     openAlertDialog,
+    nextPatient,
+    selectedAppointment = {},
 }) {
     const dispatch = useDispatch();
     const [anchor, setAnchor] = useState(null);
@@ -236,18 +238,20 @@ function TableContent({
                                     key={id}
                                     disabled={
                                         (id === 1 &&
-                                            (row.status !==
+                                            (selectedAppointment?.status !==
                                                 1 ||
+                                                selectedAppointment?.id !==
+                                                    nextPatient ||
                                                 compare2Days(
                                                     new Date(),
                                                     new Date(
                                                         formatDate(
-                                                            row.date,
+                                                            selectedAppointment?.date,
                                                         ),
                                                     ),
                                                 ) !== 0)) ||
                                         (id === 2 &&
-                                            row.status !==
+                                            selectedAppointment?.status !==
                                                 1)
                                     }
                                     onClick={onClick(

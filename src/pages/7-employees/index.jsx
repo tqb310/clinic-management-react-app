@@ -12,6 +12,7 @@ import employeeServices from '_services/firebase/employee.service';
 import {RightBar} from '_components/shared/StyledComponent';
 import RightBarContent from './components/RightBarContent';
 import Toast from '_components/shared/Toast';
+import {useFirestoreRealtime} from '_hooks';
 import './index.scss';
 // import PropTypes from 'prop-types';
 
@@ -43,11 +44,20 @@ function Employee(props) {
                 values,
             );
         } catch (error) {
-            console.log(error);
+            throw error;
         }
     };
+
+    const firestoreRealtime = useFirestoreRealtime({
+        collectionName: 'users',
+        eventHandler: () => {
+            dispatch(setDataAsync());
+        },
+    });
+
     useEffect(() => {
-        dispatch(setDataAsync());
+        const unsub = firestoreRealtime();
+        return unsub;
     }, []);
 
     return (

@@ -11,6 +11,7 @@ import {
     role as roleItems,
 } from '_constants/general';
 import {Grid, Button} from '@mui/material';
+import {LoadingButton} from '@mui/lab';
 function EmployeeForm({selectedEmployee, onSubmit}) {
     const {
         name,
@@ -35,9 +36,18 @@ function EmployeeForm({selectedEmployee, onSubmit}) {
                 gender,
                 role,
             }}
-            onSubmit={onSubmit}
+            onSubmit={async (values, actions) => {
+                try {
+                    actions.setSubmitting(true);
+                    await onSubmit(values, actions);
+                } catch (error) {
+                    throw error;
+                } finally {
+                    actions.setSubmitting(false);
+                }
+            }}
         >
-            {() => {
+            {form => {
                 return (
                     <Form>
                         <Grid
@@ -115,16 +125,25 @@ function EmployeeForm({selectedEmployee, onSubmit}) {
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <Button
+                                <LoadingButton
+                                    type="submit"
+                                    loading={
+                                        form.isSubmitting
+                                    }
+                                    disabled={!form.dirty}
                                     variant="outlined"
                                     color="primary"
                                     sx={{width: '100%'}}
                                 >
                                     Sửa
-                                </Button>
+                                </LoadingButton>
                             </Grid>
                             <Grid item xs={12}>
                                 <Button
+                                    disabled={
+                                        !form.dirty ||
+                                        form.isSubmitting
+                                    }
                                     color="error"
                                     variant="contained"
                                     sx={{width: '100%'}}

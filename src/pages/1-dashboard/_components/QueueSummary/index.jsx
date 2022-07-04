@@ -39,7 +39,11 @@ function QueueListItem({
                     color: 'primary.main',
                 }}
             >
-                {orderNumber ? '# 26' : ''}
+                {orderNumber
+                    ? `# ${orderNumber
+                          ?.toString()
+                          .padStart(2, '0')}`
+                    : ''}
             </Typography>
             <Box sx={{flex: 1}}>
                 <Typography variant="h6">

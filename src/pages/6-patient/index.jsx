@@ -77,6 +77,7 @@ function Patient(props) {
                     selectedPatient={
                         patientState.selectedPatient
                     }
+                    loading={patientState.isLoading}
                 />
             </CustomPaper>
             <RightBar>

@@ -20,7 +20,7 @@ const initialState = {
     anchorDay: new Date(),
     selectedDate: new Date(),
     isOpenForm: false,
-    isLoading: false,
+    isLoading: true,
     dataByDate: [],
     selectedAppointment: null,
     isOpenAppointmentDetail: false,

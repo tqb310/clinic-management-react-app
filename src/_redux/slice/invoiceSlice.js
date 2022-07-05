@@ -16,7 +16,7 @@ const initialState = {
     selected: [],
     isOpenDrawer: false,
     selectedPaidInvoice: null,
-    isLoading: false,
+    isLoading: true,
     visitsEachMonth: [],
     tabIndex: 0,
     error: '',

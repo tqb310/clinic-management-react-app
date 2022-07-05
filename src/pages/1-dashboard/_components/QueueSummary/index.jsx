@@ -8,6 +8,7 @@ import {ArrowDownward} from '@mui/icons-material';
 import {Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import RoleMap from '_constants/role';
+import {SkeletonLoading} from '_components/shared/SkeletonLoading';
 import './index.scss';
 // import PropTypes from 'prop-types'
 const statusArray = [
@@ -67,7 +68,8 @@ function QueueListItem({
         </Box>
     );
 }
-function QueueSummary({data}) {
+
+function QueueSummary({data, loading}) {
     // const dispatch = useDispatch();
 
     const role = useSelector(
@@ -81,39 +83,50 @@ function QueueSummary({data}) {
             >
                 Hàng đợi
             </Typography>
-            <Box sx={{mt: 1}}>
-                {data.length ? (
-                    data.map((item, index) => (
-                        <QueueListItem
-                            key={index}
-                            orderNumber={
-                                item.numerical_order
-                            }
-                            name={
-                                item.last_name +
-                                ' ' +
-                                item.first_name
-                            }
-                            gender={
-                                item.gender ? 'Nam' : 'Nữ'
-                            }
-                            dob={item.dob}
-                            status={item.status}
-                        />
-                    ))
-                ) : (
-                    <img
-                        src={PaperImg}
-                        alt="empty logo"
-                        width={200}
-                        style={{
-                            margin: '60px auto 0',
-                            display: 'block',
-                            opacity: 0.4,
-                        }}
+            {loading ? (
+                Array.from(new Array(5), (_, index) => (
+                    <SkeletonLoading
+                        key={index}
+                        sx={{mt: 2}}
                     />
-                )}
-            </Box>
+                ))
+            ) : (
+                <Box sx={{mt: 1}}>
+                    {data.length ? (
+                        data.map((item, index) => (
+                            <QueueListItem
+                                key={index}
+                                orderNumber={
+                                    item.numerical_order
+                                }
+                                name={
+                                    item.last_name +
+                                    ' ' +
+                                    item.first_name
+                                }
+                                gender={
+                                    item.gender
+                                        ? 'Nam'
+                                        : 'Nữ'
+                                }
+                                dob={item.dob}
+                                status={item.status}
+                            />
+                        ))
+                    ) : (
+                        <img
+                            src={PaperImg}
+                            alt="empty logo"
+                            width={200}
+                            style={{
+                                margin: '60px auto 0',
+                                display: 'block',
+                                opacity: 0.4,
+                            }}
+                        />
+                    )}
+                </Box>
+            )}
             {Boolean(data.length) && (
                 <Link
                     to={`${RoleMap.get(role).url}/hang-doi`}

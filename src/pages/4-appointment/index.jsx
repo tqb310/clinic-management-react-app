@@ -112,6 +112,9 @@ function Appointment(props) {
     const nextPatient = useSelector(
         state => state.appointments.nextPatient,
     );
+    const loading = useSelector(
+        state => state.appointments.isLoading,
+    );
 
     const appointmentFirestoreRealtime =
         useFirestoreRealtime({
@@ -207,6 +210,7 @@ function Appointment(props) {
                         isOpenAppointmentDetail
                     }
                     nextPatient={nextPatient}
+                    loading={loading}
                 />
             </Grid>
             <RightBar>

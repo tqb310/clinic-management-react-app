@@ -15,7 +15,7 @@ import queueServices from '_services/firebase/queue.service';
 const initialState = {
     data: [],
     selected: null,
-    isLoading: false,
+    isLoading: true,
     isOpenHint: false,
     patientHint: [],
     numberEachStatus: {

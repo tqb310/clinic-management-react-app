@@ -24,6 +24,7 @@ function EmployeeTable({
     selectedEmployee,
     handleSelectEmployee,
     setOpenToast,
+    loading,
 }) {
     return (
         <Table
@@ -43,6 +44,8 @@ function EmployeeTable({
             }}
             pagination
             rowsPerPage={8}
+            loading={loading}
+            columnNumber={headCells.length}
             header={() => {
                 return (
                     <>

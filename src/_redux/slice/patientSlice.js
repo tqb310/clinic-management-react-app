@@ -13,7 +13,7 @@ const initialState = {
     data: [],
     number: 0,
     selected: [],
-    isLoading: false,
+    isLoading: true,
     selectedPatient: null,
     malePatient: 0,
     femalePatient: 0,

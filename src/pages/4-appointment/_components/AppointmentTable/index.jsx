@@ -32,6 +32,7 @@ function AppointmentTable({
     dataByDate,
     isOpenAppointmentDetail,
     nextPatient,
+    loading,
 }) {
     const dispatch = useDispatch();
     const [openToast, setOpenToast] = React.useState({
@@ -179,46 +180,28 @@ function AppointmentTable({
                 />
             </Box>
             <Box className="appointment-wrapper">
-                {dataByDate && dataByDate.length ? (
-                    <Fragment>
-                        <TableContent
-                            tableData={dataByDate}
-                            openToast={setOpenToast}
-                            openAlertDialog={
-                                setOpenAlertDialog
-                            }
-                            nextPatient={nextPatient}
-                            selectedAppointment={
-                                selectedAppointment
-                            }
-                        />
-                        <LocationProvider>
-                            <ConfirmRequest
-                                title="Chi tiết lịch hẹn"
-                                open={
-                                    isOpenAppointmentDetail
-                                }
-                                handleClose={
-                                    handleCloseAppointmentDetail
-                                }
-                                data={selectedAppointment}
-                                handleSubmit={
-                                    handleUpdateSubmit
-                                }
-                                submitLabel="Sửa"
-                            />
-                        </LocationProvider>
-                    </Fragment>
-                ) : (
-                    <Box className="appointment__no-data">
-                        <img
-                            src={NoResultDate}
-                            className="appointment__no-data-img"
-                            alt="No results"
-                            width="512"
-                        />
-                    </Box>
-                )}
+                <TableContent
+                    tableData={dataByDate}
+                    openToast={setOpenToast}
+                    openAlertDialog={setOpenAlertDialog}
+                    nextPatient={nextPatient}
+                    selectedAppointment={
+                        selectedAppointment
+                    }
+                    loading={loading}
+                />
+                <LocationProvider>
+                    <ConfirmRequest
+                        title="Chi tiết lịch hẹn"
+                        open={isOpenAppointmentDetail}
+                        handleClose={
+                            handleCloseAppointmentDetail
+                        }
+                        data={selectedAppointment}
+                        handleSubmit={handleUpdateSubmit}
+                        submitLabel="Sửa"
+                    />
+                </LocationProvider>
             </Box>
         </CustomPaper>
     );

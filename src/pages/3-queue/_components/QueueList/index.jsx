@@ -10,6 +10,7 @@ import {
 import {onSnapshot, collection} from 'firebase/firestore';
 import {db} from '_services/firebase/app';
 import PaperImg from '_assets/images/paper.png';
+import {SkeletonLoading} from '_components/shared/SkeletonLoading';
 import './index.scss';
 // import PropTypes from 'prop-types';
 
@@ -64,7 +65,7 @@ function QueueListItem({
         </Box>
     );
 }
-function QueueList({queueData, numberEachStatus}) {
+function QueueList({queueData, numberEachStatus, loading}) {
     const dispatch = useDispatch();
     const [tab, setTab] = useState(1);
     const [status, setStatus] = useState(2);
@@ -137,41 +138,60 @@ function QueueList({queueData, numberEachStatus}) {
                     Thêm mới
                 </Button> */}
             </Box>
-            <Box className="queue-list__content">
-                {queueData && queueData.length ? (
-                    queueData.map(item => (
-                        <QueueListItem
-                            key={item.id}
-                            name={
-                                item.last_name +
-                                ' ' +
-                                item.first_name
-                            }
-                            gender={
-                                item.gender ? 'Nam' : 'Nữ'
-                            }
-                            dob={item.dob}
-                            time={item.time}
-                            date={item.date}
-                            numericalOrder={
-                                item.numerical_order
-                            }
+            {loading ? (
+                <Box
+                    className="queue-list__content"
+                    sx={{pt: 0.1, px: 2, pb: 2}}
+                >
+                    {Array.from(
+                        new Array(3),
+                        (_, index) => (
+                            <SkeletonLoading
+                                key={index}
+                                sx={{mt: 2}}
+                            />
+                        ),
+                    )}
+                </Box>
+            ) : (
+                <Box className="queue-list__content">
+                    {queueData && queueData.length ? (
+                        queueData.map(item => (
+                            <QueueListItem
+                                key={item.id}
+                                name={
+                                    item.last_name +
+                                    ' ' +
+                                    item.first_name
+                                }
+                                gender={
+                                    item.gender
+                                        ? 'Nam'
+                                        : 'Nữ'
+                                }
+                                dob={item.dob}
+                                time={item.time}
+                                date={item.date}
+                                numericalOrder={
+                                    item.numerical_order
+                                }
+                            />
+                        ))
+                    ) : (
+                        <img
+                            src={PaperImg}
+                            alt="Khong co du lieu"
+                            width={128}
+                            style={{
+                                display: 'block',
+                                margin: 'auto',
+                                opacity: 0.2,
+                                paddingBottom: '2rem',
+                            }}
                         />
-                    ))
-                ) : (
-                    <img
-                        src={PaperImg}
-                        alt="Khong co du lieu"
-                        width={128}
-                        style={{
-                            display: 'block',
-                            margin: 'auto',
-                            opacity: 0.2,
-                            paddingBottom: '2rem',
-                        }}
-                    />
-                )}
-            </Box>
+                    )}
+                </Box>
+            )}
         </Box>
     );
 }

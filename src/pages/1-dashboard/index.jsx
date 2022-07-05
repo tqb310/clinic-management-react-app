@@ -82,6 +82,12 @@ function Dashboard(props) {
     const appointmentNumber = useSelector(
         state => state.appointments.number,
     );
+    const loadingAppointment = useSelector(
+        state => state.appointments.isLoading,
+    );
+    const loadingQueue = useSelector(
+        state => state.queues.isLoading,
+    );
     const nextPatient = useSelector(
         state => state.appointments.nextPatient,
     );
@@ -185,6 +191,7 @@ function Dashboard(props) {
                 <Grid item lg={4}>
                     <QueueSummary
                         data={queue.slice(0, 5)}
+                        loading={loadingQueue}
                     />
                 </Grid>
             </Grid>
@@ -192,6 +199,7 @@ function Dashboard(props) {
                 <Appointment
                     todayAppointments={todayAppointments}
                     nextPatient={nextPatient}
+                    loading={loadingAppointment}
                 />
             </div>
             <RightBar>

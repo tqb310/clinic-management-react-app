@@ -38,6 +38,7 @@ function InvoiceTable({
     tableData,
     selected,
     selectedInvoiceId,
+    loading,
 }) {
     const dispatch = useDispatch();
     const history = useHistory();
@@ -90,7 +91,9 @@ function InvoiceTable({
             }}
             pagination
             rowsPerPage={8}
+            columnNumber={headCells.length}
             selected={selected}
+            loading={loading}
             header={() => {
                 return (
                     <>

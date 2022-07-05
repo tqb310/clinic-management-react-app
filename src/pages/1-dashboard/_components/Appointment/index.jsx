@@ -17,7 +17,6 @@ import {headCells} from './headCells';
 import {styled} from '@mui/material/styles';
 import {tableHeadCellStyles} from '_constants/TableHeaderStyles';
 import {statusText} from '_constants/general';
-import NoData from 'pages/4-appointment/_components/AppointmentTable/_assets/no-date-result.png';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import queueService from '_services/firebase/queue.service';
 import Toast from '_components/shared/Toast';
@@ -30,7 +29,11 @@ const BodyCell = styled(TableCell)`
     font-size: 1.5rem;
 `;
 
-function Appointment({todayAppointments, nextPatient}) {
+function Appointment({
+    todayAppointments,
+    nextPatient,
+    loading,
+}) {
     const [openToast, setOpenToast] = useState(false);
 
     const addToQueue =
@@ -71,168 +74,154 @@ function Appointment({todayAppointments, nextPatient}) {
                     Lịch hẹn hôm nay
                 </Typography>
             </div>
-            {todayAppointments &&
-            todayAppointments.length ? (
-                <Table
-                    sx={{
-                        borderCollapse: 'collapse',
-                        userSelect: 'none',
-                        fontSize: '1.5rem',
-                        width: '100%',
-                        height: '100%',
-                    }}
-                    data={todayAppointments.filter(item =>
-                        parseInt(item?.status),
-                    )}
-                    pagination
-                    rowsPerPage={7}
-                    header={() => {
-                        return (
-                            <>
-                                {headCells &&
-                                    headCells.map(
-                                        ({
-                                            id,
-                                            label,
-                                            style,
-                                            ...rest
-                                        }) => (
-                                            <TableCell
-                                                key={id}
-                                                type="th"
-                                                sx={{
-                                                    ...tableHeadCellStyles,
-                                                    ...style,
-                                                }}
-                                                {...rest}
-                                            >
-                                                <Typography
-                                                    variant="subtitle2"
-                                                    component="span"
-                                                >
-                                                    {label}
-                                                </Typography>
-                                            </TableCell>
-                                        ),
-                                    )}
-                            </>
-                        );
-                    }}
-                    renderDataRow={(row, index) => (
+            <Table
+                sx={{
+                    borderCollapse: 'collapse',
+                    userSelect: 'none',
+                    fontSize: '1.5rem',
+                    width: '100%',
+                    height: '100%',
+                }}
+                data={todayAppointments.filter(item =>
+                    parseInt(item?.status),
+                )}
+                loading={loading}
+                pagination
+                rowsPerPage={7}
+                columnNumber={headCells.length}
+                header={() => {
+                    return (
                         <>
-                            <BodyCell
-                                type="td"
-                                sx={{
-                                    textAlign: 'center',
-                                }}
-                            >
-                                {row.id
-                                    ?.slice(0, 4)
-                                    .padStart(4, '0')}
-                            </BodyCell>
-                            <BodyCell
-                                type="td"
-                                sx={{
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                }}
-                            >
-                                <Avatar
-                                    src={
-                                        row.gender
-                                            ? MalePatient
-                                            : FemalePatient
-                                    }
-                                    sx={{
-                                        width: 32,
-                                        height: 32,
-                                        mr: 1,
-                                    }}
-                                />
-                                <Box>
-                                    <p>
-                                        {row.last_name +
-                                            ' ' +
-                                            row.first_name}
-                                    </p>
-                                    <Typography color="#888">
-                                        {row.phone}
-                                    </Typography>
-                                </Box>
-                            </BodyCell>
-                            <BodyCell type="td" sx={{}}>
-                                {row.type
-                                    ? 'Tái khám'
-                                    : 'Khám mới'}
-                            </BodyCell>
-                            <BodyCell type="td" sx={{}}>
-                                {row.time}
-                            </BodyCell>
-                            <BodyCell type="td" sx={{}}>
-                                <StatusPaper
-                                    status={
-                                        statusText[
-                                            row.status
-                                        ]?.style
-                                    }
-                                >
-                                    {
-                                        statusText[
-                                            row.status
-                                        ]?.text
-                                    }
-                                </StatusPaper>
-                            </BodyCell>
-                            <BodyCell
-                                type="td"
-                                sx={{
-                                    width: '45px',
-                                    // opacity: getOpacity(row.status),
-                                    '& svg': {
-                                        opacity: 0.5,
-                                        transition:
-                                            'opacity .3s',
-                                    },
-                                }}
-                            >
-                                {row.status === 1 &&
-                                    row.id ===
-                                        nextPatient && (
-                                        <Tooltip
-                                            title="Đưa vào hàng đợi"
-                                            followCursor
+                            {headCells &&
+                                headCells.map(
+                                    ({
+                                        id,
+                                        label,
+                                        style,
+                                        ...rest
+                                    }) => (
+                                        <TableCell
+                                            key={id}
+                                            type="th"
+                                            sx={{
+                                                ...tableHeadCellStyles,
+                                                ...style,
+                                            }}
+                                            {...rest}
                                         >
-                                            <IconButton
-                                                onClick={addToQueue(
-                                                    row.patient_id,
-                                                    row.id,
-                                                    row.type,
-                                                )}
+                                            <Typography
+                                                variant="subtitle2"
+                                                component="span"
                                             >
-                                                <AddCircleIcon
-                                                    sx={{
-                                                        fontSize:
-                                                            '1.8rem',
-                                                    }}
-                                                />
-                                            </IconButton>
-                                        </Tooltip>
-                                    )}
-                            </BodyCell>
+                                                {label}
+                                            </Typography>
+                                        </TableCell>
+                                    ),
+                                )}
                         </>
-                    )}
-                />
-            ) : (
-                <img
-                    src={NoData}
-                    alt="empty logo"
-                    width={512}
-                    style={{
-                        margin: '60px auto 0',
-                        display: 'block',
-                    }}
-                />
-            )}
+                    );
+                }}
+                renderDataRow={(row, index) => (
+                    <>
+                        <BodyCell
+                            type="td"
+                            sx={{
+                                textAlign: 'center',
+                            }}
+                        >
+                            {row.id
+                                ?.slice(0, 4)
+                                .padStart(4, '0')}
+                        </BodyCell>
+                        <BodyCell
+                            type="td"
+                            sx={{
+                                display: 'flex',
+                                alignItems: 'center',
+                            }}
+                        >
+                            <Avatar
+                                src={
+                                    row.gender
+                                        ? MalePatient
+                                        : FemalePatient
+                                }
+                                sx={{
+                                    width: 32,
+                                    height: 32,
+                                    mr: 1,
+                                }}
+                            />
+                            <Box>
+                                <p>
+                                    {row.last_name +
+                                        ' ' +
+                                        row.first_name}
+                                </p>
+                                <Typography color="#888">
+                                    {row.phone}
+                                </Typography>
+                            </Box>
+                        </BodyCell>
+                        <BodyCell type="td" sx={{}}>
+                            {row.type
+                                ? 'Tái khám'
+                                : 'Khám mới'}
+                        </BodyCell>
+                        <BodyCell type="td" sx={{}}>
+                            {row.time}
+                        </BodyCell>
+                        <BodyCell type="td" sx={{}}>
+                            <StatusPaper
+                                status={
+                                    statusText[row.status]
+                                        ?.style
+                                }
+                            >
+                                {
+                                    statusText[row.status]
+                                        ?.text
+                                }
+                            </StatusPaper>
+                        </BodyCell>
+                        <BodyCell
+                            type="td"
+                            sx={{
+                                width: '45px',
+                                // opacity: getOpacity(row.status),
+                                '& svg': {
+                                    opacity: 0.5,
+                                    transition:
+                                        'opacity .3s',
+                                },
+                            }}
+                        >
+                            {row.status === 1 &&
+                                row.id === nextPatient && (
+                                    <Tooltip
+                                        title="Đưa vào hàng đợi"
+                                        followCursor
+                                    >
+                                        <IconButton
+                                            onClick={addToQueue(
+                                                row.patient_id,
+                                                row.id,
+                                                row.type,
+                                            )}
+                                        >
+                                            <AddCircleIcon
+                                                sx={{
+                                                    fontSize:
+                                                        '1.8rem',
+                                                }}
+                                            />
+                                        </IconButton>
+                                    </Tooltip>
+                                )}
+                        </BodyCell>
+                    </>
+                )}
+            />
         </CustomPaper>
     );
 }

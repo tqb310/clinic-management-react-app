@@ -18,6 +18,9 @@ import {
     sortAction,
     resetTableAction,
 } from './reducer';
+import NoData from 'pages/4-appointment/_components/AppointmentTable/_assets/no-date-result.png';
+import {SkeletonLoading} from '_components/shared/SkeletonLoading';
+import {Skeleton} from '@mui/material';
 import './index.scss';
 // import PropTypes from 'prop-types'
 
@@ -34,6 +37,8 @@ export const Table = function ({
     rowsPerPage = 0,
     rowHeight = '61.5px',
     pagination = false,
+    loading,
+    columnNumber = 1,
     ...rest
 }) {
     const preservedData = useRef(data).current;
@@ -42,6 +47,7 @@ export const Table = function ({
         reducer,
         {...initState, data},
     );
+
     const {data: localData, page} = tableState;
 
     useEffect(() => {
@@ -73,62 +79,118 @@ export const Table = function ({
                         />
                     </TableRow>
                 </Box>
-                <Box component="tbody">
-                    {localData &&
-                        localData
-                            .slice(
-                                page * rowsPerPage,
-                                (page + 1) * rowsPerPage,
-                            )
-                            .map((row, index) => {
-                                return (
-                                    <TableRow
-                                        key={index}
-                                        sx={Object.assign(
-                                            {
-                                                borderBottom:
-                                                    '1px solid #ddd',
-                                                transition:
-                                                    'background-color .3s',
-                                                '&:hover': {
-                                                    ...hoverStyle,
-                                                },
-                                            },
-                                            selected.includes(
-                                                row.id,
-                                            )
-                                                ? {
-                                                      ...activeStyle,
-                                                  }
-                                                : {},
-                                        )}
-                                    >
-                                        {renderDataRow(
-                                            row,
-                                            index,
-                                            tableState,
-                                            dispatchTable,
-                                        )}
-                                    </TableRow>
-                                );
-                            })}
-                    {isRenderEmptyRow &&
-                        localData.length -
-                            page * rowsPerPage <
-                            rowsPerPage &&
-                        Array.from(
-                            new Array(
-                                rowsPerPage -
-                                    (localData.length -
-                                        page * rowsPerPage),
-                            ),
-                            _ => (
-                                <TableRow
-                                    sx={{height: rowHeight}}
-                                />
+                {loading ? (
+                    <Box component="tbody">
+                        {Array.from(
+                            new Array(rowsPerPage),
+                            (_, index) => (
+                                <TableRow key={index}>
+                                    {Array.from(
+                                        new Array(
+                                            columnNumber,
+                                        ),
+                                        (_, index) => (
+                                            <TableCell
+                                                key={index}
+                                                type="td"
+                                            >
+                                                <Skeleton
+                                                    sx={{
+                                                        mr: 2,
+                                                        py: 1,
+                                                    }}
+                                                />
+                                            </TableCell>
+                                        ),
+                                    )}
+                                </TableRow>
                             ),
                         )}
-                </Box>
+                    </Box>
+                ) : (
+                    <Box component="tbody">
+                        {localData && localData.length ? (
+                            <>
+                                {localData
+                                    .slice(
+                                        page * rowsPerPage,
+                                        (page + 1) *
+                                            rowsPerPage,
+                                    )
+                                    .map((row, index) => {
+                                        return (
+                                            <TableRow
+                                                key={index}
+                                                sx={Object.assign(
+                                                    {
+                                                        borderBottom:
+                                                            '1px solid #ddd',
+                                                        transition:
+                                                            'background-color .3s',
+                                                        '&:hover':
+                                                            {
+                                                                ...hoverStyle,
+                                                            },
+                                                    },
+                                                    selected.includes(
+                                                        row.id,
+                                                    )
+                                                        ? {
+                                                              ...activeStyle,
+                                                          }
+                                                        : {},
+                                                )}
+                                            >
+                                                {renderDataRow(
+                                                    row,
+                                                    index,
+                                                    tableState,
+                                                    dispatchTable,
+                                                )}
+                                            </TableRow>
+                                        );
+                                    })}
+                                {isRenderEmptyRow &&
+                                    localData.length -
+                                        page * rowsPerPage <
+                                        rowsPerPage &&
+                                    Array.from(
+                                        new Array(
+                                            rowsPerPage -
+                                                (localData.length -
+                                                    page *
+                                                        rowsPerPage),
+                                        ),
+                                        _ => (
+                                            <TableRow
+                                                sx={{
+                                                    height: rowHeight,
+                                                }}
+                                            />
+                                        ),
+                                    )}
+                            </>
+                        ) : (
+                            <TableRow>
+                                <TableCell
+                                    type="td"
+                                    colSpan={columnNumber}
+                                >
+                                    <img
+                                        src={NoData}
+                                        alt="empty logo"
+                                        width={408}
+                                        style={{
+                                            margin: '60px auto 0',
+                                            display:
+                                                'block',
+                                        }}
+                                    />
+                                </TableCell>
+                            </TableRow>
+                        )}
+                    </Box>
+                )}
             </Box>
             <Box
                 sx={{

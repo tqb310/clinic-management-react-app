@@ -25,6 +25,9 @@ function Employee(props) {
     const selectedEmployee = useSelector(
         state => state.employees.selectedEmployee,
     );
+    const loading = useSelector(
+        state => state.employees.isLoading,
+    );
 
     const handleSelectEmployee = employeeId => e => {
         dispatch(setSelectedEmployee(employeeId));
@@ -95,6 +98,7 @@ function Employee(props) {
                         handleSelectEmployee
                     }
                     setOpenToast={setOpen}
+                    loading={loading}
                 />
             </CustomPaper>
             <RightBar>

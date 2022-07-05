@@ -8,6 +8,7 @@ import Auth from '_components/core/Auth';
 import PrivateRoute from '_components/core/PrivateRoute';
 // import NotLoggedInRoute from '_components/core/NotLoggedInRoute';
 import LoggedInApp from '_components/core/LoggedInApp';
+import PropagateLoader from 'react-spinners/PropagateLoader';
 import './App.scss';
 
 const Login = lazy(() => import('./pages/login'));
@@ -18,7 +19,23 @@ const NotFound = lazy(() =>
 
 function App() {
     return (
-        <Suspense fallback={<div>Loading ...</div>}>
+        <Suspense
+            fallback={
+                <div
+                    style={{
+                        minHeight: '100vh',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+                    <PropagateLoader
+                        color="#2e3192"
+                        size={20}
+                    />
+                </div>
+            }
+        >
             <Router>
                 <Auth>
                     <Switch>

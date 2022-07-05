@@ -37,6 +37,7 @@ function PatientTable({
     tableData,
     selected,
     selectedPatient,
+    loading,
 }) {
     const dispatch = useDispatch();
     //Handle when check a row
@@ -84,6 +85,8 @@ function PatientTable({
             }}
             pagination
             rowsPerPage={8}
+            columnNumber={headCells.length}
+            loading={loading}
             selected={selected}
             header={() => {
                 return (

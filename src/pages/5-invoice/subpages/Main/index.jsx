@@ -50,6 +50,7 @@ function Main(props) {
         selectedPaidInvoice,
         numberNotPaid,
         numberPaid,
+        isLoading: loading,
     } = useSelector(state => state.invoices);
 
     //Invoking when delete all selected items
@@ -174,6 +175,7 @@ function Main(props) {
                     selectedInvoiceId={
                         selectedPaidInvoice?.id
                     }
+                    loading={loading}
                 />
                 <Drawer
                     anchor="right"

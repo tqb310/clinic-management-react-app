@@ -54,6 +54,7 @@ function TableContent({
     openAlertDialog,
     nextPatient,
     selectedAppointment = {},
+    loading = {loading},
 }) {
     const dispatch = useDispatch();
     const [anchor, setAnchor] = useState(null);
@@ -79,7 +80,9 @@ function TableContent({
             }}
             data={tableData}
             pagination
+            loading={loading}
             rowsPerPage={5}
+            columnNumber={headCells.length}
             header={() => {
                 return (
                     <>

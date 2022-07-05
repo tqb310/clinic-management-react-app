@@ -26,7 +26,9 @@ function Queue(props) {
     const activeQueueData = useSelector(
         state => state.queues.data,
     );
-
+    const loading = useSelector(
+        state => state.queues.isLoading,
+    );
     const numberEachStatus = useSelector(
         state => state.queues.numberEachStatus,
     );
@@ -90,6 +92,7 @@ function Queue(props) {
                 <QueueList
                     queueData={activeQueueData}
                     numberEachStatus={numberEachStatus}
+                    loading={loading}
                 />
                 <LocationProvider>
                     <AddForm handleSubmit={handleSubmit} />

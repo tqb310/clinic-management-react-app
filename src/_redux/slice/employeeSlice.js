@@ -7,7 +7,7 @@ import EmployeeServices from '_services/firebase/employee.service';
 const initialState = {
     data: [],
     selected: [],
-    isLoading: false,
+    isLoading: true,
     selectedEmployee: null,
 };
 

@@ -19,7 +19,6 @@ import {
     resetTableAction,
 } from './reducer';
 import NoData from 'pages/4-appointment/_components/AppointmentTable/_assets/no-date-result.png';
-import {SkeletonLoading} from '_components/shared/SkeletonLoading';
 import {Skeleton} from '@mui/material';
 import './index.scss';
 // import PropTypes from 'prop-types'

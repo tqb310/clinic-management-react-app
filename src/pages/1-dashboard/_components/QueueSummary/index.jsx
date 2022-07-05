@@ -8,7 +8,7 @@ import {ArrowDownward} from '@mui/icons-material';
 import {Link} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import RoleMap from '_constants/role';
-import {SkeletonLoading} from '_components/shared/SkeletonLoading';
+import {ListSkeleton} from '_components/shared/SkeletonLoading';
 import './index.scss';
 // import PropTypes from 'prop-types'
 const statusArray = [
@@ -85,7 +85,7 @@ function QueueSummary({data, loading}) {
             </Typography>
             {loading ? (
                 Array.from(new Array(5), (_, index) => (
-                    <SkeletonLoading
+                    <ListSkeleton
                         key={index}
                         sx={{mt: 2}}
                     />

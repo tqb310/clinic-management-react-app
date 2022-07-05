@@ -6,6 +6,7 @@ import {
 import invoiceServices from '_services/firebase/invoice.service';
 import getDateTimeComparator from '../../_helpers/getDateTimeComparator';
 import {formatDate} from '_helpers/handleDate';
+import sleep from '_helpers/sleep';
 
 const initialState = {
     data: [],
@@ -87,7 +88,37 @@ export const deleteInvoiceBatch = createAsyncThunk(
         return result;
     },
 );
-const appointmentSlice = createSlice({
+
+export const filterData = createAsyncThunk(
+    'invoices/filterData',
+    async (tabIndex, thunkAPI) => {
+        const result = await sleep(1000, () => {
+            const {invoices} = thunkAPI.getState();
+            let filteredData = [];
+            if (tabIndex === 0)
+                filteredData = invoices.data;
+            else {
+                let flag = 0;
+                if (tabIndex === 2) flag = 1;
+                filteredData = invoices.data.filter(
+                    invoice => {
+                        return (
+                            Boolean(
+                                invoice.paying_customer,
+                            ) === Boolean(flag)
+                        );
+                    },
+                );
+            }
+            return {
+                tabIndex,
+                filteredData,
+            };
+        });
+        return result;
+    },
+);
+const invoiceSlice = createSlice({
     name: 'invoices',
     initialState,
     reducers: {
@@ -109,25 +140,6 @@ const appointmentSlice = createSlice({
         },
         switchDrawer: (state, action) => {
             state.isOpenDrawer = action.payload;
-        },
-        filterData: (state, action) => {
-            state.tabIndex = action.payload;
-            if (action.payload === 0)
-                state.filteredData = state.data;
-            else {
-                let flag = 0;
-                if (action.payload === 2) flag = 1;
-
-                state.filteredData = state.data.filter(
-                    invoice => {
-                        return (
-                            Boolean(
-                                invoice.paying_customer,
-                            ) === Boolean(flag)
-                        );
-                    },
-                );
-            }
         },
     },
     extraReducers: {
@@ -204,17 +216,26 @@ const appointmentSlice = createSlice({
             );
             state.selected = [];
         },
+        [filterData.pending]: state => {
+            state.isLoading = true;
+        },
+        [filterData.fulfilled]: (state, action) => {
+            state.tabIndex = action.payload.tabIndex;
+            state.filteredData =
+                action.payload?.filteredData || [];
+            state.isLoading = false;
+        },
     },
 });
 
-const {reducer, actions} = appointmentSlice;
+const {reducer, actions} = invoiceSlice;
 export const {
     deleteData,
     selectData,
     setData,
     switchDrawer,
     setSelectedPaidInvoice,
-    filterData,
+    // filterData,
     updateData,
 } = actions;
 export default reducer;

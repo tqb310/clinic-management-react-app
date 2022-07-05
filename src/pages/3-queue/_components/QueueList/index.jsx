@@ -10,7 +10,7 @@ import {
 import {onSnapshot, collection} from 'firebase/firestore';
 import {db} from '_services/firebase/app';
 import PaperImg from '_assets/images/paper.png';
-import {SkeletonLoading} from '_components/shared/SkeletonLoading';
+import {ListSkeleton} from '_components/shared/SkeletonLoading';
 import './index.scss';
 // import PropTypes from 'prop-types';
 
@@ -146,7 +146,7 @@ function QueueList({queueData, numberEachStatus, loading}) {
                     {Array.from(
                         new Array(3),
                         (_, index) => (
-                            <SkeletonLoading
+                            <ListSkeleton
                                 key={index}
                                 sx={{mt: 2}}
                             />

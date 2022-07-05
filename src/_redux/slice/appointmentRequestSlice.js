@@ -7,7 +7,7 @@ import appointmentRequestServices from '_services/firebase/appointment-request.s
 const initialState = {
     data: [],
     isOpenConfirmForm: false,
-    isLoading: false,
+    isLoading: true,
     selectedRequest: null,
     err: '',
 };

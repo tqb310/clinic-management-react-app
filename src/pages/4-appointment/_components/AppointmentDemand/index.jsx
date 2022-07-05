@@ -20,6 +20,7 @@ import {appointmentModel, patientModel} from '_models';
 import appointmentService from '_services/firebase/appointment.service';
 import appointmentRequestService from '_services/firebase/appointment-request.service';
 import getDateTimeComparator from '_helpers/getDateTimeComparator';
+import {CardSkeleton} from '_components/shared/SkeletonLoading';
 import './index.scss';
 
 const tabsName = [
@@ -179,53 +180,64 @@ function AppointmentDemand() {
                     </div>
                 ))}
             </div>
-            <Scrollbars
-                style={{width: '100%', height: '85%'}}
-                autoHide={true}
-            >
-                {requestList.length ? (
-                    requestList.map(item => (
-                        <RequestItem
-                            key={item.id}
-                            id={item.id}
-                            patientName={
-                                item.last_name +
-                                ' ' +
-                                item.first_name
-                            }
-                            phone={item.phone}
-                            timeStamp={getCreatedTime(
-                                new Date(
-                                    formatDate(
-                                        item.create_at_date,
-                                        item.create_at_time,
-                                    ),
-                                ),
-                                new Date(Date.now()),
-                            ).toString()}
-                            gender={item.gender}
-                            date={item.date}
-                            time={item.time}
-                            approvalAction={approvalAction}
-                            cancelAction={cancelAction}
-                            isApproved={
-                                tabsName[tabIndex]
-                                    .status === 1
-                            }
-                        />
-                    ))
-                ) : (
-                    <img
-                        src={PaperImage}
-                        alt="empty logo"
-                        width={256}
-                        style={{
-                            marginTop: '60px',
-                            opacity: 0.5,
-                        }}
+            {requestState.isLoading ? (
+                Array.from(new Array(3), (_, index) => (
+                    <CardSkeleton
+                        key={index}
+                        sx={{mx: 2, mt: 3}}
                     />
-                )}
-            </Scrollbars>
+                ))
+            ) : (
+                <Scrollbars
+                    style={{width: '100%', height: '85%'}}
+                    autoHide={true}
+                >
+                    {requestList.length ? (
+                        requestList.map(item => (
+                            <RequestItem
+                                key={item.id}
+                                id={item.id}
+                                patientName={
+                                    item.last_name +
+                                    ' ' +
+                                    item.first_name
+                                }
+                                phone={item.phone}
+                                timeStamp={getCreatedTime(
+                                    new Date(
+                                        formatDate(
+                                            item.create_at_date,
+                                            item.create_at_time,
+                                        ),
+                                    ),
+                                    new Date(Date.now()),
+                                ).toString()}
+                                gender={item.gender}
+                                date={item.date}
+                                time={item.time}
+                                approvalAction={
+                                    approvalAction
+                                }
+                                cancelAction={cancelAction}
+                                isApproved={
+                                    tabsName[tabIndex]
+                                        .status === 1
+                                }
+                            />
+                        ))
+                    ) : (
+                        <img
+                            src={PaperImage}
+                            alt="empty logo"
+                            width={256}
+                            style={{
+                                marginTop: '60px',
+                                opacity: 0.5,
+                            }}
+                        />
+                    )}
+                </Scrollbars>
+            )}
             <LocationProvider>
                 <ConfirmRequest
                     title="Duyệt yêu cầu đặt lịch hẹn"

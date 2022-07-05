@@ -151,17 +151,17 @@ function Main(props) {
                             placeholder="Số thứ tự, tên, số điện thoại ..."
                         />
                     </Box>
-                    <Button
+                    {/* <Button
                         startIcon={<Add />}
                         variant="outlined"
                         sx={{ml: 'auto'}}
                     >
                         Tạo
-                    </Button>
+                    </Button> */}
                     <Button
                         variant="outlined"
                         startIcon={<Delete />}
-                        sx={{ml: 1}}
+                        sx={{ml: 'auto'}}
                         disabled={selected.length === 0}
                         color="error"
                         onClick={handleDeleteItem}

@@ -9,6 +9,7 @@ import {
 } from '_helpers/handleDate';
 import appointmentServices from '_services/firebase/appointment.service';
 import getDateTimeComparator from '../../_helpers/getDateTimeComparator';
+import sleep from '_helpers/sleep';
 
 const initialState = {
     data: [],
@@ -69,19 +70,15 @@ export const setDataNumberAsync = createAsyncThunk(
         return number;
     },
 );
-const appointmentSlice = createSlice({
-    name: 'appointments',
-    initialState,
-    reducers: {
-        setData: (state, action) => {
-            state.data = action.payload;
-        },
-        selectDate: (state, action) => {
-            state.selectedDate =
-                action.payload || state.selectedDate;
+
+export const selectDate = createAsyncThunk(
+    'appointments/selectDateAsync',
+    async (selectDate, thunkAPI) => {
+        const result = await sleep(500, () => {
+            const {appointments} = thunkAPI.getState();
             const tempData =
-                state.data &&
-                state.data
+                appointments.data &&
+                appointments.data
                     .filter(appointment => {
                         return !compare2Days(
                             new Date(
@@ -89,8 +86,8 @@ const appointmentSlice = createSlice({
                                     appointment.date,
                                 ),
                             ),
-                            action.payload ||
-                                state.selectedDate,
+                            selectDate ||
+                                appointments.selectedDate,
                         );
                     })
                     .sort((item1, item2) =>
@@ -105,10 +102,20 @@ const appointmentSlice = createSlice({
                             ),
                         ),
                     );
-            state.dataByDate = tempData;
-            state.nextPatient =
-                tempData.find(a => a.status === 1)?.id ||
-                '';
+            return {
+                selectDate,
+                tempData,
+            };
+        });
+        return result;
+    },
+);
+const appointmentSlice = createSlice({
+    name: 'appointments',
+    initialState,
+    reducers: {
+        setData: (state, action) => {
+            state.data = action.payload;
         },
         deleteData: (state, action) => {
             state.selected = [];
@@ -177,13 +184,28 @@ const appointmentSlice = createSlice({
         [setDataNumberAsync.fulfilled]: (state, action) => {
             state.number = action.payload;
         },
+        [selectDate.pending]: state => {
+            state.isLoading = true;
+        },
+        [selectDate.fulfilled]: (state, action) => {
+            state.selectedDate =
+                action.payload?.selectDate ||
+                state.selectedDate;
+            state.dataByDate =
+                action.payload?.tempData || [];
+            state.nextPatient =
+                action.payload?.tempData.find(
+                    a => a.status === 1,
+                )?.id || '';
+            state.isLoading = false;
+        },
     },
 });
 
 const {reducer, actions} = appointmentSlice;
 export const {
     deleteData,
-    selectDate,
+    // selectDate,
     setData,
     setOpenForm,
     openAppointmentDetail,

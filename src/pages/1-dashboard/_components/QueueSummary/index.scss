@@ -1,0 +1,23 @@
+.queue-summary {
+    height: 100%;
+    padding: 1rem 2rem;
+    position: relative;
+    &__more {
+        position: absolute;
+        bottom: 10px;
+        left: 50%;
+        animation: slideUpDown 3s ease-in-out infinite;
+    }
+}
+
+@keyframes slideUpDown {
+    0% {
+        transform: translate(-50%, 0px);
+    }
+    50% {
+        transform: translate(-50%, 5px);
+    }
+    100% {
+        transform: translate(-50%, 0px);
+    }
+}

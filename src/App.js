@@ -1,31 +1,80 @@
 import React, {Suspense, lazy} from 'react';
-import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom';
-import PrivateRoute from '_components/PrivateRoute/index';
+import {
+    BrowserRouter as Router,
+    Route,
+    Switch,
+} from 'react-router-dom';
+import Auth from '_components/core/Auth';
+import PrivateRoute from '_components/core/PrivateRoute';
+// import NotLoggedInRoute from '_components/core/NotLoggedInRoute';
+import LoggedInApp from '_components/core/LoggedInApp';
+import PropagateLoader from 'react-spinners/PropagateLoader';
 import './App.scss';
 
-const ReceptionistModule = lazy(() => import('./ReceptionPages'));
-const DoctorModule = lazy(() => import('./DoctorPages'));
-const ManagerModule = lazy(() => import('./ManagerPages'));
-const Login = lazy(() => import('./PublicPages/login'));
-const NotFound = lazy(() => import('_components/NotFound'));
+const Login = lazy(() => import('./pages/login'));
+const Customer = lazy(() => import('./pages/customer'));
+const NotFound = lazy(() =>
+    import('./_components/core/NotFound'),
+);
 
 function App() {
-  return (
-    <div>
-      <Suspense fallback={<div>Loading ...</div>}>
-        <Router>
-          <Switch>
-            <Route path="/" exact render={() => (<Redirect to="/dang-nhap"/>)}/>
-            <Route path="/dang-nhap" exact component={Login}/>
-            <PrivateRoute path="/tiep-tan" roles="1" component={ReceptionistModule}/>
-            <PrivateRoute path="/quan-ly" roles="2" component={ManagerModule}/>
-            <PrivateRoute path="/bac-si" roles="3" component={DoctorModule}/>
-            <Route component={NotFound}/>
-          </Switch>
-        </Router>
-      </Suspense>
-    </div>
-  );
+    return (
+        <Suspense
+            fallback={
+                <div
+                    style={{
+                        minHeight: '100vh',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                    }}
+                >
+                    <PropagateLoader
+                        color="#2e3192"
+                        size={20}
+                    />
+                </div>
+            }
+        >
+            <Router>
+                <Auth>
+                    <Switch>
+                        <Route
+                            path="/"
+                            exact
+                            component={Login}
+                        />
+                        <Route
+                            path="/dang-nhap"
+                            exact
+                            component={Login}
+                        />
+                        <Route
+                            path="/dat-lich-hen"
+                            exact
+                            component={Customer}
+                        />
+                        <PrivateRoute
+                            path="/tiep-tan"
+                            role={1}
+                            component={LoggedInApp}
+                        />
+                        <PrivateRoute
+                            path="/bac-si"
+                            role={2}
+                            component={LoggedInApp}
+                        />
+                        <PrivateRoute
+                            path="/quan-ly"
+                            role={3}
+                            component={LoggedInApp}
+                        />
+                        <Route component={NotFound} />
+                    </Switch>
+                </Auth>
+            </Router>
+        </Suspense>
+    );
 }
 
 export default App;

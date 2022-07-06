@@ -1,0 +1,19 @@
+.card-wrapper {
+    margin-bottom: 20px;
+    .card {
+        display: flex;
+        align-items: center;
+        background: #fff;
+        padding: 2rem 1rem;
+        img {
+            display: inline-block;
+            margin-left: 5px;
+        }
+        .text-wrapper {
+            display: flex;
+            flex-direction: column;
+            margin-left: 15px;
+            text-align: left;
+        }
+    }
+}

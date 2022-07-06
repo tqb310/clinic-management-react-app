@@ -1,0 +1,14 @@
+.list-item {
+    display: flex;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    &__info {
+        flex: 1;
+        margin-left: 1rem;
+    }
+    &:hover {
+        background-color: #fafafa;
+    }
+}

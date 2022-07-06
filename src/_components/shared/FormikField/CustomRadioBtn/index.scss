@@ -1,0 +1,31 @@
+.CustomRadio__container {
+    align-self: flex-end;
+    .CustomRadio__input {
+        appearance: none;
+    }
+
+    .CustomRadio__input + label {
+        display: inline-block;
+        padding: 0.1rem 0.3rem;
+        border: 2px solid #bdbdbd;
+        border-radius: 0.5rem;
+        color: #bdbdbd;
+        cursor: pointer;
+        font-weight: 500;
+        user-select: none;
+    }
+
+    input[type='radio']:checked + label {
+        border: 2px solid var(--primary-color);
+        border-radius: 0.5rem;
+        color: var(--primary-color);
+        font-weight: 600;
+    }
+
+    input[type='radio']:disabled + label {
+        font-weight: 600;
+        opacity: 0.6;
+        background-color: #ccc;
+        color: #fff;
+    }
+}

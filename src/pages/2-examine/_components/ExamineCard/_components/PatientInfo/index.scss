@@ -1,0 +1,17 @@
+.ECPatientInfo {
+    &__avatar {
+        &Inner {
+            width: 80px;
+            height: 110px;
+            border-radius: 10px;
+            color: white;
+            background-color: #ad8200;
+            text-align: center;
+            line-height: 7rem;
+            font: {
+                size: 2rem;
+                weight: 500;
+            }
+        }
+    }
+}

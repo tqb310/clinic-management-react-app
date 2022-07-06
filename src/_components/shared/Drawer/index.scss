@@ -1,0 +1,31 @@
+.drawer {
+    &__overlay {
+        z-index: 10;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(
+            $color: #000000,
+            $alpha: 0.05
+        );
+        display: none;
+    }
+    &__content {
+        z-index: 11;
+        position: fixed;
+        box-shadow: 0 0 10px #ccc;
+        top: 0;
+        bottom: 0;
+        transition: transform 0.3s;
+    }
+    &.active {
+        .drawer__overlay {
+            display: block;
+        }
+        .drawer__content {
+            transform: translateX(0);
+        }
+    }
+}

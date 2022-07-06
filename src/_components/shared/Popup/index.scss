@@ -1,0 +1,16 @@
+.popup-container {
+    position: absolute;
+    display: none;
+    min-width: calc(100% + 30px);
+    max-height: 500px;
+    overflow-y: auto;
+    white-space: nowrap;
+    background-color: white;
+    z-index: 2;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    top: 40px;
+    padding: 1rem 0;
+    &.open {
+        display: block;
+    }
+}

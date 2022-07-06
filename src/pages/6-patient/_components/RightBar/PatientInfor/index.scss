@@ -1,0 +1,51 @@
+@import '_assets/style/_mixins.scss';
+
+.PatientInfor {
+    text-align: left;
+    padding: 1rem 2rem;
+    margin-bottom: 20px;
+    &__EditIcon {
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+    &__general,
+    &__rest {
+        border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    }
+    &__general {
+        display: flex;
+        margin-bottom: 20px;
+        .PatientInfor__name {
+            margin-left: 1.5rem;
+            p {
+                margin: 0;
+            }
+            p:last-child {
+                font-size: 1.3rem;
+                color: #888;
+            }
+        }
+    }
+    &__rest {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-column-gap: 2rem;
+        .PatientInfor__item {
+            font-weight: 300;
+            p:first-child {
+                @include titleInRightBar();
+            }
+            margin-bottom: 20px;
+        }
+        .PatientInfor__item.full {
+            grid-column: 1/3;
+        }
+        .PatientInfor__note {
+            height: 70px;
+        }
+    }
+    .queryIcon {
+        @include iconInRightBar(0.1rem);
+    }
+}

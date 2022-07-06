@@ -1,0 +1,55 @@
+.queue-list-doctor__item {
+    display: flex;
+    align-items: center;
+    padding: 10px 5px;
+    user-select: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 0 8px #ccc;
+    border-radius: 10px;
+    margin-top: 15px;
+    &.active {
+        background-color: #f8f8f8;
+    }
+    &:hover {
+        background-color: #f5f5f5;
+    }
+    &-info {
+        text-align: left;
+    }
+}
+
+.RBDoctorHome {
+    box-sizing: border-box;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    &__examining {
+        background-color: var(--background-main);
+        border-radius: 8px;
+        color: black;
+    }
+    &__queueTab {
+        display: flex;
+        background-color: #f9f9f9;
+        justify-content: space-between;
+        padding: 1.5rem;
+        border-radius: 30px;
+        &-item {
+            padding: 0.8rem 0;
+            width: 47%;
+            border-radius: 20px;
+            font-weight: 400;
+            font-size: 1.4rem;
+            color: #444;
+            user-select: none;
+            cursor: pointer;
+            &:hover {
+                background-color: #f0f0f0;
+            }
+        }
+        &-item.active {
+            background-color: var(--primary-color);
+            color: #fff;
+        }
+    }
+}

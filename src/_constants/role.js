@@ -1,33 +1,25 @@
-// const role = {
-//     manager: 'Manager',
-//     receptionist: 'Receptionist',
-//     doctor: 'Doctor'
-// };
-
-const role = new Map(
+const role = new Map([
     [
-        [
-            1,
-            {
-                url:'/tiep-tan',
-                name:'Receptionist'
-            }
-        ],
-        [
-            2,
-            {
-                url:'/quan-ly',
-                name:'Manager'
-            }
-        ],
-        [
-            3,
-            {
-                url:'/bac-si',
-                name:'Doctor'
-            }
-        ],
-    ]
-)
-export default role;
+        1,
+        {
+            url: '/tiep-tan',
+            name: 'Tiếp tân',
+        },
+    ],
+    [
+        3,
+        {
+            url: '/quan-ly',
+            name: 'Quản lý',
+        },
+    ],
+    [
+        2,
+        {
+            url: '/bac-si',
+            name: 'Bác sĩ',
+        },
+    ],
+]);
 
+export default role;

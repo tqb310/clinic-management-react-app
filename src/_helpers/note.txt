@@ -1,1 +1,0 @@
-Ai có xây dựng hàm chức năng nào đó thì tạo trong thư mục này để ae dùng chung.

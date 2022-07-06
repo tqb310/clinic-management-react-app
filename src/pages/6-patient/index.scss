@@ -1,0 +1,28 @@
+.patient-stat {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 1.5rem 1rem;
+    img {
+        display: inline-block;
+        margin-left: 5px;
+    }
+    .text-wrapper {
+        display: flex;
+        flex-direction: column;
+        margin-left: 15px;
+        text-align: left;
+    }
+}
+
+.patient-table-container {
+    background-color: #fff;
+    padding: 1rem 2rem 0.7rem;
+}
+
+.patient-stat-container {
+    display: flex;
+    padding: 0.5rem 2rem;
+    justify-content: space-between;
+    margin-bottom: 16px;
+}

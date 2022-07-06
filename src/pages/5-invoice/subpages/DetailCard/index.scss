@@ -1,0 +1,46 @@
+.DetailCard {
+    margin-right: 1rem;
+
+    &__title {
+        font-size: 15px;
+        font-weight: 500;
+        display: flex;
+        margin-bottom: 30px;
+        &Back {
+            padding: 0 0.4rem;
+            margin-right: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            &:hover {
+                background-color: rgba(
+                    $color: #fff,
+                    $alpha: 0.4
+                );
+            }
+            .icon {
+                transition: all 0.3s;
+            }
+            &:active .icon {
+                transform: scale(0.8, 0.8);
+            }
+        }
+        &Word {
+            line-height: 30px;
+            padding: 0 1.5rem;
+        }
+        &Back {
+            padding-top: 0.25rem;
+        }
+        &-switch {
+            margin-left: auto;
+            padding: 0 2rem;
+            line-height: 30px;
+        }
+    }
+    &__content {
+        padding: 1.3rem 2.2rem;
+        margin-top: 1rem;
+        height: 100%;
+        margin-bottom: 30px;
+    }
+}

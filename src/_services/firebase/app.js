@@ -2,25 +2,15 @@ import * as firebase from 'firebase/app';
 import {getAuth} from 'firebase/auth';
 import {getFirestore} from 'firebase/firestore';
 
-// const firebaseConfig = {
-//     apiKey: 'AIzaSyAckNtonObKKjAVx1HsYLROT9gH_brpjlA',
-//     authDomain: 'project-demo-18310.firebaseapp.com',
-//     databaseURL:
-//         'https://project-demo-18310.firebaseio.com',
-//     projectId: 'project-demo-18310',
-//     storageBucket: 'project-demo-18310.appspot.com',
-//     messagingSenderId: '764104046491',
-//     appId: '1:764104046491:web:ef3408cf0f95698f6c133e',
-//     measurementId: 'G-GDDPFNJ5K1',
-// };
 const firebaseConfig = {
-    apiKey: 'AIzaSyATBmb87L0x1OF1fVGS_psMb3sgVD54_s0',
-    authDomain: 'clinic-management-website.firebaseapp.com',
-    projectId: 'clinic-management-website',
-    storageBucket: 'clinic-management-website.appspot.com',
-    messagingSenderId: '424460823077',
-    appId: '1:424460823077:web:f4fe8d7a131bf8e483edcc',
-    measurementId: 'G-J4PX75EKWG',
+    apiKey: process.env.REACT_APP_API_KEY,
+    authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+    projectId: process.env.REACT_APP_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+    messagingSenderId:
+        process.env.REACT_APP_MESSAGING_SENDER_ID,
+    appId: process.env.REACT_APP_APP_ID,
+    measurementId: process.env.REACT_APP_MEASUREMENT_ID,
 };
 
 let app = null;

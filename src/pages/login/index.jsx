@@ -5,11 +5,13 @@ import doctorImage from '_assets/images/banner.gif';
 import clinic from '_assets/images/clinic.png';
 import authentication from '_services/firebase/authentication.service';
 import {useSelector} from 'react-redux';
+import {Link} from 'react-router-dom';
+import EventIcon from '@mui/icons-material/Event';
 // import {useSelector} from 'react-redux';
 import {
     CardMedia,
     Typography,
-    // Button,
+    Button,
     IconButton,
     InputAdornment,
     Alert,
@@ -26,8 +28,9 @@ import './index.scss';
 const authCode = {
     'auth/wrong-password':
         'Sai mật khẩu. Vui lòng nhập lại!',
-    'auth/user-not-found': 'Tài khoản không tồn tại',
-    'auth/invalid-email': 'Email không hợp lệ',
+    'auth/user-not-found': 'Tài khoản không tồn tại!',
+    'auth/invalid-email': 'Email không hợp lệ!',
+    'auth/internal-error': 'Chưa nhập mật khẩu!',
 };
 
 function Login(props) {
@@ -51,6 +54,7 @@ function Login(props) {
             setLoading(true);
             await authentication.logIn(email, password);
         } catch (error) {
+            console.log(error);
             setError(authCode[error.code]);
         } finally {
             setLoading(false);
@@ -185,6 +189,22 @@ function Login(props) {
                         Đăng Nhập
                     </LoadingButton>
                 </div>
+                <Link to="/dat-lich-hen">
+                    <Button
+                        endIcon={<EventIcon />}
+                        color="info"
+                        variant="outlined"
+                        sx={{
+                            position: 'absolute',
+                            bottom: '50px',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            width: '70%',
+                        }}
+                    >
+                        Đặt lịch hẹn
+                    </Button>
+                </Link>
             </div>
         </div>
     );

@@ -10,6 +10,7 @@ export function CustomRadioGroup({
     name,
     minTime,
     placedList,
+    selectDate,
 }) {
     //   const onChange = () => {};
     return (
@@ -20,6 +21,7 @@ export function CustomRadioGroup({
                 name,
                 minTime,
                 placedList,
+                selectDate,
             }}
         >
             {children}
@@ -34,7 +36,9 @@ export function CustomRadio({id, value, label}) {
         name,
         minTime,
         placedList,
+        selectDate,
     } = useContext(Context);
+    const date = selectDate || new Date();
     return (
         <div className="CustomRadio__container">
             <input
@@ -47,7 +51,7 @@ export function CustomRadio({id, value, label}) {
                 className="CustomRadio__input"
                 disabled={
                     new Date(
-                        new Date().toLocaleDateString() +
+                        date.toLocaleDateString() +
                             ' ' +
                             value,
                     ).getTime() < minTime.getTime() ||

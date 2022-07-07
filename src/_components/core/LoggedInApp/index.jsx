@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, IconButton} from '@mui/material';
+import {Box, IconButton, Stack} from '@mui/material';
 import {Add, Logout} from '@mui/icons-material';
 import SideBar from '_components/core/SideBar';
 import Header from '_components/core/Header';
@@ -37,7 +37,7 @@ function LoggedInApp({filteredRoutes}) {
     };
 
     return (
-        <Box className="pagewrapper">
+        <Stack direction="row" className="pagewrapper">
             <Box className="pagewrapper__left">
                 <img
                     className="pagewrapper__logo"
@@ -90,7 +90,10 @@ function LoggedInApp({filteredRoutes}) {
                     </Switch>
                 </Box>
             </Box>
-            <Box className="pagewrapper__right"></Box>
+            <Box
+                sx={{display: {xs: 'none', lg: 'block'}}}
+                className="pagewrapper__right"
+            ></Box>
             {role !== 2 && (
                 <Link
                     to={`${RoleMap.get(role).url}/hang-doi`}
@@ -114,7 +117,7 @@ function LoggedInApp({filteredRoutes}) {
                     </div>
                 </Link>
             )}
-        </Box>
+        </Stack>
     );
 }
 

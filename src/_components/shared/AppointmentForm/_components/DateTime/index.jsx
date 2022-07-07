@@ -172,6 +172,11 @@ function DateTimeChoice(props) {
                                             placedList={
                                                 placedList
                                             }
+                                            selectDate={
+                                                form.values
+                                                    .appointment
+                                                    .date
+                                            }
                                         >
                                             {form.errors
                                                 ?.appointment

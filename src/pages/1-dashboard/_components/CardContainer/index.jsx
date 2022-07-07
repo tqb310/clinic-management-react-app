@@ -71,7 +71,7 @@ function CardContainer({
                 className="dashboardCard__content"
             >
                 {cardData.map((card, index) => (
-                    <Grid item lg="3" key={index}>
+                    <Grid item xs={6} md={3} key={index}>
                         <Card
                             ptitle={card.title}
                             pdata={card.pdata}

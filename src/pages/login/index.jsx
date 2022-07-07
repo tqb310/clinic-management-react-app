@@ -15,7 +15,8 @@ import {
     IconButton,
     InputAdornment,
     Alert,
-    // Box
+    Stack,
+    Box,
 } from '@mui/material';
 import {
     Visibility,
@@ -66,8 +67,16 @@ function Login(props) {
         setShowPass(!showPass);
     };
     return (
-        <div className="login-container">
-            <div className="login-left">
+        <Stack direction="row" className="login-container">
+            <Box
+                sx={{
+                    display: {
+                        xs: 'none',
+                        md: 'block',
+                    },
+                }}
+                className="login-left"
+            >
                 <CardMedia
                     component="img"
                     src={doctorImage}
@@ -76,8 +85,8 @@ function Login(props) {
                         height: '100%',
                     }}
                 ></CardMedia>
-            </div>
-            <div className="login-right">
+            </Box>
+            <Box className="login-right">
                 <div className="login-right-logo">
                     <CardMedia
                         component="img"
@@ -206,8 +215,8 @@ function Login(props) {
                         Đặt lịch hẹn
                     </Button>
                 </Link>
-            </div>
-        </div>
+            </Box>
+        </Stack>
     );
 }
 

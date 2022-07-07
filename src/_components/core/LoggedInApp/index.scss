@@ -1,20 +1,19 @@
 .pagewrapper {
-    display: flex;
     height: 100vh;
     &__left {
         position: relative;
         padding: 15px 0;
-        flex-basis: 70px;
+        width: 70px;
         display: flex;
         flex-direction: column;
         align-items: center;
+        flex-shrink: 0;
     }
     &__center {
         flex: 1;
     }
     &__right {
         flex-basis: 400px;
-        // background-color: var(--primary-color);
     }
     &__logo {
         display: block;

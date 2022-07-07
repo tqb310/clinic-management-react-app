@@ -15,23 +15,17 @@
             border-radius: 5px;
         }
     }
-    &__number {
-        margin-top: 0.4rem;
-        margin-bottom: 0.5rem;
-        font-size: 2.6rem;
-        font-weight: 700;
-    }
-    &__compare {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        &-title {
-            font-size: 1.2rem;
-            font-weight: 400;
-        }
-        &-number {
-            font-size: 1.4rem;
-            margin-right: 10px;
-        }
-    }
+    // &__compare {
+    //     display: flex;
+    //     justify-content: space-between;
+    //     align-items: center;
+    //     &-title {
+    //         font-size: 1.2rem;
+    //         font-weight: 400;
+    //     }
+    //     &-number {
+    //         font-size: 1.4rem;
+    //         margin-right: 10px;
+    //     }
+    // }
 }

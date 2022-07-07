@@ -1,11 +1,12 @@
 import React, {memo} from 'react';
 import {CustomPaper} from '_components/shared/StyledComponent';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import {Typography} from '@mui/material';
+import './index.scss';
 // import {
 //     ArrowDownward,
 //     ArrowUpward,
 // } from '@mui/icons-material';
-import './index.scss';
 // import PropTypes from 'prop-types'
 
 function Card({ptitle, pdata, cdata, color, icon, status}) {
@@ -18,13 +19,11 @@ function Card({ptitle, pdata, cdata, color, icon, status}) {
                         style={{color: color}}
                     />
                 </div>
-                <div className="dcardContent__titleWord">
+                <Typography variant="h6">
                     {ptitle}
-                </div>
+                </Typography>
             </div>
-            <div className="dcardContent__number">
-                {pdata}
-            </div>
+            <Typography variant="h3">{pdata}</Typography>
             {/* <div className="dcardContent__compare">
                 <div
                     className="dcardContent__compare-number"

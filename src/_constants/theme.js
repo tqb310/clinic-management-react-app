@@ -25,15 +25,15 @@ const theme = {
     sans-serif`,
         htmlFontSize: 10,
         h1: {
-            fontSize: '5rem',
+            fontSize: '4rem',
             fontWeight: 600,
         },
         h2: {
-            fontSize: '3.75rem',
+            fontSize: '3.2rem',
             fontWeight: 700,
         },
         h3: {
-            fontSize: '3rem',
+            fontSize: '2.6rem',
             fontWeight: 700,
         },
         h4: {

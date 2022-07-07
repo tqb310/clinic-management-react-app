@@ -3,7 +3,7 @@ import CardContainer from './_components/CardContainer';
 import QueueSummary from './_components/QueueSummary';
 import Appointment from './_components/Appointment';
 import {RightBar} from '_components/shared/StyledComponent';
-import {Grid, Typography} from '@mui/material';
+import {Grid, Typography, Box} from '@mui/material';
 import Doctor from '_assets/images/doctor2.png';
 import {useSelector, useDispatch} from 'react-redux';
 import {
@@ -161,19 +161,19 @@ function Dashboard(props) {
                     {name}
                 </Typography>
             </Typography>
-            <div className="dashboard-section">
+            <Box className="dashboard-section">
                 <CardContainer
                     patientNumber={patientNumber}
                     appointmentNumber={appointmentNumber}
                     revenueData={revenueData}
                 />
-            </div>
+            </Box>
             <Grid
                 container
                 spacing={3}
                 className="dashboard-section"
             >
-                <Grid item lg={8}>
+                <Grid item xs={12} md={8}>
                     <CustomPaper sx={{p: 1}}>
                         <Typography
                             variant="h5"
@@ -188,20 +188,20 @@ function Dashboard(props) {
                         />
                     </CustomPaper>
                 </Grid>
-                <Grid item lg={4}>
+                <Grid item xs={12} md={4}>
                     <QueueSummary
                         data={queue.slice(0, 5)}
                         loading={loadingQueue}
                     />
                 </Grid>
             </Grid>
-            <div>
+            <Box>
                 <Appointment
                     todayAppointments={todayAppointments}
                     nextPatient={nextPatient}
                     loading={loadingAppointment}
                 />
-            </div>
+            </Box>
             <RightBar>
                 <img
                     src={Doctor}

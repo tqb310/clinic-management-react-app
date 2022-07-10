@@ -1,6 +1,6 @@
 import React from 'react';
 import AppointmentForm from '_components/shared/AppointmentForm';
-import {Typography} from '@mui/material';
+import {Typography, Container} from '@mui/material';
 import LocationProvider from '_contexts/LocationContext';
 import {
     patientModel,
@@ -26,7 +26,10 @@ function AppointmentRequest() {
         }
     };
     return (
-        <div className="appointment-request">
+        <Container
+            sx={{width: {xs: '100%', md: 600}}}
+            className="appointment-request"
+        >
             <Typography
                 align="center"
                 variant="h3"
@@ -39,7 +42,7 @@ function AppointmentRequest() {
                     handleSubmit={handleSubmit}
                 />
             </LocationProvider>
-        </div>
+        </Container>
     );
 }
 

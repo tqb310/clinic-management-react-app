@@ -97,8 +97,9 @@ function LoggedInApp({filteredRoutes}) {
             {role !== 2 && (
                 <Link
                     to={`${RoleMap.get(role).url}/hang-doi`}
+                    className="pagewrapper__createCard"
                 >
-                    <div className="pagewrapper__createCard">
+                    <div>
                         <Add
                             sx={{
                                 fontSize: 32,

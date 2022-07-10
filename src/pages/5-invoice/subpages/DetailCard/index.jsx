@@ -24,8 +24,8 @@ import {styled} from '@mui/material/styles';
 import './index.scss';
 
 const tab = [
-    {title: 'Thông tin bệnh nhân'},
-    {title: 'Thông tin khám bệnh'},
+    {title: 'Bệnh nhân'},
+    {title: 'Khám bệnh'},
     {title: 'Dịch vụ'},
     {title: 'Toa thuốc'},
 ];
@@ -122,13 +122,18 @@ function DetailCard() {
                         mx: '-6px',
                         mt: 2,
                         justifyContent: 'space-between',
+                        flexWrap: {
+                            xs: 'wrap',
+                            md: 'nowrap',
+                        },
                     }}
                 >
-                    <Box sx={{px: '6px'}}>
+                    <Box sx={{px: '6px', width: '100%'}}>
                         <Typography variant="body1">
                             Mã phiếu
                         </Typography>
                         <TextField
+                            fullWidth
                             variant="filled"
                             value={id}
                             size="small"
@@ -141,11 +146,12 @@ function DetailCard() {
                             }}
                         />
                     </Box>
-                    <Box sx={{px: '6px'}}>
+                    <Box sx={{px: '6px', width: '100%'}}>
                         <Typography variant="body1">
                             Ngày lập
                         </Typography>
                         <TextField
+                            fullWidth
                             variant="filled"
                             value={data.create_at || ''}
                             size="small"
@@ -158,11 +164,12 @@ function DetailCard() {
                             }}
                         />
                     </Box>
-                    <Box sx={{px: '6px'}}>
+                    <Box sx={{px: '6px', width: '100%'}}>
                         <Typography variant="body1">
                             Loại
                         </Typography>
                         <TextField
+                            fullWidth
                             variant="filled"
                             value={
                                 data.type
@@ -179,11 +186,12 @@ function DetailCard() {
                             }}
                         />
                     </Box>
-                    <Box sx={{px: '6px'}}>
+                    <Box sx={{px: '6px', width: '100%'}}>
                         <Typography variant="body1">
                             Ngày tái khám
                         </Typography>
                         <TextField
+                            fullWidth
                             variant="filled"
                             value={
                                 data.follow_up_date

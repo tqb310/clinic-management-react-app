@@ -37,7 +37,8 @@ function PatientInfo({
         >
             <Grid
                 item
-                xs={4}
+                xs={12}
+                md={6}
                 className="ECPatientInfo__name"
             >
                 <TextField
@@ -54,7 +55,8 @@ function PatientInfo({
             </Grid>
             <Grid
                 item
-                xs={3}
+                xs={12}
+                md={6}
                 className="ECPatientInfo__birthdate"
             >
                 <TextField
@@ -67,7 +69,8 @@ function PatientInfo({
             </Grid>
             <Grid
                 item
-                xs={2}
+                xs={6}
+                md={3}
                 className="ECPatientInfo__age"
             >
                 <TextField
@@ -85,7 +88,8 @@ function PatientInfo({
             </Grid>
             <Grid
                 item
-                xs={3}
+                xs={6}
+                md={3}
                 className="ECPatientInfo__gender"
             >
                 <TextField
@@ -98,7 +102,8 @@ function PatientInfo({
             </Grid>
             <Grid
                 item
-                xs={4}
+                xs={12}
+                md={6}
                 className="ECPatientInfo__phone"
             >
                 <TextField
@@ -111,7 +116,8 @@ function PatientInfo({
             </Grid>
             <Grid
                 item
-                xs={3}
+                xs={12}
+                md={6}
                 className="ECPatientInfo__idcard"
             >
                 <TextField
@@ -124,7 +130,8 @@ function PatientInfo({
             </Grid>
             <Grid
                 item
-                xs={5}
+                xs={12}
+                md={6}
                 className="ECPatientInfo__job"
             >
                 <TextField

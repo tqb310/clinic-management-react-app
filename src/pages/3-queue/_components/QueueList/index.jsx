@@ -94,7 +94,10 @@ function QueueList({queueData, numberEachStatus, loading}) {
     }, [status]);
 
     return (
-        <Box className="queue-list">
+        <Box
+            className="queue-list"
+            sx={{display: {xs: 'none', md: 'block'}}}
+        >
             <Box className="queue-list__tab">
                 {tabsName.map(item => (
                     <Box

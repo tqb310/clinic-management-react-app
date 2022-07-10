@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-// import {Box} from '@mui/material';
+import {Grid} from '@mui/material';
 import {CustomPaper} from '_components/shared/StyledComponent';
 import {QueueList, AddForm} from './_components';
 import Doctor from '_assets/images/doctor2.png';
@@ -89,14 +89,24 @@ function Queue(props) {
     return (
         <>
             <CustomPaper className="queue-container">
-                <QueueList
-                    queueData={activeQueueData}
-                    numberEachStatus={numberEachStatus}
-                    loading={loading}
-                />
-                <LocationProvider>
-                    <AddForm handleSubmit={handleSubmit} />
-                </LocationProvider>
+                <Grid container>
+                    <Grid item xs={5}>
+                        <QueueList
+                            queueData={activeQueueData}
+                            numberEachStatus={
+                                numberEachStatus
+                            }
+                            loading={loading}
+                        />
+                    </Grid>
+                    <Grid item xs={12} md={7}>
+                        <LocationProvider>
+                            <AddForm
+                                handleSubmit={handleSubmit}
+                            />
+                        </LocationProvider>
+                    </Grid>
+                </Grid>
             </CustomPaper>
             <RightBar>
                 <img

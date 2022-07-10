@@ -1,5 +1,15 @@
 import React, {memo, useMemo} from 'react';
-import {IconButton, Box, Alert} from '@mui/material';
+import {
+    IconButton,
+    Box,
+    Alert,
+    Table,
+    TableBody,
+    TableCell,
+    TableContainer,
+    TableHead,
+    TableRow,
+} from '@mui/material';
 import {Delete} from '@mui/icons-material';
 import {HeadCell} from '../../_constants';
 import handlePrice from '_helpers/handlePriceFormat';
@@ -35,35 +45,37 @@ function SelectedServiceTable({
             {errorMsg && (
                 <Alert severity="error">{errorMsg}</Alert>
             )}
-            <table className="add-form__service-table">
-                <thead>
-                    <tr>
+            <Table className="add-form__service-table">
+                <TableHead>
+                    <TableRow>
                         {HeadCell &&
                             HeadCell.map(th => (
-                                <th
+                                <TableCell
                                     style={th.style}
                                     key={th.id}
                                 >
                                     {th.label}
-                                </th>
+                                </TableCell>
                             ))}
-                    </tr>
-                </thead>
-                <tbody>
+                    </TableRow>
+                </TableHead>
+                <TableBody>
                     {SelectedServiceData &&
                         SelectedServiceData.map(
                             (row, index) => (
-                                <tr key={row.id}>
-                                    <td>{index + 1}</td>
-                                    <td>
+                                <TableRow key={row.id}>
+                                    <TableCell>
+                                        {index + 1}
+                                    </TableCell>
+                                    <TableCell>
                                         {row.serviceName}
-                                    </td>
-                                    <td>
+                                    </TableCell>
+                                    <TableCell>
                                         {handlePrice(
                                             row.serviceFee,
                                         )}
-                                    </td>
-                                    <td>
+                                    </TableCell>
+                                    <TableCell>
                                         <IconButton
                                             onClick={handleDelete(
                                                 row.id,
@@ -71,12 +83,12 @@ function SelectedServiceTable({
                                         >
                                             <Delete color="error" />
                                         </IconButton>
-                                    </td>
-                                </tr>
+                                    </TableCell>
+                                </TableRow>
                             ),
                         )}
-                </tbody>
-            </table>
+                </TableBody>
+            </Table>
         </Box>
     );
 }

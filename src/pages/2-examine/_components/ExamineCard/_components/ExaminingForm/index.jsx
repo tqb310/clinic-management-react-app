@@ -30,7 +30,7 @@ function ExaminingForm({form}) {
         >
             <Grid
                 item
-                xs={3}
+                xs={6}
                 className="ExaminingForm__symptom"
             >
                 <FastField
@@ -43,7 +43,7 @@ function ExaminingForm({form}) {
             </Grid>
             <Grid
                 item
-                xs={3}
+                xs={6}
                 className="ExaminingForm__symptom"
             >
                 <FastField
@@ -56,7 +56,7 @@ function ExaminingForm({form}) {
             </Grid>
             <Grid
                 item
-                xs={3}
+                xs={6}
                 className="ExaminingForm__symptom"
             >
                 <FastField
@@ -69,7 +69,7 @@ function ExaminingForm({form}) {
             </Grid>
             <Grid
                 item
-                xs={3}
+                xs={6}
                 className="ExaminingForm__symptom"
             >
                 <FastField
@@ -106,7 +106,7 @@ function ExaminingForm({form}) {
                     rows="2"
                 />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12}>
                 <FormControlLabel
                     control={
                         <Switch
@@ -124,13 +124,13 @@ function ExaminingForm({form}) {
                         '.MuiTypography-root': {
                             fontSize: 14.4,
                         },
-                        marginTop: '.7rem',
+                        my: '0.7rem',
                     }}
                 />
             </Grid>
             {isSetAppointment && (
                 <>
-                    <Grid item xs={3}>
+                    <Grid item xs={12}>
                         <FastField
                             name="follow_up_date"
                             id="follow_up_date"
@@ -143,7 +143,7 @@ function ExaminingForm({form}) {
                             }
                         />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={6}>
                         <Field
                             name="follow_up_time.hour"
                             id="follow_up_time.hour"
@@ -156,7 +156,7 @@ function ExaminingForm({form}) {
                             }
                         />
                     </Grid>
-                    <Grid item xs={3}>
+                    <Grid item xs={6}>
                         <Field
                             name="follow_up_time.minute"
                             id="follow_up_time.minute"

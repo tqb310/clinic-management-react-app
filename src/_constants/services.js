@@ -11,8 +11,8 @@ const data = [
     },
     {
         id: 3,
-        serviceName: 'Xét nghiệm máu',
-        serviceFee: 120000,
+        serviceName: 'Nội soi',
+        serviceFee: 200000,
     },
     {
         id: 4,

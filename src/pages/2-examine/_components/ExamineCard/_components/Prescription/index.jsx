@@ -7,6 +7,7 @@ import {
     IconButton,
     Button,
     Grid,
+    Typography,
 } from '@mui/material';
 import {FieldArray, Field} from 'formik';
 import {Close, Clear} from '@mui/icons-material';
@@ -129,23 +130,26 @@ function PrescriptionForm({open, handleClose}) {
                     padding: '.8rem 1.5rem .8rem 1.5rem',
                     fontSize: '15px',
                     fontWeight: 600,
+                    display: 'flex',
+                    justifyContent: 'space-between',
                 }}
             >
-                Kê toa thuốc
-                <IconButton
-                    sx={{
-                        position: 'absolute',
-                        top: 3,
-                        right: 15,
-                    }}
-                    onClick={handleClose}
+                <Typography
+                    variant="h6"
+                    sx={{alignSelf: 'center'}}
                 >
+                    Kê toa thuốc
+                </Typography>
+                <IconButton onClick={handleClose}>
                     <Close />
                 </IconButton>
             </DialogTitle>
             <DialogContent
                 dividers
-                sx={{boxSizing: 'border-box', width: 600}}
+                sx={{
+                    boxSizing: 'border-box',
+                    width: {xs: '100%', md: 600},
+                }}
             >
                 <FieldArray
                     name="prescription"

@@ -178,7 +178,7 @@ function Appointment(props) {
             spacing={3}
             className="appointment-container"
         >
-            <Grid item lg={5}>
+            <Grid item xs={12} md={5}>
                 <Infomation
                     appointmentNumber={appointmentNumber}
                     cancelledNumber={cancelledNumber}
@@ -198,7 +198,7 @@ function Appointment(props) {
                     />
                 </CustomPaper>
             </Grid>
-            <Grid item lg={7}>
+            <Grid item xs={12} md={7}>
                 <AppointmentTable
                     data={appointmentData}
                     selectedAppointment={

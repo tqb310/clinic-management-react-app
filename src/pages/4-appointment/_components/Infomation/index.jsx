@@ -19,7 +19,7 @@ function Infomation({
             spacing={3}
             className="card-wrapper"
         >
-            <Grid item lg={6}>
+            <Grid item xs={3} md={6}>
                 <CustomPaper className="card">
                     <img
                         src={lich}
@@ -43,7 +43,7 @@ function Infomation({
                     </div>
                 </CustomPaper>
             </Grid>
-            <Grid item lg={6}>
+            <Grid item xs={3} md={6}>
                 <CustomPaper className="card">
                     <img
                         src={huylich}
@@ -67,7 +67,7 @@ function Infomation({
                     </div>
                 </CustomPaper>
             </Grid>
-            <Grid item lg={6}>
+            <Grid item xs={3} md={6}>
                 <CustomPaper className="card">
                     <img
                         src={visited}
@@ -91,7 +91,7 @@ function Infomation({
                     </div>
                 </CustomPaper>
             </Grid>
-            <Grid item lg={6}>
+            <Grid item xs={3} md={6}>
                 <CustomPaper className="card">
                     <img
                         src={notVisited}

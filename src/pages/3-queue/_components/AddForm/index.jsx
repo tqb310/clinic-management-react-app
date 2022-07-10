@@ -13,6 +13,7 @@ import {
     TextField,
     FormControlLabel,
     Switch,
+    Stack,
 } from '@mui/material';
 import {
     Person,
@@ -182,7 +183,7 @@ function AddForm({handleSubmit}) {
                                 columnSpacing={2}
                                 className="add-form__form-content"
                             >
-                                <Grid item xs={5}>
+                                <Grid item xs={12} md={5}>
                                     <FastField
                                         name="patient.patient_name"
                                         id="patient.patient_name"
@@ -193,7 +194,8 @@ function AddForm({handleSubmit}) {
                                 </Grid>
                                 <Grid
                                     item
-                                    xs={4}
+                                    xs={12}
+                                    md={4}
                                     sx={{
                                         position:
                                             'relative',
@@ -244,7 +246,7 @@ function AddForm({handleSubmit}) {
                                         )}
                                     </Popup>
                                 </Grid>
-                                <Grid item xs={3}>
+                                <Grid item xs={12} md={3}>
                                     <FastField
                                         name="patient.identity_number"
                                         id="patient.identity_number"
@@ -255,7 +257,7 @@ function AddForm({handleSubmit}) {
                                         }
                                     />
                                 </Grid>
-                                <Grid item xs={5}>
+                                <Grid item xs={12} md={5}>
                                     <FastField
                                         name="patient.occupation"
                                         id="patient.occupation"
@@ -264,7 +266,7 @@ function AddForm({handleSubmit}) {
                                         icon={Work}
                                     />
                                 </Grid>
-                                <Grid item xs={4}>
+                                <Grid item xs={6} md={4}>
                                     <FastField
                                         name="patient.dob"
                                         id="patient.dob"
@@ -274,7 +276,7 @@ function AddForm({handleSubmit}) {
                                         label="Ngày sinh"
                                     />
                                 </Grid>
-                                <Grid item xs={3}>
+                                <Grid item xs={6} md={3}>
                                     <FastField
                                         name="patient.gender"
                                         id="patient.gender"
@@ -283,7 +285,7 @@ function AddForm({handleSubmit}) {
                                         items={gender}
                                     />
                                 </Grid>
-                                <Grid item xs={4}>
+                                <Grid item xs={6} md={4}>
                                     <FastField
                                         name="patient.height"
                                         id="patient.height"
@@ -292,7 +294,7 @@ function AddForm({handleSubmit}) {
                                         icon="cm"
                                     />
                                 </Grid>
-                                <Grid item xs={4}>
+                                <Grid item xs={6} md={4}>
                                     <FastField
                                         name="patient.weight"
                                         id="patient.weight"
@@ -301,7 +303,7 @@ function AddForm({handleSubmit}) {
                                         icon="kg"
                                     />
                                 </Grid>
-                                <Grid item xs={4}>
+                                <Grid item xs={12} md={4}>
                                     <FastField
                                         name="invoice.type"
                                         id="invoice.type"
@@ -355,7 +357,11 @@ function AddForm({handleSubmit}) {
                                 {!selectedPatient ||
                                 switchEdit ? (
                                     <>
-                                        <Grid item xs={4}>
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            md={4}
+                                        >
                                             <Field
                                                 name="patient.address.province"
                                                 id="patient.address.province"
@@ -371,7 +377,11 @@ function AddForm({handleSubmit}) {
                                                 }
                                             />
                                         </Grid>
-                                        <Grid item xs={4}>
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            md={4}
+                                        >
                                             <Field
                                                 name="patient.address.district"
                                                 id="patient.address.district"
@@ -387,7 +397,11 @@ function AddForm({handleSubmit}) {
                                                 }
                                             />
                                         </Grid>
-                                        <Grid item xs={4}>
+                                        <Grid
+                                            item
+                                            xs={12}
+                                            md={4}
+                                        >
                                             <Field
                                                 name="patient.address.ward"
                                                 id="patient.address.ward"
@@ -500,62 +514,64 @@ function AddForm({handleSubmit}) {
                                     />
                                 </Grid>
                                 <Grid
-                                    item
-                                    xs={6}
+                                    xs={12}
                                     sx={{
                                         position: 'sticky',
                                         bottom: '2px',
+                                        zIndex: 10,
+                                        backgroundColor:
+                                            '#fff',
                                     }}
                                 >
-                                    <Button
-                                        type="submit"
-                                        disabled={
-                                            !form.dirty &&
-                                            !selectedPatient
-                                        }
-                                        variant="outlined"
-                                        sx={{
-                                            width: '100%',
+                                    <Stack
+                                        direction={{
+                                            xs: 'column',
+                                            md: 'row',
                                         }}
+                                        gap={2}
                                     >
-                                        Đưa vào hàng đợi
-                                        {form.isSubmitting && (
-                                            <FontAwesomeIcon
-                                                icon="spinner"
-                                                spin
-                                                style={{
-                                                    marginLeft:
-                                                        '10px',
-                                                }}
-                                            />
-                                        )}
-                                    </Button>
-                                </Grid>
-                                <Grid
-                                    item
-                                    xs={6}
-                                    sx={{
-                                        position: 'sticky',
-                                        bottom: '2px',
-                                    }}
-                                >
-                                    <Button
-                                        onClick={
-                                            handleReset
-                                        }
-                                        type="reset"
-                                        variant="contained"
-                                        disabled={
-                                            !form.dirty &&
-                                            !selectedPatient
-                                        }
-                                        color="error"
-                                        sx={{
-                                            width: '100%',
-                                        }}
-                                    >
-                                        Hủy
-                                    </Button>
+                                        <Button
+                                            type="submit"
+                                            disabled={
+                                                !form.dirty &&
+                                                !selectedPatient
+                                            }
+                                            variant="outlined"
+                                            sx={{
+                                                width: '100%',
+                                            }}
+                                        >
+                                            Đưa vào hàng đợi
+                                            {form.isSubmitting && (
+                                                <FontAwesomeIcon
+                                                    icon="spinner"
+                                                    spin
+                                                    style={{
+                                                        marginLeft:
+                                                            '10px',
+                                                    }}
+                                                />
+                                            )}
+                                        </Button>
+
+                                        <Button
+                                            onClick={
+                                                handleReset
+                                            }
+                                            type="reset"
+                                            variant="contained"
+                                            disabled={
+                                                !form.dirty &&
+                                                !selectedPatient
+                                            }
+                                            color="error"
+                                            sx={{
+                                                width: '100%',
+                                            }}
+                                        >
+                                            Hủy
+                                        </Button>
+                                    </Stack>
                                 </Grid>
                             </Grid>
                         </Form>

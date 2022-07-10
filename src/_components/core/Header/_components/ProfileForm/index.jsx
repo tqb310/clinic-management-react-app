@@ -44,7 +44,10 @@ function ProfileForm({open, handleClose, data}) {
             <DialogContent
                 dividers
                 className="ProfileForm"
-                sx={{boxSizing: 'border-box', width: 600}}
+                sx={{
+                    boxSizing: 'border-box',
+                    width: {xs: '100%', md: 600},
+                }}
             >
                 <Grid container columnSpacing={2}>
                     <Grid item xs={6}>

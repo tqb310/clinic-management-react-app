@@ -39,6 +39,10 @@ function TimelineItemComp({h, hour}) {
                     sx={{
                         display: 'flex',
                         justifyContent: 'space-between',
+                        flexWrap: {
+                            xs: 'wrap',
+                            md: 'nowrap',
+                        },
                         paddingBottom: 0,
                     }}
                 >

@@ -34,11 +34,13 @@ const patientSchema = yup.object().shape({
     height: yup
         .number()
         .positive('Vui lòng nhập số dương!')
-        .required('Chưa nhập chiều cao!'),
+        .required('Chưa nhập chiều cao!')
+        .typeError('Chiều cao không hợp lệ!'),
     weight: yup
         .number()
         .positive('Vui lòng nhập số dương!')
-        .required('Chưa nhập cân nặng!'),
+        .required('Chưa nhập cân nặng!')
+        .typeError('Cân nặng không hợp lệ!'),
 });
 
 export default patientSchema;

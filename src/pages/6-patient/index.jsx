@@ -42,7 +42,15 @@ function Patient(props) {
 
     return (
         <>
-            <CustomPaper className="patient-stat-container">
+            <CustomPaper
+                sx={{
+                    flexWrap: {
+                        xs: 'wrap',
+                        md: 'nowrap',
+                    },
+                }}
+                className="patient-stat-container"
+            >
                 <PatientStat
                     img={PatientIcon}
                     title="Tổng số bệnh nhân"

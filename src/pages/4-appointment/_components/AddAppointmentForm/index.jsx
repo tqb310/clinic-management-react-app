@@ -46,7 +46,10 @@ function AddAppointment({
                 dividers
                 sx={{
                     boxSizing: 'border-box',
-                    width: 600,
+                    width: {
+                        xs: '100%',
+                        md: 600,
+                    },
                 }}
             >
                 <LocationProvider>

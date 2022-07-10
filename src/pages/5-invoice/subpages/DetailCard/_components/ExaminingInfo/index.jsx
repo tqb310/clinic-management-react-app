@@ -11,7 +11,7 @@ function ExaminingInfo({data}) {
             spacing={2}
             className="RCExaminingInfo"
         >
-            <Grid item xs={3}>
+            <Grid item xs={12} md={3}>
                 <TextField
                     fullWidth
                     variant="filled"
@@ -28,7 +28,7 @@ function ExaminingInfo({data}) {
                     }}
                 />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} md={3}>
                 <TextField
                     fullWidth
                     variant="filled"
@@ -45,7 +45,7 @@ function ExaminingInfo({data}) {
                     }}
                 />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} md={3}>
                 <TextField
                     fullWidth
                     variant="filled"
@@ -62,7 +62,7 @@ function ExaminingInfo({data}) {
                     }}
                 />
             </Grid>
-            <Grid item xs={3}>
+            <Grid item xs={12} md={3}>
                 <TextField
                     fullWidth
                     variant="filled"

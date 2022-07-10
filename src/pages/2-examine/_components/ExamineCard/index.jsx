@@ -4,6 +4,7 @@ import {
     Button,
     Typography,
     Box,
+    Stack,
 } from '@mui/material';
 import {
     RadioButtonUnchecked,
@@ -231,7 +232,13 @@ function ExamineCard({selectedCard, handleSubmit}) {
                                     />
                                 </div>
                             </div>
-                            <div className="DTExamineCard__footer">
+                            <Stack
+                                direction={{
+                                    xs: 'column',
+                                    md: 'row',
+                                }}
+                                className="DTExamineCard__footer"
+                            >
                                 <div>
                                     <Button
                                         variant="outlined"
@@ -257,7 +264,13 @@ function ExamineCard({selectedCard, handleSubmit}) {
                                                 <RadioButtonUnchecked />
                                             )
                                         }
-                                        sx={{width: 110}}
+                                        sx={{
+                                            width: {
+                                                xs: '100%',
+                                                md: 160,
+                                            },
+                                            my: 1,
+                                        }}
                                         onClick={() =>
                                             setOpenPrescription(
                                                 true,
@@ -276,8 +289,12 @@ function ExamineCard({selectedCard, handleSubmit}) {
                                     <Button
                                         variant="outlined"
                                         sx={{
-                                            width: 160,
-                                            marginRight: 2,
+                                            width: {
+                                                xs: '100%',
+                                                md: 160,
+                                            },
+                                            mr: 2,
+                                            my: 1,
                                         }}
                                         type="submit"
                                         disabled={
@@ -301,7 +318,13 @@ function ExamineCard({selectedCard, handleSubmit}) {
                                     <Button
                                         variant="contained"
                                         color="error"
-                                        sx={{width: 160}}
+                                        sx={{
+                                            width: {
+                                                xs: '100%',
+                                                md: 160,
+                                            },
+                                            my: 1,
+                                        }}
                                         type="reset"
                                         disabled={
                                             !Boolean(
@@ -312,7 +335,7 @@ function ExamineCard({selectedCard, handleSubmit}) {
                                         Hủy
                                     </Button>
                                 </div>
-                            </div>
+                            </Stack>
                             <PrescriptionForm
                                 open={openPrescription}
                                 handleClose={

@@ -8,7 +8,10 @@ function DateTime() {
     const [date, setDate] = useState('');
 
     useEffect(() => {
-        getDateTime(setTime, setDate);
+        const clockRef = getDateTime(setTime, setDate);
+		return () => {
+			clearInterval(clockRef);
+		}
     }, []);
 
     return (
@@ -57,7 +60,7 @@ function DateTime() {
 }
 
 const getDateTime = (setTime, setDate) => {
-    setInterval(() => {
+    const clockRef = setInterval(() => {
         let date = new Date();
         setTime(date.toLocaleTimeString());
         setDate(
@@ -66,6 +69,7 @@ const getDateTime = (setTime, setDate) => {
             }/${date.getFullYear()}`,
         );
     }, 1000);
+	return clockRef
 };
 
 export default memo(DateTime);

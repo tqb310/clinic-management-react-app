@@ -36,8 +36,8 @@ import {hourSelect, minuteSelect} from '_constants/date';
 import {LoadingButton} from '@mui/lab';
 // import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import handlePriceFormat from "_helpers/handlePriceFormat.js";
-import * as yup from 'yup';
-import appointmentSchema from '_validations/appointmentSchema';
+// import * as yup from 'yup';
+// import appointmentSchema from '_validations/appointmentSchema';
 import './index.scss';
 
 function ConfirmRequest({
@@ -113,7 +113,6 @@ function ConfirmRequest({
                                     container
                                     mt={2}
                                     columnSpacing={2}
-                                    className="add-form__form-content"
                                 >
                                     <Grid item xs={5}>
                                         <FastField

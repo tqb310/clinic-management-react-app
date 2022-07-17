@@ -171,6 +171,13 @@ function PrescriptionForm({open, handleClose}) {
                                             }
                                             left="-5%"
                                             variant="filled"
+                                            disabled={
+                                                !arrayHelpers
+                                                    .form
+                                                    .values
+                                                    .prescription
+                                                    .length
+                                            }
                                             required
                                         />
                                     </Grid>
@@ -185,6 +192,13 @@ function PrescriptionForm({open, handleClose}) {
                                             type="number"
                                             variant="outlined"
                                             left="-12px"
+                                            disabled={
+                                                !arrayHelpers
+                                                    .form
+                                                    .values
+                                                    .prescription
+                                                    .length
+                                            }
                                             required
                                         />
                                     </Grid>
@@ -236,6 +250,13 @@ function PrescriptionForm({open, handleClose}) {
                                                 type="number"
                                                 variant="outlined"
                                                 left="-12px"
+                                                disabled={
+                                                    !arrayHelpers
+                                                        .form
+                                                        .values
+                                                        .prescription
+                                                        .length
+                                                }
                                                 required
                                             />
                                             <span
@@ -265,6 +286,13 @@ function PrescriptionForm({open, handleClose}) {
                                                 type="number"
                                                 variant="outlined"
                                                 left="-12px"
+                                                disabled={
+                                                    !arrayHelpers
+                                                        .form
+                                                        .values
+                                                        .prescription
+                                                        .length
+                                                }
                                                 required
                                             />
                                             <span
@@ -294,6 +322,13 @@ function PrescriptionForm({open, handleClose}) {
                                                 type="number"
                                                 variant="outlined"
                                                 left="-12px"
+                                                disabled={
+                                                    !arrayHelpers
+                                                        .form
+                                                        .values
+                                                        .prescription
+                                                        .length
+                                                }
                                                 required
                                             />
                                             <span
@@ -323,6 +358,13 @@ function PrescriptionForm({open, handleClose}) {
                                                 type="number"
                                                 variant="outlined"
                                                 left="-12px"
+                                                disabled={
+                                                    !arrayHelpers
+                                                        .form
+                                                        .values
+                                                        .prescription
+                                                        .length
+                                                }
                                                 required
                                             />
                                             <span
@@ -345,6 +387,13 @@ function PrescriptionForm({open, handleClose}) {
                                             }
                                             variant="outlined"
                                             left="-12px"
+                                            disabled={
+                                                !arrayHelpers
+                                                    .form
+                                                    .values
+                                                    .prescription
+                                                    .length
+                                            }
                                             required
                                         />
                                     </Grid>
@@ -391,6 +440,24 @@ function PrescriptionForm({open, handleClose}) {
                 />
             </DialogContent>
             <DialogActions>
+                <Typography
+                    variant="caption1"
+                    sx={{mr: 'auto', pl: 1}}
+                >
+                    *&nbsp;Click{' '}
+                    <Typography
+                        color="primary.main"
+                        component={'span'}
+                        border="1px solid"
+                        borderColor="primary.main"
+                        borderRadius="3px"
+                        px="4px"
+                        py="2px"
+                    >
+                        Thêm
+                    </Typography>{' '}
+                    trước khi điền
+                </Typography>
                 <Button onClick={handleClose} color="error">
                     Hủy
                 </Button>

@@ -8,7 +8,7 @@ import {
 } from '@mui/material';
 import {CustomPaper} from '_components/shared/StyledComponent';
 import AddAppointmentForm from '../AddAppointmentForm';
-import NoResultDate from './_assets/no-date-result.png';
+// import NoResultDate from './_assets/no-date-result.png';
 import Calendar from './_components/Calendar';
 import TableContent from './_components/TableContent';
 import {useDispatch} from 'react-redux';

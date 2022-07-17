@@ -194,11 +194,12 @@ function DetailCard() {
                             fullWidth
                             variant="filled"
                             value={
-                                data.follow_up_date
+                                data.follow_up_date &&
+                                data.follow_up_time
                                     ? data.follow_up_date +
                                       ' - ' +
                                       data.follow_up_time
-                                    : ''
+                                    : 'Không có'
                             }
                             size="small"
                             sx={{

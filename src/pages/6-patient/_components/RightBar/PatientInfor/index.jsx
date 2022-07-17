@@ -87,16 +87,19 @@ function PatientInfor({data}) {
                         <EventNote className="queryIcon" />
                         Lịch hẹn tái khám
                     </p>
-                    <span>
-                        {data.follow_up_date || 'Không có'}
-                    </span>{' '}
-                    {data.follow_up_time && (
+                    {data.follow_up_date &&
+                    data.follow_up_time ? (
                         <>
+                            <span>
+                                {data.follow_up_date}
+                            </span>
                             <Dot />
                             <span>
                                 {data.follow_up_time}
                             </span>
                         </>
+                    ) : (
+                        <span>Không có</span>
                     )}
                 </div>
                 <div className="PatientInfor__note PatientInfor__item full">

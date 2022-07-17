@@ -22,6 +22,14 @@ import './index.scss';
 function ExaminingForm({form}) {
     const [isSetAppointment, setAppointment] =
         useState(false);
+    const toggleAppointment = e => {
+        if (!e.target.checked) {
+            form.setFieldValue('follow_up_date', null);
+            form.setFieldValue('follow_up_time.hour', '');
+            form.setFieldValue('follow_up_time.minute', '');
+        }
+        setAppointment(e.target.checked);
+    };
     return (
         <Grid
             container
@@ -112,11 +120,7 @@ function ExaminingForm({form}) {
                         <Switch
                             size="small"
                             checked={isSetAppointment}
-                            onChange={e =>
-                                setAppointment(
-                                    e.target.checked,
-                                )
-                            }
+                            onChange={toggleAppointment}
                         />
                     }
                     label="Tái khám"

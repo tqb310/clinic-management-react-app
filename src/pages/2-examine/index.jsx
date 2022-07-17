@@ -72,6 +72,8 @@ function Examine(props) {
                     values.follow_up_time.hour +
                     ':' +
                     values.follow_up_time.minute;
+            } else {
+                values.follow_up_time = '';
             }
             if (values.follow_up_date) {
                 values.follow_up_date = formatDate(
@@ -85,11 +87,11 @@ function Examine(props) {
             values.total_fee = computeServiceTotalFee(
                 values.services,
             );
-
             //Submit data
             if (
                 values.follow_up_date &&
-                values.follow_up_time
+                values.follow_up_time.hour &&
+                values.follow_up_time.minute
             ) {
                 await appointmentServices.addAppointment({
                     patient: {

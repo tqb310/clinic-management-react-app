@@ -4,7 +4,7 @@ import {Snackbar, Alert} from '@mui/material';
 function Toast({
     open,
     handleClose,
-    duration = 3000,
+    duration = 4000,
     children,
     status = 'success',
     vertical = 'top',
